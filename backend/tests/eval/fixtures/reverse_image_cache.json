@@ -1,0 +1,29 @@
+{
+  "_about": "Cached reverse-image-search fixture (ADR-007). Keys are image identifiers (the bundle's meta.source_ref). Each value mirrors a live reverse-image API response so a real backend (Google Vision / TinEye) can drop in later without changing the fusion logic. Dates are ISO-8601. This lets the recycled-context flag be built and tested fully offline for the Preliminary Report.",
+  "matches": {
+    "flood_recycled_2019.jpg": [
+      {
+        "url": "https://news.example.com/2019/03/severe-flooding-region-a",
+        "title": "Severe flooding hits Region A",
+        "published_date": "2019-03-04",
+        "context": "Original 2019 flood coverage in a different country and event."
+      },
+      {
+        "url": "https://factcheck.example.org/2021/recycled-flood-image",
+        "title": "Fact check: this flood photo is from 2019, not this week",
+        "published_date": "2021-08-17",
+        "context": "Fact-checking article noting the image has been recycled."
+      }
+    ],
+    "protest_recycled.jpg": [
+      {
+        "url": "https://archive.example.com/2017/city-b-rally",
+        "title": "Thousands rally in City B",
+        "published_date": "2017-06-22",
+        "context": "Earlier appearance of the same crowd photo for a different rally."
+      }
+    ],
+    "consistent_sunset.jpg": [],
+    "studio_cat.jpg": []
+  }
+}
