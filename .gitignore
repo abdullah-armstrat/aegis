@@ -41,5 +41,6 @@ Thumbs.db
 
 # ---- Aegis runtime ----
 backend/.cache/
+backend/scripts/_*.json
 uploads/
 *.log
