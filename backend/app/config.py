@@ -28,6 +28,7 @@ class Settings(BaseSettings):
     # --- Feature flags ---
     reverse_image_mode: str = "cache"  # "cache" (Prelim default) | "api"
     use_llm: bool = False              # rules-only fusion until the LLM is wired in
+    use_captioner: bool = True         # BLIP scene captioning (ADR-013); set false to skip
 
     # --- Heavy-inference offload (ADR-008) ---
     ollama_host: str = "http://localhost:11434"
