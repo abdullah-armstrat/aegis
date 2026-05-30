@@ -65,6 +65,58 @@ def _build_prompt(caption: str | None, scene: list[str], on_screen: list[str]) -
     )
 
 
+def _coerce_bool(value: object) -> bool | None:
+    """Coerce a loose model value to bool, or None ('uncertain') if unrecognised.
+
+    The Phi-3-mini spike (DEVLOG 2026-05-31) returned booleans inconsistently — sometimes a
+    real bool, sometimes the strings "true"/"false"/"yes"/"no". Anything we can't read with
+    confidence becomes None so fusion treats it as uncertain rather than a false negative.
+    """
+    if isinstance(value, bool):
+        return value
+    if isinstance(value, str):
+        v = value.strip().lower()
+        if v in {"true", "yes", "y", "1"}:
+            return True
+        if v in {"false", "no", "n", "0"}:
+            return False
+    return None
+
+
+def _find_key(payload: dict, *candidates: str) -> object:
+    """Return the first candidate key present, else a fuzzy near-miss match, else None.
+
+    The spike showed the model can mangle keys (it emitted ``"explanrance"`` for
+    ``explanation``). We first try exact candidates, then fall back to any key whose first
+    four letters match a candidate's — enough to salvage typos without matching unrelated
+    keys. Defensive parsing per ADR-012: trust the model's structure as little as possible.
+    """
+    for c in candidates:
+        if c in payload:
+            return payload[c]
+    for c in candidates:
+        stem = c[:4]
+        for k in payload:
+            if isinstance(k, str) and k.lower().startswith(stem):
+                return payload[k]
+    return None
+
+
+def _parse_payload(payload: dict) -> ReasonerVerdict:
+    """Tolerantly turn a raw model JSON object into a ReasonerVerdict (ADR-012).
+
+    Missing/unreadable booleans become None ('uncertain'); the explanation is salvaged from a
+    near-miss key if the exact one is absent.
+    """
+    explanation = _find_key(payload, "explanation")
+    return ReasonerVerdict(
+        same_subject=_coerce_bool(_find_key(payload, "same_subject")),
+        same_tone=_coerce_bool(_find_key(payload, "same_tone")),
+        explanation=str(explanation).strip() if explanation is not None else "",
+        available=True,
+    )
+
+
 def reason_over_text(
     caption: str | None,
     scene_descriptions: list[str],
@@ -99,12 +151,9 @@ def reason_over_text(
         )
         resp.raise_for_status()
         payload = json.loads(resp.json()["response"])
-        verdict = ReasonerVerdict(
-            same_subject=payload.get("same_subject"),
-            same_tone=payload.get("same_tone"),
-            explanation=str(payload.get("explanation", "")).strip(),
-            available=True,
-        )
+        if not isinstance(payload, dict):
+            raise ValueError("model response was not a JSON object")
+        verdict = _parse_payload(payload)
     except (httpx.HTTPError, KeyError, json.JSONDecodeError, ValueError) as exc:
         return ReasonerVerdict(None, None, f"LLM unavailable: {exc}", available=False)
 

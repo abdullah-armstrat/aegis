@@ -11,8 +11,53 @@ from app.extractors.cache import JsonCache
 from app.fusion import llm_reasoner
 from app.fusion.llm_reasoner import (
     SUPPLIED_TEXT_ONLY_PROMPT,
+    _coerce_bool,
+    _parse_payload,
     reason_over_text,
 )
+
+
+def test_parser_handles_clean_payload():
+    v = _parse_payload(
+        {"same_subject": False, "same_tone": False, "explanation": "They differ."}
+    )
+    assert v.available is True
+    assert v.same_subject is False
+    assert v.same_tone is False
+    assert v.explanation == "They differ."
+
+
+def test_parser_salvages_the_real_malformed_spike_payload():
+    """The exact payload phi3:mini returned in the 2026-05-31 spike: a typo'd key
+    'explanrance' instead of 'explanation' (DEVLOG / ADR-012). The explanation must still
+    be recovered rather than silently lost."""
+    raw = {
+        "same_subject": True,
+        "same_tone": False,
+        "explanrance": "The scene description does not match the subject of a massive flood.",
+    }
+    v = _parse_payload(raw)
+    assert v.same_tone is False
+    assert "does not match" in v.explanation  # recovered from the near-miss key
+
+
+def test_parser_coerces_string_booleans_and_degrades_unknowns():
+    # Small models sometimes emit string booleans.
+    v = _parse_payload({"same_subject": "true", "same_tone": "no", "explanation": "x"})
+    assert v.same_subject is True
+    assert v.same_tone is False
+    # An unreadable/missing boolean becomes None ('uncertain'), never a silent False.
+    v2 = _parse_payload({"explanation": "only prose, no booleans"})
+    assert v2.same_subject is None
+    assert v2.same_tone is None
+
+
+def test_coerce_bool_units():
+    assert _coerce_bool(True) is True
+    assert _coerce_bool("YES") is True
+    assert _coerce_bool("false") is False
+    assert _coerce_bool("maybe") is None
+    assert _coerce_bool(None) is None
 
 
 def test_prompt_keeps_the_supplied_text_only_guardrail():
