@@ -143,6 +143,14 @@ class EvidenceBundle(BaseModel):
     sentiment: Sentiment | None = None
     web_matches: list[WebMatch] = Field(default_factory=list)
     ai_gen_hint: AiGenHint | None = None
+    extractor_status: dict[str, FlagStatus] = Field(
+        default_factory=dict,
+        description=(
+            "Per-extractor outcome (e.g. {'ocr': 'clear'}). Lets fusion tell an empty field "
+            "that was CLEARED from one that could not be assessed, so absence is never read "
+            "as consistency (ADR-009)."
+        ),
+    )
     meta: Meta
 
 

@@ -33,6 +33,11 @@ class Settings(BaseSettings):
     ollama_host: str = "http://localhost:11434"
     ollama_model: str = "phi3:mini"
 
+    # --- Extractors ---
+    # Absolute path to the Tesseract binary. It is not on PATH on the dev machine, so the
+    # OCR extractor points pytesseract at it explicitly. Empty => rely on PATH.
+    tesseract_cmd: str = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+
     @property
     def cors_origin_list(self) -> list[str]:
         """CORS origins as a clean list."""
