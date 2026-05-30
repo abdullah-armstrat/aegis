@@ -7,7 +7,22 @@ export async function getHealth() {
   return resp.json();
 }
 
-// analyze(image, caption) -> Scorecard JSON. Wired in Week 2 once /analyze exists.
-export async function analyze(/* file, caption */) {
-  throw new Error("Not implemented yet — arrives with the /analyze endpoint in Week 2.");
+// analyze(file, caption) -> Scorecard JSON from POST /analyze.
+export async function analyze(file, caption) {
+  const form = new FormData();
+  form.append("image", file);
+  form.append("caption", caption ?? "");
+
+  const resp = await fetch(`${API_BASE}/analyze`, { method: "POST", body: form });
+  if (!resp.ok) {
+    let detail = `analyze ${resp.status}`;
+    try {
+      const body = await resp.json();
+      if (body?.detail) detail = body.detail;
+    } catch {
+      /* non-JSON error body; keep the status-based message */
+    }
+    throw new Error(detail);
+  }
+  return resp.json();
 }

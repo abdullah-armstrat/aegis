@@ -1,14 +1,25 @@
-"""Manual smoke test: run the canonical worked mismatch example through /analyze and print
-the resulting scorecard. Not a pytest test — a developer/demo aid (and a way to capture the
-worked example for the report). Run: python scripts/smoke_analyze.py
+"""Manual smoke test / demo aid: run the canonical worked mismatch example through the
+/analyze HTTP endpoint and write the resulting scorecard to scripts/_worked_example.json.
+
+Not a pytest test — a developer aid and a way to capture the worked example for the report.
+Writes JSON (rather than printing) so the captured output is reliable. Run from anywhere:
+    python backend/scripts/smoke_analyze.py
 """
 
+import json
+import sys
 from io import BytesIO
+from pathlib import Path
 
-from fastapi.testclient import TestClient
-from PIL import Image
+# Make the backend package importable however this script is launched.
+_BACKEND_DIR = Path(__file__).resolve().parents[1]
+if str(_BACKEND_DIR) not in sys.path:
+    sys.path.insert(0, str(_BACKEND_DIR))
 
-from app.main import app
+from fastapi.testclient import TestClient  # noqa: E402
+from PIL import Image  # noqa: E402
+
+from app.main import app  # noqa: E402
 
 
 def main() -> None:
@@ -26,14 +37,10 @@ def main() -> None:
             "share before they delete it!"
         },
     )
-    print("HTTP", resp.status_code)
-    card = resp.json()
-    print("SUMMARY:", card["summary"])
-    print("SCHEMA:", card.get("schema_version"))
-    for f in card["flags"]:
-        print(f"- [{f['status']}] {f['type']} (sev={f['severity']}, src={f['source']})")
-        print(f"    {f['plain_explanation']}")
-        print(f"    what_to_check: {f['what_to_check']}")
+    result = {"http_status": resp.status_code, "scorecard": resp.json()}
+    out_path = _BACKEND_DIR / "scripts" / "_worked_example.json"
+    out_path.write_text(json.dumps(result, indent=2), encoding="utf-8")
+    print(f"wrote {out_path}")
 
 
 if __name__ == "__main__":
