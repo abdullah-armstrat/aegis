@@ -1,5 +1,6 @@
 # ---- Aegis backend: core (Week 0 scaffold) ----
-# Kept deliberately light so the scaffold installs cleanly, including on Python 3.14.
+# Target interpreter: Python 3.12 (pinned — see ADR-011 / DEVLOG 2026-05-31).
+# Kept deliberately light so the scaffold installs cleanly.
 fastapi>=0.115
 uvicorn[standard]>=0.30
 pydantic>=2.7

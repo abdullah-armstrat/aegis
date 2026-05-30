@@ -5,8 +5,10 @@ These lock the shape that everything downstream depends on (ADR-003) and assert 
 """
 
 from app.models import (
+    SCHEMA_VERSION,
     EvidenceBundle,
     Flag,
+    FlagStatus,
     FlagType,
     Meta,
     Modality,
@@ -23,6 +25,8 @@ def test_minimal_image_bundle():
     assert bundle.meta.modality == Modality.IMAGE
     assert bundle.scene_descriptions == []
     assert bundle.transcript is None
+    # The contract is versioned so later shapes are distinguishable (ADR-010).
+    assert bundle.schema_version == SCHEMA_VERSION
 
 
 def test_full_image_bundle_roundtrip():
@@ -54,11 +58,38 @@ def test_flag_has_explanation_and_what_to_check():
     )
     assert flag.plain_explanation
     assert flag.what_to_check
+    # A Flag defaults to FIRED so existing call sites keep their meaning (ADR-009).
+    assert flag.status == FlagStatus.FIRED
     # 'Explain, don't verdict': the Flag model carries no trust/confidence verdict field.
     assert "trust" not in Flag.model_fields
+
+
+def test_flag_distinguishes_clear_from_not_assessed():
+    """The load-bearing distinction (ADR-009): 'checked and clear' must not look like
+    'could not check'. Both are representable and are different from a fired flag."""
+    clear = Flag(
+        type=FlagType.CAPTION_CONTENT_MISMATCH,
+        status=FlagStatus.CLEAR,
+        severity=Severity.INFO,
+        evidence="caption and scene caption overlap on key terms",
+        plain_explanation="The caption matches what the image shows.",
+        what_to_check="No action needed for this check.",
+    )
+    not_assessed = Flag(
+        type=FlagType.CAPTION_CONTENT_MISMATCH,
+        status=FlagStatus.NOT_ASSESSED,
+        severity=Severity.INFO,
+        evidence="no on-screen text could be extracted",
+        plain_explanation="This check could not be run because no text was found in the image.",
+        what_to_check="Try a clearer image so on-screen text can be read.",
+    )
+    assert clear.status == FlagStatus.CLEAR
+    assert not_assessed.status == FlagStatus.NOT_ASSESSED
+    assert clear.status != not_assessed.status
 
 
 def test_scorecard_has_no_verdict_field():
     card = Scorecard(modality=Modality.IMAGE, flags=[])
     assert card.flags == []
+    assert card.schema_version == SCHEMA_VERSION
     assert "verdict" not in Scorecard.model_fields

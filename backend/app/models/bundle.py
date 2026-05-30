@@ -15,6 +15,12 @@ from enum import Enum
 
 from pydantic import BaseModel, Field
 
+# Version of the Evidence Bundle / Scorecard contract (ADR-010). The bundle is the one
+# structure the whole system pivots on, and it will grow when the video path lands
+# (temporal/transcript fields). Stamping a version lets the eval harness and cached
+# fixtures tell which shape they are dealing with later. Bump on any breaking change.
+SCHEMA_VERSION = "1.0"
+
 
 # --------------------------------------------------------------------------- enums
 
@@ -43,6 +49,22 @@ class FlagType(str, Enum):
     RECYCLED_CONTEXT = "recycled_context"
     EMOTIONAL_FRAMING = "emotional_framing"
     AI_GENERATION_HINT = "ai_generation_hint"
+
+
+class FlagStatus(str, Enum):
+    """The outcome of *attempting* a given check (ADR-009).
+
+    The crucial distinction is between FIRED, CLEAR, and NOT_ASSESSED. A check that
+    silently does not fire because its input was missing (no on-screen text, blurry image,
+    LLM offloaded/unavailable) must not look like a check that ran and found consistency —
+    that would be a false sense of safety, the exact harm 'explain, don't verdict' exists to
+    avoid (ADR-002). So fusion emits a Flag for every check it considered, carrying its
+    status, rather than only appending Flags that fired.
+    """
+
+    FIRED = "fired"            # the check ran and the finding is present
+    CLEAR = "clear"            # the check ran and found nothing to flag
+    NOT_ASSESSED = "not_assessed"  # the check could not run (missing input / extractor down)
 
 
 # ------------------------------------------------------- evidence-bundle components
@@ -107,6 +129,9 @@ class EvidenceBundle(BaseModel):
     image path; ``transcript`` is the spoken-audio transcript for the video path.
     """
 
+    schema_version: str = Field(
+        default=SCHEMA_VERSION, description="Contract version that produced this bundle (ADR-010)."
+    )
     scene_descriptions: list[SceneDescription] = Field(default_factory=list)
     on_screen_text: list[str] = Field(default_factory=list)
     caption: str | None = Field(
@@ -125,9 +150,18 @@ class EvidenceBundle(BaseModel):
 
 
 class Flag(BaseModel):
-    """A single explained finding. Note: no trust score — explain, don't verdict (ADR-002)."""
+    """A single check's result. Note: no trust score — explain, don't verdict (ADR-002).
+
+    A Flag is emitted for every check fusion *considered*, not only those that fired; its
+    ``status`` says whether it FIRED, came back CLEAR, or could NOT_ASSESSED (ADR-009). The
+    explanatory fields are required when ``status`` is FIRED; for CLEAR / NOT_ASSESSED they
+    carry a short note on what was (or could not be) checked.
+    """
 
     type: FlagType
+    status: FlagStatus = Field(
+        default=FlagStatus.FIRED, description="Outcome of the check: fired / clear / not_assessed."
+    )
     severity: Severity
     evidence: str = Field(description="The concrete bundle fields that triggered this flag.")
     plain_explanation: str = Field(description="Plain-language statement of the finding.")
@@ -138,8 +172,16 @@ class Flag(BaseModel):
 
 
 class Scorecard(BaseModel):
-    """The system's output: a list of explained flags, never a verdict."""
+    """The system's output: the result of every check considered, never a verdict.
 
+    ``flags`` includes CLEAR and NOT_ASSESSED entries, not only those that fired (ADR-009),
+    so the UI can show honestly what was checked, what was clear, and what could not be
+    assessed.
+    """
+
+    schema_version: str = Field(
+        default=SCHEMA_VERSION, description="Contract version that produced this scorecard (ADR-010)."
+    )
     flags: list[Flag] = Field(default_factory=list)
     summary: str | None = Field(
         default=None, description="Optional neutral, non-verdict overview of the findings."
