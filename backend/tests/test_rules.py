@@ -78,6 +78,14 @@ def test_recycled_context_not_assessed_when_unknown():
     assert recycled_context_rule(b).status == FlagStatus.NOT_ASSESSED
 
 
+def test_recycled_context_not_assessed_when_status_missing():
+    """Regression: a bundle where the reverse-image extractor never ran (no status key) and
+    has no matches must be NOT_ASSESSED, never CLEAR — empty must not read as 'searched, none
+    recycled' (ADR-009). This bug was caught by the scorecard 'nothing fires' test."""
+    b = _bundle(web_matches=[], extractor_status={})
+    assert recycled_context_rule(b).status == FlagStatus.NOT_ASSESSED
+
+
 # --- caption <-> scene mismatch ---
 
 def test_caption_scene_fires_on_low_overlap():

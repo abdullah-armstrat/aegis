@@ -93,7 +93,10 @@ def recycled_context_rule(bundle: EvidenceBundle) -> Flag:
     the Prelim the matches come from the cached fixture (ADR-007).
     """
     status = bundle.extractor_status.get("reverse_image")
-    if status == FlagStatus.NOT_ASSESSED:
+    # CLEAR is only safe to report when the extractor *explicitly* ran and found nothing.
+    # A missing status (extractor never ran) or NOT_ASSESSED must not read as "nothing
+    # recycled" — that would be a false reassurance (ADR-009).
+    if not bundle.web_matches and status != FlagStatus.CLEAR:
         return Flag(
             type=FlagType.RECYCLED_CONTEXT,
             status=FlagStatus.NOT_ASSESSED,
