@@ -15,8 +15,12 @@ httpx>=0.27                      # FastAPI TestClient transport
 pillow>=10.0                     # image IO
 pytesseract>=0.3.10             # OCR — thin wrapper over the Tesseract binary (no torch); chosen over easyocr
 
-# ---- Extractors / fusion (added one at a time, each with a unit test) ----
-# easyocr                       # OCR alternative (no system binary, but pulls in torch) — for a later accuracy trial
-# transformers>=4.40           # captioner (BLIP) + sentiment
-# torch                        # backend for transformers (CPU build)
-# ollama                       # local LLM reasoner client (binary installed; Python client added at the spike)
+# Sentiment + (later) captioner. Install torch from the CPU wheel index to avoid the CUDA
+# build on this no-GPU machine:
+#   pip install torch --index-url https://download.pytorch.org/whl/cpu
+torch>=2.2                       # CPU build; backend for transformers
+transformers>=4.40              # HF sentiment model now; BLIP captioner next
+
+# ---- Added one at a time, each with a unit test ----
+# easyocr                       # OCR alternative (pulls in torch) — for a later accuracy trial
+# ollama                        # local LLM reasoner client (binary installed; reasoner uses httpx for now)

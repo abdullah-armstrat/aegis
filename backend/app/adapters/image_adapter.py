@@ -12,6 +12,7 @@ Wired so far: OCR. Next: sentiment, captioner, reverse-image (cached).
 from __future__ import annotations
 
 from app.extractors.ocr import extract_on_screen_text
+from app.extractors.sentiment import analyse_sentiment
 from app.models import EvidenceBundle, Meta, Modality
 
 
@@ -20,12 +21,16 @@ def build_bundle(image_bytes: bytes, caption: str | None, source_ref: str | None
 
     The user-supplied ``caption`` is carried through verbatim; the extractors populate the
     evidence fields. Each extractor's honest status is recorded in ``extractor_status``.
+
+    Wired so far: OCR, sentiment (over the caption). Next: captioner, reverse-image (cached).
     """
     ocr = extract_on_screen_text(image_bytes)
+    sentiment = analyse_sentiment(caption, source="caption")
 
     return EvidenceBundle(
         on_screen_text=ocr.lines,
         caption=caption,
-        extractor_status={"ocr": ocr.status},
+        sentiment=sentiment.sentiment,
+        extractor_status={"ocr": ocr.status, "sentiment": sentiment.status},
         meta=Meta(modality=Modality.IMAGE, source_ref=source_ref),
     )
