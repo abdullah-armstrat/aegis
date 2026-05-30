@@ -38,6 +38,10 @@ class Settings(BaseSettings):
     # OCR extractor points pytesseract at it explicitly. Empty => rely on PATH.
     tesseract_cmd: str = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 
+    # Path to the cached reverse-image fixture used when reverse_image_mode == "cache"
+    # (ADR-007). Empty => the extractor uses its packaged default location.
+    reverse_image_cache_path: str = ""
+
     @property
     def cors_origin_list(self) -> list[str]:
         """CORS origins as a clean list."""
