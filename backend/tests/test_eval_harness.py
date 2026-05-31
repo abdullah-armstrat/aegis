@@ -58,16 +58,32 @@ def test_rules_only_confusion_is_exactly_as_expected():
         c = report.per_flag[flag].confusion
         return (c.tp, c.fp, c.fn, c.tn, c.not_assessed)
 
-    assert conf("emotional_framing") == (3, 0, 0, 1, 1)
+    # 19-example set (13 clear-cut + 6 hard). Values are execution-verified.
+    # emotional_framing: em01/em03/combo01 fire->fired (tp=3); em02 + the two mild-negativity
+    #   hard cases hard_em01/hard_em02 clear->clear (tn=3); ec01 -> not_assessed (na=1). The
+    #   sentiment model did NOT over-fire on mild text, so no false positives.
+    assert conf("emotional_framing") == (3, 0, 0, 3, 1)
+    # recycled_context: unchanged by the hard set (tp=3, tn=2, na=1).
     assert conf("recycled_context") == (3, 0, 0, 2, 1)
-    assert conf("caption_content_mismatch") == (2, 0, 0, 2, 0)
+    # caption_content_mismatch: 3 real mismatches fire (tp=3); kc01/kc02/hard_kc02 clear (tn=3);
+    #   hard_kc01 (automobile/car, road/street) and hard_kc03 (motorway/highway) FALSE-FIRE on
+    #   synonyms (fp=2) -> the documented word-overlap limitation. precision drops to 0.60.
+    assert conf("caption_content_mismatch") == (3, 2, 0, 3, 0)
 
     o = report.overall.confusion
-    assert (o.tp, o.fp, o.fn, o.tn, o.not_assessed) == (8, 0, 0, 5, 2)
+    assert (o.tp, o.fp, o.fn, o.tn, o.not_assessed) == (9, 2, 0, 8, 2)
 
-    for flag in ("emotional_framing", "recycled_context", "caption_content_mismatch"):
+    # emotional_framing and recycled_context still perfect on assessed decisions...
+    for flag in ("emotional_framing", "recycled_context"):
         m = report.per_flag[flag]
         assert m.precision == 1.0 and m.recall == 1.0 and m.f1 == 1.0
+    # ...but caption_content_mismatch is degraded by the synonym false positives (honest):
+    cap = report.per_flag["caption_content_mismatch"]
+    assert cap.precision == 0.6 and cap.recall == 1.0
+    # Overall micro: precision 9/11, recall 1.0, F1 0.9.
+    assert round(report.overall.precision, 3) == 0.818
+    assert report.overall.recall == 1.0
+    assert report.overall.f1 == 0.9
 
 
 def test_known_deterministic_outcomes():
