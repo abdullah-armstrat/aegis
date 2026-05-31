@@ -1,2 +1,0 @@
-/usr/bin/bash: line 8: ./backend/.venv/Scripts/python.exe: No such file or directory
-GE=0

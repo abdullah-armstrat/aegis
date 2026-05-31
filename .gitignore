@@ -47,3 +47,4 @@ backend/scripts/_*.json
 backend/tests/eval/test_set/images/
 uploads/
 *.log
+backend/_m.txt
