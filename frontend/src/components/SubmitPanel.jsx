@@ -1,5 +1,5 @@
-// Upload an image + caption and submit for analysis. Shows a local preview, basic validation,
-// and a loading state while /analyze runs.
+// Submit screen, dossier style: choose an image (with preview) + paste the caption, then run
+// the audit. Reports the submission back up so the result screen can show what was reviewed.
 
 import { useRef, useState } from "react";
 
@@ -17,23 +17,35 @@ export default function SubmitPanel({ onAnalyze, loading }) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    if (file) onAnalyze(file, caption);
+    if (file) onAnalyze(file, caption, { preview, filename: file.name });
   }
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm"
-    >
-      <label className="block text-sm font-medium text-slate-700">Image</label>
-      <div
+    <form onSubmit={handleSubmit}>
+      <h2 className="text-2xl font-semibold tracking-tight text-ink">Submit a post for review</h2>
+      <p className="mt-2 max-w-prose text-[15px] leading-relaxed text-muted">
+        Aegis reads the image and its caption together, then reports what it found, finding by
+        finding. It will not tell you whether the post is true; it shows you what is worth checking.
+      </p>
+
+      {/* Image */}
+      <div className="mt-7 flex items-baseline justify-between">
+        <label className="font-mono text-[11px] uppercase tracking-[0.14em] text-ink">
+          The image
+        </label>
+        <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-muted">
+          Required
+        </span>
+      </div>
+      <button
+        type="button"
         onClick={() => inputRef.current?.click()}
-        className="mt-2 flex cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-slate-300 px-4 py-8 text-center hover:border-slate-400"
+        className="mt-2 flex w-full flex-col items-center justify-center border border-dashed border-line bg-panel px-4 py-10 text-center transition-colors hover:border-ink/40"
       >
         {preview ? (
-          <img src={preview} alt="preview" className="max-h-48 rounded-md object-contain" />
+          <img src={preview} alt="preview" className="max-h-56 border border-line object-contain" />
         ) : (
-          <span className="text-sm text-slate-500">Click to choose an image to audit</span>
+          <span className="text-sm text-muted">Click to choose an image to audit</span>
         )}
         <input
           ref={inputRef}
@@ -42,27 +54,40 @@ export default function SubmitPanel({ onAnalyze, loading }) {
           className="hidden"
           onChange={(e) => handleFile(e.target.files?.[0])}
         />
-      </div>
+      </button>
+      {file && (
+        <p className="mt-1.5 font-mono text-[11px] text-muted">{file.name}</p>
+      )}
 
-      <label htmlFor="caption" className="mt-4 block text-sm font-medium text-slate-700">
-        Caption
-      </label>
+      {/* Caption */}
+      <div className="mt-6 flex items-baseline justify-between">
+        <label htmlFor="caption" className="font-mono text-[11px] uppercase tracking-[0.14em] text-ink">
+          The caption
+        </label>
+        <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-muted">
+          As posted
+        </span>
+      </div>
       <textarea
         id="caption"
         value={caption}
         onChange={(e) => setCaption(e.target.value)}
-        rows={3}
-        placeholder="Paste the caption that accompanies this image…"
-        className="mt-2 w-full rounded-lg border border-slate-300 p-2 text-sm focus:border-slate-500 focus:outline-none"
+        rows={4}
+        placeholder="Paste the caption exactly as it appears with the post…"
+        className="mt-2 w-full resize-y border border-line bg-white p-3 text-[15px] leading-relaxed text-ink placeholder:text-muted focus:border-ink focus:outline-none"
       />
 
       <button
         type="submit"
         disabled={!file || loading}
-        className="mt-4 w-full rounded-lg bg-slate-900 px-4 py-2 text-sm font-medium text-white hover:bg-slate-800 disabled:cursor-not-allowed disabled:bg-slate-300"
+        className="mt-6 inline-flex items-center gap-2 bg-ink px-6 py-3 text-sm font-semibold tracking-tight text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
       >
-        {loading ? "Analysing…" : "Analyse"}
+        {loading ? "Running audit…" : "Run audit →"}
       </button>
+
+      <p className="mt-4 font-mono text-[11px] leading-relaxed text-muted">
+        Nothing is published. Your image and caption stay in this session.
+      </p>
     </form>
   );
 }

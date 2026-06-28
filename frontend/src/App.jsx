@@ -5,15 +5,18 @@ import Scorecard from "./components/Scorecard";
 
 export default function App() {
   const [scorecard, setScorecard] = useState(null);
+  const [submission, setSubmission] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  async function handleAnalyze(file, caption) {
+  async function handleAnalyze(file, caption, ctx) {
     setLoading(true);
     setError(null);
     setScorecard(null);
     try {
-      setScorecard(await analyze(file, caption));
+      const card = await analyze(file, caption);
+      setSubmission({ ...ctx, caption });
+      setScorecard(card);
     } catch (e) {
       setError(e.message);
     } finally {
@@ -22,28 +25,60 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-800">
-      <div className="mx-auto max-w-2xl px-6 py-12">
-        <header>
-          <h1 className="text-3xl font-bold tracking-tight">Aegis</h1>
-          <p className="mt-2 text-slate-600">
-            A cross-consistency auditor for image posts. It surfaces contradictions and recycled
-            context and explains them — so you can judge for yourself. It never gives a trust
-            verdict.
-          </p>
+    <div className="min-h-screen bg-white text-ink">
+      <div className="mx-auto max-w-3xl px-6 py-10">
+        {/* Masthead */}
+        <header className="flex items-center justify-between border-b border-ink pb-4">
+          <div className="flex items-center gap-3">
+            {/* Mark: a quiet shield/diamond, echoing the design's wordmark. */}
+            <svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true">
+              <rect
+                x="6"
+                y="2.5"
+                width="13"
+                height="13"
+                transform="rotate(45 11 9)"
+                fill="#161616"
+              />
+            </svg>
+            <span className="text-lg font-bold uppercase tracking-[0.3em] text-ink">Aegis</span>
+          </div>
+          <span className="hidden font-mono text-[11px] uppercase tracking-[0.14em] text-muted sm:block">
+            Image &amp; caption misinformation auditor
+          </span>
         </header>
 
-        <main className="mt-8">
-          <SubmitPanel onAnalyze={handleAnalyze} loading={loading} />
+        <main className="py-10">
+          {!scorecard && <SubmitPanel onAnalyze={handleAnalyze} loading={loading} />}
 
           {error && (
-            <div className="mt-4 rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-700">
-              {error}
+            <div className="mt-6 border border-flag/50 bg-flagbg px-4 py-3 font-mono text-[13px] text-ink">
+              Audit could not run: {error}
             </div>
           )}
 
-          <Scorecard scorecard={scorecard} />
+          {scorecard && (
+            <>
+              <Scorecard scorecard={scorecard} submission={submission} />
+              <button
+                type="button"
+                onClick={() => {
+                  setScorecard(null);
+                  setError(null);
+                }}
+                className="mt-8 border border-ink px-5 py-2.5 text-sm font-semibold tracking-tight text-ink transition-colors hover:bg-ink hover:text-white"
+              >
+                ← Review another post
+              </button>
+            </>
+          )}
         </main>
+
+        <footer className="border-t border-line pt-4">
+          <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-muted">
+            Aegis · Explain, don’t verdict · findings are leads, not rulings
+          </p>
+        </footer>
       </div>
     </div>
   );

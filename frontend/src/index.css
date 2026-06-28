@@ -1,3 +1,36 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+  }
+  body {
+    font-family: "Archivo", system-ui, sans-serif;
+    background: #ffffff;
+    color: #161616;
+    -webkit-font-smoothing: antialiased;
+  }
+  /* Dossier selection: ink on white, inverted. */
+  ::selection {
+    background: #161616;
+    color: #ffffff;
+  }
+}
+
+@layer components {
+  /* Collapsible disclosure chevron used in the evidence blocks. */
+  details > summary {
+    list-style: none;
+    cursor: pointer;
+  }
+  details > summary::-webkit-details-marker {
+    display: none;
+  }
+  details[open] .chev {
+    transform: rotate(90deg);
+  }
+}
