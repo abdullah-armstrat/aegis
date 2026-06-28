@@ -1,11 +1,12 @@
-// One finding, rendered in the dossier style and bound to the real backend Flag:
+// One finding, in the dossier style EXACTLY per the approved design: a WHITE card with a
+// hairline border and a left rail (icon box + state label). Colour is used only as a small
+// accent (the 42px icon box, the state label, an outlined badge) — the card stays black & white.
+// Bound to the real backend Flag:
 //   { type, status, severity, evidence, plain_explanation, what_to_check, source }
-// Spine: explain, don't verdict. The three states read by shape (Signal) before colour, and
-// "couldn't check" (not_assessed) is visually distinct from "clear" — never conflated (ADR-009).
+// Spine: explain, don't verdict. not_assessed is visually distinct from clear (ADR-009).
 
 import Signal, { STATUS_META } from "./Signal";
 
-// Human labels for the flag types the backend actually emits today.
 const TYPE_LABELS = {
   caption_content_mismatch: "Caption ↔ image match",
   recycled_context: "Recycled context",
@@ -14,18 +15,9 @@ const TYPE_LABELS = {
   ai_generation_hint: "AI-generation hint",
 };
 
-// Map the backend severity enum (info|low|medium|high) to dossier weight words.
+// Backend severity enum (info|low|medium|high) → dossier weight words.
 const SEVERITY_WORD = { high: "Notable", medium: "Notable", low: "Minor", info: "Minor" };
 
-// Per-status card treatment.
-const CARD = {
-  fired: "border-flag/40 bg-flagbg",
-  clear: "border-clear/30 bg-clearbg",
-  not_assessed: "border-dashed border-line bg-panel",
-};
-
-// "What was attempted" reads better than "What to check" when nothing could be assessed,
-// but our backend supplies a single what_to_check string; we relabel the heading by status.
 const CHECK_HEADING = {
   fired: "What to check",
   clear: "What to check",
@@ -35,58 +27,77 @@ const CHECK_HEADING = {
 export default function FlagCard({ flag }) {
   const meta = STATUS_META[flag.status] ?? STATUS_META.not_assessed;
   const typeLabel = TYPE_LABELS[flag.type] ?? flag.type;
-  const cardClass = CARD[flag.status] ?? CARD.not_assessed;
 
   return (
-    <article className={`border ${cardClass} px-5 py-4`}>
-      {/* Status line — shape + label, the dossier's signalling row. */}
-      <div className="flex items-center gap-2">
+    <article
+      className="flex items-start gap-6 bg-white px-7 py-6"
+      style={{ border: "1px solid #E4E4E4" }}
+    >
+      {/* Left rail: icon box + state label. */}
+      <div className="flex w-[84px] shrink-0 flex-col gap-2.5 pt-0.5">
         <Signal status={flag.status} />
-        <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-muted">
+        <div
+          className="text-xs font-semibold leading-tight"
+          style={{ color: meta.labelColor }}
+        >
           {meta.label}
-        </span>
-        {flag.status === "fired" && flag.severity && (
-          <span className="ml-1 font-mono text-[11px] uppercase tracking-[0.14em] text-flag">
-            · {SEVERITY_WORD[flag.severity] ?? "Notable"}
-          </span>
-        )}
-      </div>
-
-      {/* Title + optional AI-second-opinion tag. */}
-      <div className="mt-2 flex items-baseline justify-between gap-3">
-        <h3 className="text-lg font-semibold tracking-tight text-ink">{typeLabel}</h3>
-        {flag.source === "llm" && (
-          <span className="shrink-0 border border-line px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.12em] text-muted">
-            AI second opinion
-          </span>
-        )}
-      </div>
-
-      {/* Plain explanation. */}
-      <p className="mt-1.5 text-[15px] leading-relaxed text-ink/85">{flag.plain_explanation}</p>
-
-      {/* "What to check" — the durable, teach-the-user value. */}
-      {flag.what_to_check && (
-        <div className="mt-3 border-l-2 border-ink/15 pl-3">
-          <div className="font-mono text-[10px] uppercase tracking-[0.14em] text-muted">
-            {CHECK_HEADING[flag.status] ?? "What to check"}
-          </div>
-          <p className="mt-0.5 text-sm leading-relaxed text-ink/80">{flag.what_to_check}</p>
         </div>
-      )}
+      </div>
 
-      {/* Supporting evidence — the actual backend evidence string, on demand. */}
-      {flag.evidence && (
-        <details className="mt-3 group">
-          <summary className="flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.12em] text-muted hover:text-ink">
-            <span className="chev inline-block transition-transform">▸</span>
-            Supporting evidence
-          </summary>
-          <p className="mt-2 whitespace-pre-wrap break-words border border-line bg-white px-3 py-2 font-mono text-[12px] leading-relaxed text-ink/75">
-            {flag.evidence}
-          </p>
-        </details>
-      )}
+      {/* Body */}
+      <div className="min-w-0 flex-1">
+        <div className="flex flex-wrap items-start justify-between gap-3">
+          <h3 className="text-xl font-semibold tracking-tight text-ink">{typeLabel}</h3>
+          <div className="flex flex-wrap items-center gap-2">
+            {flag.status === "fired" && flag.severity && (
+              <span
+                className="px-2.5 py-[3px] text-[11px] font-medium"
+                style={{ color: "#8A5A12", border: "1px solid #D9B877" }}
+              >
+                {SEVERITY_WORD[flag.severity] ?? "Notable"}
+              </span>
+            )}
+            {flag.source === "llm" && (
+              <span
+                className="px-2.5 py-[3px] text-[11px] font-medium text-muted"
+                style={{ border: "1px solid #D6D6D6" }}
+              >
+                AI second opinion
+              </span>
+            )}
+          </div>
+        </div>
+
+        <p className="mt-2.5 max-w-[64ch] text-[15px] leading-relaxed text-ink/80">
+          {flag.plain_explanation}
+        </p>
+
+        {flag.what_to_check && (
+          <div className="mt-4">
+            <div className="font-mono text-[10px] uppercase tracking-[0.14em] text-muted">
+              {CHECK_HEADING[flag.status] ?? "What to check"}
+            </div>
+            <p className="mt-1 max-w-[64ch] text-sm leading-relaxed text-ink/75">
+              {flag.what_to_check}
+            </p>
+          </div>
+        )}
+
+        {flag.evidence && (
+          <details className="group mt-4">
+            <summary className="flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.12em] text-muted hover:text-ink">
+              <span className="chev inline-block transition-transform">▸</span>
+              Supporting evidence
+            </summary>
+            <p
+              className="mt-2 max-w-[68ch] whitespace-pre-wrap break-words bg-panel px-3 py-2 font-mono text-[12px] leading-relaxed text-ink/75"
+              style={{ border: "1px solid #E4E4E4" }}
+            >
+              {flag.evidence}
+            </p>
+          </details>
+        )}
+      </div>
     </article>
   );
 }

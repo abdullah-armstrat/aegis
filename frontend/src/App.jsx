@@ -52,7 +52,10 @@ export default function App() {
           {!scorecard && <SubmitPanel onAnalyze={handleAnalyze} loading={loading} />}
 
           {error && (
-            <div className="mt-6 border border-flag/50 bg-flagbg px-4 py-3 font-mono text-[13px] text-ink">
+            <div
+              className="mt-6 bg-white px-4 py-3 font-mono text-[13px] text-ink"
+              style={{ border: "1px solid #E4E4E4", borderLeft: "3px solid #B7791F" }}
+            >
               Audit could not run: {error}
             </div>
           )}

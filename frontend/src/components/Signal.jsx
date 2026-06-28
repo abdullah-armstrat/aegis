@@ -1,61 +1,68 @@
-// The three-state signal, distinguished by SHAPE and WEIGHT before colour (so it reads for
-// colour-blind users too) — the core of the dossier design and of ADR-009:
-//   fired        → a solid amber marker (a raised flag): something to check.
-//   not_assessed → a broken ring on a dashed treatment: the check could not run. Never a clear.
-//   clear        → a closed ring with a tick, quiet green: looked, found nothing.
-//
-// `flag.status` from the backend is one of: "fired" | "clear" | "not_assessed".
+// The three-state signal as a 42×42 ICON BOX (left-rail), exactly per the dossier design.
+// Distinguished by SHAPE + the box treatment before colour:
+//   fired        → pale amber box (#FBF1DD), amber flag icon (#B7791F)
+//   not_assessed → white box with a DASHED border (#AEB6C0), slate broken-ring icon (#5B6470)
+//   clear        → pale green box (#E6EFE8), green ring+tick (#3F7A52)
+// `flag.status` from the backend: "fired" | "clear" | "not_assessed".
 
 export const STATUS_META = {
-  fired: { label: "Flag raised" },
-  not_assessed: { label: "Couldn’t check" },
-  clear: { label: "Checked, clear" },
+  fired: { label: "Flag raised", labelColor: "#8A5A12" },
+  not_assessed: { label: "Couldn’t check", labelColor: "#4D5662" },
+  clear: { label: "Checked, clear", labelColor: "#3F7A52" },
 };
 
-export default function Signal({ status, size = 18 }) {
-  const s = size;
-  const c = s / 2;
-  const r = s / 2 - 2;
-
+export default function Signal({ status }) {
   if (status === "fired") {
-    // A small flag on a pole — the heaviest mark.
     return (
-      <svg width={s} height={s} viewBox="0 0 18 18" aria-hidden="true" role="img">
-        <rect x="4" y="2" width="1.6" height="14" rx="0.8" fill="#B7791F" />
-        <path d="M5.6 3 L14 5.2 L5.6 7.4 Z" fill="#B7791F" />
-      </svg>
+      <div
+        className="flex h-[42px] w-[42px] items-center justify-center"
+        style={{ background: "#FBF1DD" }}
+      >
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <rect x="5" y="3" width="2" height="18" rx="1" fill="#B7791F" />
+          <path d="M7 4.2 L19 8 L7 11.8 Z" fill="#B7791F" />
+        </svg>
+      </div>
     );
   }
 
   if (status === "clear") {
-    // Closed ring + tick, quiet green.
     return (
-      <svg width={s} height={s} viewBox={`0 0 ${s} ${s}`} aria-hidden="true" role="img">
-        <circle cx={c} cy={c} r={r} fill="none" stroke="#3F7A52" strokeWidth="1.4" />
-        <path
-          d={`M${c - 3} ${c} L${c - 0.8} ${c + 2.2} L${c + 3.2} ${c - 2.4}`}
-          fill="none"
-          stroke="#3F7A52"
-          strokeWidth="1.6"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
+      <div
+        className="flex h-[42px] w-[42px] items-center justify-center"
+        style={{ background: "#E6EFE8" }}
+      >
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <circle cx="12" cy="12" r="8.5" stroke="#3F7A52" strokeWidth="2" />
+          <path
+            d="M8 12.2 L11 15.2 L16.2 9"
+            stroke="#3F7A52"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+      </div>
     );
   }
 
-  // not_assessed (default): a BROKEN ring — deliberately incomplete, muted grey.
+  // not_assessed: white box, dashed border, broken ring — deliberately incomplete.
   return (
-    <svg width={s} height={s} viewBox={`0 0 ${s} ${s}`} aria-hidden="true" role="img">
-      <circle
-        cx={c}
-        cy={c}
-        r={r}
-        fill="none"
-        stroke="#8C8C8C"
-        strokeWidth="1.4"
-        strokeDasharray="3 2.4"
-      />
-    </svg>
+    <div
+      className="flex h-[42px] w-[42px] items-center justify-center bg-white"
+      style={{ border: "1px dashed #AEB6C0" }}
+    >
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <circle
+          cx="12"
+          cy="12"
+          r="8.5"
+          stroke="#5B6470"
+          strokeWidth="2"
+          strokeDasharray="3.2 3.2"
+        />
+        <line x1="8" y1="12" x2="16" y2="12" stroke="#5B6470" strokeWidth="2" strokeLinecap="round" />
+      </svg>
+    </div>
   );
 }

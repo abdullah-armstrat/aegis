@@ -77,17 +77,23 @@ export default function SubmitPanel({ onAnalyze, loading }) {
         className="mt-2 w-full resize-y border border-line bg-white p-3 text-[15px] leading-relaxed text-ink placeholder:text-muted focus:border-ink focus:outline-none"
       />
 
-      <button
-        type="submit"
-        disabled={!file || loading}
-        className="mt-6 inline-flex items-center gap-2 bg-ink px-6 py-3 text-sm font-semibold tracking-tight text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
+      {/* Action row: Run audit button + privacy note, divided by a hairline (per design). */}
+      <div
+        className="mt-8 flex flex-wrap items-center justify-between gap-6 pt-6"
+        style={{ borderTop: "1px solid #E4E4E4" }}
       >
-        {loading ? "Running audit…" : "Run audit →"}
-      </button>
-
-      <p className="mt-4 font-mono text-[11px] leading-relaxed text-muted">
-        Nothing is published. Your image and caption stay in this session.
-      </p>
+        <button
+          type="submit"
+          disabled={!file || loading}
+          className="inline-flex items-center gap-2.5 bg-ink px-7 py-3.5 text-[15px] font-semibold tracking-tight text-white transition-colors hover:bg-black disabled:cursor-not-allowed disabled:bg-muted"
+        >
+          {loading ? "Running audit…" : "Run audit"}
+          {!loading && <span className="text-base leading-none">→</span>}
+        </button>
+        <p className="max-w-[34ch] font-mono text-[11px] leading-relaxed text-muted">
+          Nothing is published. Your image and caption stay in this session.
+        </p>
+      </div>
     </form>
   );
 }
