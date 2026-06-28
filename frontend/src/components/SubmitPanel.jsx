@@ -109,7 +109,12 @@ export default function SubmitPanel({ onAnalyze, loading }) {
         <button
           type="submit"
           disabled={!file || loading}
-          className="inline-flex items-center gap-2.5 bg-ink px-7 py-3.5 text-[15px] font-semibold tracking-tight text-white transition-colors hover:bg-black disabled:cursor-not-allowed disabled:opacity-50"
+          className="inline-flex items-center gap-2.5 px-7 py-3.5 text-[15px] font-semibold tracking-tight text-white transition-colors"
+          style={{
+            background: !file || loading ? "#8C8C8C" : "#161616",
+            cursor: !file || loading ? "not-allowed" : "pointer",
+          }}
+          title={!file ? "Choose an image first" : "Run the audit"}
         >
           {loading ? "Running audit…" : "Run audit"}
           <span className="text-base leading-none">→</span>
