@@ -2,10 +2,9 @@ import { useState } from "react";
 import { analyze } from "./api";
 import SubmitPanel from "./components/SubmitPanel";
 import Scorecard from "./components/Scorecard";
-import SystemPanel from "./components/SystemPanel";
 
 export default function App() {
-  const [screen, setScreen] = useState("submit"); // submit | scorecard | system
+  const [screen, setScreen] = useState("submit"); // submit | scorecard
   const [scorecard, setScorecard] = useState(null);
   const [submission, setSubmission] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -64,7 +63,6 @@ export default function App() {
           <nav className="flex gap-6">
             {tab("submit", "Submit")}
             {tab("scorecard", "Scorecard")}
-            {tab("system", "System")}
           </nav>
         </header>
 
@@ -110,18 +108,7 @@ export default function App() {
                 </button>
               </div>
             ))}
-
-          {screen === "system" && <SystemPanel />}
         </main>
-
-        <footer className="py-6" style={{ borderTop: "1px solid #E4E4E4" }}>
-          <div className="flex flex-wrap items-center justify-between gap-3">
-            <p className="text-[12.5px] text-muted">Aegis. Explain, don’t verdict.</p>
-            <p className="font-mono text-[11px] text-muted">
-              v0.4 · findings are leads, not rulings
-            </p>
-          </div>
-        </footer>
       </div>
     </div>
   );
