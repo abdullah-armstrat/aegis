@@ -42,11 +42,13 @@ def _content_words(text: str) -> set[str]:
 
 
 def emotional_framing_rule(bundle: EvidenceBundle) -> Flag:
-    """High-intensity emotional language is a known manipulation technique (SSOT §1.4).
+    """Flags a strongly negative tone in the caption.
 
-    Uses the sentiment extractor's confidence as an intensity proxy: a strongly-polar reading
-    means emotionally charged framing. Not a claim that the content is false — only that it is
-    framed to provoke.
+    Keys solely on the sentiment model's polarity confidence (``bundle.sentiment.score`` from
+    distilbert SST-2). That measures negative *polarity*, NOT manipulation specifically, so the
+    user-facing wording is scoped honestly to "strongly negative tone" rather than claiming a
+    manipulation technique (interim Option A; see ADR-014 for the planned marker-based fix).
+    Firing logic and threshold are unchanged.
     """
     status = bundle.extractor_status.get("sentiment")
     if bundle.sentiment is None or status == FlagStatus.NOT_ASSESSED:
@@ -55,8 +57,8 @@ def emotional_framing_rule(bundle: EvidenceBundle) -> Flag:
             status=FlagStatus.NOT_ASSESSED,
             severity=Severity.INFO,
             evidence="No sentiment reading was available.",
-            plain_explanation="The emotional framing of the text could not be assessed.",
-            what_to_check="Consider whether the wording seems designed to provoke a strong reaction.",
+            plain_explanation="The tone of the caption could not be assessed.",
+            what_to_check="Consider for yourself whether the wording reads as strongly negative or one-sided.",
         )
 
     intensity = bundle.sentiment.score
@@ -70,10 +72,11 @@ def emotional_framing_rule(bundle: EvidenceBundle) -> Flag:
                 f"(≥ {EMOTIONAL_INTENSITY_THRESHOLD:.2f}) over the {bundle.sentiment.source}."
             ),
             plain_explanation=(
-                "This content uses high-intensity emotional language — a known persuasion and "
-                "manipulation technique. That does not make it false, but it is worth pausing on."
+                "This caption reads as strongly negative in tone. A negative tone is not "
+                "dishonest in itself, but strongly negative framing can discourage a reader "
+                "from taking a second look — so it is worth pausing on."
             ),
-            what_to_check="Ask whether the strong wording is doing the work that evidence should.",
+            what_to_check="Try restating the claim in plain, neutral words. Does it still stand on its own?",
         )
 
     return Flag(
@@ -81,8 +84,8 @@ def emotional_framing_rule(bundle: EvidenceBundle) -> Flag:
         status=FlagStatus.CLEAR,
         severity=Severity.INFO,
         evidence=f"Sentiment intensity {intensity:.2f} is below the {EMOTIONAL_INTENSITY_THRESHOLD:.2f} threshold.",
-        plain_explanation="The wording does not show especially high emotional intensity.",
-        what_to_check="No strong emotional framing detected for this text.",
+        plain_explanation="The caption does not read as strongly negative in tone.",
+        what_to_check="No strong negative tone detected for this caption.",
     )
 
 
