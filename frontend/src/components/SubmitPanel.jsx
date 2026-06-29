@@ -1,4 +1,4 @@
-// Submit screen — two-column dossier layout EXACTLY per the design: image (solid grey
+// Submit screen: two-column dossier layout EXACTLY per the design: image (solid grey
 // dropzone, left) beside caption (textarea, right), then an action row with the ink "Run
 // audit" button and a right-aligned privacy note. Reports the submission up so the result
 // screen can show what was reviewed.

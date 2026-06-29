@@ -1,4 +1,4 @@
-// "System" page — the design's style/about page, made honest: the dossier palette, the type
+// "System" page: the design's style/about page, made honest: the dossier palette, the type
 // system, the three-state signalling explained, and Aegis's explicit non-goals (no fakery /
 // AI-generation detection). Static; no backend calls.
 
@@ -96,12 +96,12 @@ export default function SystemPanel() {
         </div>
       </div>
 
-      {/* Non-goals — the honest part. */}
+      {/* Non-goals, the honest part. */}
       <div className="mt-10">
         <Heading>What Aegis does not do</Heading>
         <p className="mt-3 max-w-[560px] text-[15px] leading-relaxed text-[#595959]">
           Aegis does not decide whether a post is true or false, and does not claim to detect
-          AI-generated or digitally-manipulated images — those are unsolved, unreliable tasks. It
+          AI-generated or digitally-manipulated images; those are unsolved, unreliable tasks. It
           reports only what its checks can reliably surface: cross-modal inconsistencies, recycled
           context, and emotional framing. Findings are leads for you to verify, not rulings.
         </p>

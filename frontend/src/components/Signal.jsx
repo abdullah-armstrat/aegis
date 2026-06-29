@@ -46,7 +46,7 @@ export default function Signal({ status }) {
     );
   }
 
-  // not_assessed: white box, dashed border, broken ring — deliberately incomplete.
+  // not_assessed: white box, dashed border, broken ring, deliberately incomplete.
   return (
     <div
       className="flex h-[42px] w-[42px] items-center justify-center bg-white"

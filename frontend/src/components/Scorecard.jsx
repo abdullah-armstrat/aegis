@@ -48,7 +48,7 @@ export default function Scorecard({ scorecard, submission }) {
       <p className="mt-2 max-w-prose text-sm leading-relaxed text-muted">
         {scorecard.summary ? `${scorecard.summary} ` : ""}
         Aegis doesn’t decide what is true. It surfaces specific, checkable findings and shows you
-        how to weigh them — the judgement stays with you.
+        how to weigh them. The judgement stays with you.
       </p>
 
       {/* The post under review. */}

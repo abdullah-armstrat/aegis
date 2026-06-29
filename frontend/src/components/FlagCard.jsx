@@ -1,6 +1,6 @@
 // One finding, in the dossier style EXACTLY per the approved design: a WHITE card with a
 // hairline border and a left rail (icon box + state label). Colour is used only as a small
-// accent (the 42px icon box, the state label, an outlined badge) — the card stays black & white.
+// accent (the 42px icon box, the state label, an outlined badge); the card stays black & white.
 // Bound to the real backend Flag:
 //   { type, status, severity, evidence, plain_explanation, what_to_check, source }
 // Spine: explain, don't verdict. not_assessed is visually distinct from clear (ADR-009).
