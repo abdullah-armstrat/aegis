@@ -51,6 +51,19 @@ def test_emotional_framing_clear_on_low_intensity():
     assert emotional_framing_rule(b).status == FlagStatus.CLEAR
 
 
+def test_emotional_framing_does_not_fire_on_confident_positive():
+    """Regression: a confidently-POSITIVE caption must NOT fire (direction matters, not just
+    confidence), and must never be described as 'strongly negative'. This is the bug found in
+    demo testing where 'a quiet afternoon at the park' (positive 1.00) fired the flag."""
+    b = _bundle(
+        sentiment=Sentiment(label="positive", score=1.00, source="caption"),
+        extractor_status={"sentiment": FlagStatus.FIRED},
+    )
+    flag = emotional_framing_rule(b)
+    assert flag.status == FlagStatus.CLEAR
+    assert "negative" not in flag.plain_explanation or "not read as strongly negative" in flag.plain_explanation
+
+
 def test_emotional_framing_not_assessed_without_sentiment():
     b = _bundle(extractor_status={"sentiment": FlagStatus.NOT_ASSESSED})
     assert emotional_framing_rule(b).status == FlagStatus.NOT_ASSESSED

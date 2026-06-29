@@ -62,7 +62,10 @@ def emotional_framing_rule(bundle: EvidenceBundle) -> Flag:
         )
 
     intensity = bundle.sentiment.score
-    if intensity >= EMOTIONAL_INTENSITY_THRESHOLD:
+    is_negative = bundle.sentiment.label.lower() == "negative"
+    # Fire ONLY on a confidently-NEGATIVE reading. High confidence in a *positive* label is not
+    # a negative tone and must never be described as one (direction matters, not just intensity).
+    if is_negative and intensity >= EMOTIONAL_INTENSITY_THRESHOLD:
         return Flag(
             type=FlagType.EMOTIONAL_FRAMING,
             status=FlagStatus.FIRED,
@@ -79,11 +82,16 @@ def emotional_framing_rule(bundle: EvidenceBundle) -> Flag:
             what_to_check="Try restating the claim in plain, neutral words. Does it still stand on its own?",
         )
 
+    # Clear: either the reading is not negative, or negative but below the confidence threshold.
+    reason = (
+        f"Sentiment '{bundle.sentiment.label}' at confidence {intensity:.2f} is not a "
+        f"strongly-negative reading (fires only on 'negative' ≥ {EMOTIONAL_INTENSITY_THRESHOLD:.2f})."
+    )
     return Flag(
         type=FlagType.EMOTIONAL_FRAMING,
         status=FlagStatus.CLEAR,
         severity=Severity.INFO,
-        evidence=f"Sentiment intensity {intensity:.2f} is below the {EMOTIONAL_INTENSITY_THRESHOLD:.2f} threshold.",
+        evidence=reason,
         plain_explanation="The caption does not read as strongly negative in tone.",
         what_to_check="No strong negative tone detected for this caption.",
     )

@@ -59,32 +59,33 @@ def test_rules_only_confusion_is_exactly_as_expected():
         return (c.tp, c.fp, c.fn, c.tn, c.not_assessed)
 
     # 19-example set (13 clear-cut + 6 hard). REAL measured values, read from run_eval.py
-    # --json. The hard set deliberately breaks two flags:
-    # emotional_framing: em01/em03/combo01 fire->fired (tp=3); em02 clear->clear (tn=1);
-    #   hard_em01/hard_em02 (mild negativity) clear->FIRED (fp=2 — the sentiment model IS
-    #   over-confident on mild text); ec01 -> not_assessed (na=1). precision 0.60.
-    assert conf("emotional_framing") == (3, 2, 0, 1, 1)
-    # recycled_context: exact fixture lookup, untouched by the hard set (tp=3, tn=2, na=1).
+    # --json (re-derived 2026-06-29 after the emotional-framing direction fix — see ADR-014/-015).
+    # emotional_framing: em01/em03/combo01 (negative) fire->fired (tp=3); em02 clear->clear (tn=1);
+    #   hard_em01 (mild but negative) clear->FIRED (fp=1); hard_em02 scored POSITIVE so it now
+    #   correctly clears (tn=2) — the direction fix removed that false positive; ec01 ->
+    #   not_assessed (na=1). precision 0.75 (was 0.60: fp dropped 2->1).
+    assert conf("emotional_framing") == (3, 1, 0, 2, 1)
+    # recycled_context: exact fixture lookup, untouched (tp=3, tn=2, na=1).
     assert conf("recycled_context") == (3, 0, 0, 2, 1)
     # caption_content_mismatch: mm01/mm02/hard_mm01 fire->fired (tp=3); kc01/kc02 clear (tn=2);
     #   hard_kc01/hard_kc02/hard_kc03 (synonyms/paraphrase) clear->FIRED (fp=3 — literal
-    #   word-overlap can't see synonyms). precision 0.50.
+    #   word-overlap can't see synonyms). precision 0.50 (unchanged by the EF fix).
     assert conf("caption_content_mismatch") == (3, 3, 0, 2, 0)
 
     o = report.overall.confusion
-    assert (o.tp, o.fp, o.fn, o.tn, o.not_assessed) == (9, 5, 0, 5, 2)
+    assert (o.tp, o.fp, o.fn, o.tn, o.not_assessed) == (9, 4, 0, 6, 2)
 
-    # recycled_context is perfect; the other two are intentionally degraded by the hard set.
+    # recycled_context is perfect; the other two are still degraded by the hard set.
     rc = report.per_flag["recycled_context"]
     assert rc.precision == 1.0 and rc.recall == 1.0 and rc.f1 == 1.0
-    assert report.per_flag["emotional_framing"].precision == 0.6
+    assert report.per_flag["emotional_framing"].precision == 0.75
     assert report.per_flag["caption_content_mismatch"].precision == 0.5
     # Recall is 1.0 everywhere: the rules catch every true positive; they over-fire, not miss.
     for flag in ("emotional_framing", "recycled_context", "caption_content_mismatch"):
         assert report.per_flag[flag].recall == 1.0
-    assert round(report.overall.precision, 3) == 0.643
+    assert round(report.overall.precision, 3) == 0.692
     assert report.overall.recall == 1.0
-    assert round(report.overall.f1, 3) == 0.783
+    assert round(report.overall.f1, 3) == 0.818
 
 
 def test_known_deterministic_outcomes():
