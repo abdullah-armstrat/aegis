@@ -13,7 +13,9 @@ from app.fusion.llm_reasoner import (
     SUPPLIED_TEXT_ONLY_PROMPT,
     _coerce_bool,
     _parse_payload,
+    _parse_payload_traced,
     reason_over_text,
+    record_calls,
 )
 
 
@@ -93,4 +95,91 @@ def test_unreachable_server_degrades_gracefully(monkeypatch, tmp_path):
     assert verdict.available is False
     assert verdict.same_subject is None
     assert "unavailable" in verdict.explanation.lower()
+    get_settings.cache_clear()
+
+
+# --- measurement instrumentation (LLM-specific eval; must never affect production) ---
+
+
+def test_probe_is_inert_by_default():
+    """No probe is installed unless a measurement script enters record_calls, and the cache is
+    never bypassed in production. Guards the 'measurement only' promise."""
+    assert llm_reasoner._probe is None
+    assert llm_reasoner._bypass_cache is False
+
+
+def test_parse_payload_traced_classifies_clean_salvaged_and_coerced():
+    """The four-way validity taxonomy is derived from how the tolerant parser resolved each
+    field, not guessed. Pure function — no model call."""
+    _, clean = _parse_payload_traced(
+        {"same_subject": True, "same_tone": False, "explanation": "x"}
+    )
+    assert clean["validity"] == "clean"
+
+    # The real 2026-05-31 malformed payload: 'explanrance' matches only by 4-letter stem.
+    _, salvaged = _parse_payload_traced(
+        {"same_subject": True, "same_tone": False, "explanrance": "recovered"}
+    )
+    assert salvaged["validity"] == "salvaged"
+    assert salvaged["key_resolution"]["explanation"] == "stem"
+
+    _, coerced = _parse_payload_traced(
+        {"same_subject": "true", "same_tone": "no", "explanation": "x"}
+    )
+    assert coerced["validity"] == "coerced"
+    assert coerced["bool_resolution"]["same_subject"] == "coerced"
+
+
+def test_find_key_does_not_salvage_one_field_from_a_sibling():
+    """Regression for the stem-collision defect found by the validity harness, 2026-08-17.
+
+    ``_find_key``'s salvage fallback matches a candidate's first four letters, and both
+    ``same_subject`` and ``same_tone`` begin "same". Before the fix, a model that omitted one
+    of them silently received the OTHER one's value — a fabricated judgement, and since
+    ``same_subject`` drives the flag, one that reached production. An omitted key must now
+    resolve to 'missing' and leave the verdict uncertain (None).
+    """
+    # same_tone omitted -> must NOT be filled from same_subject.
+    verdict, trace = _parse_payload_traced({"same_subject": True, "explanation": "x"})
+    assert trace["key_resolution"]["same_tone"] == "missing"
+    assert trace["missing_keys"] == ["same_tone"]
+    assert verdict.same_tone is None
+    assert verdict.same_subject is True  # the field that WAS supplied is unaffected
+
+    # Symmetric: same_subject omitted must not be filled from same_tone. This is the direction
+    # that could reach the scorecard, so it is asserted explicitly.
+    verdict2, trace2 = _parse_payload_traced({"same_tone": False, "explanation": "x"})
+    assert trace2["key_resolution"]["same_subject"] == "missing"
+    assert verdict2.same_subject is None
+
+    # The genuine typo salvage this fallback exists for still works ('explanrance').
+    verdict3, trace3 = _parse_payload_traced(
+        {"same_subject": True, "same_tone": False, "explanrance": "recovered"}
+    )
+    assert trace3["key_resolution"]["explanation"] == "stem"
+    assert verdict3.explanation == "recovered"
+
+
+def test_record_calls_captures_a_failed_call_and_restores_state(monkeypatch, tmp_path):
+    """With the LLM enabled but unreachable, the probe must record one 'unparseable' call and
+    the reasoner must still degrade to available=False exactly as before."""
+    get_settings.cache_clear()
+    monkeypatch.setenv("AEGIS_USE_LLM", "true")
+    monkeypatch.setenv("AEGIS_OLLAMA_HOST", "http://127.0.0.1:1")  # dead port, fails fast
+    get_settings.cache_clear()
+    monkeypatch.setattr(llm_reasoner, "JsonCache", lambda ns: JsonCache(ns, root=tmp_path))
+
+    sink = []
+    with record_calls(sink, bypass_cache=True):
+        assert llm_reasoner._bypass_cache is True
+        verdict = reason_over_text("a caption", ["a scene"], [])
+
+    assert verdict.available is False          # production behaviour unchanged
+    assert len(sink) == 1
+    assert sink[0].validity == "unparseable"
+    assert sink[0].available is False
+    assert sink[0].latency_s is not None       # a failed call still has a wall-clock cost
+    # State is restored on exit, so nothing leaks into a later request.
+    assert llm_reasoner._probe is None
+    assert llm_reasoner._bypass_cache is False
     get_settings.cache_clear()
