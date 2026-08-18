@@ -42,15 +42,16 @@ def test_rules_only_confusion_is_exactly_as_expected():
     """Pin the EXACT rules-only confusion matrix. These values are execution-verified: if the
     rules or manifest change, this fails loudly and the expected values must be re-derived.
 
-    Hand derivation (rules-only):
-      emotional_framing:  em01 fire->fired, em02 clear->clear, em03 fire->fired,
-                          combo01 fire->fired, ec01 clear->not_assessed
-                          => tp=3 fp=0 fn=0 tn=1 na=1
-      recycled_context:   rc01 fire->fired, rc02 fire->fired, rc03 clear->clear,
-                          rc04 clear->clear, combo01 fire->fired, ec01 clear->not_assessed
+    Hand derivation on the 19-example set (rules-only, as of ADR-014 Option B):
+      emotional_framing:  em01/em03/combo01 fire->fired; em02/hard_em01/hard_em02
+                          clear->clear; ec01 (no caption text) clear->not_assessed
+                          => tp=3 fp=0 fn=0 tn=3 na=1
+      recycled_context:   rc01/rc02/combo01 fire->fired; rc03/rc04 clear->clear;
+                          ec01 clear->not_assessed
                           => tp=3 fp=0 fn=0 tn=2 na=1
-      caption_content_mismatch (injected scenes): mm01 fire, mm02 fire, kc01 clear, kc02 clear
-                          => tp=2 fp=0 fn=0 tn=2 na=0
+      caption_content_mismatch (injected scenes): mm01/mm02/hard_mm01 fire->fired;
+                          kc01/kc02 clear->clear; hard_kc01/02/03 clear->FIRED (synonyms)
+                          => tp=3 fp=3 fn=0 tn=2 na=0
     """
     report, _ = evaluate(use_llm=False)
 
@@ -59,33 +60,36 @@ def test_rules_only_confusion_is_exactly_as_expected():
         return (c.tp, c.fp, c.fn, c.tn, c.not_assessed)
 
     # 19-example set (13 clear-cut + 6 hard). REAL measured values, read from run_eval.py
-    # --json (re-derived 2026-06-29 after the emotional-framing direction fix — see ADR-014/-015).
-    # emotional_framing: em01/em03/combo01 (negative) fire->fired (tp=3); em02 clear->clear (tn=1);
-    #   hard_em01 (mild but negative) clear->FIRED (fp=1); hard_em02 scored POSITIVE so it now
-    #   correctly clears (tn=2) — the direction fix removed that false positive; ec01 ->
-    #   not_assessed (na=1). precision 0.75 (was 0.60: fp dropped 2->1).
-    assert conf("emotional_framing") == (3, 1, 0, 2, 1)
+    # --json (re-derived 2026-08-17 after ADR-014 Option B replaced the emotional-framing
+    # sentiment proxy with deterministic manipulation markers).
+    # emotional_framing: em01 (4 markers), em03 (4), combo01 (3) fire->fired (tp=3);
+    #   em02 (0 markers), hard_em01 (0), hard_em02 (0) clear->clear (tn=3); ec01 has no caption
+    #   text so markers cannot be computed -> not_assessed (na=1). fp=0: the last remaining
+    #   false positive (hard_em01, mild negativity) is gone because mild negative prose carries
+    #   no markers. precision 0.75 -> 1.00.
+    assert conf("emotional_framing") == (3, 0, 0, 3, 1)
     # recycled_context: exact fixture lookup, untouched (tp=3, tn=2, na=1).
     assert conf("recycled_context") == (3, 0, 0, 2, 1)
     # caption_content_mismatch: mm01/mm02/hard_mm01 fire->fired (tp=3); kc01/kc02 clear (tn=2);
     #   hard_kc01/hard_kc02/hard_kc03 (synonyms/paraphrase) clear->FIRED (fp=3 — literal
-    #   word-overlap can't see synonyms). precision 0.50 (unchanged by the EF fix).
+    #   word-overlap can't see synonyms). precision 0.50 (untouched by the EF change).
     assert conf("caption_content_mismatch") == (3, 3, 0, 2, 0)
 
     o = report.overall.confusion
-    assert (o.tp, o.fp, o.fn, o.tn, o.not_assessed) == (9, 4, 0, 6, 2)
+    assert (o.tp, o.fp, o.fn, o.tn, o.not_assessed) == (9, 3, 0, 7, 2)
 
-    # recycled_context is perfect; the other two are still degraded by the hard set.
-    rc = report.per_flag["recycled_context"]
-    assert rc.precision == 1.0 and rc.recall == 1.0 and rc.f1 == 1.0
-    assert report.per_flag["emotional_framing"].precision == 0.75
+    # emotional_framing and recycled_context are now both perfect on this set; every remaining
+    # false positive in the system belongs to caption↔scene literal word-overlap.
+    for flag in ("emotional_framing", "recycled_context"):
+        m = report.per_flag[flag]
+        assert m.precision == 1.0 and m.recall == 1.0 and m.f1 == 1.0
     assert report.per_flag["caption_content_mismatch"].precision == 0.5
     # Recall is 1.0 everywhere: the rules catch every true positive; they over-fire, not miss.
     for flag in ("emotional_framing", "recycled_context", "caption_content_mismatch"):
         assert report.per_flag[flag].recall == 1.0
-    assert round(report.overall.precision, 3) == 0.692
+    assert report.overall.precision == 0.75
     assert report.overall.recall == 1.0
-    assert round(report.overall.f1, 3) == 0.818
+    assert round(report.overall.f1, 3) == 0.857
 
 
 def test_known_deterministic_outcomes():

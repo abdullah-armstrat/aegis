@@ -7,9 +7,10 @@ logic precisely — exactly the reproducibility the rules layer exists to provid
 
 from app.fusion.rules import (
     CAPTION_SCENE_OVERLAP_THRESHOLD,
-    EMOTIONAL_INTENSITY_THRESHOLD,
+    MIN_MARKERS_TO_FIRE,
     caption_scene_mismatch_rule,
     emotional_framing_rule,
+    find_manipulation_markers,
     recycled_context_rule,
     run_rules,
 )
@@ -32,41 +33,71 @@ def _bundle(**kwargs) -> EvidenceBundle:
 
 # --- emotional framing ---
 
-def test_emotional_framing_fires_on_high_intensity():
-    b = _bundle(
-        sentiment=Sentiment(label="negative", score=0.99, source="caption"),
-        extractor_status={"sentiment": FlagStatus.FIRED},
-    )
+def test_emotional_framing_fires_on_a_combination_of_markers():
+    """ADR-014 Option B: fires on a combination of deterministic markers, and names them."""
+    b = _bundle(caption="ABSOLUTELY SHOCKING!! Share this before they delete it!!")
     flag = emotional_framing_rule(b)
     assert flag.type == FlagType.EMOTIONAL_FRAMING
     assert flag.status == FlagStatus.FIRED
     assert flag.what_to_check
+    # The evidence must report the specific markers found, not just a score.
+    assert "ALL-CAPS" in flag.evidence
+    assert "exclamation" in flag.evidence
+    assert "manipulation markers present" in flag.evidence
 
 
-def test_emotional_framing_clear_on_low_intensity():
+def test_emotional_framing_clear_on_neutral_wording():
+    b = _bundle(caption="The committee published its quarterly transport figures on Tuesday.")
+    flag = emotional_framing_rule(b)
+    assert flag.status == FlagStatus.CLEAR
+    assert "None of the 4" in flag.evidence
+
+
+def test_emotional_framing_requires_a_combination_not_a_single_marker():
+    """A single marker must not fire — the ADR specifies firing on a combination. This is what
+    stops one stray urgency word from labelling an ordinary post as manipulative."""
+    b = _bundle(caption="Urgent: the residents meeting has moved to Tuesday evening.")
+    flag = emotional_framing_rule(b)
+    assert len(find_manipulation_markers(b.caption)) < MIN_MARKERS_TO_FIRE
+    assert flag.status == FlagStatus.CLEAR
+    assert "Only 1 of 4" in flag.evidence
+
+
+def test_emotional_framing_does_not_fire_on_sober_but_negative_text():
+    """Regression for the construct-validity gap ADR-014 exists to close: critical, negative,
+    measured prose (the [name] class of post) carries no manipulation markers and must
+    now clear, where the old sentiment-polarity proxy fired on it."""
     b = _bundle(
-        sentiment=Sentiment(label="positive", score=0.55, source="caption"),
-        extractor_status={"sentiment": FlagStatus.FIRED},
-    )
-    assert emotional_framing_rule(b).status == FlagStatus.CLEAR
-
-
-def test_emotional_framing_does_not_fire_on_confident_positive():
-    """Regression: a confidently-POSITIVE caption must NOT fire (direction matters, not just
-    confidence), and must never be described as 'strongly negative'. This is the bug found in
-    demo testing where 'a quiet afternoon at the park' (positive 1.00) fired the flag."""
-    b = _bundle(
-        sentiment=Sentiment(label="positive", score=1.00, source="caption"),
+        caption=(
+            "Residents say they are concerned about the proposed parking changes, and have "
+            "asked the council to verify the wording and context before acting."
+        ),
+        # A strongly negative reading is present and must be IGNORED by this rule now.
+        sentiment=Sentiment(label="negative", score=0.9994, source="caption"),
         extractor_status={"sentiment": FlagStatus.FIRED},
     )
     flag = emotional_framing_rule(b)
     assert flag.status == FlagStatus.CLEAR
-    assert "negative" not in flag.plain_explanation or "not read as strongly negative" in flag.plain_explanation
+    assert "manipulation" not in flag.plain_explanation
 
 
-def test_emotional_framing_not_assessed_without_sentiment():
-    b = _bundle(extractor_status={"sentiment": FlagStatus.NOT_ASSESSED})
-    assert emotional_framing_rule(b).status == FlagStatus.NOT_ASSESSED
+def test_emotional_framing_not_assessed_without_caption_text():
+    """Markers are properties of text: no caption means the check could not run (ADR-009)."""
+    assert emotional_framing_rule(_bundle()).status == FlagStatus.NOT_ASSESSED
+    assert emotional_framing_rule(_bundle(caption="   ")).status == FlagStatus.NOT_ASSESSED
+
+
+def test_marker_detector_units():
+    """Each of the four ADR-014-B markers is detectable on its own."""
+    assert any("ALL-CAPS" in m for m in find_manipulation_markers("THIS IS ALL SHOUTED TEXT"))
+    assert any("exclamation" in m for m in find_manipulation_markers("Look at this!!"))
+    assert any("urgency" in m for m in find_manipulation_markers("URGENT: read this"))
+    assert any(
+        "in-/out-group" in m
+        for m in find_manipulation_markers("They are hiding the truth about it")
+    )
+    # Bare pronouns are deliberately not markers — too common in ordinary reporting.
+    assert find_manipulation_markers("They said the changes affect us in March.") == []
 
 
 # --- recycled context ---
