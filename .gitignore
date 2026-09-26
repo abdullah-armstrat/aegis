@@ -58,3 +58,28 @@ fbr-test.jpeg
 beach.jpeg
 at-my-park.jpeg
 flood_recycled_2019.jpg
+
+# --- Final phase (WP-0): data, media and secrets that must never be public ---
+# Raw and third-party datasets: IDs and labels live in data/labels/, never the media itself.
+data/raw/
+data/verite/
+data/**/images/
+data/**/video/
+# Environment files (only *.env.example is tracked).
+.env
+*.env
+!*.env.example
+# Large media produced or collected locally (demo recordings, clips, captures).
+*.mp4
+*.mov
+*.webm
+*.mkv
+*.wav
+*.m4a
+# Working artefacts that are not source.
+Demo Posts/
+docs/results/
+# Submitted report and its colour-coded draft (by name: a broad
+# *.pdf / *.html rule would also catch tracked course material and frontend/index.html).
+AEGIS - Ahmad Abdullah Qureshi - [student number].pdf
+Aegis Colour-coded.html

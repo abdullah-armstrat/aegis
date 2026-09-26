@@ -1,0 +1,2 @@
+clip_id,segment_index,start_s,end_s,transcript_text,matches_visuals,notes
+E01,1,0.00,6.40,"a grey cat sitting on the wall",yes,"ground truth judged by author from the footage"

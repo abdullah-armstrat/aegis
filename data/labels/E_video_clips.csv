@@ -1,0 +1,2 @@
+clip_id,file,duration_s,has_speech,has_on_screen_text,static_shot,contains_image_from_A,topic,notes
+E01,E01_park_walk.mp4,32,yes,no,no,no,animals,"narration matches what is shown"
