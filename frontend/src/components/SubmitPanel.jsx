@@ -9,6 +9,7 @@ export default function SubmitPanel({ onAnalyze, loading }) {
   const [file, setFile] = useState(null);
   const [preview, setPreview] = useState(null);
   const [caption, setCaption] = useState("");
+  const [postedDate, setPostedDate] = useState("");
   const [dragging, setDragging] = useState(false);
   const inputRef = useRef(null);
 
@@ -26,7 +27,7 @@ export default function SubmitPanel({ onAnalyze, loading }) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    if (file && !loading) onAnalyze(file, caption, { preview, filename: file.name });
+    if (file && !loading) onAnalyze(file, caption, { preview, filename: file.name, postedDate });
   }
 
   return (
@@ -99,6 +100,28 @@ export default function SubmitPanel({ onAnalyze, loading }) {
             style={{ borderColor: "#D6D6D6" }}
           />
         </div>
+      </div>
+
+      {/* Optional posting date: lets recycled context compare earlier appearances with it. */}
+      <div className="mt-8 flex flex-wrap items-end gap-x-6 gap-y-2">
+        <label className="flex flex-col gap-2">
+          <span className="flex items-baseline gap-3">
+            <span className="text-[13px] font-semibold text-ink">Date posted</span>
+            <span className="text-xs text-muted">Optional</span>
+          </span>
+          <input
+            type="date"
+            value={postedDate}
+            max={new Date().toISOString().slice(0, 10)}
+            onChange={(e) => setPostedDate(e.target.value)}
+            className="border bg-white px-3 py-2 text-[15px] text-ink focus:border-ink focus:outline-none"
+            style={{ borderColor: "#D6D6D6" }}
+          />
+        </label>
+        <p className="max-w-[420px] pb-2 text-[12.5px] leading-relaxed text-muted">
+          If you know when the post was published, add it. Aegis can then say whether the image
+          was online before that date, rather than only whether it has appeared elsewhere.
+        </p>
       </div>
 
       {/* Action row */}

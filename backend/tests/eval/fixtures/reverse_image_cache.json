@@ -1,5 +1,5 @@
 {
-  "_about": "Cached reverse-image-search fixture (ADR-007). Keys are image identifiers (the bundle's meta.source_ref). Each value mirrors a live reverse-image API response so a real backend (Google Vision / TinEye) can drop in later without changing the fusion logic. Dates are ISO-8601. This lets the recycled-context flag be built and tested fully offline for the Preliminary Report.",
+  "_about": "TEST-ONLY since WP-1 (ADR-018). This was the pre-WP-1 reverse-image fixture (ADR-007), keyed by filename. Production no longer uses it: the app now matches images by content against backend/app/data/image_history_index.json (ADR-017). It is kept because the 19-example regression set injects each example's lookup result from here by source_ref (tests/eval/legacy_lookup.py), which keeps those pinned results independent of the hash threshold. The sources are fictional example.com pages (RFC 2606). Dates are ISO-8601.",
   "matches": {
     "flood_recycled_2019.jpg": [
       {

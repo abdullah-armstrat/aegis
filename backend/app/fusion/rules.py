@@ -14,6 +14,7 @@ a typed, explained flag with a "what to check" prompt.
 from __future__ import annotations
 
 import re
+from datetime import date
 
 from app.models import (
     EvidenceBundle,
@@ -193,52 +194,127 @@ def emotional_framing_rule(bundle: EvidenceBundle) -> Flag:
     )
 
 
-def recycled_context_rule(bundle: EvidenceBundle) -> Flag:
-    """The image appearing elsewhere (especially earlier) suggests recycled context.
+def _parse_iso(value: str | None) -> date | None:
+    try:
+        return date.fromisoformat(value) if value else None
+    except ValueError:
+        return None
 
-    Highest-value, fully reliable flag (recency comes from the web index, not a model). For
-    the Prelim the matches come from the cached fixture (ADR-007).
+
+def recycled_context_rule(bundle: EvidenceBundle) -> Flag:
+    """Has this image appeared before the post claims to be from? (WP-1, ADR-017)
+
+    The lookup matches the image by content against the image history index. The posting date,
+    when the user gives one, decides whether a match actually makes the post look recycled:
+
+      Situation                                                   Status
+      lookup could not run                                        not_assessed
+      lookup ran, no match                                        clear
+      match, posting date given, an appearance is earlier         fired, citing the earliest date
+      match, posting date given, nothing earlier                  clear
+      match, no posting date                                      fired, saying a date would allow
+                                                                  a comparison
+
+    One case the plan's table does not cover: a match whose appearances are not all dated, and
+    none of the dated ones is earlier. That comparison is incomplete, so it is reported as fired
+    with the gap named, never as clear (ADR-009: an incomplete check must not reassure). An
+    appearance on the posting date itself is not "earlier": it may be the post being checked.
     """
     status = bundle.extractor_status.get("reverse_image")
-    # CLEAR is only safe to report when the extractor *explicitly* ran and found nothing.
-    # A missing status (extractor never ran) or NOT_ASSESSED must not read as "nothing
-    # recycled" — that would be a false reassurance (ADR-009).
     if not bundle.web_matches and status != FlagStatus.CLEAR:
         return Flag(
             type=FlagType.RECYCLED_CONTEXT,
             status=FlagStatus.NOT_ASSESSED,
             severity=Severity.INFO,
-            evidence="Reverse-image search could not be performed for this image.",
+            evidence="The image could not be looked up in the image history index.",
             plain_explanation="Whether this image has appeared elsewhere before could not be checked.",
             what_to_check="Run the image through a reverse-image search to see where else it appears.",
         )
 
-    if bundle.web_matches:
-        dated = [m for m in bundle.web_matches if m.published_date]
-        earliest = min((m.published_date for m in dated), default=None)
-        when = f" The earliest known appearance is dated {earliest}." if earliest else ""
+    if not bundle.web_matches:
+        return Flag(
+            type=FlagType.RECYCLED_CONTEXT,
+            status=FlagStatus.CLEAR,
+            severity=Severity.INFO,
+            evidence="The image history index holds no image close enough to this one to be a copy.",
+            plain_explanation="No earlier appearances of this image were found in the searched index.",
+            what_to_check="Absence of matches is not proof of originality; the index is not exhaustive.",
+        )
+
+    matches = bundle.web_matches
+    dated = [(d, m) for m in matches if (d := _parse_iso(m.published_date)) is not None]
+    earliest = min(dated, key=lambda pair: pair[0]) if dated else None
+    distances = [m.hash_distance for m in matches if m.hash_distance is not None]
+    closeness = f" Closest match differs by {min(distances)} of 64 hash bits." if distances else ""
+    found = f"{len(matches)} earlier appearance(s) of a matching image found, e.g. {matches[0].url}."
+    posted = _parse_iso(bundle.meta.posted_date)
+
+    if posted is None:
+        when = (f" The earliest known appearance is dated {earliest[0].isoformat()}."
+                if earliest else " None of the appearances is dated.")
+        return Flag(
+            type=FlagType.RECYCLED_CONTEXT,
+            status=FlagStatus.FIRED,
+            severity=Severity.HIGH,
+            evidence=found + when + closeness,
+            plain_explanation=(
+                "This image has appeared elsewhere before. No posting date was given, so it is not "
+                "possible to say whether those appearances came before this post; adding the date "
+                "the post was published would allow that comparison."
+            ),
+            what_to_check="Compare the dates and contexts of the earlier appearances with this post's claim.",
+        )
+
+    earlier = [(d, m) for d, m in dated if d < posted]
+    if earlier:
+        first_date, first = min(earlier, key=lambda pair: pair[0])
         return Flag(
             type=FlagType.RECYCLED_CONTEXT,
             status=FlagStatus.FIRED,
             severity=Severity.HIGH,
             evidence=(
-                f"{len(bundle.web_matches)} prior web appearance(s) found, e.g. "
-                f"{bundle.web_matches[0].url}.{when}"
+                f"The image appeared on {first_date.isoformat()} ({first.url}), before the stated "
+                f"posting date of {posted.isoformat()}. {len(earlier)} of {len(matches)} known "
+                f"appearance(s) predate the post.{closeness}"
             ),
             plain_explanation=(
-                "This image has appeared elsewhere on the web, possibly in an unrelated or earlier "
-                "context. Recycled imagery is a common way old material is passed off as new."
+                "This image was online before this post says it was published. Old images "
+                "presented as new are a common way of misleading about when or where something "
+                "happened."
             ),
-            what_to_check="Compare the dates and contexts of the earlier appearances with this post's claim.",
+            what_to_check="Open the earlier appearance and compare what it said the image showed.",
+        )
+
+    undated = len(matches) - len(dated)
+    if undated:
+        return Flag(
+            type=FlagType.RECYCLED_CONTEXT,
+            status=FlagStatus.FIRED,
+            severity=Severity.HIGH,
+            evidence=(
+                f"{found} None of the dated appearances is earlier than {posted.isoformat()}, but "
+                f"{undated} appearance(s) carry no date, so the comparison is incomplete.{closeness}"
+            ),
+            plain_explanation=(
+                "This image has appeared elsewhere, and some of those appearances have no date, so "
+                "it cannot be confirmed that this post came first."
+            ),
+            what_to_check="Check when the undated pages first showed this image.",
         )
 
     return Flag(
         type=FlagType.RECYCLED_CONTEXT,
         status=FlagStatus.CLEAR,
         severity=Severity.INFO,
-        evidence="No prior web appearances were found for this image.",
-        plain_explanation="No earlier appearances of this image were found in the searched index.",
-        what_to_check="Absence of matches is not proof of originality; the index is not exhaustive.",
+        evidence=(
+            f"{len(matches)} matching appearance(s) found, all dated on or after the stated posting "
+            f"date of {posted.isoformat()} (earliest {earliest[0].isoformat()}).{closeness}"
+        ),
+        plain_explanation=(
+            "Copies of this image exist elsewhere, but none is known from before this post's date, "
+            "which is consistent with this being where it first appeared."
+        ),
+        what_to_check="Absence of an earlier appearance is not proof of originality; the index is not exhaustive.",
     )
 
 

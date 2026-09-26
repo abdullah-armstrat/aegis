@@ -39,3 +39,6 @@ faster-whisper==1.2.0
 # ffmpeg is a system binary, not a pip package: it must be on PATH (verified WP-0).
 # WP-6 · peak-memory measurement for the performance table.
 psutil==7.2.2
+# WP-1 · provisional hash-robustness harness: openly licensed sample images bundled with
+# scikit-image, loaded at run time and never committed (scripts/eval_hash_robustness.py).
+scikit-image==0.26.0

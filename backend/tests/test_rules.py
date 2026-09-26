@@ -130,6 +130,62 @@ def test_recycled_context_not_assessed_when_status_missing():
     assert recycled_context_rule(b).status == FlagStatus.NOT_ASSESSED
 
 
+# --- recycled context: the five status paths of WP-1 (ADR-017) ---
+
+def _matched(posted_date=None, dates=("2019-03-04", "2021-08-17")):
+    """A bundle whose lookup found the image, with appearances on the given dates."""
+    return _bundle(
+        web_matches=[
+            WebMatch(url=f"https://e.com/{i}", published_date=d, hash_distance=2)
+            for i, d in enumerate(dates)
+        ],
+        extractor_status={"reverse_image": FlagStatus.FIRED},
+        meta=Meta(modality=Modality.IMAGE, source_ref="t.jpg", posted_date=posted_date),
+    )
+
+
+def test_recycled_fires_when_an_appearance_predates_the_posting_date():
+    flag = recycled_context_rule(_matched(posted_date="2026-09-01"))
+    assert flag.status == FlagStatus.FIRED
+    assert "2019-03-04" in flag.evidence and "2026-09-01" in flag.evidence
+    assert "2 of 2" in flag.evidence
+    assert "Closest match differs by 2 of 64" in flag.evidence
+
+
+def test_recycled_clear_when_every_appearance_is_after_the_posting_date():
+    """The image is out there, but not from before this post: consistent with it being first."""
+    flag = recycled_context_rule(_matched(posted_date="2018-12-31"))
+    assert flag.status == FlagStatus.CLEAR
+    assert "on or after" in flag.evidence
+
+
+def test_recycled_same_day_appearance_is_not_earlier():
+    """An appearance on the posting date itself may be the post being checked."""
+    flag = recycled_context_rule(_matched(posted_date="2019-03-04", dates=("2019-03-04",)))
+    assert flag.status == FlagStatus.CLEAR
+
+
+def test_recycled_fires_without_a_posting_date_and_says_why():
+    flag = recycled_context_rule(_matched(posted_date=None))
+    assert flag.status == FlagStatus.FIRED
+    assert "earliest known appearance is dated 2019-03-04" in flag.evidence
+    assert "posting date" in flag.plain_explanation
+
+
+def test_recycled_undated_appearances_never_read_as_clear():
+    """Nothing dated is earlier, but one appearance has no date: the comparison is incomplete,
+    so it must not be reported clear (ADR-009). This case is outside the plan's table."""
+    flag = recycled_context_rule(_matched(posted_date="2018-12-31", dates=("2019-03-04", None)))
+    assert flag.status == FlagStatus.FIRED
+    assert "carry no date" in flag.evidence
+
+
+def test_recycled_without_posting_date_and_no_dates_at_all():
+    flag = recycled_context_rule(_matched(posted_date=None, dates=(None,)))
+    assert flag.status == FlagStatus.FIRED
+    assert "None of the appearances is dated" in flag.evidence
+
+
 # --- caption <-> scene mismatch ---
 
 def test_caption_scene_fires_on_low_overlap():

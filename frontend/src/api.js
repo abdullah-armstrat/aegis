@@ -7,11 +7,13 @@ export async function getHealth() {
   return resp.json();
 }
 
-// analyze(file, caption) -> Scorecard JSON from POST /analyze.
-export async function analyze(file, caption) {
+// analyze(file, caption, postedDate) -> Scorecard JSON from POST /analyze.
+// postedDate is optional ("YYYY-MM-DD"); recycled context compares earlier appearances with it.
+export async function analyze(file, caption, postedDate) {
   const form = new FormData();
   form.append("image", file);
   form.append("caption", caption ?? "");
+  if (postedDate) form.append("posted_date", postedDate);
 
   const resp = await fetch(`${API_BASE}/analyze`, { method: "POST", body: form });
   if (!resp.ok) {

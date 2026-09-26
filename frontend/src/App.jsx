@@ -15,7 +15,7 @@ export default function App() {
     setError(null);
     setScorecard(null);
     try {
-      const card = await analyze(file, caption);
+      const card = await analyze(file, caption, ctx?.postedDate);
       setSubmission({ ...ctx, caption });
       setScorecard(card);
       setScreen("scorecard");

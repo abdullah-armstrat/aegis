@@ -75,6 +75,7 @@ export default function Scorecard({ scorecard, submission }) {
               )}
               <p className="mt-2 font-mono text-[11px] text-muted">
                 {submission.filename ? `${submission.filename} · ` : ""}
+                {submission.postedDate ? `posted ${submission.postedDate} · ` : ""}
                 {submission.caption
                   ? `caption ${submission.caption.trim().split(/\s+/).length} words`
                   : "no caption"}

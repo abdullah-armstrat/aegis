@@ -103,6 +103,11 @@ class WebMatch(BaseModel):
     context: str | None = Field(
         default=None, description="Short description of the matching page's context."
     )
+    hash_distance: int | None = Field(
+        default=None,
+        description="pHash Hamming distance (of 64 bits) between the upload and the matched "
+        "image-history entry. None when the match did not come from a hash lookup.",
+    )
 
 
 class AiGenHint(BaseModel):
@@ -119,6 +124,14 @@ class Meta(BaseModel):
     frame_timestamps: list[float] = Field(default_factory=list)
     source_ref: str | None = Field(
         default=None, description="Filename / URL / id of the analysed item."
+    )
+    posted_date: str | None = Field(
+        default=None,
+        description="ISO date (YYYY-MM-DD) the post claims to have been published, if the user "
+        "gave one. Recycled context compares prior appearances against it.",
+    )
+    image_phash: str | None = Field(
+        default=None, description="64-bit pHash of the analysed image, as 16 hex characters."
     )
 
 

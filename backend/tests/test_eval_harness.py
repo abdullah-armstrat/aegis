@@ -106,3 +106,17 @@ def test_known_deterministic_outcomes():
     ec = _predict(by_id["ec01"], use_llm=False)
     assert ec.get("emotional_framing") == "not_assessed"
     assert ec.get("recycled_context") == "not_assessed"
+
+
+def test_regression_lookups_are_injected_not_hashed():
+    """ADR-018: every example shares one blank image, so the recycled-context lookup is injected
+    from the pre-WP-1 fixture by source_ref, reproducing the old extractor's three outcomes."""
+    from app.models import FlagStatus
+    from tests.eval.legacy_lookup import legacy_lookup
+
+    matches, status = legacy_lookup("flood_recycled_2019.jpg")
+    assert status == FlagStatus.FIRED and len(matches) == 2
+    assert legacy_lookup("protest_recycled.jpg")[1] == FlagStatus.FIRED
+    assert legacy_lookup("consistent_sunset.jpg") == ([], FlagStatus.CLEAR)
+    assert legacy_lookup("studio_cat.jpg") == ([], FlagStatus.CLEAR)
+    assert legacy_lookup("unknown_to_cache.png") == ([], FlagStatus.NOT_ASSESSED)

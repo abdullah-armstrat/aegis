@@ -5,9 +5,11 @@ What it does, honestly and reproducibly:
   * Loads the labelled examples (``test_set/examples.json``).
   * Ensures each referenced image exists, generating a tiny blank PNG if missing — so the set
     is self-contained and the run is reproducible without committing binaries.
-  * For each example, builds the Evidence Bundle with the *real* extractors, optionally injects
-    controlled ``scene_descriptions`` (standing in for the not-yet-integrated captioner so the
-    caption↔scene *rule* can be scored), then runs the *real* fusion core.
+  * For each example, builds the Evidence Bundle with the *real* extractors, then injects two
+    controlled inputs so the *rules* are scored deterministically: ``scene_descriptions`` from
+    ``inject_scene`` (caption vs scene), and the reverse-image lookup result from the example's
+    ``source_ref`` (recycled context; see ``legacy_lookup.py`` and ADR-018). Then it runs the
+    *real* fusion core.
   * Compares each labelled flag's predicted status to its expected outcome and accumulates a
     confusion matrix per flag type (NOT_ASSESSED excluded from P/R, counted as coverage —
     ADR-009).
@@ -36,6 +38,7 @@ if str(_BACKEND_DIR) not in sys.path:
 from app.adapters.image_adapter import build_bundle  # noqa: E402
 from app.fusion.scorecard import build_scorecard  # noqa: E402
 from app.models import FlagStatus, SceneDescription  # noqa: E402
+from tests.eval.legacy_lookup import inject_lookup  # noqa: E402
 from tests.eval.metrics import build_report  # noqa: E402
 
 _TEST_SET_DIR = Path(__file__).resolve().parent / "test_set"
@@ -71,11 +74,11 @@ def _predict(example: dict, use_llm: bool) -> dict[str, str]:
     get_settings.cache_clear()
 
     image_bytes = _ensure_image(example["image"])
-    bundle = build_bundle(
-        image_bytes,
-        caption=example.get("caption") or None,
-        source_ref=example.get("source_ref") or example["image"],
-    )
+    source_ref = example.get("source_ref") or example["image"]
+    bundle = build_bundle(image_bytes, caption=example.get("caption") or None, source_ref=source_ref)
+    # Every example shares one blank image, so content hashing cannot separate them: inject each
+    # example's lookup result instead, as inject_scene does for scene text (ADR-018).
+    inject_lookup(bundle, source_ref)
     if example.get("inject_scene"):
         bundle.scene_descriptions = [SceneDescription(text=t) for t in example["inject_scene"]]
 
