@@ -28,14 +28,21 @@ transformers>=4.40              # HF sentiment model now; BLIP captioner next
 # ---- Added 2026-09-27 — pinned exactly; verified installing on the CPU laptop ----
 # Match images by content: 64-bit perceptual hash.
 ImageHash==4.3.2
-# Caption vs image by meaning. CLIP ViT-B/32 loads through the transformers pinned above
-# (openai/clip-vit-base-patch32 ships only pytorch_model.bin, so load it with
-# use_safetensors=False). MiniLM sentence embeddings:
-sentence-transformers==5.2.0
-requests==2.32.5                # required by sentence-transformers but not declared by it
-# Video path: scene-cut keyframes, audio transcription (whisper base, int8, CPU).
+# Models come from their makers' own servers, not the Hugging Face Hub (which rate-limits the
+# development laptop). Each loads with the network blocked once downloaded:
+#   python scripts/probe_models.py --download   then   python scripts/probe_models.py
+#
+# Caption vs image by meaning: OpenAI CLIP, installed from OpenAI's repository at a fixed commit.
+# CLIP needs torchvision; install the CPU build that matches torch:
+#   pip install torchvision==0.27.0 --index-url https://download.pytorch.org/whl/cpu
+torchvision==0.27.0
+clip @ git+https://github.com/openai/CLIP.git@d05afc436d78f1c48dc0dbf8e5980a9d471f35f6
+# Text similarity: spaCy word vectors. The model wheel comes from spaCy's GitHub releases.
+spacy==3.8.16
+en_core_web_md @ https://github.com/explosion/spacy-models/releases/download/en_core_web_md-3.8.0/en_core_web_md-3.8.0-py3-none-any.whl
+# Video path: scene-cut keyframes, and speech transcription with openai-whisper on CPU.
 scenedetect[opencv]==0.6.7
-faster-whisper==1.2.0
+openai-whisper==20250625
 # ffmpeg is a system binary, not a pip package: it must be on PATH (verified 2026-09-27).
 # Peak-memory measurement for the performance evaluation.
 psutil==7.2.2
