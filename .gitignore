@@ -79,7 +79,22 @@ data/**/video/
 # Working artefacts that are not source.
 Demo Posts/
 docs/results/
-# Submitted report and its colour-coded draft (by name: a broad
-# *.pdf / *.html rule would also catch tracked course material and frontend/index.html).
-AEGIS - Ahmad Abdullah Qureshi - [student number].pdf
+# Submitted reports and the colour-coded draft. Matched by pattern,
+# never by a filename that carries personal data. (A broad *.html rule would catch
+# frontend/index.html, so the draft is named.)
+AEGIS - *.pdf
 Aegis Colour-coded.html
+
+# --- Never in git history, by rule (2026-09-27): every note, plan, log and ADR stays local ---
+# Markdown of any kind: README, DEVLOG, DECISIONS/ADRs, plans, folder READMEs.
+*.md
+*.MD
+*.markdown
+# Dev logs in any format.
+DEV_LOG*
+DEVLOG*
+dev_log*
+devlog*
+# Course material (University of London): kept on this laptop only.
+Resources/Instructions/
+Resources/Transcripts/
