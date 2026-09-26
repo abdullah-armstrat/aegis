@@ -1,15 +1,14 @@
-"""Sentiment / emotional-intensity extractor (SSOT §3.2 ``sentiment``).
+"""Sentiment / emotional-intensity extractor (the bundle's ``sentiment`` field).
 
-Powers the emotional-framing flag — "this content uses high-intensity emotional language, a
-known manipulation technique" (SSOT §1.4). We deliberately read both a sentiment *label* and
+Written for the emotional-framing flag; since that flag moved to wording markers, no rule
+reads this output. We deliberately read both a sentiment *label* and
 an *intensity* (how far from neutral / how confident), since the media-literacy signal is
 about intensity of framing, not which polarity.
 
 Uses a small HuggingFace text-classification model via ``transformers``. The model is loaded
 lazily and memoised so importing this module is cheap and the model downloads only on first
 use. Like the OCR extractor, this never raises: if the model or its deps are unavailable, it
-returns a ``NOT_ASSESSED`` result so fusion records honestly that the check could not run
-(ADR-009).
+returns a ``NOT_ASSESSED`` result so fusion records honestly that the check could not run.
 """
 
 from __future__ import annotations
@@ -20,7 +19,7 @@ from functools import lru_cache
 from app.models import FlagStatus, Sentiment
 
 # A small, widely-available sentiment model. Kept here as the single source of truth so a
-# model swap (or an accuracy trial vs an alternative) is a one-line change recorded in DEVLOG.
+# model swap (or an accuracy trial vs an alternative) is a one-line change.
 _MODEL_NAME = "distilbert-base-uncased-finetuned-sst-2-english"
 
 
@@ -46,7 +45,7 @@ def analyse_sentiment(text: str | None, source: str) -> SentimentResult:
 
     ``source`` records which field was scored (e.g. "caption", "transcript"). Empty/whitespace
     text is a legitimate CLEAR (nothing to assess), distinct from a model failure
-    (NOT_ASSESSED) — the ADR-009 distinction.
+    (NOT_ASSESSED), so "nothing to check" never reads as "could not check".
     """
     if not text or not text.strip():
         return SentimentResult(None, FlagStatus.CLEAR, "No text to assess.")

@@ -1,15 +1,14 @@
-"""Scene-caption extractor (SSOT §3.2 ``scene_descriptions``).
+"""Scene-caption extractor: fills the bundle's ``scene_descriptions``.
 
 Describes what an image actually shows, so the fusion core can compare that description with
 the user's caption (the caption↔scene-mismatch check). Uses BLIP-base via ``transformers``,
 loaded lazily and memoised so import stays cheap and the ~1GB model downloads only on first
-use. Spike (DEVLOG 2026-05-31, measured): first load 118.0s (includes the one-time model
-download), then warm captioning ~1.6s/image on CPU — well under the pre-set 20s/image
-threshold, so it runs locally for the Prelim (ADR-013).
+use. Measured on the development laptop on 2026-05-31: first load 118.0s (including the
+one-time model download), then warm captioning ~1.6s/image on CPU — well under the pre-set
+20s/image threshold, so it runs locally rather than on a hosted service.
 
 Like the other extractors, this never raises: if the model or its deps are unavailable it
-returns a ``NOT_ASSESSED`` result so fusion records honestly that the check could not run
-(ADR-009).
+returns a ``NOT_ASSESSED`` result so fusion records honestly that the check could not run.
 """
 
 from __future__ import annotations
@@ -49,7 +48,7 @@ def describe_scene(image_bytes: bytes) -> CaptionResult:
     """Caption the image and return a :class:`CaptionResult`.
 
     Never raises: unreadable bytes or a model/dep failure become a ``NOT_ASSESSED`` result so
-    the caller can record honestly that the check could not be performed (ADR-009).
+    the caller can record honestly that the check could not be performed.
     """
     try:
         import torch

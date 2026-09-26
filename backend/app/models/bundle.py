@@ -1,11 +1,11 @@
-"""The Evidence Bundle contract — the spine of the whole system (SSOT §3.2).
+"""The Evidence Bundle contract — the spine of the whole system.
 
 Every modality adapter (image, video) emits an :class:`EvidenceBundle`; the fusion core
 consumes it and emits a :class:`Scorecard` of explained :class:`Flag` s. Building this
-contract before any extractor is a deliberate decision (ADR-003): everything downstream
+contract before any extractor is a deliberate decision: everything downstream
 depends on the bundle shape, so it is defined and stable first.
 
-Design rule reflected here (ADR-002): a Flag carries a plain-language explanation and a
+Design rule reflected here: a Flag carries a plain-language explanation and a
 "what to check" prompt. There is no trust score or verdict field anywhere — by design.
 """
 
@@ -15,7 +15,7 @@ from enum import Enum
 
 from pydantic import BaseModel, Field
 
-# Version of the Evidence Bundle / Scorecard contract (ADR-010). The bundle is the one
+# Version of the Evidence Bundle / Scorecard contract. The bundle is the one
 # structure the whole system pivots on, and it will grow when the video path lands
 # (temporal/transcript fields). Stamping a version lets the eval harness and cached
 # fixtures tell which shape they are dealing with later. Bump on any breaking change.
@@ -42,7 +42,7 @@ class Severity(str, Enum):
 
 
 class FlagType(str, Enum):
-    """The catalogue of flags Aegis can raise (SSOT §1.4)."""
+    """The catalogue of flags Aegis can raise."""
 
     AUDIO_VISUAL_MISMATCH = "audio_visual_mismatch"
     CAPTION_CONTENT_MISMATCH = "caption_content_mismatch"
@@ -52,13 +52,13 @@ class FlagType(str, Enum):
 
 
 class FlagStatus(str, Enum):
-    """The outcome of *attempting* a given check (ADR-009).
+    """The outcome of *attempting* a given check.
 
     The crucial distinction is between FIRED, CLEAR, and NOT_ASSESSED. A check that
     silently does not fire because its input was missing (no on-screen text, blurry image,
     LLM offloaded/unavailable) must not look like a check that ran and found consistency —
     that would be a false sense of safety, the exact harm 'explain, don't verdict' exists to
-    avoid (ADR-002). So fusion emits a Flag for every check it considered, carrying its
+    avoid. So fusion emits a Flag for every check it considered, carrying its
     status, rather than only appending Flags that fired.
     """
 
@@ -81,7 +81,7 @@ class SceneDescription(BaseModel):
 
 
 class Sentiment(BaseModel):
-    """Emotional-intensity reading over the available text (SSOT §3.2)."""
+    """Emotional-intensity reading over the available text."""
 
     label: str
     score: float = Field(description="Model confidence / intensity in [0, 1].")
@@ -91,8 +91,8 @@ class Sentiment(BaseModel):
 class WebMatch(BaseModel):
     """A reverse-image-search hit — where else this image has appeared.
 
-    For the Preliminary Report these come from a cached fixture (ADR-007); the shape is
-    identical to a live API result so a real backend can drop in later.
+    These come from the offline image history index; the shape matches a live reverse-image
+    API result, so a live backend can drop in later.
     """
 
     url: str
@@ -111,7 +111,7 @@ class WebMatch(BaseModel):
 
 
 class AiGenHint(BaseModel):
-    """An optional, explicitly weak AI-generation signal (SSOT §1.4 — never conclusive)."""
+    """An optional, explicitly weak AI-generation signal — never conclusive."""
 
     indicative: bool
     confidence: float = Field(description="Weak signal strength in [0, 1]; treat with caution.")
@@ -138,7 +138,7 @@ class Meta(BaseModel):
 class EvidenceBundle(BaseModel):
     """Normalised evidence emitted by every adapter and consumed by the fusion core.
 
-    The fields mirror SSOT §3.2 exactly. ``caption`` is the user-supplied caption for the
+    ``caption`` is the user-supplied caption for the
     image path; ``transcript`` is the spoken-audio transcript for the video path.
     """
 
@@ -171,10 +171,10 @@ class EvidenceBundle(BaseModel):
 
 
 class Flag(BaseModel):
-    """A single check's result. Note: no trust score — explain, don't verdict (ADR-002).
+    """A single check's result. Note: no trust score — explain, don't verdict.
 
     A Flag is emitted for every check fusion *considered*, not only those that fired; its
-    ``status`` says whether it FIRED, came back CLEAR, or could NOT_ASSESSED (ADR-009). The
+    ``status`` says whether it FIRED, came back CLEAR, or could NOT_ASSESSED. The
     explanatory fields are required when ``status`` is FIRED; for CLEAR / NOT_ASSESSED they
     carry a short note on what was (or could not be) checked.
     """
@@ -195,7 +195,7 @@ class Flag(BaseModel):
 class Scorecard(BaseModel):
     """The system's output: the result of every check considered, never a verdict.
 
-    ``flags`` includes CLEAR and NOT_ASSESSED entries, not only those that fired (ADR-009),
+    ``flags`` includes CLEAR and NOT_ASSESSED entries, not only those that fired,
     so the UI can show honestly what was checked, what was clear, and what could not be
     assessed.
     """

@@ -1,16 +1,16 @@
-"""Reverse-image lookup — the recycled-context signal, matched by image content (WP-1, ADR-017).
+"""Reverse-image lookup — the recycled-context signal, matched by image content.
 
 Answers "has this picture appeared before, and when?". The upload is fingerprinted with a 64-bit
 perceptual hash (``phash.py``) and compared against an **image history index**: a JSON file in
 which each entry holds a hash, the earliest known date the image appeared, and the pages it
 appeared on. A match is a Hamming distance at or below ``phash_match_threshold``. Matching on
 content means a renamed, recompressed or resized copy is still found — the filename lookup it
-replaces (ADR-007) was defeated by any re-save.
+replaces was defeated by any re-save.
 
-The index runs fully offline with no key. The live web lookup (WP-4) will sit behind the same
+The index runs fully offline with no key. A live web lookup would sit behind the same
 function and the same ``ReverseImageResult``.
 
-Status semantics (ADR-009). This extractor reports what the *lookup* found; whether that makes
+Status semantics. This extractor reports what the *lookup* found; whether that makes
 the post look recycled depends on the posting date, which the rule layer decides.
   * ``FIRED``        — at least one index entry is within the threshold.
   * ``CLEAR``        — the lookup ran against a readable index and nothing is within the threshold.
@@ -32,7 +32,7 @@ from app.extractors.phash import HASH_BITS, compute_phash, hamming
 from app.models import FlagStatus, WebMatch
 
 _DEFAULT_INDEX = Path(__file__).resolve().parents[1] / "data" / "image_history_index.json"
-_OFFLINE_MODES = {"index", "cache"}  # "cache" = the pre-WP-1 name, accepted as an alias
+_OFFLINE_MODES = {"index", "cache"}  # "cache" = the earlier name, accepted as an alias
 _HEX = re.compile(rf"^[0-9a-f]{{{HASH_BITS // 4}}}$")
 
 

@@ -1,4 +1,4 @@
-"""Perceptual hashing — the content fingerprint behind the recycled-context check (WP-1).
+"""Perceptual hashing — the content fingerprint behind the recycled-context check.
 
 A perceptual hash summarises what an image *looks like* rather than its exact bytes, so a
 recompressed, resized or lightly cropped copy lands a small Hamming distance from the original,
@@ -9,7 +9,7 @@ Uses pHash from ``imagehash`` at its default ``hash_size=8``: a 64-bit hash from
 frequencies of a 32x32 DCT of the greyscale image. Hashes travel as 16-character hex strings.
 
 Never raises: unreadable bytes become ``None`` with a reason, so the caller can report the
-check as NOT_ASSESSED instead of silently treating "could not hash" as "no match" (ADR-009).
+check as NOT_ASSESSED instead of silently treating "could not hash" as "no match".
 """
 
 from __future__ import annotations

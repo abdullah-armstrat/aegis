@@ -1,6 +1,6 @@
-"""Tests for the deterministic fusion rules (ADR-004).
+"""Tests for the deterministic fusion rules.
 
-Each rule is tested across all three honest outcomes where applicable (ADR-009). Bundles are
+Each rule is tested across all three honest outcomes where applicable. Bundles are
 constructed directly (no extractors run), so these are fast, deterministic, and pin the rule
 logic precisely — exactly the reproducibility the rules layer exists to provide.
 """
@@ -34,7 +34,7 @@ def _bundle(**kwargs) -> EvidenceBundle:
 # --- emotional framing ---
 
 def test_emotional_framing_fires_on_a_combination_of_markers():
-    """ADR-014 Option B: fires on a combination of deterministic markers, and names them."""
+    """Fires on a combination of deterministic markers, and names them."""
     b = _bundle(caption="ABSOLUTELY SHOCKING!! Share this before they delete it!!")
     flag = emotional_framing_rule(b)
     assert flag.type == FlagType.EMOTIONAL_FRAMING
@@ -54,7 +54,7 @@ def test_emotional_framing_clear_on_neutral_wording():
 
 
 def test_emotional_framing_requires_a_combination_not_a_single_marker():
-    """A single marker must not fire — the ADR specifies firing on a combination. This is what
+    """A single marker must not fire — the rule fires only on a combination. This is what
     stops one stray urgency word from labelling an ordinary post as manipulative."""
     b = _bundle(caption="Urgent: the residents meeting has moved to Tuesday evening.")
     flag = emotional_framing_rule(b)
@@ -64,8 +64,8 @@ def test_emotional_framing_requires_a_combination_not_a_single_marker():
 
 
 def test_emotional_framing_does_not_fire_on_sober_but_negative_text():
-    """Regression for the construct-validity gap ADR-014 exists to close: critical, negative,
-    measured prose (the [name] class of post) carries no manipulation markers and must
+    """Regression for the construct-validity gap the marker rule closes: critical, negative,
+    measured prose (the kind of critical news post the old rule flagged) carries no manipulation markers and must
     now clear, where the old sentiment-polarity proxy fired on it."""
     b = _bundle(
         caption=(
@@ -82,13 +82,13 @@ def test_emotional_framing_does_not_fire_on_sober_but_negative_text():
 
 
 def test_emotional_framing_not_assessed_without_caption_text():
-    """Markers are properties of text: no caption means the check could not run (ADR-009)."""
+    """Markers are properties of text: no caption means the check could not run."""
     assert emotional_framing_rule(_bundle()).status == FlagStatus.NOT_ASSESSED
     assert emotional_framing_rule(_bundle(caption="   ")).status == FlagStatus.NOT_ASSESSED
 
 
 def test_marker_detector_units():
-    """Each of the four ADR-014-B markers is detectable on its own."""
+    """Each of the four markers is detectable on its own."""
     assert any("ALL-CAPS" in m for m in find_manipulation_markers("THIS IS ALL SHOUTED TEXT"))
     assert any("exclamation" in m for m in find_manipulation_markers("Look at this!!"))
     assert any("urgency" in m for m in find_manipulation_markers("URGENT: read this"))
@@ -125,12 +125,12 @@ def test_recycled_context_not_assessed_when_unknown():
 def test_recycled_context_not_assessed_when_status_missing():
     """Regression: a bundle where the reverse-image extractor never ran (no status key) and
     has no matches must be NOT_ASSESSED, never CLEAR — empty must not read as 'searched, none
-    recycled' (ADR-009). This bug was caught by the scorecard 'nothing fires' test."""
+    recycled'. This bug was caught by the scorecard 'nothing fires' test."""
     b = _bundle(web_matches=[], extractor_status={})
     assert recycled_context_rule(b).status == FlagStatus.NOT_ASSESSED
 
 
-# --- recycled context: the five status paths of WP-1 (ADR-017) ---
+# --- recycled context: the five status paths of the date-gated rule ---
 
 def _matched(posted_date=None, dates=("2019-03-04", "2021-08-17")):
     """A bundle whose lookup found the image, with appearances on the given dates."""
@@ -174,7 +174,7 @@ def test_recycled_fires_without_a_posting_date_and_says_why():
 
 def test_recycled_undated_appearances_never_read_as_clear():
     """Nothing dated is earlier, but one appearance has no date: the comparison is incomplete,
-    so it must not be reported clear (ADR-009). This case is outside the plan's table."""
+    so it must not be reported clear. This case is outside the rule's status table."""
     flag = recycled_context_rule(_matched(posted_date="2018-12-31", dates=("2019-03-04", None)))
     assert flag.status == FlagStatus.FIRED
     assert "carry no date" in flag.evidence
@@ -208,7 +208,7 @@ def test_caption_scene_clear_on_high_overlap():
 
 def test_caption_scene_not_assessed_without_scene():
     """Before the captioner is wired (no scene_descriptions) this is NOT_ASSESSED, not a
-    silent pass — the honest behaviour (ADR-009)."""
+    silent pass — the honest behaviour."""
     b = _bundle(caption="anything")
     assert caption_scene_mismatch_rule(b).status == FlagStatus.NOT_ASSESSED
 
@@ -217,7 +217,7 @@ def test_caption_scene_not_assessed_without_scene():
 
 def test_run_rules_on_built_mismatch_example():
     """The canonical demo case: recycled flood image + wrong fresh caption. Rules alone should
-    raise the caption↔scene mismatch AND the recycled-context flag (ADR-004 baseline)."""
+    raise the caption↔scene mismatch AND the recycled-context flag (the rules-only baseline)."""
     b = _bundle(
         caption="URGENT: massive flood hitting the city right now, share immediately!",
         scene_descriptions=[SceneDescription(text="a calm dry residential street, parked cars")],

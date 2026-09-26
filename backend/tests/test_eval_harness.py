@@ -12,7 +12,7 @@ from tests.eval.run_eval import _load_examples, _predict, evaluate
 
 def test_manifest_loads_and_is_well_formed():
     examples = _load_examples()
-    assert len(examples) >= 10  # SSOT: start with 10–15
+    assert len(examples) >= 10  # the set began with 10-15 examples
     ids = [e["id"] for e in examples]
     assert len(ids) == len(set(ids)), "example ids must be unique"
     valid = {"fire", "clear"}
@@ -42,7 +42,7 @@ def test_rules_only_confusion_is_exactly_as_expected():
     """Pin the EXACT rules-only confusion matrix. These values are execution-verified: if the
     rules or manifest change, this fails loudly and the expected values must be re-derived.
 
-    Hand derivation on the 19-example set (rules-only, as of ADR-014 Option B):
+    Hand derivation on the 19-example set (rules-only, with the marker-based emotional-framing rule):
       emotional_framing:  em01/em03/combo01 fire->fired; em02/hard_em01/hard_em02
                           clear->clear; ec01 (no caption text) clear->not_assessed
                           => tp=3 fp=0 fn=0 tn=3 na=1
@@ -60,7 +60,7 @@ def test_rules_only_confusion_is_exactly_as_expected():
         return (c.tp, c.fp, c.fn, c.tn, c.not_assessed)
 
     # 19-example set (13 clear-cut + 6 hard). REAL measured values, read from run_eval.py
-    # --json (re-derived 2026-08-17 after ADR-014 Option B replaced the emotional-framing
+    # --json (re-derived 2026-08-17 after wording markers replaced the emotional-framing
     # sentiment proxy with deterministic manipulation markers).
     # emotional_framing: em01 (4 markers), em03 (4), combo01 (3) fire->fired (tp=3);
     #   em02 (0 markers), hard_em01 (0), hard_em02 (0) clear->clear (tn=3); ec01 has no caption
@@ -109,8 +109,8 @@ def test_known_deterministic_outcomes():
 
 
 def test_regression_lookups_are_injected_not_hashed():
-    """ADR-018: every example shares one blank image, so the recycled-context lookup is injected
-    from the pre-WP-1 fixture by source_ref, reproducing the old extractor's three outcomes."""
+    """Every example shares one blank image, so the recycled-context lookup is injected
+    from the earlier filename-keyed fixture by source_ref, reproducing the old extractor's three outcomes."""
     from app.models import FlagStatus
     from tests.eval.legacy_lookup import legacy_lookup
 

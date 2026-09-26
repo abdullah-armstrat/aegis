@@ -1,9 +1,9 @@
 """Tests for the scorecard assembler.
 
-Cover the two evaluation configurations the project compares (SSOT §5.3): rules-only
+Cover the two evaluation configurations the project compares: rules-only
 (use_llm=false) and rules+LLM (use_llm=true). The LLM is stubbed so these stay fast and
-deterministic — the reasoner has its own tests. Asserts the additive contract (ADR-004): the
-LLM adds a flag, never replaces the rule flags, and the scorecard carries no verdict (ADR-002).
+deterministic — the reasoner has its own tests. Asserts the additive contract: the
+LLM adds a flag, never replaces the rule flags, and the scorecard carries no verdict.
 """
 
 from app.config import get_settings
@@ -48,7 +48,7 @@ def test_rules_only_scorecard(monkeypatch):
 
 
 def test_rules_plus_llm_is_additive(monkeypatch):
-    """With use_llm=true the LLM adds one flag; the three rule flags remain (ADR-004)."""
+    """With use_llm=true the LLM adds one flag; the three rule flags remain."""
     get_settings.cache_clear()
     monkeypatch.setenv("AEGIS_USE_LLM", "true")
     get_settings.cache_clear()

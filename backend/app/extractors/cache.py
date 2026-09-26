@@ -3,8 +3,8 @@
 Slow calls — the captioner, the LLM reasoner, and (later) a live reverse-image API — are
 cached by a SHA-256 of their input so that iterating on fusion rules does not re-run a
 multi-second model call every time. This is purely a development-speed device; it has no
-effect on the architecture and is safe to delete. The reverse-image *fixture* cache
-(ADR-007) is a separate, intentional, committed artefact — this one is a transient dev cache
+effect on the architecture and is safe to delete. The reverse-image *history index* is a
+separate, intentional, committed artefact — this one is a transient dev cache
 under ``backend/.cache`` (git-ignored).
 
 Usage::

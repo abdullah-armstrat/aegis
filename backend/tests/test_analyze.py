@@ -41,7 +41,7 @@ def test_analyze_returns_scorecard(monkeypatch):
     assert body["modality"] == "image"
     assert body["source_ref"] == "photo.png"
     assert body["summary"]
-    # Every flag carries the explain-don't-verdict fields and a status (ADR-002, ADR-009).
+    # Every flag carries the explain-don't-verdict fields and a status.
     for flag in body["flags"]:
         assert {"type", "status", "plain_explanation", "what_to_check"} <= flag.keys()
     assert "verdict" not in body
@@ -72,7 +72,7 @@ def test_analyze_works_without_caption():
     assert resp.json()["modality"] == "image"
 
 
-# --- WP-1: posting date and content matching through the real HTTP path (ADR-017) ---
+# --- Posting date and content matching through the real HTTP path ---
 
 from pathlib import Path  # noqa: E402
 

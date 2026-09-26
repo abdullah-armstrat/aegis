@@ -1,8 +1,8 @@
 """Tests for the LLM reasoner's contract and guardrail.
 
 These do not call a live model — they assert the behaviour fusion relies on: the
-supplied-text-only guardrail is present in the prompt (ADR-005), and an unavailable/disabled
-LLM degrades to available=False (so fusion can mark NOT_ASSESSED, ADR-009) rather than
+supplied-text-only guardrail is present in the prompt, and an unavailable/disabled
+LLM degrades to available=False (so fusion can mark NOT_ASSESSED) rather than
 raising or fabricating a verdict.
 """
 
@@ -31,7 +31,7 @@ def test_parser_handles_clean_payload():
 
 def test_parser_salvages_the_real_malformed_spike_payload():
     """The exact payload phi3:mini returned in the 2026-05-31 spike: a typo'd key
-    'explanrance' instead of 'explanation' (DEVLOG / ADR-012). The explanation must still
+    'explanrance' instead of 'explanation'. The explanation must still
     be recovered rather than silently lost."""
     raw = {
         "same_subject": True,
@@ -64,7 +64,7 @@ def test_coerce_bool_units():
 
 def test_prompt_keeps_the_supplied_text_only_guardrail():
     p = SUPPLIED_TEXT_ONLY_PROMPT.lower()
-    # The ADR-005 guardrail clauses must be present.
+    # The supplied-text-only guardrail clauses must be present.
     assert "only over the text supplied" in p
     assert "never decide whether" in p
     assert "true, false, real, or fake" in p

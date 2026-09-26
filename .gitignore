@@ -59,7 +59,7 @@ beach.jpeg
 at-my-park.jpeg
 flood_recycled_2019.jpg
 
-# --- Final phase (WP-0): data, media and secrets that must never be public ---
+# --- Data, media and secrets that must never be public ---
 # Raw and third-party datasets: IDs and labels live in data/labels/, never the media itself.
 data/raw/
 data/verite/

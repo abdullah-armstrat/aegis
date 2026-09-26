@@ -3,7 +3,7 @@
 These are hermetic unit tests of the adapter's *assembly* logic — the extractors are
 monkeypatched so no real model/engine runs here (the extractors have their own tests). The
 adapter's job is to call each extractor, carry the caption through, place outputs in the
-right bundle fields, and record each extractor's honest status (ADR-009).
+right bundle fields, and record each extractor's honest status.
 """
 
 from app.adapters import image_adapter
@@ -61,7 +61,7 @@ def test_adapter_assembles_bundle_and_records_status(monkeypatch):
 
 def test_adapter_propagates_not_assessed(monkeypatch):
     """A failed extractor surfaces as NOT_ASSESSED in the bundle, not as a silent empty
-    field read as 'consistent' (ADR-009)."""
+    field read as 'consistent'."""
     ocr = OcrResult(status=FlagStatus.NOT_ASSESSED, detail="bad image")
     sent = SentimentResult(None, FlagStatus.CLEAR, "No text to assess.")
     rev = ReverseImageResult(status=FlagStatus.NOT_ASSESSED, detail="not in cache")

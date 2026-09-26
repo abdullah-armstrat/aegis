@@ -1,10 +1,10 @@
-"""OCR extractor — on-screen text from an image (SSOT §3.2 ``on_screen_text``).
+"""OCR extractor — on-screen text from an image (the bundle's ``on_screen_text``).
 
 Uses **pytesseract**, a thin wrapper over the Tesseract binary, deliberately chosen over
-easyocr so the first extractor carries no torch dependency (DEVLOG 2026-05-31). An
+easyocr so the first extractor carries no torch dependency. An
 easyocr-vs-pytesseract accuracy comparison is a planned later model-trial.
 
-The extractor returns an :class:`OcrResult` whose ``status`` honours ADR-009: it
+The extractor returns an :class:`OcrResult` whose ``status`` keeps three outcomes apart: it
 distinguishes text that was read, an image legibly read but containing no text (``CLEAR``),
 and an image that could not be processed at all (``NOT_ASSESSED``). Downstream fusion uses
 that status so "no on-screen text" is never silently treated as "checked and consistent".
@@ -49,7 +49,7 @@ def extract_on_screen_text(image_bytes: bytes) -> OcrResult:
     """Run OCR over raw image bytes and return an :class:`OcrResult`.
 
     Never raises for bad input or engine failure: those become a ``NOT_ASSESSED`` result so
-    the caller can record honestly that the check could not be performed (ADR-009).
+    the caller can record honestly that the check could not be performed.
     """
     # Import lazily so the module (and tests that monkeypatch it) load without the heavy
     # imports, and so an OCR-less environment can still import the rest of the app.

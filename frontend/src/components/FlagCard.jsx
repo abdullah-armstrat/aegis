@@ -3,7 +3,8 @@
 // accent (the 42px icon box, the state label, an outlined badge); the card stays black & white.
 // Bound to the real backend Flag:
 //   { type, status, severity, evidence, plain_explanation, what_to_check, source }
-// Spine: explain, don't verdict. not_assessed is visually distinct from clear (ADR-009).
+// Spine: explain, don't verdict. not_assessed is visually distinct from clear, so a check that
+// could not run never looks like a pass.
 
 import Signal, { STATUS_META } from "./Signal";
 

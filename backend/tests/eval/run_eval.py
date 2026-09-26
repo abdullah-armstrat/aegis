@@ -1,5 +1,5 @@
 """Evaluation harness — runs the hand-built test set through the real pipeline and reports
-flag-level precision / recall / F1 (SSOT §5.3).
+flag-level precision / recall / F1.
 
 What it does, honestly and reproducibly:
   * Loads the labelled examples (``test_set/examples.json``).
@@ -8,13 +8,12 @@ What it does, honestly and reproducibly:
   * For each example, builds the Evidence Bundle with the *real* extractors, then injects two
     controlled inputs so the *rules* are scored deterministically: ``scene_descriptions`` from
     ``inject_scene`` (caption vs scene), and the reverse-image lookup result from the example's
-    ``source_ref`` (recycled context; see ``legacy_lookup.py`` and ADR-018). Then it runs the
+    ``source_ref`` (recycled context; see ``legacy_lookup.py``). Then it runs the
     *real* fusion core.
   * Compares each labelled flag's predicted status to its expected outcome and accumulates a
-    confusion matrix per flag type (NOT_ASSESSED excluded from P/R, counted as coverage —
-    ADR-009).
-  * Runs both configurations — "rules-only" and "rules+llm" — so the baseline comparison the
-    Prelim wants (SSOT §5.3) is a single command.
+    confusion matrix per flag type (NOT_ASSESSED excluded from P/R, counted as coverage).
+  * Runs both configurations — "rules-only" and "rules+llm" — so the baseline comparison
+    is a single command.
 
 Every number this prints comes from an actual executed run of the pipeline; the harness invents
 nothing. Usage:
@@ -77,7 +76,7 @@ def _predict(example: dict, use_llm: bool) -> dict[str, str]:
     source_ref = example.get("source_ref") or example["image"]
     bundle = build_bundle(image_bytes, caption=example.get("caption") or None, source_ref=source_ref)
     # Every example shares one blank image, so content hashing cannot separate them: inject each
-    # example's lookup result instead, as inject_scene does for scene text (ADR-018).
+    # example's lookup result instead, as inject_scene does for scene text.
     inject_lookup(bundle, source_ref)
     if example.get("inject_scene"):
         bundle.scene_descriptions = [SceneDescription(text=t) for t in example["inject_scene"]]

@@ -1,4 +1,4 @@
-"""The re-post transformations the hash robustness harness applies (FINAL_PLAN WP-1 step 4).
+"""The re-post transformations the hash robustness harness applies.
 
 Each models something that happens to an image when it is saved, shared and re-posted. Every
 transform is deterministic, so a harness run is exactly reproducible. Definitions are stated

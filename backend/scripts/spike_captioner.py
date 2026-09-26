@@ -1,7 +1,7 @@
 """Captioner (BLIP) latency spike — writes measured results to a JSON file.
 
 Discipline (same as the LLM spike): the threshold is set BEFORE measuring (warm per-image
-caption <= 20s -> keep local for the Prelim; else Colab/HF offload, ADR-008), and every number
+caption <= 20s -> keep local for the Prelim; else a hosted service), and every number
 is written to a file to be read back, never transcribed from the terminal.
 
 Generates two small synthetic but non-trivial images (a coloured scene) so BLIP has something

@@ -1,13 +1,13 @@
-"""Deterministic fusion rules — the reproducible heart of the analysis (ADR-004).
+"""Deterministic fusion rules — the reproducible heart of the analysis.
 
 Each rule reads the Evidence Bundle and returns exactly one :class:`Flag` describing the
-*outcome of attempting that check* — FIRED, CLEAR, or NOT_ASSESSED (ADR-009). Crucially, a
+*outcome of attempting that check* — FIRED, CLEAR, or NOT_ASSESSED. Crucially, a
 rule emits a flag even when it cannot run, so "couldn't check" is never silently dropped and
 never mistaken for "checked and consistent". These rules are deterministic and explainable,
 so they form the baseline the "rules only" vs "rules + LLM" evaluation compares against.
 
 Thresholds live here as named constants; they are deliberately simple and tunable, and the
-eval harness will inform their final values. No rule outputs a trust verdict (ADR-002) — only
+eval harness will inform their final values. No rule outputs a trust verdict — only
 a typed, explained flag with a "what to check" prompt.
 """
 
@@ -27,13 +27,13 @@ from app.models import (
 # --- Tunable thresholds (eval harness will inform final values) ---
 CAPTION_SCENE_OVERLAP_THRESHOLD = 0.15  # min content-word overlap before caption↔scene is "consistent"
 
-# --- Emotional-framing marker thresholds (ADR-014 Option B) ---
+# --- Emotional-framing marker thresholds ---
 # Set from reasoning about what each marker means, BEFORE measuring on the labelled set, so the
 # rule is not tuned to its own evaluation. Each is a presentation property of the caption text.
 CAPS_RATIO_THRESHOLD = 0.15         # >=15% of words shouted is a deliberate stylistic choice
 EXCLAMATION_ABSOLUTE_THRESHOLD = 2  # "!!" or more is emphasis, not punctuation
 EXCLAMATION_DENSITY_THRESHOLD = 0.05  # or 1 per 20 words in a longer caption
-MIN_MARKERS_TO_FIRE = 2             # fire on a COMBINATION, never a single marker (ADR-014)
+MIN_MARKERS_TO_FIRE = 2             # fire on a COMBINATION: one marker alone is ordinary style
 
 # Very small English stop-word list — enough to stop overlap being dominated by glue words.
 _STOPWORDS = frozenset(
@@ -79,7 +79,7 @@ def _normalise(text: str) -> str:
 def find_manipulation_markers(text: str) -> list[str]:
     """Return a human-readable description of each manipulation marker present in ``text``.
 
-    The four markers are those specified in ADR-014 Option B: ALL-CAPS ratio, exclamation
+    The four markers are the ALL-CAPS ratio, exclamation
     density, an urgency/sensational lexicon, and in-/out-group framing cues. Each returned
     string is evidence the user can verify by looking at the caption, which is the whole point
     of replacing the sentiment-polarity proxy: the rule now measures what its name claims.
@@ -123,7 +123,7 @@ def find_manipulation_markers(text: str) -> list[str]:
 
 
 def emotional_framing_rule(bundle: EvidenceBundle) -> Flag:
-    """Flags manipulation markers in the caption's *presentation* (ADR-014 Option B).
+    """Flags manipulation markers in the caption's *presentation*.
 
     Measures four deterministic, explainable markers computed from the caption text itself —
     ALL-CAPS ratio, exclamation density, an urgency/sensational lexicon, and in-/out-group
@@ -132,12 +132,12 @@ def emotional_framing_rule(bundle: EvidenceBundle) -> Flag:
 
     This replaces the previous sentiment-polarity proxy, which keyed on distilbert SST-2's
     negative-class confidence. That measured negative *polarity*, not manipulation, and so
-    labelled sober-but-critical posts as manipulative (the construct-validity gap evidenced by
-    the [name] worked example, DEVLOG 2026-06-29). ``bundle.sentiment`` is deliberately
+    labelled sober-but-critical posts as manipulative: a measured, critical real-world news post
+    was flagged that way in testing on 2026-06-29. ``bundle.sentiment`` is deliberately
     no longer consulted by this rule.
 
     NOT_ASSESSED when there is no caption text to measure — markers are properties of text, so
-    absent text means the check could not run, never a silent pass (ADR-009).
+    absent text means the check could not run, never a silent pass.
     """
     caption = (bundle.caption or "").strip()
     if not caption or not re.search(r"[A-Za-z]", caption):
@@ -202,7 +202,7 @@ def _parse_iso(value: str | None) -> date | None:
 
 
 def recycled_context_rule(bundle: EvidenceBundle) -> Flag:
-    """Has this image appeared before the post claims to be from? (WP-1, ADR-017)
+    """Has this image appeared before the post claims to be from?
 
     The lookup matches the image by content against the image history index. The posting date,
     when the user gives one, decides whether a match actually makes the post look recycled:
@@ -215,9 +215,9 @@ def recycled_context_rule(bundle: EvidenceBundle) -> Flag:
       match, no posting date                                      fired, saying a date would allow
                                                                   a comparison
 
-    One case the plan's table does not cover: a match whose appearances are not all dated, and
+    One case the table above does not cover: a match whose appearances are not all dated, and
     none of the dated ones is earlier. That comparison is incomplete, so it is reported as fired
-    with the gap named, never as clear (ADR-009: an incomplete check must not reassure). An
+    with the gap named, never as clear: an incomplete check must not reassure. An
     appearance on the posting date itself is not "earlier": it may be the post being checked.
     """
     status = bundle.extractor_status.get("reverse_image")
@@ -386,5 +386,5 @@ ALL_RULES = (
 
 
 def run_rules(bundle: EvidenceBundle) -> list[Flag]:
-    """Run every deterministic rule and return one Flag per rule (ADR-004, ADR-009)."""
+    """Run every deterministic rule and return one Flag per rule, whatever its outcome."""
     return [rule(bundle) for rule in ALL_RULES]

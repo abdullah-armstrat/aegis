@@ -12,7 +12,7 @@ from app.models import FlagStatus
 
 
 def test_empty_text_is_clear_not_assessed_distinction():
-    """Empty text is CLEAR (nothing to assess), never NOT_ASSESSED (ADR-009)."""
+    """Empty text is CLEAR (nothing to assess), never NOT_ASSESSED."""
     r = analyse_sentiment("", source="caption")
     assert r.status == FlagStatus.CLEAR
     assert r.sentiment is None

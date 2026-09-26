@@ -1,7 +1,7 @@
 """Contract tests: the Evidence Bundle / Scorecard models validate as designed.
 
-These lock the shape that everything downstream depends on (ADR-003) and assert the
-'explain, don't verdict' rule (ADR-002) by construction — there is no trust-score field.
+These lock the shape that everything downstream depends on and assert the
+'explain, don't verdict' rule by construction — there is no trust-score field.
 """
 
 from app.models import (
@@ -25,7 +25,7 @@ def test_minimal_image_bundle():
     assert bundle.meta.modality == Modality.IMAGE
     assert bundle.scene_descriptions == []
     assert bundle.transcript is None
-    # The contract is versioned so later shapes are distinguishable (ADR-010).
+    # The contract is versioned so later shapes are distinguishable.
     assert bundle.schema_version == SCHEMA_VERSION
 
 
@@ -58,14 +58,14 @@ def test_flag_has_explanation_and_what_to_check():
     )
     assert flag.plain_explanation
     assert flag.what_to_check
-    # A Flag defaults to FIRED so existing call sites keep their meaning (ADR-009).
+    # A Flag defaults to FIRED so existing call sites keep their meaning.
     assert flag.status == FlagStatus.FIRED
     # 'Explain, don't verdict': the Flag model carries no trust/confidence verdict field.
     assert "trust" not in Flag.model_fields
 
 
 def test_flag_distinguishes_clear_from_not_assessed():
-    """The load-bearing distinction (ADR-009): 'checked and clear' must not look like
+    """The load-bearing distinction: 'checked and clear' must not look like
     'could not check'. Both are representable and are different from a fired flag."""
     clear = Flag(
         type=FlagType.CAPTION_CONTENT_MISMATCH,

@@ -1,13 +1,13 @@
 """Image adapter — turns an image + caption into an :class:`EvidenceBundle`.
 
-This is the image path's entry into the modality-agnostic core (ADR-003): it runs the
+This is the image path's entry into the modality-agnostic core: it runs the
 image extractors and assembles their outputs into the one normalised structure the fusion
 core consumes. Extractors are wired in one at a time as they land; each records its outcome
-in ``extractor_status`` so fusion can honour the fired/clear/not_assessed distinction
-(ADR-009) rather than inferring meaning from an empty field.
+in ``extractor_status`` so fusion can tell a check that ran and found nothing from one that
+could not run, rather than inferring meaning from an empty field.
 
-Wired: OCR, sentiment, reverse-image (content-matched history index, ADR-017), and the BLIP
-captioner (ADR-013).
+Wired: OCR, sentiment, reverse-image (matched by content against the image history index),
+and the BLIP captioner, which runs locally on the CPU.
 """
 
 from __future__ import annotations
@@ -31,14 +31,14 @@ def build_bundle(
     The user-supplied ``caption`` is carried through verbatim; the extractors populate the
     evidence fields. Each extractor's honest status is recorded in ``extractor_status``.
 
-    ``source_ref`` is a label only (the uploaded filename): since WP-1 the reverse-image lookup
+    ``source_ref`` is a label only (the uploaded filename): the reverse-image lookup
     matches on the image's content, so renaming a file no longer changes the result.
     ``posted_date`` is the optional ISO date the post claims; the recycled-context rule compares
     earlier appearances against it.
 
     Wired: OCR, sentiment (over the caption), reverse-image (history index), BLIP captioner. The
     captioner can be disabled via ``AEGIS_USE_CAPTIONER`` (e.g. for fast tests); when off, the
-    caption↔scene check honestly reports NOT_ASSESSED rather than passing silently (ADR-009).
+    caption↔scene check honestly reports NOT_ASSESSED rather than passing silently.
     """
     ocr = extract_on_screen_text(image_bytes)
     sentiment = analyse_sentiment(caption, source="caption")

@@ -1,4 +1,4 @@
-"""WP-1 hash robustness harness — does a re-posted copy still match its original?
+"""Hash robustness harness — does a re-posted copy still match its original?
 
 For every original it registers the original's pHash in a throwaway index, applies each
 re-post transformation (``tests/eval/image_transforms.py``) and records the Hamming distance
@@ -48,7 +48,7 @@ _REPO = _BACKEND_DIR.parent
 THRESHOLDS = [4, 6, 8, 10, 12, 14, 16, 18, 20]
 
 # Chosen from scikit-image's bundled data: an explicit open licence in the docstring, no people,
-# no medical imagery (FINAL_PLAN section 5 topic rule). Licence text quoted from the docstrings
+# no medical imagery (the project's own topic rule). Licence text quoted from the docstrings
 # of scikit-image 0.26.0, read on 2026-09-27. `cat` is excluded as an alias of `chelsea`.
 SAMPLE_IMAGES: dict[str, dict[str, str]] = {
     "brick": {"source": "CC0Textures (Bricks25) via skimage.data",

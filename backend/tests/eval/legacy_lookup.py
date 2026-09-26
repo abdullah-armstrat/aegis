@@ -1,10 +1,10 @@
-"""Injected reverse-image results for the 19-example regression set (ADR-018).
+"""Injected reverse-image results for the 19-example regression set.
 
 The regression set scores the recycled-context *rule*, and every one of its examples uses the
-same blank image. Since WP-1 the production lookup matches on image content, so it cannot tell
+same blank image. The production lookup now matches on image content, so it cannot tell
 those examples apart: all of them would hash identically. Instead of hashing, the harness injects
 each example's lookup result, exactly as it injects ``inject_scene`` for caption-vs-scene. The
-results come from the pre-WP-1 filename-keyed fixture, looked up by the example's ``source_ref``,
+results come from the earlier filename-keyed fixture, looked up by the example's ``source_ref``,
 with the same three outcomes the old extractor gave:
 
   source_ref in the fixture with matches  ->  matches, lookup status FIRED
@@ -33,7 +33,7 @@ def _fixture() -> dict[str, list[dict]]:
 
 
 def legacy_lookup(source_ref: str) -> tuple[list[WebMatch], FlagStatus]:
-    """The lookup result the pre-WP-1 extractor returned for this filename."""
+    """The lookup result the earlier filename-based extractor returned for this filename."""
     fixture = _fixture()
     if source_ref not in fixture:
         return [], FlagStatus.NOT_ASSESSED

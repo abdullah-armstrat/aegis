@@ -1,13 +1,13 @@
 """Scorecard assembler — turns an Evidence Bundle into the system's output.
 
 Runs the deterministic rules (always) and, when enabled and available, the LLM reasoner as an
-*additive* second opinion (ADR-004). The rules are the reproducible baseline; the LLM never
+*additive* second opinion. The rules are the reproducible baseline; the LLM never
 overrides them — it contributes its own separately-sourced flag (``source="llm"``) so the
 "rules only" vs "rules + LLM" comparison is a simple matter of toggling ``use_llm`` (the
-top-band evaluation move, SSOT §5.3).
+baseline comparison the evaluation reports).
 
 The output is a :class:`Scorecard`: a list of explained, typed flags — each FIRED / CLEAR /
-NOT_ASSESSED (ADR-009) — and a neutral, non-verdict summary line (ADR-002). There is no trust
+NOT_ASSESSED — and a neutral, non-verdict summary line. There is no trust
 score anywhere.
 """
 
@@ -22,7 +22,7 @@ from app.models import EvidenceBundle, Flag, FlagStatus, FlagType, Scorecard, Se
 def _llm_caption_scene_flag(bundle: EvidenceBundle) -> Flag:
     """An LLM-sourced second opinion on caption↔scene agreement (additive to the rules).
 
-    Reasons over supplied text only (ADR-005). Returns a NOT_ASSESSED flag if the LLM is
+    Reasons over supplied text only, never about truth. Returns a NOT_ASSESSED flag if the LLM is
     disabled/unreachable or lacks the inputs — never a fabricated finding.
     """
     scene = [s.text for s in bundle.scene_descriptions]
@@ -78,7 +78,7 @@ def _llm_caption_scene_flag(bundle: EvidenceBundle) -> Flag:
 
 
 def _summarise(flags: list[Flag]) -> str:
-    """A neutral, non-verdict one-line overview (ADR-002 — describes, never decides)."""
+    """A neutral, non-verdict one-line overview: it describes, never decides."""
     fired = sum(1 for f in flags if f.status == FlagStatus.FIRED)
     not_assessed = sum(1 for f in flags if f.status == FlagStatus.NOT_ASSESSED)
     if fired == 0:

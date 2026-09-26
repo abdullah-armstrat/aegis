@@ -1,7 +1,7 @@
 """Unit tests for the evaluation metrics (deterministic, no models).
 
 These pin the precision/recall/F1 maths and — most importantly — the rule that NOT_ASSESSED
-predictions are excluded from P/R and counted as coverage (ADR-009 applied to evaluation).
+predictions are excluded from P/R and counted as coverage (a check that could not run is neither a hit nor a miss).
 """
 
 import math

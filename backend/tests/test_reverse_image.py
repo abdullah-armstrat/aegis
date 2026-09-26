@@ -1,10 +1,10 @@
-"""Tests for the content-matched reverse-image lookup (WP-1, ADR-017).
+"""Tests for the content-matched reverse-image lookup.
 
 Every lookup outcome is exercised against a temporary history index, so the tests do not depend
 on the committed index's contents — except the last test, which exists to guard exactly that
 committed index against drifting away from the committed illustrative images.
 
-The load-bearing assertions carry over from the filename era (ADR-009): a lookup that could not
+The load-bearing assertions carry over from the filename era: a lookup that could not
 run is NOT_ASSESSED, never CLEAR. What is new is that matching follows the picture, not the name:
 a recompressed, resized copy still matches, and an unrelated image does not.
 """
@@ -86,7 +86,7 @@ def use_index(tmp_path, monkeypatch):
 
 
 def test_recompressed_resized_copy_still_matches(use_index):
-    """The point of WP-1: a re-saved copy is found by content, where a filename lookup failed."""
+    """The point of content matching: a re-saved copy is found by content, where a filename lookup failed."""
     original = _photo(1)
     use_index([_entry("orig", phash_of_image(original))])
     copy = original.resize((160, 120), Image.Resampling.LANCZOS)
@@ -194,13 +194,13 @@ def test_every_matching_entry_is_reported_nearest_first(use_index):
 
 
 def test_live_api_mode_is_not_assessed(use_index):
-    """The live lookup is WP-4. Until then 'api' mode must say NOT_ASSESSED, not pretend."""
+    """There is no live lookup yet, so 'api' mode must say NOT_ASSESSED, not pretend."""
     use_index([_entry("orig", phash_of_image(_photo(1)))], reverse_image_mode="api")
     assert find_web_matches(_bytes(_photo(1))).status == FlagStatus.NOT_ASSESSED
 
 
 def test_legacy_cache_mode_is_an_alias_for_the_index(use_index):
-    """.env files written before WP-1 say 'cache'; they must keep working, not silently stop."""
+    """Older .env files say 'cache'; they must keep working, not silently stop."""
     img = _photo(1)
     use_index([_entry("orig", phash_of_image(img))], reverse_image_mode="cache")
     assert find_web_matches(_bytes(img)).status == FlagStatus.FIRED
@@ -210,7 +210,7 @@ def test_legacy_cache_mode_is_an_alias_for_the_index(use_index):
 
 
 def test_committed_index_matches_the_committed_illustrative_images():
-    """Drift guard: the shipped index must still describe the shipped images (ADR-017).
+    """Drift guard: the shipped index must still describe the shipped images.
 
     flood and protest are registered, so they match exactly; sunset and cat are not registered,
     so they demonstrate "lookup ran, no match". If a dependency changes how pHash is computed,

@@ -1,8 +1,8 @@
-"""Flag-level evaluation metrics (SSOT §5.3).
+"""Flag-level evaluation metrics.
 
 Each flag behaves as a binary detector, so we score it with precision / recall / F1 — the
 appropriate, area-standard metric for this kind of mixed AI/SWE system. The one wrinkle that
-matters: a prediction can be ``not_assessed`` (the check could not run — ADR-009), which is
+matters: a prediction can be ``not_assessed`` (the check could not run), which is
 neither a true positive nor a false one. Those are **excluded from precision/recall** and
 reported separately as a coverage figure, so an extractor that is simply absent never inflates
 or deflates the quality numbers. This keeps the metric honest and makes the captioner's arrival

@@ -27,8 +27,8 @@ def main() -> None:
     buf = BytesIO()
     Image.new("RGB", (120, 60), "white").save(buf, format="PNG")
 
-    # The filename matches an entry in the cached reverse-image fixture, so the
-    # recycled-context flag can fire (ADR-007).
+    # The recycled-context lookup matches image content, not this filename, so this plain
+    # white image is not expected to match the history index.
     resp = client.post(
         "/analyze",
         files={"image": ("flood_recycled_2019.jpg", buf.getvalue(), "image/png")},

@@ -1,9 +1,9 @@
-"""Build the image history index the recycled-context lookup searches (WP-1, ADR-017).
+"""Build the image history index the recycled-context lookup searches.
 
 Until dataset A is collected, the shipped index is ILLUSTRATIVE. This script draws four synthetic
 images — author-generated, deterministic from fixed seeds, no third-party content — into
 ``data/illustrative/`` and registers two of them in ``backend/app/data/image_history_index.json``
-with the histories the pre-WP-1 filename fixture held (ADR-007). Those sources are fictional
+with the histories the earlier filename-keyed fixture held. Those sources are fictional
 pages on example.com, a domain reserved for examples by RFC 2606; they were fictional in the
 fixture too. The other two images are deliberately left out of the index, so they demonstrate the
 "lookup ran, no match" path.

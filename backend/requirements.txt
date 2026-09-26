@@ -1,5 +1,5 @@
 # ---- Aegis backend: core (Week 0 scaffold) ----
-# Target interpreter: Python 3.12 (pinned — see ADR-011 / DEVLOG 2026-05-31).
+# Target interpreter: Python 3.12 (pinned: parts of the ML stack had no wheels for newer versions).
 # Kept deliberately light so the scaffold installs cleanly.
 fastapi>=0.115
 uvicorn[standard]>=0.30
@@ -25,20 +25,20 @@ transformers>=4.40              # HF sentiment model now; BLIP captioner next
 # easyocr                       # OCR alternative (pulls in torch) — for a later accuracy trial
 # ollama                        # local LLM reasoner client (binary installed; reasoner uses httpx for now)
 
-# ---- Final phase (WP-0, 2026-09-27) — pinned exactly; verified installing on the CPU laptop ----
-# WP-1 · match images by content: 64-bit perceptual hash.
+# ---- Added 2026-09-27 — pinned exactly; verified installing on the CPU laptop ----
+# Match images by content: 64-bit perceptual hash.
 ImageHash==4.3.2
-# WP-2 · caption vs image by meaning. CLIP ViT-B/32 loads through the transformers pinned above
+# Caption vs image by meaning. CLIP ViT-B/32 loads through the transformers pinned above
 # (openai/clip-vit-base-patch32 ships only pytorch_model.bin, so load it with
 # use_safetensors=False). MiniLM sentence embeddings:
 sentence-transformers==5.2.0
 requests==2.32.5                # required by sentence-transformers but not declared by it
-# WP-3 · video path: scene-cut keyframes, audio transcription (whisper base, int8, CPU).
+# Video path: scene-cut keyframes, audio transcription (whisper base, int8, CPU).
 scenedetect[opencv]==0.6.7
 faster-whisper==1.2.0
-# ffmpeg is a system binary, not a pip package: it must be on PATH (verified WP-0).
-# WP-6 · peak-memory measurement for the performance table.
+# ffmpeg is a system binary, not a pip package: it must be on PATH (verified 2026-09-27).
+# Peak-memory measurement for the performance evaluation.
 psutil==7.2.2
-# WP-1 · provisional hash-robustness harness: openly licensed sample images bundled with
+# Provisional hash-robustness harness: openly licensed sample images bundled with
 # scikit-image, loaded at run time and never committed (scripts/eval_hash_robustness.py).
 scikit-image==0.26.0

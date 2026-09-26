@@ -11,7 +11,7 @@ from app.models import FlagStatus
 
 
 def test_unreadable_bytes_are_not_assessed():
-    """Garbage input must not masquerade as a caption — it is NOT_ASSESSED (ADR-009).
+    """Garbage input must not masquerade as a caption — it is NOT_ASSESSED.
     Fails at the image-decode step, so no model is needed."""
     result = describe_scene(b"this is not an image")
     assert result.status == FlagStatus.NOT_ASSESSED

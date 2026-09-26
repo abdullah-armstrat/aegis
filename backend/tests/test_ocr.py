@@ -2,7 +2,7 @@
 
 Test images are generated at runtime with PIL (no binary fixtures committed) and run
 through the real Tesseract engine, so these double as a smoke test that Tesseract is wired
-up. The key assertions cover all three honest outcomes (ADR-009): text found (FIRED), image
+up. The key assertions cover all three honest outcomes: text found (FIRED), image
 read but empty (CLEAR), and unreadable input (NOT_ASSESSED).
 """
 
@@ -62,7 +62,7 @@ def test_reads_on_screen_text():
 @requires_tesseract
 def test_blank_image_is_clear_not_fired():
     """An image legibly read but containing no text is CLEAR — explicitly not FIRED and
-    explicitly not NOT_ASSESSED (the load-bearing distinction, ADR-009)."""
+    explicitly not NOT_ASSESSED (the load-bearing distinction)."""
     blank = Image.new("RGB", (200, 80), "white")
     result = extract_on_screen_text(_png_bytes(blank))
     assert result.status == FlagStatus.CLEAR
@@ -70,7 +70,7 @@ def test_blank_image_is_clear_not_fired():
 
 
 def test_unreadable_bytes_are_not_assessed():
-    """Garbage input must not masquerade as 'clear' — it is NOT_ASSESSED (ADR-009).
+    """Garbage input must not masquerade as 'clear' — it is NOT_ASSESSED.
     Needs no Tesseract: it fails at the image-decode step."""
     result = extract_on_screen_text(b"this is not an image")
     assert result.status == FlagStatus.NOT_ASSESSED

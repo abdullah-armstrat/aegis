@@ -3,16 +3,16 @@
 The LLM is a *reasoner over supplied text only*. It is given the bundle's extracted text
 fields and asked solely relational questions — do these pieces of text describe the same
 thing, do they carry the same tone — never "is this true?". This sidesteps the knowledge-
-cutoff and hallucination problems entirely and is the strict rule of ADR-005.
+cutoff and hallucination problems entirely, which is why the rule is strict.
 
-To stop that guardrail eroding through prompt drift over many edits (review note #6), the
+To stop that guardrail eroding through prompt drift over many edits, the
 entire prompt lives in the single constant ``SUPPLIED_TEXT_ONLY_PROMPT`` below. Change the
 prompt *only* here, and keep the guardrail clause intact.
 
-The deterministic rule layer (``rules.py``) runs independently and first; this layer is
-additive (ADR-004), and is skipped entirely when ``settings.use_llm`` is false or the model
-is unreachable — in which case the affected checks are reported as NOT_ASSESSED, never
-silently dropped (ADR-009).
+The deterministic rule layer (``rules.py``) runs independently and first. This layer only
+adds to it, so the reproducible rule results are never overridden, and it is skipped entirely
+when ``settings.use_llm`` is false or the model is unreachable — in which case the affected
+checks are reported as NOT_ASSESSED, never silently dropped.
 """
 
 from __future__ import annotations
@@ -28,7 +28,7 @@ import httpx
 from app.config import get_settings
 from app.extractors.cache import JsonCache
 
-# --- The one place the prompt lives. Guardrail = ADR-005. Edit here only. ---
+# --- The one place the prompt lives, with its supplied-text-only guardrail. Edit here only. ---
 SUPPLIED_TEXT_ONLY_PROMPT = """\
 You are comparing pieces of text that were automatically extracted from a single social
 media post. Your ONLY job is to judge their relationship to each other.
@@ -141,7 +141,7 @@ def _coerce_bool_traced(value: object) -> tuple[bool | None, str]:
 def _coerce_bool(value: object) -> bool | None:
     """Coerce a loose model value to bool, or None ('uncertain') if unrecognised.
 
-    The Phi-3-mini spike (DEVLOG 2026-05-31) returned booleans inconsistently — sometimes a
+    In a test run on 2026-05-31, Phi-3-mini returned booleans inconsistently — sometimes a
     real bool, sometimes the strings "true"/"false"/"yes"/"no". Anything we can't read with
     confidence becomes None so fusion treats it as uncertain rather than a false negative.
     """
@@ -180,7 +180,7 @@ def _find_key(payload: dict, *candidates: str) -> object:
     The spike showed the model can mangle keys (it emitted ``"explanrance"`` for
     ``explanation``). We first try exact candidates, then fall back to any key whose first
     four letters match a candidate's — enough to salvage typos without matching unrelated
-    keys. Defensive parsing per ADR-012: trust the model's structure as little as possible.
+    keys. Defensive parsing: trust a small local model's output structure as little as possible.
     """
     return _find_key_traced(payload, *candidates)[0]
 
@@ -231,7 +231,7 @@ def _parse_payload_traced(payload: dict) -> tuple[ReasonerVerdict, dict]:
 
 
 def _parse_payload(payload: dict) -> ReasonerVerdict:
-    """Tolerantly turn a raw model JSON object into a ReasonerVerdict (ADR-012).
+    """Tolerantly turn a raw model JSON object into a ReasonerVerdict.
 
     Missing/unreadable booleans become None ('uncertain'); the explanation is salvaged from a
     near-miss key if the exact one is absent.

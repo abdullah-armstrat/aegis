@@ -1,4 +1,4 @@
-"""Shared case loading for the LLM-specific evaluation scripts (SSOT §5.3).
+"""Shared case loading for the LLM-specific evaluation scripts.
 
 The three LLM metrics — output validity, self-consistency, latency — all run over the same
 caption↔scene pairs the rules-vs-LLM comparison uses: the labelled examples that carry an
