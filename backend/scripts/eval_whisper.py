@@ -15,8 +15,9 @@ Run one model per process, then compare:
   python backend/scripts/eval_whisper.py compare
 
 Decoding settings for base, chosen on a tuning set, never on the test sets (ADR-047):
-  python backend/scripts/eval_whisper.py decoding --setting a|b|c --on tuning|original|e
-  python backend/scripts/eval_whisper.py choose
+  python backend/scripts/eval_whisper.py decoding --setting a|b|c --on tuning|tuning_long|original|e
+  python backend/scripts/eval_whisper.py choose          (ADR-047, on the short tuning set)
+  python backend/scripts/eval_whisper.py choose-long     (ADR-049, on the long tuning files)
 An invented sentence is a Whisper segment more than half of whose words are insertions in the word
 alignment against the reference.
 """
@@ -93,7 +94,11 @@ def decoding(setting: str, on: str) -> None:
     norm = EnglishTextNormalizer()
     model = load_model("base")
     with tempfile.TemporaryDirectory() as tmp:
-        if on == "tuning":
+        if on == "tuning_long":
+            rows = csv.DictReader(open(LABELS / "E_speech_tuning_long.csv", encoding="utf-8"))
+            items = [(r["file_id"], ROOT / "data" / "E_speech" / "tuning_long" / r["file"], r["transcript"])
+                     for r in rows]
+        elif on == "tuning":
             rows = csv.DictReader(open(LABELS / "E_speech_tuning.csv", encoding="utf-8"))
             items = [(r["utterance_id"], ROOT / "data" / "E_speech" / "tuning" / f"{r['utterance_id']}_silence.wav",
                       r["transcript"]) for r in rows]
@@ -144,6 +149,19 @@ def choose() -> None:
                       for k in SETTINGS},
            "chosen": order[0], "options": SETTINGS[order[0]]}
     (OUT / "wp5_whisper_decoding_choice.json").write_text(json.dumps(res, indent=2), encoding="utf-8")
+    print(json.dumps(res, indent=2))
+
+
+def choose_long() -> None:
+    """Seeded, on the long tuning files: the fewest invented sentences, then the lowest error rate;
+    ties go to (a), so another setting is kept only if it helps (ADR-049)."""
+    runs = {k: json.loads((OUT / f"wp5_whisper_{k}_tuning_long.json").read_text(encoding="utf-8")) for k in SETTINGS}
+    order = sorted(SETTINGS, key=lambda k: (runs[k]["invented_sentences"], runs[k]["wer_pct"], k != "a"))
+    res = {"rule": "fewest invented sentences, then lowest WER; ties to (a)",
+           "tuning_long": {k: {f: runs[k][f] for f in ("wer_pct", "invented_sentences", "items_with_invented", "mean_s")}
+                           for k in SETTINGS},
+           "chosen": order[0], "options": SETTINGS[order[0]]}
+    (OUT / "wp5_whisper_decoding_choice_long.json").write_text(json.dumps(res, indent=2), encoding="utf-8")
     print(json.dumps(res, indent=2))
 
 
@@ -228,16 +246,18 @@ def compare() -> None:
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("step", choices=["run", "compare", "decoding", "choose"])
+    parser.add_argument("step", choices=["run", "compare", "decoding", "choose", "choose-long"])
     parser.add_argument("--model", choices=["tiny", "base"])
     parser.add_argument("--out", help="write the run to this file in results/ instead of wp3_whisper_<model>.json")
     parser.add_argument("--setting", choices=list(SETTINGS), help="decoding: which setting")
-    parser.add_argument("--on", choices=["tuning", "original", "e"], help="decoding: which items")
+    parser.add_argument("--on", choices=["tuning", "tuning_long", "original", "e"], help="decoding: which items")
     args = parser.parse_args()
     if args.step == "decoding":
         decoding(args.setting, args.on)
     elif args.step == "choose":
         choose()
+    elif args.step == "choose-long":
+        choose_long()
     elif args.step == "run":
         run(args.model, args.out)
     else:

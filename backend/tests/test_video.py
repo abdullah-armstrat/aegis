@@ -206,10 +206,27 @@ def test_speech_times_come_from_the_first_and_last_word():
     model = FakeWhisper()
     segments = run_model(model, Path("audio.wav"))
     assert model.options["word_timestamps"] is True
-    assert {k: model.options[k] for k in DECODING} == DECODING  # the decoding kept after ADR-047
+    assert {k: model.options[k] for k in DECODING} == DECODING  # the decoding chosen in ADR-049
     run_model(model, Path("audio.wav"), condition_on_previous_text=False)
     assert model.options["condition_on_previous_text"] is False  # a setting can be compared
     assert [(s.start, s.end, s.text) for s in segments] == [
         (1.02, 2.98, "The barge approaches."),  # from its words
         (11.0, 20.0, "A tugboat pushes."),      # no words: Whisper's own times
     ]                                           # the third is not speech (no-speech probability 0.9)
+
+
+def test_the_same_audio_always_gives_the_same_transcript():
+    """Whisper's temperature fallback samples from PyTorch's generator, which is seeded before each
+    transcription (ADR-049), whatever state the generator was left in."""
+    import torch
+
+    from app.extractors.speech import run_model
+
+    class Sampling:
+        def transcribe(self, audio, **options):
+            draw = torch.rand(1).item()
+            return {"segments": [{"start": 0.0, "end": 1.0, "text": f" {draw:.8f}", "no_speech_prob": 0.1, "words": []}]}
+
+    first = run_model(Sampling(), Path("audio.wav"))[0].text
+    torch.rand(7)  # anything else drawing from the generator in between
+    assert run_model(Sampling(), Path("audio.wav"))[0].text == first

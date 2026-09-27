@@ -27,6 +27,11 @@ data/E_videos/ or data/E_speech/:
              whose SHA-256 of "20260928-tuning:utterance id" is lowest, each also written as a WAV
              with 5 s of silence added to its end (data/E_speech/tuning/). Writes
              data/labels/E_speech_tuning.csv.
+  speech-tuning-long
+             The same 100 tuning utterances joined into 50-60 s files, as long as the clips whose
+             ends drew Whisper's invented sentences: shuffled with a seed, 3-8 s pauses between
+             utterances, each file filled to 45-55 s of speech and pauses, then 5 s of silence
+             (data/E_speech/tuning_long/). Writes data/labels/E_speech_tuning_long.csv.
 
 Every narration line describes something concrete. Each was checked against the keyframe from its
 own segment before its label was fixed; five lines were rewritten after that check because their
@@ -65,6 +70,10 @@ SPEECH_SEED = 20260927
 SPEECH_COUNT = 100
 TUNING_SEED = "20260928-tuning"
 TUNING_SILENCE_S = 5.0
+LONG_SEED = 20260928
+LONG_PAUSE_S = (3.0, 8.0)
+LONG_FILL_S = (45.0, 55.0)
+SAMPLE_RATE = 16000
 
 
 # ------------------------------------------------------------------------------ real speech
@@ -584,11 +593,69 @@ def build_speech_tuning() -> None:
     print(f"added {TUNING_SILENCE_S:.0f} s of silence to the end of each, as *_silence.wav")
 
 
+def build_speech_tuning_long() -> None:
+    """The tuning utterances joined into long files with pauses and trailing silence (ADR-049)."""
+    import random
+    import wave
+
+    import numpy as np
+    from whisper.audio import load_audio
+
+    with open(LABELS / "E_speech_tuning.csv", encoding="utf-8") as fh:
+        rows = {r["utterance_id"]: r for r in csv.DictReader(fh)}
+    rng = random.Random(LONG_SEED)
+    remaining = sorted(rows)
+    rng.shuffle(remaining)
+    audio = {u: load_audio(str(SPEECH_DIR / "tuning" / rows[u]["file"])) for u in remaining}
+    files = []
+    while True:
+        parts, length = [], 0.0
+        for u in list(remaining):
+            pause = round(rng.uniform(*LONG_PAUSE_S), 1) if parts else 0.0
+            dur = len(audio[u]) / SAMPLE_RATE
+            if length + pause + dur <= LONG_FILL_S[1]:
+                parts.append((u, pause))
+                length += pause + dur
+        if length < LONG_FILL_S[0]:
+            break
+        for u, _ in parts:
+            remaining.remove(u)
+        files.append(parts)
+    out_dir = SPEECH_DIR / "tuning_long"
+    out_dir.mkdir(parents=True, exist_ok=True)
+    plan = []
+    for n, parts in enumerate(files, 1):
+        pieces = []
+        for u, pause in parts:
+            pieces += [np.zeros(int(round(pause * SAMPLE_RATE)), dtype=np.float32), audio[u]]
+        pieces.append(np.zeros(int(TUNING_SILENCE_S * SAMPLE_RATE), dtype=np.float32))
+        signal = np.concatenate(pieces)
+        name = f"long_{n:02d}.wav"
+        with wave.open(str(out_dir / name), "wb") as w:
+            w.setnchannels(1)
+            w.setsampwidth(2)
+            w.setframerate(SAMPLE_RATE)
+            w.writeframes((np.clip(signal, -1, 1) * 32767).astype("<i2").tobytes())
+        plan.append({"file_id": f"long_{n:02d}", "file": name, "duration_s": round(len(signal) / SAMPLE_RATE, 2),
+                     "utterances": " ".join(u for u, _ in parts),
+                     "pauses_s": " ".join(f"{p:.1f}" for _, p in parts[1:]),
+                     "transcript": " ".join(rows[u]["transcript"] for u, _ in parts)})
+    with open(LABELS / "E_speech_tuning_long.csv", "w", encoding="utf-8", newline="") as fh:
+        w = csv.DictWriter(fh, fieldnames=list(plan[0]))
+        w.writeheader()
+        w.writerows(plan)
+    used = sum(len(p) for p in files)
+    print(f"wrote {len(plan)} files of {min(r['duration_s'] for r in plan)}-{max(r['duration_s'] for r in plan)} s "
+          f"from {used} utterances ({len(remaining)} left out) to {out_dir.relative_to(ROOT)}")
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("step", choices=["speech", "speech-tuning", "footage", "narration", "clips", "keyframes"])
+    parser.add_argument("step", choices=["speech", "speech-tuning", "speech-tuning-long", "footage", "narration",
+                                         "clips", "keyframes"])
     args = parser.parse_args()
-    {"speech": build_speech, "speech-tuning": build_speech_tuning, "footage": build_footage,
+    {"speech": build_speech, "speech-tuning": build_speech_tuning, "speech-tuning-long": build_speech_tuning_long,
+     "footage": build_footage,
      "narration": build_narration, "clips": build_clips, "keyframes": build_keyframes}[args.step]()
 
 

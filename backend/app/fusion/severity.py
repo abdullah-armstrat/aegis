@@ -80,8 +80,8 @@ FALSE_ALARMS: dict[str, FalseAlarms | None] = {
     "caption_meaning": FalseAlarms(8, 48, "truthful fresh VERITE pairs flagged, meaning"),
     "caption_overlap": FalseAlarms(41, 48, "truthful fresh VERITE pairs flagged, word overlap"),
     "caption_video": None,        # no set of captioned videos has been evaluated
-    # Matching lines flagged on the held-out-side dataset E clips, with word timestamps (ADR-040).
-    "speech_picture": FalseAlarms(8, 50, "matching lines flagged, held-out dataset E clips"),
+    # Matching lines flagged on the held-out-side dataset E clips, with the decoding of ADR-049.
+    "speech_picture": FalseAlarms(9, 50, "matching lines flagged, held-out dataset E clips"),
     "emotional_framing": None,    # dataset F is evaluated in WP-6
     "llm": None,                  # not measured on real pairs
 }

@@ -265,6 +265,35 @@ def drift(runs: dict) -> dict:
             "untranscribed": [r for r in rows if r["segment"] is None]}
 
 
+def transcripts(runs: dict) -> dict:
+    """Whisper's word error rate and invented sentences on each clip with speech, from the same
+    segments the check scored (the definitions of eval_whisper.py)."""
+    from whisper.normalizers import EnglishTextNormalizer
+
+    from eval_whisper import edits, inserted
+
+    norm = EnglishTextNormalizer()
+    rows = []
+    for cid, c in sorted(clips().items()):
+        if c["has_speech"] != "yes":
+            continue
+        texts = [seg["text"] for seg in runs[cid]["segments"]]
+        ref = norm(c["script"]).split()
+        per_segment = [norm(t).split() for t in texts]
+        flags = inserted(ref, [w for words in per_segment for w in words])
+        invented, at = [], 0
+        for text, words in zip(texts, per_segment):
+            if words and sum(flags[at:at + len(words)]) > len(words) / 2:
+                invented.append(text)
+            at += len(words)
+        rows.append({"clip_id": cid, "edits": edits(ref, norm(" ".join(texts)).split()), "ref_words": len(ref),
+                     "invented": invented})
+    return {"clips": len(rows),
+            "wer_pct": round(100 * sum(r["edits"] for r in rows) / sum(r["ref_words"] for r in rows), 2),
+            "invented_sentences": sum(len(r["invented"]) for r in rows),
+            "clips_with_invented": [r["clip_id"] for r in rows if r["invented"]], "rows": rows}
+
+
 def analyse_pipeline(tag: str = "") -> None:
     from app.fusion.rules import SPEECH_PICTURE_THRESHOLD
 
@@ -310,7 +339,7 @@ def analyse_pipeline(tag: str = "") -> None:
            "all_clips": {"clips": len(clip), "lines": per_line(matched), "clip_level": per_clip(list(clip))},
            "no_speech_clips": {c: runs[c]["flag_status"] + ": " + runs[c]["flag_evidence"]
                                for c in clip if clip[c]["has_speech"] == "no"},
-           "drift": drift(runs)}
+           "drift": drift(runs), "transcripts": transcripts(runs)}
     name = f"wp5_speech_picture_pipeline_{tag}.json" if tag else "wp3_speech_picture_pipeline.json"
     (OUT / name).write_text(json.dumps(res, indent=2), encoding="utf-8")
     for name in ("held_out_clips", "all_clips"):
@@ -323,6 +352,9 @@ def analyse_pipeline(tag: str = "") -> None:
               f"matching clips with a false flag: {cl['with_a_false_flag']}/{cl['matching_clips']}")
     for c, v in res["no_speech_clips"].items():
         print(f"   {c}: {v}")
+    t = res["transcripts"]
+    print(f"transcripts of {t['clips']} clips with speech: WER {t['wer_pct']}%, invented sentences "
+          f"{t['invented_sentences']} in {t['clips_with_invented']}")
     d = res["drift"]
     print(f"drift over {d['lines']} lines: start > 1 s {d['start_over_1s']}, end > 1 s {d['end_over_1s']}, "
           f"either {d['either_over_1s']}, start > 2 s {d['start_over_2s']}; median start "

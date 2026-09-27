@@ -26,9 +26,15 @@ from app.models import FlagStatus
 
 WHISPER_CACHE = Path(os.path.expanduser("~/.cache/whisper"))
 NO_SPEECH_PROB = 0.6
-# Decoding settings beyond the language and word timestamps; chosen on a tuning set of LibriSpeech
-# utterances with silence added to their ends, never on the test sets (ADR-047).
-DECODING = {"condition_on_previous_text": True, "hallucination_silence_threshold": None}
+# Decoding settings beyond the language and word timestamps, chosen on long files of LibriSpeech
+# tuning utterances with pauses and trailing silence, never on the test sets (ADR-049): without
+# conditioning each 30-second window on the text before it, Whisper invented no sentences there
+# (2 with it), at a word error rate 0.05 points higher.
+DECODING = {"condition_on_previous_text": False, "hallucination_silence_threshold": None}
+# When a decode looks poor, Whisper retries by sampling at a higher temperature, drawing from
+# PyTorch's random generator; seeding it before each transcription makes the same audio always give
+# the same transcript (ADR-049).
+DECODING_SEED = 20260928
 
 
 @dataclass
@@ -95,7 +101,10 @@ def run_model(model, audio: Path, **decoding) -> list[Segment]:
 
     ``decoding`` overrides ``DECODING``, for comparing settings.
     """
+    import torch
+
     options = {**DECODING, **decoding}
+    torch.manual_seed(DECODING_SEED)
     out = model.transcribe(str(audio), language="en", fp16=False, verbose=None, word_timestamps=True, **options)
     kept = []
     for s in out.get("segments", []):
