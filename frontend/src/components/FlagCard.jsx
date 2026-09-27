@@ -9,12 +9,18 @@
 import Signal, { STATUS_META } from "./Signal";
 
 const TYPE_LABELS = {
-  caption_content_mismatch: "Caption ↔ image match",
+  caption_content_mismatch: "Caption ↔ picture match",
   recycled_context: "Recycled context",
   emotional_framing: "Emotional framing",
-  audio_visual_mismatch: "Audio ↔ visual match",
+  audio_visual_mismatch: "Speech ↔ picture match",
   ai_generation_hint: "AI-generation hint",
 };
+
+// Seconds as m:ss, the way the backend's evidence cites moments.
+export function clock(seconds) {
+  const total = Math.round(seconds);
+  return `${Math.floor(total / 60)}:${String(total % 60).padStart(2, "0")}`;
+}
 
 // Backend severity enum (info|low|medium|high) → dossier weight words.
 const SEVERITY_WORD = { high: "Notable", medium: "Notable", low: "Minor", info: "Minor" };
@@ -25,7 +31,7 @@ const CHECK_HEADING = {
   not_assessed: "What to check yourself",
 };
 
-export default function FlagCard({ flag }) {
+export default function FlagCard({ flag, onSeek }) {
   const meta = STATUS_META[flag.status] ?? STATUS_META.not_assessed;
   const typeLabel = TYPE_LABELS[flag.type] ?? flag.type;
 
@@ -72,6 +78,35 @@ export default function FlagCard({ flag }) {
         <p className="mt-2.5 max-w-[64ch] text-[15px] leading-relaxed text-ink/80">
           {flag.plain_explanation}
         </p>
+
+        {/* A check that could not run says why, in the card itself. */}
+        {flag.status === "not_assessed" && flag.evidence && (
+          <p className="mt-2 max-w-[64ch] text-sm leading-relaxed text-ink/70">
+            <span className="font-semibold text-ink">Why: </span>
+            {flag.evidence}
+          </p>
+        )}
+
+        {/* Moments this finding cites: each jumps the player there. */}
+        {onSeek && flag.timestamps?.length > 0 && (
+          <div className="mt-3 flex flex-wrap items-center gap-2">
+            <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-muted">
+              {flag.timestamps.length === 1 ? "Moment" : "Moments"}
+            </span>
+            {flag.timestamps.map((t) => (
+              <button
+                key={t}
+                type="button"
+                onClick={() => onSeek(t)}
+                className="px-2 py-0.5 font-mono text-[12px] text-ink hover:bg-ink hover:text-white"
+                style={{ border: "1px solid #161616" }}
+                title={`Play from ${clock(t)}`}
+              >
+                ▶ {clock(t)}
+              </button>
+            ))}
+          </div>
+        )}
 
         {flag.what_to_check && (
           <div className="mt-4">

@@ -56,7 +56,7 @@ export default function App() {
                 AEGIS
               </div>
               <div className="mt-1.5 text-xs text-muted">
-                Image and caption misinformation auditor
+                Image, video and caption misinformation auditor
               </div>
             </div>
           </div>

@@ -2,7 +2,8 @@
 // review, then one FlagCard per check. Findings are sorted fired → not_assessed → clear so the
 // user sees what to check first, while coverage (what couldn't be checked) stays visible.
 
-import FlagCard from "./FlagCard";
+import { useRef } from "react";
+import FlagCard, { clock } from "./FlagCard";
 
 const STATUS_ORDER = { fired: 0, not_assessed: 1, clear: 2 };
 
@@ -24,8 +25,55 @@ function countSentence(flags) {
   return parts.length ? `${checks} ${parts.join(", ")}.` : checks;
 }
 
+// The video under review: the player, and a strip of the keyframes Aegis looked at, each with
+// its time. Clicking a keyframe (or a time on a finding) moves the player to that moment.
+function VideoReview({ src, keyframes, duration, playerRef, onSeek }) {
+  return (
+    <div className="mt-5 border border-line bg-panel p-4">
+      <div className="font-mono text-[10px] uppercase tracking-[0.14em] text-muted">
+        Video under review{duration ? ` · ${clock(duration)}` : ""}
+      </div>
+      {src && (
+        <video ref={playerRef} src={src} controls className="mt-3 max-h-[360px] w-full bg-black" />
+      )}
+      {keyframes?.length > 0 && (
+        <div className="mt-3">
+          <div className="font-mono text-[10px] uppercase tracking-[0.14em] text-muted">
+            Keyframes checked ({keyframes.length})
+          </div>
+          <div className="mt-2 flex gap-2 overflow-x-auto pb-1">
+            {keyframes.map((k) => (
+              <button
+                key={k.timestamp}
+                type="button"
+                onClick={() => onSeek(k.timestamp)}
+                className="shrink-0 border border-line bg-white p-1 text-left hover:border-ink"
+                title={`Go to ${clock(k.timestamp)}`}
+              >
+                {k.thumbnail && (
+                  <img src={k.thumbnail} alt={`frame at ${clock(k.timestamp)}`} className="h-16 w-auto" />
+                )}
+                <span className="mt-1 block font-mono text-[11px] text-ink">{clock(k.timestamp)}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default function Scorecard({ scorecard, submission }) {
+  const playerRef = useRef(null);
   if (!scorecard) return null;
+  const isVideo = scorecard.modality === "video";
+
+  function seek(seconds) {
+    const player = playerRef.current;
+    if (!player) return;
+    player.currentTime = seconds;
+    player.scrollIntoView({ behavior: "smooth", block: "center" });
+  }
 
   const flags = [...(scorecard.flags ?? [])].sort(
     (a, b) => (STATUS_ORDER[a.status] ?? 9) - (STATUS_ORDER[b.status] ?? 9)
@@ -51,6 +99,16 @@ export default function Scorecard({ scorecard, submission }) {
         how to weigh them. The judgement stays with you.
       </p>
 
+      {isVideo && (
+        <VideoReview
+          src={submission?.preview}
+          keyframes={scorecard.keyframes}
+          duration={scorecard.duration_s}
+          playerRef={playerRef}
+          onSeek={seek}
+        />
+      )}
+
       {/* The post under review. */}
       {submission && (
         <div className="mt-5 border border-line bg-panel p-4">
@@ -58,7 +116,7 @@ export default function Scorecard({ scorecard, submission }) {
             Under review
           </div>
           <div className="mt-3 flex gap-4">
-            {submission.preview && (
+            {submission.preview && !isVideo && (
               <img
                 src={submission.preview}
                 alt="submitted"
@@ -94,7 +152,11 @@ export default function Scorecard({ scorecard, submission }) {
         </div>
         <div className="mt-4 space-y-3">
           {flags.map((flag, i) => (
-            <FlagCard key={`${flag.type}-${flag.source}-${i}`} flag={flag} />
+            <FlagCard
+              key={`${flag.type}-${flag.source}-${i}`}
+              flag={flag}
+              onSeek={isVideo ? seek : undefined}
+            />
           ))}
         </div>
       </div>

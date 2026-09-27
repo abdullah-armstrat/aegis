@@ -1,9 +1,10 @@
-// Submit screen: two-column dossier layout EXACTLY per the design: image (solid grey
+// Submit screen: two-column dossier layout EXACTLY per the design: image or video (solid grey
 // dropzone, left) beside caption (textarea, right), then an action row with the ink "Run
 // audit" button and a right-aligned privacy note. Reports the submission up so the result
 // screen can show what was reviewed.
 
 import { useRef, useState } from "react";
+import { isVideo } from "../api";
 
 export default function SubmitPanel({ onAnalyze, loading }) {
   const [file, setFile] = useState(null);
@@ -14,10 +15,12 @@ export default function SubmitPanel({ onAnalyze, loading }) {
   const inputRef = useRef(null);
 
   function handleFile(selected) {
-    if (!selected || !selected.type?.startsWith("image/")) return;
+    if (!selected || !(selected.type?.startsWith("image/") || isVideo(selected))) return;
     setFile(selected);
     setPreview(URL.createObjectURL(selected));
   }
+
+  const video = isVideo(file);
 
   function handleDrop(e) {
     e.preventDefault();
@@ -27,7 +30,7 @@ export default function SubmitPanel({ onAnalyze, loading }) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    if (file && !loading) onAnalyze(file, caption, { preview, filename: file.name, postedDate });
+    if (file && !loading) onAnalyze(file, caption, { preview, filename: file.name, postedDate, video });
   }
 
   return (
@@ -36,8 +39,8 @@ export default function SubmitPanel({ onAnalyze, loading }) {
         Submit a post for review
       </h1>
       <p className="mt-4 max-w-[540px] text-base leading-relaxed text-[#595959]">
-        Aegis reads the image and its caption together, then reports what it found, finding by
-        finding. It will not tell you whether the post is true; it shows you what is worth checking.
+        Aegis reads the image or video and its caption together, then reports what it found, finding
+        by finding. It will not tell you whether the post is true; it shows you what is worth checking.
       </p>
 
       {/* Two-column grid: image | caption */}
@@ -45,7 +48,7 @@ export default function SubmitPanel({ onAnalyze, loading }) {
         {/* Image */}
         <div>
           <div className="mb-3 flex items-baseline justify-between">
-            <span className="text-[13px] font-semibold text-ink">The image</span>
+            <span className="text-[13px] font-semibold text-ink">The image or video</span>
             <span className="text-xs text-muted">Required</span>
           </div>
           <button
@@ -60,7 +63,9 @@ export default function SubmitPanel({ onAnalyze, loading }) {
             className="flex h-[360px] w-full items-center justify-center overflow-hidden border border-dashed bg-fill transition-colors"
             style={{ borderColor: dragging ? "#161616" : "#C9C9C9" }}
           >
-            {preview ? (
+            {preview && video ? (
+              <video src={preview} muted className="max-h-full max-w-full object-contain" />
+            ) : preview ? (
               <img src={preview} alt="preview" className="max-h-full max-w-full object-contain" />
             ) : (
               <div className="flex flex-col items-center gap-3 px-6 text-center">
@@ -71,14 +76,16 @@ export default function SubmitPanel({ onAnalyze, loading }) {
                   <path d="M21 15l-5-5L5 21" stroke="#9A9A9A" strokeWidth="1.5" />
                 </svg>
                 <span className="text-sm text-muted">
-                  Drag an image here, or <span className="text-ink underline">click to browse</span>
+                  Drag an image or video here, or{" "}
+                  <span className="text-ink underline">click to browse</span>
                 </span>
+                <span className="text-xs text-muted">Videos: mp4, mov or webm, up to 60 seconds</span>
               </div>
             )}
             <input
               ref={inputRef}
               type="file"
-              accept="image/*"
+              accept="image/*,video/mp4,video/quicktime,video/webm,.mp4,.mov,.webm"
               className="hidden"
               onChange={(e) => handleFile(e.target.files?.[0])}
             />
@@ -119,8 +126,9 @@ export default function SubmitPanel({ onAnalyze, loading }) {
           />
         </label>
         <p className="max-w-[420px] pb-2 text-[12.5px] leading-relaxed text-muted">
-          If you know when the post was published, add it. Aegis can then say whether the image
-          was online before that date, rather than only whether it has appeared elsewhere.
+          If you know when the post was published, add it. Aegis can then say whether the image, or
+          a frame of the video, was online before that date, rather than only whether it has
+          appeared elsewhere.
         </p>
       </div>
 
@@ -137,13 +145,13 @@ export default function SubmitPanel({ onAnalyze, loading }) {
             background: !file || loading ? "#8C8C8C" : "#161616",
             cursor: !file || loading ? "not-allowed" : "pointer",
           }}
-          title={!file ? "Choose an image first" : "Run the audit"}
+          title={!file ? "Choose an image or video first" : "Run the audit"}
         >
-          {loading ? "Running audit…" : "Run audit"}
+          {loading ? (video ? "Running audit… a video takes up to a minute" : "Running audit…") : "Run audit"}
           <span className="text-base leading-none">→</span>
         </button>
         <p className="max-w-[280px] text-right text-[12.5px] leading-relaxed text-muted">
-          Nothing is published. Your image and caption stay in this session.
+          Nothing is published. Your file and caption stay in this session.
         </p>
       </div>
     </form>
