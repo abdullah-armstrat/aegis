@@ -1,2 +1,115 @@
-clip_id,segment_index,start_s,end_s,transcript_text,matches_visuals,notes
-E01,1,0.00,6.40,"a grey cat sitting on the wall",yes,"ground truth judged by author from the footage"
+clip_id,line_index,start_s,end_s,text,label,wrong_detail,keyframe_s
+E01,1,1.0,3.574,Thick fog hides a tall building.,matches,,2.29
+E01,2,8.0,11.424,The fog lifts and the tall building comes into view.,matches,,9.71
+E01,3,20.0,23.354,A large flag is painted on the side of the building.,matches,,21.68
+E01,4,32.0,35.579,Green grass stretches in front of it under a blue sky.,matches,,33.79
+E02,1,1.0,3.969,A tall crane works on a building site.,matches,,2.48
+E02,2,10.0,13.779,"Behind the site, the sea runs along the horizon.",matches,,11.89
+E02,3,20.0,23.094,A herd of cows grazes in a muddy field.,different_scene,,21.55
+E02,4,32.0,35.809,A large round grey tank rises on concrete legs.,matches,,33.9
+E03,1,1.0,5.304,"At night, a tall rocket stands lit up on its launch pad.",matches,,3.15
+E03,2,8.0,11.454,A bright full moon sinks slowly beside the rocket.,matches,,9.73
+E03,3,15.0,18.044,Lights on the pad reflect in the water below.,matches,,16.52
+E04,1,1.0,4.174,Two bald eagles perch high in a bare tree.,matches,,2.59
+E04,2,12.0,15.154,A huge nest of sticks sits in the branches.,matches,,13.58
+E04,3,24.0,27.409,Small dark chicks move about inside the nest.,matches,,25.7
+E05,1,1.0,4.419,An eagle with a white head watches over two chicks.,matches,,2.71
+E05,2,12.0,15.649,A young eagle stretches its dark wings above the nest.,matches,,13.82
+E05,3,24.0,27.149,A red fox runs across a snowy field.,different_scene,,25.57
+E05,4,36.0,39.554,The young eagle flaps its wings against a white sky.,matches,,37.78
+E06,1,1.0,5.124,A drone flies over a small blue house among green bushes.,matches,,3.06
+E06,2,9.0,12.084,A tall white tower stands in the distance.,matches,,10.54
+E06,3,20.0,22.759,Waves break on a wide sandy beach.,matches,,21.38
+E06,4,30.0,33.674,"Behind the beach, the house sits on low dunes.",matches,,31.84
+E07,1,1.0,4.324,A curving sandy path leads to a blue house.,matches,,2.66
+E07,2,10.0,12.859,A red tractor ploughs a field of wheat.,different_scene,,11.43
+E07,3,22.0,25.589,Green scrubland spreads towards a tall white tower.,matches,,23.79
+E07,4,34.0,37.119,This beach house stands on the coast of Maine.,wrong_detail,"place: the house is at Kennedy Space Center, Florida",35.56
+E08,1,1.0,5.179,"From orbit, a huge hurricane swirls over the ocean.",matches,,3.09
+E08,2,12.0,15.714,Parts of the space station stand out as dark shapes.,matches,,13.86
+E08,3,24.0,27.519,The storm's eye is a small dark hole in the clouds.,matches,,25.76
+E08,4,38.0,41.454,Thick white cloud bands spiral around the centre.,matches,,39.73
+E09,1,1.0,4.524,A storm covers the ocean below the space station.,matches,,2.76
+E09,2,12.0,15.324,A long robotic arm reaches out from the station.,matches,,13.66
+E09,3,24.0,27.269,A crowded market sells fruit and vegetables.,different_scene,,25.63
+E09,4,36.0,39.714,Solar panels stretch across the lower left of the view.,matches,,37.86
+E09,5,48.0,50.964,Three hurricanes line up across the sea.,wrong_detail,count: one storm is shown,49.48
+E10,1,1.0,4.104,Snow settles on the leaves of a thin branch.,matches,,2.55
+E10,2,7.0,10.234,Snowflakes drift down past the branch.,matches,,8.62
+E10,3,15.0,18.694,A truck with a snowplough pushes snow along a street.,matches,,16.85
+E11,1,1.0,4.309,Bare trees stand along the edge of a calm lake.,matches,,2.65
+E11,2,10.0,13.454,A busy motorway is full of cars at rush hour.,different_scene,,11.73
+E11,3,25.0,28.309,The low sun shines through the trees onto the snow.,matches,,26.65
+E12,1,1.0,4.444,A long white barge passes under a steel bridge.,matches,,2.72
+E12,2,10.0,12.939,Traffic crosses the bridge above the river.,matches,,11.47
+E12,3,20.0,23.534,The barge moves along a wide river with green banks.,matches,,21.77
+E13,1,1.0,4.664,A barge slides past a tall lift bridge on the river.,matches,,2.83
+E13,2,10.0,13.284,Sunlight glitters on the water around the barge.,matches,,11.64
+E13,3,20.0,23.429,Snow-capped mountains rise above a frozen lake.,different_scene,,21.71
+E13,4,32.0,35.454,Small boats float near the far shore of the river.,matches,,33.73
+E14,1,1.0,4.559,A tugboat pushes a covered barge along a waterway.,matches,,2.78
+E14,2,9.0,12.214,A small white boat travels ahead of the barge.,matches,,10.61
+E14,3,19.0,22.529,The barge carries a long white cover with a curved roof.,matches,,20.76
+E14,4,27.0,30.109,Green marsh lines both sides of the water.,matches,,28.55
+E15,1,1.0,4.024,The barge approaches a huge square building.,matches,,2.51
+E15,2,12.0,15.609,A bright green tugboat pushes the barge from behind.,wrong_detail,colour: the tugboat is red and white,13.8
+E15,3,24.0,27.619,A cruise ship full of passengers docks in the harbour.,different_scene,,25.81
+E15,4,40.0,43.684,The giant building has a round blue logo near the top.,matches,,41.84
+E16,1,1.0,4.644,A tall white building with a flag stands near a lagoon.,matches,,2.82
+E16,2,12.0,15.134,Green marsh and water stretch out behind it.,matches,,13.57
+E16,3,30.0,33.289,A rocket now stands beside the tall building.,matches,,31.64
+E16,4,38.0,40.999,Clouds drift across a pale blue sky.,matches,,39.5
+E17,1,1.0,4.874,A rocket stands on a launch pad between tall towers.,matches,,2.94
+E17,2,12.0,14.869,A large white sphere sits near the pad.,matches,,13.43
+E17,3,24.0,26.999,Tall lightning towers surround the rocket.,matches,,25.5
+E17,4,36.0,39.159,The rocket on the pad is painted bright green.,wrong_detail,colour: the rocket is white,37.58
+E17,5,48.0,51.099,A flock of sheep crosses a country lane.,different_scene,,49.55
+E18,1,1.0,4.309,A white helicopter hovers above green trees.,matches,,2.65
+E18,2,12.0,15.174,It slowly comes down towards a paved area.,matches,,13.59
+E18,3,24.0,27.434,The helicopter has a blue stripe along its side.,matches,,25.72
+E18,4,36.0,39.449,It settles close to the ground in front of the trees.,matches,,37.72
+E19,1,1.0,4.309,A large white hangar stands under a blue sky.,matches,,2.65
+E19,2,12.0,15.369,A pod of whales swims beside a sailing boat.,different_scene,,13.68
+E19,3,24.0,27.804,A small helicopter appears far away above the trees.,matches,,25.9
+E20,1,1.0,4.314,A white aircraft approaches from a hazy sky.,matches,,2.66
+E20,2,9.0,12.194,It descends towards a runway lined with trees.,matches,,10.6
+E20,3,16.0,19.309,The long-winged plane touches down on the runway.,matches,,17.65
+E21,1,1.0,4.779,A white plane with very long wings rolls along a runway.,matches,,2.89
+E21,2,10.0,13.074,Green grass lines the edges of the runway.,matches,,11.54
+E21,3,19.0,22.599,A crowd of children plays in a school playground.,different_scene,,20.8
+E21,4,27.0,30.704,An orange plane with long wings rolls along the runway.,wrong_detail,colour: the plane is white,28.85
+E22,1,1.0,5.084,"In the dark, a tall orange rocket stands on its pad.",matches,,3.04
+E22,2,14.0,17.529,Bright lights shine around the base of the launch tower.,matches,,15.76
+E22,3,28.0,31.639,The rocket glows orange and white against the dark sky.,matches,,29.82
+E23,1,1.0,5.029,"At dawn, a rocket stands beside its launch tower.",matches,,3.01
+E23,2,12.0,15.169,The rocket has a white top and an orange body.,matches,,13.58
+E23,3,24.0,27.319,A snowstorm buries a quiet mountain village.,different_scene,,25.66
+E23,4,36.0,39.089,The sky behind the rocket turns deep blue.,matches,,37.54
+E24,1,1.0,4.384,Waves roll onto a sandy beach seen from above.,matches,,2.69
+E24,2,14.0,16.784,Green plants grow behind the sand.,matches,,15.39
+E24,3,28.0,31.174,White foam spreads along the edge of the water.,matches,,29.59
+E24,4,40.0,43.309,A long strip of sand runs beside the waves.,matches,,41.65
+E25,1,1.0,4.374,A drone circles a huge grey and white building.,matches,,2.69
+E25,2,12.0,15.579,A giant flag and a round logo decorate its side.,matches,,13.79
+E25,3,24.0,27.184,Camels walk across golden sand dunes.,different_scene,,25.59
+E25,4,35.0,38.589,Equipment and materials cover a building site nearby.,matches,,36.79
+E26,1,1.0,4.789,Tall towers stand in silhouette against the setting sun.,matches,,2.89
+E26,2,12.0,15.009,The sun flares brightly behind the rocket.,matches,,13.5
+E26,3,22.0,25.119,A round water tower stands to the right.,matches,,23.56
+E27,1,1.0,4.429,A giant rocket rides on a huge tracked vehicle.,matches,,2.71
+E27,2,12.0,15.119,A large flag hangs on the side of the vehicle.,matches,,13.56
+E27,3,18.0,20.724,Seagulls dive into a stormy sea.,different_scene,,19.36
+E28,1,1.0,4.209,A red locomotive sits on a railway track.,matches,,2.6
+E28,2,7.0,10.329,A long line of freight cars stretches behind it.,matches,,8.66
+E28,3,13.0,16.429,White clouds float in a blue sky above the train.,matches,,14.71
+E29,1,1.0,4.289,A white bird with a dark head wades in calm water.,matches,,2.64
+E29,2,7.0,9.839,Its long curved beak is bright yellow.,wrong_detail,colour: the beak is dark grey,8.42
+E29,3,13.0,16.449,Ripples spread across the water around its legs.,matches,,14.72
+E30,1,1.0,4.804,A large part of the space station fills the left of the view.,matches,,2.9
+E30,2,14.0,17.809,"Beyond it, a hurricane swirls over the ocean.",matches,,15.9
+E30,3,28.0,31.219,A marching band parades down a city street.,different_scene,,29.61
+E30,4,42.0,45.484,The hurricane's eye sits over the deserts of Arizona.,wrong_detail,place: the storm is over the northwestern Bahamas,43.74
+E33,1,1.0,4.714,The sun sets behind tall grass and a distant rocket.,matches,,2.86
+E33,2,10.0,12.829,Clouds glow orange above the horizon.,matches,,11.41
+E34,1,1.0,3.944,A covered barge travels up a wide river.,matches,,2.47
+E34,2,9.0,12.044,A small boat leaves a white wake beside it.,matches,,10.52
