@@ -44,8 +44,10 @@ class Settings(BaseSettings):
     caption_match_method: Literal["image", "meaning", "overlap", "off"] = "image"
 
     # --- Video ---
-    # Whisper model for the video path's speech. Chosen by the tiny-vs-base comparison.
-    whisper_model: Literal["tiny", "base"] = "tiny"
+    # Whisper model for the video path's speech. Base, by the tiny-vs-base comparison: word error
+    # rate 4.67% against 7.77% on 100 LibriSpeech utterances, a gap above the 2-point margin that
+    # would have let the faster tiny model win.
+    whisper_model: Literal["tiny", "base"] = "base"
     # Upload limits. 100 MB holds a minute of phone video at ordinary bitrates; longer clips are
     # refused because every stage's cost grows with length on this CPU-only machine.
     video_max_mb: int = 100

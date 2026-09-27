@@ -57,26 +57,36 @@ def whisper_checkpoint(name: str) -> Path:
     return path
 
 
+def load_model(name: str):
+    """A Whisper model from the verified local file (a file path never triggers a download)."""
+    import whisper
+
+    return whisper.load_model(str(whisper_checkpoint(name)), device="cpu")
+
+
+def run_model(model, audio: Path) -> list[Segment]:
+    """Transcribe with the fixed decoding settings and keep only segments that are speech."""
+    out = model.transcribe(str(audio), language="en", fp16=False, verbose=None)
+    return [
+        Segment(round(float(s["start"]), 2), round(float(s["end"]), 2), s["text"].strip(), float(s["no_speech_prob"]))
+        for s in out.get("segments", [])
+        if s["text"].strip() and float(s["no_speech_prob"]) <= NO_SPEECH_PROB
+    ]
+
+
 def transcribe(wav: Path, model_name: str) -> SpeechResult:
     """Segments of speech in ``wav``; the model is loaded, used once and released."""
     try:
-        import whisper
-
-        model = whisper.load_model(str(whisper_checkpoint(model_name)), device="cpu")
+        model = load_model(model_name)
     except (ImportError, FileNotFoundError, ValueError, OSError, RuntimeError) as exc:
         return SpeechResult(detail=f"The speech recogniser could not run: {exc}", model=model_name)
     try:
-        out = model.transcribe(str(wav), language="en", fp16=False, verbose=None)
+        segments = run_model(model, wav)
     except Exception as exc:  # noqa: BLE001 - any decoding failure is "could not assess"
         return SpeechResult(detail=f"The speech recogniser failed: {exc}", model=model_name)
     finally:
         del model
         gc.collect()
-    segments = [
-        Segment(round(float(s["start"]), 2), round(float(s["end"]), 2), s["text"].strip(), float(s["no_speech_prob"]))
-        for s in out.get("segments", [])
-        if s["text"].strip() and float(s["no_speech_prob"]) <= NO_SPEECH_PROB
-    ]
     if not segments:
         return SpeechResult(status=FlagStatus.CLEAR, detail="No speech was found in the audio.", model=model_name)
     return SpeechResult(segments=segments, status=FlagStatus.FIRED, model=model_name)
