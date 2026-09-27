@@ -78,6 +78,7 @@ def health() -> dict:
             "phash_match_threshold": settings.phash_match_threshold,
             "phash_mirror_lookup": settings.phash_mirror_lookup,
             "keypoint_matching": settings.keypoint_matching,
+            "caption_match_method": settings.caption_match_method,
         },
     }
 

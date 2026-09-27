@@ -17,3 +17,4 @@ def test_health_ok():
     # Feature flags are surfaced so the running configuration is observable.
     assert "reverse_image_mode" in body["config"]
     assert "use_llm" in body["config"]
+    assert body["config"]["caption_match_method"] in ("meaning", "overlap")

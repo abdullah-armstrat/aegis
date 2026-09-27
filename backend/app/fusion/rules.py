@@ -16,6 +16,8 @@ from __future__ import annotations
 import re
 from datetime import date
 
+from app.config import get_settings
+from app.extractors.caption_match import read_from_image
 from app.models import (
     EvidenceBundle,
     Flag,
@@ -26,6 +28,14 @@ from app.models import (
 
 # --- Tunable thresholds (eval harness will inform final values) ---
 CAPTION_SCENE_OVERLAP_THRESHOLD = 0.15  # min content-word overlap before caption↔scene is "consistent"
+
+# --- Caption vs picture by meaning ---
+# Fitted on the calibration part of the VERITE sample: the pair of thresholds that flags at most
+# 1 in 10 truthful captions there while catching the most images used out of context. The flag
+# fires only when BOTH similarities are below their thresholds. On the held-out part it flagged
+# 10 of 60 truthful captions and caught 13 of 61 images used out of context.
+CAPTION_IMAGE_SIMILARITY_THRESHOLD = 0.3772  # CLIP ViT-B/32: the picture against the caption
+CAPTION_TEXT_SIMILARITY_THRESHOLD = 0.7274   # spaCy: the caption against scene description + on-screen text
 
 # --- Emotional-framing marker thresholds ---
 # Set from reasoning about what each marker means, BEFORE measuring on the labelled set, so the
@@ -327,6 +337,93 @@ def recycled_context_rule(bundle: EvidenceBundle) -> Flag:
 
 def caption_scene_mismatch_rule(bundle: EvidenceBundle) -> Flag:
     """Does the caption describe what the image actually shows? (caption ↔ scene)
+
+    ``caption_match_method`` selects how: by meaning (CLIP and spaCy similarities) or by the
+    earlier content-word overlap.
+    """
+    if get_settings().caption_match_method == "meaning":
+        return _caption_meaning_rule(bundle)
+    return _caption_overlap_rule(bundle)
+
+
+# What the meaning check can and cannot see, stated on every result it gives.
+_MEANING_LIMIT = (
+    "This compares only the kind of scene: it cannot catch a wrong name, place or date in a "
+    "caption that fits the scene."
+)
+
+
+def _caption_meaning_rule(bundle: EvidenceBundle) -> Flag:
+    """Fires when the picture and the caption seem to be about different kinds of scene.
+
+    Reads two similarities from ``bundle.caption_match``: the picture against the caption (CLIP),
+    and the caption against what the other extractors read from the picture (spaCy). On the
+    held-out part of the VERITE sample it caught about 1 in 5 mismatched pairs of either kind
+    while flagging 1 in 6 truthful ones. A false caption usually describes the same kind of scene
+    with a wrong detail, which a similarity score cannot see, and the explanation says so.
+    """
+    match = bundle.caption_match
+    if not bundle.caption or match is None or match.image_similarity is None or match.text_similarity is None:
+        if not bundle.caption:
+            reason = "no caption available."
+        elif match is not None and match.detail:
+            reason = match.detail
+        else:
+            reason = "the similarity models did not run."
+        return Flag(
+            type=FlagType.CAPTION_CONTENT_MISMATCH,
+            status=FlagStatus.NOT_ASSESSED,
+            severity=Severity.INFO,
+            evidence=f"Cannot compare: {reason}",
+            plain_explanation="Whether the picture fits the kind of scene the caption describes could not be assessed.",
+            what_to_check="Look at the image yourself and ask whether the caption fits what you see.",
+        )
+
+    image_low = match.image_similarity < CAPTION_IMAGE_SIMILARITY_THRESHOLD
+    text_low = match.text_similarity < CAPTION_TEXT_SIMILARITY_THRESHOLD
+    seen = read_from_image([s.text for s in bundle.scene_descriptions], bundle.on_screen_text)
+    source = "The description of the picture" + (" and the text on it" if bundle.on_screen_text else "")
+
+    def strength(low: bool) -> str:
+        return "weak" if low else "reasonable"
+
+    evidence = (
+        f"The picture itself is a {strength(image_low)} match for the caption (similarity "
+        f"{match.image_similarity:.2f}; under {CAPTION_IMAGE_SIMILARITY_THRESHOLD:.2f} counts as weak). "
+        f"{source}, \"{seen}\", is a {strength(text_low)} match for the caption "
+        f"(similarity {match.text_similarity:.2f}; under {CAPTION_TEXT_SIMILARITY_THRESHOLD:.2f} counts as weak)."
+    )
+    if match.caption_truncated:
+        evidence += " The caption was longer than the model can read, so only its beginning was compared."
+
+    if image_low and text_low:
+        return Flag(
+            type=FlagType.CAPTION_CONTENT_MISMATCH,
+            status=FlagStatus.FIRED,
+            severity=Severity.MEDIUM,
+            evidence=evidence + " Both matches are weak, which is when this check is raised.",
+            plain_explanation=(
+                "The picture seems to show a different kind of scene from the one the caption "
+                f"describes. {_MEANING_LIMIT}"
+            ),
+            what_to_check=(
+                "Find where the picture first appeared and check what it actually shows, and when "
+                "and where it was taken."
+            ),
+        )
+
+    return Flag(
+        type=FlagType.CAPTION_CONTENT_MISMATCH,
+        status=FlagStatus.CLEAR,
+        severity=Severity.INFO,
+        evidence=evidence + " This check is raised only when both matches are weak.",
+        plain_explanation=f"The picture seems to show the kind of scene the caption describes. {_MEANING_LIMIT}",
+        what_to_check="Check the names, places and dates in the caption against a trusted source; this check cannot.",
+    )
+
+
+def _caption_overlap_rule(bundle: EvidenceBundle) -> Flag:
+    """Caption ↔ scene by content-word overlap, the earlier method.
 
     Compares the user caption against the scene description(s) from the captioner by
     content-word overlap. Low overlap suggests the caption and the visible content are about

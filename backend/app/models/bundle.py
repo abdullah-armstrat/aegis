@@ -115,6 +115,25 @@ class WebMatch(BaseModel):
     )
 
 
+class CaptionMatch(BaseModel):
+    """How closely the caption matches the image in meaning (cosine similarities, -1 to 1)."""
+
+    image_similarity: float | None = Field(
+        default=None, description="CLIP similarity between the image itself and the caption."
+    )
+    text_similarity: float | None = Field(
+        default=None,
+        description="Similarity between the caption and the scene description plus on-screen text.",
+    )
+    image_model: str | None = Field(default=None, description="CLIP model behind image_similarity.")
+    text_model: str | None = Field(default=None, description="Method behind text_similarity.")
+    caption_truncated: bool = Field(
+        default=False,
+        description="True when the caption was longer than CLIP's 77-token limit and was cut to fit.",
+    )
+    detail: str = Field(default="", description="Why a similarity is missing, when one is.")
+
+
 class AiGenHint(BaseModel):
     """An optional, explicitly weak AI-generation signal — never conclusive."""
 
@@ -162,6 +181,7 @@ class EvidenceBundle(BaseModel):
     )
     sentiment: Sentiment | None = None
     web_matches: list[WebMatch] = Field(default_factory=list)
+    caption_match: CaptionMatch | None = None
     ai_gen_hint: AiGenHint | None = None
     extractor_status: dict[str, FlagStatus] = Field(
         default_factory=dict,

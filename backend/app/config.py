@@ -7,6 +7,7 @@ git-ignored). Secrets never live in code. See ``.env.example`` for the full list
 from __future__ import annotations
 
 from functools import lru_cache
+from typing import Literal
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
@@ -32,6 +33,11 @@ class Settings(BaseSettings):
     reverse_image_mode: str = "index"
     use_llm: bool = False              # rules-only fusion until the LLM is wired in
     use_captioner: bool = True         # BLIP scene captioning, local on CPU; false skips it
+    # How the caption is compared with the picture. "meaning": CLIP similarity between the picture
+    # and the caption, and spaCy similarity between the caption and the scene description plus
+    # on-screen text; the flag fires when both are low. "overlap": the earlier content-word
+    # overlap between the caption and the scene description, kept for comparison.
+    caption_match_method: Literal["meaning", "overlap"] = "overlap"
 
     # --- Local LLM reasoner (Ollama) ---
     ollama_host: str = "http://localhost:11434"

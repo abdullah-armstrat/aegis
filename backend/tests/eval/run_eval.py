@@ -34,7 +34,7 @@ _BACKEND_DIR = Path(__file__).resolve().parents[2]
 if str(_BACKEND_DIR) not in sys.path:
     sys.path.insert(0, str(_BACKEND_DIR))
 
-from app.adapters.image_adapter import build_bundle  # noqa: E402
+from app.adapters.image_adapter import build_bundle, measure_caption_fit  # noqa: E402
 from app.fusion.scorecard import build_scorecard  # noqa: E402
 from app.models import FlagStatus, SceneDescription  # noqa: E402
 from tests.eval.legacy_lookup import inject_lookup  # noqa: E402
@@ -80,6 +80,12 @@ def _predict(example: dict, use_llm: bool) -> dict[str, str]:
     inject_lookup(bundle, source_ref)
     if example.get("inject_scene"):
         bundle.scene_descriptions = [SceneDescription(text=t) for t in example["inject_scene"]]
+        if get_settings().caption_match_method == "meaning":
+            # The caption-vs-description similarity reads the scene text, so re-measure it from
+            # the injected text. The picture similarity still sees the blank test image.
+            bundle.caption_match, bundle.extractor_status["caption_match"] = measure_caption_fit(
+                image_bytes, bundle.caption, example["inject_scene"], bundle.on_screen_text
+            )
 
     card = build_scorecard(bundle)
     # Rules emit one flag per type; the LLM may add one more. Keep the rules' deterministic

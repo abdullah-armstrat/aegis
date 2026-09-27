@@ -5,8 +5,13 @@ constructed directly (no extractors run), so these are fast, deterministic, and 
 logic precisely — exactly the reproducibility the rules layer exists to provide.
 """
 
+import pytest
+
+from app.config import get_settings
 from app.fusion.rules import (
+    CAPTION_IMAGE_SIMILARITY_THRESHOLD,
     CAPTION_SCENE_OVERLAP_THRESHOLD,
+    CAPTION_TEXT_SIMILARITY_THRESHOLD,
     MIN_MARKERS_TO_FIRE,
     caption_scene_mismatch_rule,
     emotional_framing_rule,
@@ -15,6 +20,7 @@ from app.fusion.rules import (
     run_rules,
 )
 from app.models import (
+    CaptionMatch,
     EvidenceBundle,
     FlagStatus,
     FlagType,
@@ -211,6 +217,88 @@ def test_caption_scene_not_assessed_without_scene():
     silent pass — the honest behaviour."""
     b = _bundle(caption="anything")
     assert caption_scene_mismatch_rule(b).status == FlagStatus.NOT_ASSESSED
+
+
+# --- caption <-> picture by meaning ---
+
+@pytest.fixture
+def by_meaning(monkeypatch):
+    get_settings.cache_clear()
+    monkeypatch.setenv("AEGIS_CAPTION_MATCH_METHOD", "meaning")
+    get_settings.cache_clear()
+    yield
+    get_settings.cache_clear()
+
+
+def _scored(image: float | None, text: float | None, **kwargs) -> EvidenceBundle:
+    kwargs.setdefault("caption", "Protesters fill the main square")
+    kwargs.setdefault("scene_descriptions", [SceneDescription(text="a bowl of soup on a table")])
+    return _bundle(caption_match=CaptionMatch(image_similarity=image, text_similarity=text), **kwargs)
+
+
+LOW_IMAGE = CAPTION_IMAGE_SIMILARITY_THRESHOLD - 0.05
+HIGH_IMAGE = CAPTION_IMAGE_SIMILARITY_THRESHOLD + 0.05
+LOW_TEXT = CAPTION_TEXT_SIMILARITY_THRESHOLD - 0.05
+HIGH_TEXT = CAPTION_TEXT_SIMILARITY_THRESHOLD + 0.05
+
+
+def test_meaning_fires_only_when_both_similarities_are_low(by_meaning):
+    flag = caption_scene_mismatch_rule(_scored(LOW_IMAGE, LOW_TEXT))
+    assert flag.type == FlagType.CAPTION_CONTENT_MISMATCH
+    assert flag.status == FlagStatus.FIRED
+    assert "different kind of scene" in flag.plain_explanation
+    # The evidence says what the numbers mean, and quotes what the picture appears to show.
+    assert flag.evidence.count("weak match") == 2
+    assert "a bowl of soup on a table" in flag.evidence
+
+
+@pytest.mark.parametrize("image, text", [(LOW_IMAGE, HIGH_TEXT), (HIGH_IMAGE, LOW_TEXT), (HIGH_IMAGE, HIGH_TEXT)])
+def test_meaning_clear_when_either_similarity_is_reasonable(by_meaning, image, text):
+    flag = caption_scene_mismatch_rule(_scored(image, text))
+    assert flag.status == FlagStatus.CLEAR
+    assert "reasonable match" in flag.evidence
+
+
+@pytest.mark.parametrize("image, text", [(LOW_IMAGE, LOW_TEXT), (HIGH_IMAGE, HIGH_TEXT)])
+def test_meaning_always_states_what_it_cannot_catch(by_meaning, image, text):
+    """A clear result must not read as 'the caption is accurate': the check sees only the kind
+    of scene, never a wrong name, place or date."""
+    flag = caption_scene_mismatch_rule(_scored(image, text))
+    assert "cannot catch a wrong name, place or date" in flag.plain_explanation
+
+
+def test_meaning_not_assessed_when_a_similarity_is_missing(by_meaning):
+    b = _scored(LOW_IMAGE, None)
+    b.caption_match.detail = "There was no scene description or on-screen text to compare with the caption."
+    flag = caption_scene_mismatch_rule(b)
+    assert flag.status == FlagStatus.NOT_ASSESSED
+    assert "no scene description" in flag.evidence
+
+
+def test_meaning_not_assessed_when_models_did_not_run(by_meaning):
+    b = _bundle(caption="anything", scene_descriptions=[SceneDescription(text="a street")])
+    flag = caption_scene_mismatch_rule(b)
+    assert flag.status == FlagStatus.NOT_ASSESSED
+    assert "did not run" in flag.evidence
+
+
+def test_meaning_not_assessed_without_caption(by_meaning):
+    flag = caption_scene_mismatch_rule(_scored(LOW_IMAGE, LOW_TEXT, caption=None))
+    assert flag.status == FlagStatus.NOT_ASSESSED
+
+
+def test_meaning_says_when_the_caption_was_cut(by_meaning):
+    b = _scored(LOW_IMAGE, LOW_TEXT)
+    b.caption_match.caption_truncated = True
+    assert "only its beginning was compared" in caption_scene_mismatch_rule(b).evidence
+
+
+def test_overlap_method_ignores_the_meaning_scores():
+    """Word overlap stays selectable, and reads only the words, whatever the similarities say."""
+    b = _scored(LOW_IMAGE, LOW_TEXT, caption="a bowl of soup on a table",
+                 scene_descriptions=[SceneDescription(text="a bowl of soup on a table")])
+    assert get_settings().caption_match_method == "overlap"
+    assert caption_scene_mismatch_rule(b).status == FlagStatus.CLEAR
 
 
 # --- the worked mismatch example end-to-end through the rules ---

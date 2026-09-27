@@ -3,6 +3,7 @@
 from app.models.bundle import (
     SCHEMA_VERSION,
     AiGenHint,
+    CaptionMatch,
     EvidenceBundle,
     Flag,
     FlagStatus,
@@ -19,6 +20,7 @@ from app.models.bundle import (
 __all__ = [
     "SCHEMA_VERSION",
     "AiGenHint",
+    "CaptionMatch",
     "EvidenceBundle",
     "Flag",
     "FlagStatus",
