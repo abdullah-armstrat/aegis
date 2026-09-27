@@ -119,11 +119,11 @@ def transcribe(wav: Path, model_name: str) -> SpeechResult:
     try:
         model = load_model(model_name)
     except (ImportError, FileNotFoundError, ValueError, OSError, RuntimeError) as exc:
-        return SpeechResult(detail=f"The speech recogniser could not run: {exc}", model=model_name)
+        return SpeechResult(detail="The speech recogniser could not be loaded.", model=model_name)
     try:
         segments = run_model(model, wav)
-    except Exception as exc:  # noqa: BLE001 - any decoding failure is "could not assess"
-        return SpeechResult(detail=f"The speech recogniser failed: {exc}", model=model_name)
+    except Exception:  # noqa: BLE001 - any decoding failure is "could not assess"
+        return SpeechResult(detail="The speech recogniser stopped before it finished.", model=model_name)
     finally:
         del model
         gc.collect()

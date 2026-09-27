@@ -250,7 +250,11 @@ def _video_emotional_framing(bundle: EvidenceBundle) -> Flag:
     if not bundle.transcript_segments:
         reason = bundle.extractor_detail.get("speech", "No speech was found.")
         missing.append("speech was not checked (" + reason[0].lower() + reason[1:].rstrip(".") + ")")
-    if not any(k.on_screen_text for k in bundle.keyframes):
+    if not bundle.keyframes:
+        missing.append("no frame of the video could be read")
+    elif bundle.extractor_status.get("ocr") == FlagStatus.NOT_ASSESSED:
+        missing.append("the text in the keyframes could not be read")
+    elif not any(k.on_screen_text for k in bundle.keyframes):
         missing.append("no on-screen text was found in the keyframes")
     gaps = f" Not checked: {'; '.join(missing)}." if missing else ""
 
@@ -314,8 +318,8 @@ def recycled_context_rule(bundle: EvidenceBundle) -> Flag:
             type=FlagType.RECYCLED_CONTEXT,
             status=FlagStatus.NOT_ASSESSED,
             severity=Severity.INFO,
-            evidence=("The keyframes could not all be looked up in the image history index. "
-                      + bundle.extractor_detail.get("reverse_image", "")).strip(),
+            evidence=bundle.extractor_detail.get(
+                "reverse_image", "The keyframes could not all be searched for earlier copies."),
             plain_explanation="Whether this video's frames have appeared elsewhere before could not be checked.",
             what_to_check="Take a screenshot of a key moment and run it through a reverse-image search.",
         )
@@ -710,12 +714,15 @@ def _caption_overlap_rule(bundle: EvidenceBundle) -> Flag:
     """
     scene_text = " ".join(s.text for s in bundle.scene_descriptions)
     if not bundle.caption or not scene_text.strip():
-        missing = "caption" if not bundle.caption else "scene description"
+        if not bundle.caption:
+            reason = "no caption available."
+        else:
+            reason = bundle.extractor_detail.get("captioner", "no description of the picture available.")
         return Flag(
             type=FlagType.CAPTION_CONTENT_MISMATCH,
             status=FlagStatus.NOT_ASSESSED,
             severity=Severity.INFO,
-            evidence=f"Cannot compare: no {missing} available.",
+            evidence=f"Cannot compare: {reason}",
             plain_explanation="Whether the caption matches the image content could not be assessed.",
             what_to_check="Look at the image yourself and ask whether the caption fits what you see.",
         )
@@ -780,7 +787,8 @@ def audio_visual_mismatch_rule(bundle: EvidenceBundle) -> Flag:
         )
     scored = [seg for seg in segments if seg.picture_similarity is not None]
     if not scored:
-        reason = bundle.extractor_detail.get("speech_picture", "The picture-matching model did not run.")
+        reason = bundle.extractor_detail.get(
+            "speech_picture", "The model that compares what is said with the picture did not run.")
         return Flag(
             type=FlagType.AUDIO_VISUAL_MISMATCH,
             status=FlagStatus.NOT_ASSESSED,

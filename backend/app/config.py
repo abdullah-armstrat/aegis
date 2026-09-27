@@ -31,7 +31,7 @@ class Settings(BaseSettings):
     # are earlier names for it). "live": every image upload also searches the web with Google
     # Cloud Vision, which needs GOOGLE_VISION_API_KEY in the environment. Without "live", a user
     # can still ask for a web search on one upload, when the key is set. Video keyframes always
-    # use the local index only.
+    # use the local index only. "off": no search for earlier copies; the scorecard says so.
     reverse_image_mode: str = "local"
     # Where live web results are cached, by the image's SHA-256. Empty => data/live_cache/.
     live_cache_dir: str = ""

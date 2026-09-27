@@ -158,3 +158,17 @@ def test_speech_check_runs_for_video_only():
     assert FlagType.AUDIO_VISUAL_MISMATCH in {f.type for f in run_rules(_spoken(0.3))}
     image = EvidenceBundle(meta=Meta(modality=Modality.IMAGE))
     assert FlagType.AUDIO_VISUAL_MISMATCH not in {f.type for f in run_rules(image)}
+
+
+def test_framing_names_why_on_screen_text_was_not_checked():
+    """No frames, text that could not be read, and text that is simply absent are said differently."""
+    from app.models import FlagStatus as S
+
+    no_frames = emotional_framing_rule(_video(caption="A calm river."))
+    assert "no frame of the video could be read" in no_frames.evidence
+    unread = emotional_framing_rule(_video(caption="A calm river.", keyframes=[Keyframe(timestamp=2.0)],
+                                           extractor_status={"ocr": S.NOT_ASSESSED}))
+    assert "the text in the keyframes could not be read" in unread.evidence
+    absent = emotional_framing_rule(_video(caption="A calm river.", keyframes=[Keyframe(timestamp=2.0)],
+                                           extractor_status={"ocr": S.CLEAR}))
+    assert "no on-screen text was found in the keyframes" in absent.evidence

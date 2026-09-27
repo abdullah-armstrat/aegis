@@ -215,7 +215,7 @@ def measure_caption_match(
                     img.load()
                     picture = img.convert("RGB")
             except (UnidentifiedImageError, OSError, ValueError) as exc:
-                return CaptionMatchResult(detail=f"Image could not be read: {exc}")
+                return CaptionMatchResult(detail="The picture could not be read.")
             result.image_similarity = float(
                 clip_image_vector(picture, image_model) @ clip_text_vector(caption, image_model)
             )
@@ -231,8 +231,8 @@ def measure_caption_match(
                     result.text_similarity = spacy_similarity(caption, seen)
                 else:
                     raise ValueError(f"unknown text method {text_method!r}")
-    except (FileNotFoundError, OSError, ValueError, ImportError, RuntimeError) as exc:
-        return CaptionMatchResult(detail=f"Caption-match models could not run: {exc}")
+    except (FileNotFoundError, OSError, ValueError, ImportError, RuntimeError):
+        return CaptionMatchResult(detail="A model that compares the caption with the picture could not run.")
 
     measured = (image_model is None or result.image_similarity is not None) and (
         text_method is None or result.text_similarity is not None

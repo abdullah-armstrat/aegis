@@ -120,7 +120,7 @@ def test_missing_index_is_not_assessed_not_clear(tmp_path, monkeypatch):
     _reset()
     result = find_web_matches(_bytes(_photo(1)))
     assert result.status == FlagStatus.NOT_ASSESSED
-    assert "unusable" in result.detail
+    assert "index could not be read" in result.detail
     _reset()
 
 
@@ -134,10 +134,12 @@ def test_missing_index_is_not_assessed_not_clear(tmp_path, monkeypatch):
     ],
 )
 def test_invalid_index_is_not_assessed(use_index, bad_entry, reason):
-    use_index([bad_entry])
+    path = use_index([bad_entry])
     result = find_web_matches(_bytes(_photo(1)))
     assert result.status == FlagStatus.NOT_ASSESSED
-    assert reason in result.detail
+    assert "index could not be read" in result.detail  # the user sees plain words...
+    with pytest.raises(reverse_image.HistoryIndexError, match=reason):  # ...the validation says what is wrong
+        reverse_image.load_index(str(path))
 
 
 def test_duplicate_entry_ids_are_rejected(use_index):
@@ -314,16 +316,38 @@ def test_entry_without_its_image_is_matched_by_hash_only(use_index):
     assert find_web_matches(_bytes(screenshot(original))).status == FlagStatus.CLEAR
 
 
-def test_keypoint_stage_failure_keeps_the_hash_result_and_says_why(use_index, tmp_path, monkeypatch):
+@pytest.mark.parametrize("failure", [TimeoutError("slow"), RuntimeError("opencv unavailable")])
+def test_keypoint_stage_failure_is_not_assessed_never_clear(use_index, tmp_path, monkeypatch, failure):
+    """A copy only the second stage can find may have been missed, so the lookup cannot say clear."""
     use_index([_entry_with_image(tmp_path, "orig", _textured(1))])
 
     def boom(*_args):
-        raise RuntimeError("opencv unavailable")
+        raise failure
 
     monkeypatch.setattr(reverse_image, "_keypoint_matches", boom)
     result = find_web_matches(_bytes(screenshot(_textured(1))))
-    assert result.status == FlagStatus.CLEAR
-    assert "Keypoint matching could not run" in result.detail
+    assert result.status == FlagStatus.NOT_ASSESSED
+    assert result.detail == ("The search for cropped or framed copies of this image could not run, so an earlier "
+                             "copy may have been missed.")
+
+
+@pytest.mark.parametrize("mode, reason", [
+    ("off", "The search for earlier copies of this image is switched off."),
+    ("sideways", "The search for earlier copies of this image is not set up correctly, so it did not run."),
+])
+def test_a_lookup_that_is_off_or_unavailable_says_so_in_plain_words(use_index, mode, reason):
+    use_index([], reverse_image_mode=mode)
+    result = find_web_matches(_bytes(_textured(1)))
+    assert result.status == FlagStatus.NOT_ASSESSED and result.detail == reason
+
+
+def test_an_unreadable_index_says_so_in_plain_words(tmp_path, monkeypatch):
+    monkeypatch.setenv("AEGIS_IMAGE_INDEX_PATH", str(tmp_path / "missing.json"))
+    _reset()
+    result = find_web_matches(_bytes(_textured(1)))
+    assert result.status == FlagStatus.NOT_ASSESSED
+    assert result.detail.startswith("The image history index could not be read") and "missing.json" not in result.detail
+    _reset()
 
 
 def test_keypoint_matches_are_one_to_one():

@@ -40,14 +40,18 @@ def test_missing_clip_weights_are_not_assessed_and_not_downloaded(no_network, em
     result = _measure()
     assert result.status == FlagStatus.NOT_ASSESSED
     assert result.image_similarity is None
-    assert "weights are not in" in result.detail
+    assert result.detail == "A model that compares the caption with the picture could not run."
+    with pytest.raises(FileNotFoundError, match="weights are not in"):
+        caption_match.clip_checkpoint("ViT-B/32")
 
 
 def test_altered_clip_weights_are_not_assessed_and_not_downloaded(no_network, empty_clip_cache):
     (empty_clip_cache / "ViT-B-32.pt").write_bytes(b"not the published checkpoint")
     result = _measure()
     assert result.status == FlagStatus.NOT_ASSESSED
-    assert "do not match the published checksum" in result.detail
+    assert result.detail == "A model that compares the caption with the picture could not run."
+    with pytest.raises(ValueError, match="do not match the published checksum"):
+        caption_match.clip_checkpoint("ViT-B/32")
 
 
 def test_no_caption_is_not_assessed():

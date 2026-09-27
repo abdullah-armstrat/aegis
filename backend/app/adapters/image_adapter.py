@@ -93,15 +93,19 @@ def build_bundle(
     reverse = find_web_matches(image_bytes, search_web=search_web)
 
     needs_scene = method in ("meaning", "overlap") or settings.use_llm
+    extractor_detail = {}
     if settings.use_captioner and needs_scene:
         caption_result = describe_scene(image_bytes)
         scene_descriptions = caption_result.scene_descriptions
         caption_status = caption_result.status
+        if caption_result.detail and caption_status != FlagStatus.FIRED:
+            extractor_detail["captioner"] = caption_result.detail
     else:
         scene_descriptions = []
         caption_status = FlagStatus.NOT_ASSESSED
+        if needs_scene:
+            extractor_detail["captioner"] = "the model that describes the picture is switched off."
 
-    extractor_detail = {}
     if reverse.detail:
         extractor_detail["reverse_image"] = reverse.detail
     if reverse.web_searched:

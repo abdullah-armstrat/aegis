@@ -57,21 +57,19 @@ def extract_on_screen_text(image_bytes: bytes) -> OcrResult:
         import pytesseract
         from PIL import Image, UnidentifiedImageError
     except ImportError as exc:  # pragma: no cover - environment guard
-        return OcrResult(status=FlagStatus.NOT_ASSESSED, detail=f"OCR deps missing: {exc}")
+        return OcrResult(status=FlagStatus.NOT_ASSESSED, detail="The text in the picture could not be read.")
 
     try:
         image = Image.open(BytesIO(image_bytes))
         image.load()
     except (UnidentifiedImageError, OSError, ValueError) as exc:
-        return OcrResult(
-            status=FlagStatus.NOT_ASSESSED, detail=f"Image could not be read: {exc}"
-        )
+        return OcrResult(status=FlagStatus.NOT_ASSESSED, detail="The picture could not be read.")
 
     try:
         _configure_tesseract()
         raw = pytesseract.image_to_string(image)
-    except Exception as exc:  # noqa: BLE001 - any engine failure is "could not assess"
-        return OcrResult(status=FlagStatus.NOT_ASSESSED, detail=f"OCR engine error: {exc}")
+    except Exception:  # noqa: BLE001 - any engine failure is "could not assess"
+        return OcrResult(status=FlagStatus.NOT_ASSESSED, detail="The text in the picture could not be read.")
 
     lines = [ln.strip() for ln in raw.splitlines() if ln.strip()]
     if not lines:

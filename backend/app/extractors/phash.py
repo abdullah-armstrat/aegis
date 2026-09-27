@@ -46,21 +46,21 @@ def compute_phash(image_bytes: bytes) -> PHashResult:
     try:
         from PIL import Image, ImageOps, UnidentifiedImageError
     except ImportError as exc:  # pragma: no cover - environment guard
-        return PHashResult(None, detail=f"Hashing deps missing: {exc}")
+        return PHashResult(None, detail="The picture could not be processed to search for earlier copies.")
 
     try:
         image = Image.open(BytesIO(image_bytes))
         image.load()
     except (UnidentifiedImageError, OSError, ValueError) as exc:
-        return PHashResult(None, detail=f"Image could not be read: {exc}")
+        return PHashResult(None, detail="The picture could not be read, so earlier copies were not searched for.")
 
     try:
         return PHashResult(
             hash_hex=phash_of_image(image),
             mirrored_hex=phash_of_image(ImageOps.mirror(image.convert("RGB"))),
         )
-    except Exception as exc:  # noqa: BLE001 - any hashing failure is "could not assess"
-        return PHashResult(None, detail=f"Hashing error: {exc}")
+    except Exception:  # noqa: BLE001 - any hashing failure is "could not assess"
+        return PHashResult(None, detail="The picture could not be processed to search for earlier copies.")
 
 
 def hamming(a_hex: str, b_hex: str) -> int:

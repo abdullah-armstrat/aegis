@@ -94,7 +94,7 @@ def test_unreachable_server_degrades_gracefully(monkeypatch, tmp_path):
 
     assert verdict.available is False
     assert verdict.same_subject is None
-    assert "unavailable" in verdict.explanation.lower()
+    assert verdict.explanation == "The language model could not be reached."
     get_settings.cache_clear()
 
 

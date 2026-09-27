@@ -14,6 +14,7 @@ index (for the web search), and dataset E clip E09.
 from __future__ import annotations
 
 import os
+import re
 import subprocess
 import sys
 import tempfile
@@ -34,6 +35,29 @@ CLIP = ROOT / "data" / "E_videos" / "clips" / "E09.mp4"
 CLIP_CAPTION = "A hurricane seen from the space station"
 CHECKS = {"caption": "caption_content_mismatch", "recycled": "recycled_context",
           "framing": "emotional_framing", "speech": "audio_visual_mismatch"}
+
+# Added after the first run (ADR-055): each affected check's reason must name the real cause in
+# plain words, and must carry no developer text.
+CAUSES = {
+    "I04": "switched off", "I05": "could not be processed", "I06": "index could not be read",
+    "I07": "cropped or framed", "I08": "cropped or framed", "I09": "no Google Cloud Vision key",
+    "I10": "timed out", "I11": "Google could not carry out", "I12": "switched off",
+    "I13": "compares the caption with the picture", "I14": "compares the caption with the picture",
+    "I15": "switched off", "I16": "describes the picture", "I17": "describes the picture",
+    "I18": "compares the caption with the picture", "I19": "compares the caption with the picture",
+    "I20": "could not be reached", "I21": "took too long", "I22": "could not be read",
+    "V01": "frame", "V02": "frame", "V05": "index could not be read", "V06": "audio track",
+    "V07": "audio track", "V08": "stopped before it finished", "V09": "could not be loaded",
+    "V10": "compares words with the picture", "V11": "compares words with the picture", "V12": "switched off",
+}
+PARTIAL = {"V01": {"framing": "no frame of the video could be read"},
+           "V02": {"framing": "no frame of the video could be read"},
+           "V03": {"framing": "the text in the keyframes could not be read"},
+           "V04": {"framing": "the text in the keyframes could not be read"},
+           "V06": {"framing": "the audio track could not be read"},
+           "V07": {"framing": "the audio track could not be read"},
+           "V08": {"framing": "speech recogniser"}, "V09": {"framing": "speech recogniser"}}
+DEVELOPER = re.compile(r"Error|Exception|Errno|Traceback|HTTP \d|_mode|=|[A-Za-z]:[\\/]|[{}]")
 
 
 def _raise(exc):
@@ -280,6 +304,7 @@ def run() -> dict:
             problems = []
             if code != 200:
                 problems.append(f"the request failed with HTTP {code}")
+            cause = CAUSES.get(fault.id)
             for check in fault.affected:
                 f = _flag(flags, check)
                 if f is None:
@@ -290,10 +315,15 @@ def run() -> dict:
                     problems.append(f"{check}: reported {f['status']}")
                 elif not f["evidence"].strip():
                     problems.append(f"{check}: not assessed without a reason")
-            for check, words in fault.partial.items():
+                else:
+                    if cause and cause not in f["evidence"]:
+                        problems.append(f"{check}: the reason does not name the cause ({cause})")
+                    if DEVELOPER.search(f["evidence"]):
+                        problems.append(f"{check}: developer text in the reason: {DEVELOPER.search(f['evidence']).group(0)}")
+            for check, words in PARTIAL.get(fault.id, fault.partial).items():
                 f = _flag(flags, check)
                 if code == 200 and (f is None or (f["status"] != "not_assessed" and words not in f["evidence"])):
-                    problems.append(f"{check}: does not name the missing {words}")
+                    problems.append(f"{check}: does not name the missing input ({words})")
             record = {"id": fault.id, "post": fault.post, "extractor": fault.extractor, "kind": fault.kind,
                       "how": fault.how, "affected": fault.affected, "partial": fault.partial, "http": code,
                       "flags": [{"check": f["type"], "source": f.get("source", "rules"), "status": f["status"],

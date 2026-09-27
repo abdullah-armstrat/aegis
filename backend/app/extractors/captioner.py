@@ -65,15 +65,13 @@ def describe_scene(image_bytes: bytes) -> CaptionResult:
         import torch
         from PIL import Image, UnidentifiedImageError
     except ImportError as exc:  # pragma: no cover - environment guard
-        return CaptionResult(status=FlagStatus.NOT_ASSESSED, detail=f"Captioner deps missing: {exc}")
+        return CaptionResult(status=FlagStatus.NOT_ASSESSED, detail="the model that describes the picture could not run.")
 
     try:
         image = Image.open(BytesIO(image_bytes)).convert("RGB")
         image.load()
     except (UnidentifiedImageError, OSError, ValueError) as exc:
-        return CaptionResult(
-            status=FlagStatus.NOT_ASSESSED, detail=f"Image could not be read: {exc}"
-        )
+        return CaptionResult(status=FlagStatus.NOT_ASSESSED, detail="the picture could not be read.")
 
     try:
         processor, model = _get_model()
@@ -81,11 +79,11 @@ def describe_scene(image_bytes: bytes) -> CaptionResult:
         with torch.no_grad():
             output = model.generate(**inputs, max_new_tokens=_MAX_NEW_TOKENS)
         text = processor.decode(output[0], skip_special_tokens=True).strip()
-    except Exception as exc:  # noqa: BLE001 - any model failure is "could not assess"
-        return CaptionResult(status=FlagStatus.NOT_ASSESSED, detail=f"Captioner error: {exc}")
+    except Exception:  # noqa: BLE001 - any model failure is "could not assess"
+        return CaptionResult(status=FlagStatus.NOT_ASSESSED, detail="the model that describes the picture could not run.")
 
     if not text:
-        return CaptionResult(status=FlagStatus.CLEAR, detail="Model produced no caption.")
+        return CaptionResult(status=FlagStatus.CLEAR, detail="the model gave no description of the picture.")
     return CaptionResult(
         scene_descriptions=[SceneDescription(text=text)],
         status=FlagStatus.FIRED,

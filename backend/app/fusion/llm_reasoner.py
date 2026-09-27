@@ -318,7 +318,13 @@ def reason_over_text(
             raw_response=raw_text, error=str(exc), error_type=type(exc).__name__,
             is_timeout=isinstance(exc, httpx.TimeoutException),
         ))
-        return ReasonerVerdict(None, None, f"LLM unavailable: {exc}", available=False)
+        if isinstance(exc, httpx.TimeoutException):
+            reason = "The language model took too long to answer."
+        elif isinstance(exc, httpx.HTTPError):
+            reason = "The language model could not be reached."
+        else:
+            reason = "The language model's answer could not be read."
+        return ReasonerVerdict(None, None, reason, available=False)
 
     _emit(CallRecord(
         validity=trace["validity"], available=True, latency_s=perf_counter() - started,

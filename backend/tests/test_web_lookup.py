@@ -111,8 +111,9 @@ def test_the_monthly_limit_refuses_further_live_calls(live):
 @pytest.mark.parametrize("failure, reason", [
     (httpx.ReadTimeout("slow"), "timed out"),
     (httpx.ConnectError("no route"), "could not reach Google"),
-    (httpx.Response(429, json={"error": {"message": "Quota exceeded"}}), "HTTP 429"),
-    (httpx.Response(403, json={"error": {"message": f"API key {FAKE_KEY} not valid"}}), "HTTP 403"),
+    (httpx.Response(429, json={"error": {"message": "Quota exceeded"}}), "too many searches were made"),
+    (httpx.Response(403, json={"error": {"message": f"API key {FAKE_KEY} not valid"}}), "key was not accepted"),
+    (httpx.Response(500, json={"error": {"message": "backend error"}}), "Google could not carry out the web search"),
 ])
 def test_every_failure_is_not_assessed_with_a_reason_and_never_shows_the_key(live, failure, reason):
     live["serve"](failure)
@@ -120,6 +121,7 @@ def test_every_failure_is_not_assessed_with_a_reason_and_never_shows_the_key(liv
     assert result.status == FlagStatus.NOT_ASSESSED
     assert reason in result.detail
     assert FAKE_KEY not in result.detail
+    assert "HTTP" not in result.detail and "Error" not in result.detail  # plain words only
 
 
 def test_a_failed_web_search_never_turns_into_clear(live, monkeypatch):

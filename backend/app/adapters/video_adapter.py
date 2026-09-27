@@ -127,11 +127,13 @@ def build_video_bundle(
             detail["ocr"] = "Text could not be read from the keyframes."
 
     with _stage(stages, "reverse_image"):
-        matches, lookups = [], []
+        matches, lookups, reasons = [], [], []
         for t, png in frames.items():
             result = find_local_matches(png)  # keyframes never use the live web search
             keyframes[t].phash = result.phash
             lookups.append(result.status)
+            if result.status == FlagStatus.NOT_ASSESSED and result.detail:
+                reasons.append(result.detail)
             matches += [m.model_copy(update={"frame_timestamp": t}) for m in result.matches]
         if matches:
             status["reverse_image"] = FlagStatus.FIRED
@@ -139,8 +141,11 @@ def build_video_bundle(
             status["reverse_image"] = FlagStatus.CLEAR
         else:
             status["reverse_image"] = FlagStatus.NOT_ASSESSED
-            detail["reverse_image"] = (f"{lookups.count(FlagStatus.CLEAR)} of {len(frames)} keyframes could be "
-                                       "looked up in the image history index." if frames else "No keyframes.")
+            if not frames:
+                detail["reverse_image"] = "No frame of the video could be read, so earlier copies were not searched for."
+            else:
+                detail["reverse_image"] = (reasons[0] if reasons else "The keyframes could not all be searched for "
+                                           "earlier copies.")
 
     with _stage(stages, "speech"):
         segments: list[TranscriptSegment] = []
@@ -179,7 +184,7 @@ def build_video_bundle(
         elif not (caption and caption.strip()):
             status["caption_match"], detail["caption_match"] = FlagStatus.NOT_ASSESSED, "There is no caption."
         elif not frames:
-            status["caption_match"], detail["caption_match"] = FlagStatus.NOT_ASSESSED, "No keyframes could be read."
+            status["caption_match"], detail["caption_match"] = FlagStatus.NOT_ASSESSED, "No frame of the video could be read."
         if not segments:
             status["speech_picture"] = FlagStatus.NOT_ASSESSED
             detail["speech_picture"] = detail.get("speech", "No speech was found in the audio.")
@@ -199,8 +204,10 @@ def build_video_bundle(
                         seg.picture_similarity = scored[seg.best_frame]
                 if segments:
                     status["speech_picture"] = FlagStatus.FIRED
-            except (FileNotFoundError, OSError, ValueError, ImportError, RuntimeError) as exc:
-                reason = f"The picture-matching model could not run: {exc}"
+                    if not frame_vecs:
+                        detail["speech_picture"] = "No frame of the video could be read."
+            except (FileNotFoundError, OSError, ValueError, ImportError, RuntimeError):
+                reason = "The model that compares words with the picture could not run."
                 if want_caption:
                     status["caption_match"], detail["caption_match"] = FlagStatus.NOT_ASSESSED, reason
                 if segments:

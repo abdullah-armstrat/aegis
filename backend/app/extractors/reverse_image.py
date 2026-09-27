@@ -44,6 +44,7 @@ _DEFAULT_INDEX = Path(__file__).resolve().parents[1] / "data" / "image_history_i
 _REPO_ROOT = Path(__file__).resolve().parents[3]  # index entries name their image relative to this
 _LOCAL_MODES = {"local", "index", "cache"}  # "index" and "cache" are earlier names for "local"
 _MODES = _LOCAL_MODES | {"live"}
+OFF = "off"  # the lookup switched off on purpose
 _HEX = re.compile(rf"^[0-9a-f]{{{HASH_BITS // 4}}}$")
 
 
@@ -121,11 +122,11 @@ def find_web_matches(image_bytes: bytes, search_web: bool = False) -> ReverseIma
     """Look up prior appearances of this image by its content: the local index, and the web too
     when the mode is "live" or ``search_web`` asks for it. Never raises."""
     settings = get_settings()
+    if settings.reverse_image_mode == OFF:
+        return ReverseImageResult(detail="The search for earlier copies of this image is switched off.")
     if settings.reverse_image_mode not in _MODES:
         return ReverseImageResult(
-            detail=f"reverse_image_mode='{settings.reverse_image_mode}' is not available; "
-            "use 'local' or 'live'."
-        )
+            detail="The search for earlier copies of this image is not set up correctly, so it did not run.")
     local = find_local_matches(image_bytes)
     if not (search_web or settings.reverse_image_mode == "live"):
         return local
@@ -162,7 +163,8 @@ def find_local_matches(image_bytes: bytes) -> ReverseImageResult:
     try:
         index = load_index(str(_index_path()))
     except (OSError, json.JSONDecodeError, ValueError, TypeError, KeyError) as exc:
-        return ReverseImageResult(phash=hashed.hash_hex, detail=f"Image history index unusable: {exc}")
+        return ReverseImageResult(phash=hashed.hash_hex, detail=(
+            "The image history index could not be read, so earlier copies of this image were not searched for."))
 
     threshold = settings.phash_match_threshold
     scored: list[tuple[int, IndexEntry]] = []
@@ -193,10 +195,11 @@ def find_local_matches(image_bytes: bytes) -> ReverseImageResult:
     # Second stage: the hash found nothing, so look for a cropped or framed copy by keypoints.
     try:
         by_keypoints = _keypoint_matches(image_bytes, index, settings.keypoint_min_inliers)
-    except Exception as exc:  # noqa: BLE001 - the hash lookup still ran; report what did not
+    except Exception:  # noqa: BLE001 - the hash ran, but a copy it cannot see may have been missed
         return ReverseImageResult(
-            status=FlagStatus.CLEAR, phash=hashed.hash_hex,
-            detail=f"{no_hash_match} Keypoint matching could not run: {exc}",
+            status=FlagStatus.NOT_ASSESSED, phash=hashed.hash_hex,
+            detail=("The search for cropped or framed copies of this image could not run, so an earlier "
+                    "copy may have been missed."),
         )
     if not by_keypoints:
         return ReverseImageResult(

@@ -99,11 +99,14 @@ def segment_frame_times(start: float, end: float, keyframe_times: list[float]) -
 
 def grab_frame(path: Path, t: float) -> bytes:
     """The frame at ``t`` seconds as PNG bytes."""
-    out = subprocess.run(
-        ["ffmpeg", "-v", "error", "-ss", f"{max(0.0, t):.3f}", "-i", str(path), "-frames:v", "1",
-         "-f", "image2pipe", "-vcodec", "png", "-"],
-        capture_output=True, timeout=60,
-    )
+    try:
+        out = subprocess.run(
+            ["ffmpeg", "-v", "error", "-ss", f"{max(0.0, t):.3f}", "-i", str(path), "-frames:v", "1",
+             "-f", "image2pipe", "-vcodec", "png", "-"],
+            capture_output=True, timeout=60,
+        )
+    except (OSError, subprocess.TimeoutExpired) as exc:
+        raise VideoError(f"The frame at {t:.1f} s could not be read.") from exc
     if out.returncode != 0 or not out.stdout:
         raise VideoError(f"The frame at {t:.1f} s could not be read.")
     return out.stdout
@@ -111,10 +114,13 @@ def grab_frame(path: Path, t: float) -> bytes:
 
 def extract_audio(path: Path, wav: Path) -> None:
     """The audio track as 16 kHz mono WAV, the rate the speech recogniser expects."""
-    out = subprocess.run(
-        ["ffmpeg", "-v", "error", "-y", "-i", str(path), "-vn", "-ac", "1", "-ar", "16000", "-f", "wav", str(wav)],
-        capture_output=True, text=True, timeout=120,
-    )
+    try:
+        out = subprocess.run(
+            ["ffmpeg", "-v", "error", "-y", "-i", str(path), "-vn", "-ac", "1", "-ar", "16000", "-f", "wav", str(wav)],
+            capture_output=True, text=True, timeout=120,
+        )
+    except (OSError, subprocess.TimeoutExpired) as exc:
+        raise VideoError("The audio track could not be read.") from exc
     if out.returncode != 0 or not wav.is_file() or wav.stat().st_size <= 44:
         raise VideoError("The audio track could not be read.")
 

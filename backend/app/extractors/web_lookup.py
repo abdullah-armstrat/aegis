@@ -126,18 +126,17 @@ def _call_vision(image_bytes: bytes) -> dict:
     except httpx.TimeoutException as exc:
         raise RuntimeError("the web search timed out") from exc
     except httpx.HTTPError as exc:
-        raise RuntimeError(f"the web search could not reach Google ({type(exc).__name__})") from exc
+        raise RuntimeError("the web search could not reach Google") from exc
     _count_call()
+    if resp.status_code == 429:
+        raise RuntimeError("Google refused the web search because too many searches were made")
+    if resp.status_code in (401, 403):
+        raise RuntimeError("Google refused the web search because the server's key was not accepted")
     if resp.status_code != 200:
-        try:
-            message = resp.json().get("error", {}).get("message", "")
-        except ValueError:
-            message = ""
-        raise RuntimeError(f"Google refused the web search (HTTP {resp.status_code}"
-                           + (f": {message.replace(key, '[key]')[:160]}" if message and key else "") + ")")
+        raise RuntimeError("Google could not carry out the web search")
     answer = resp.json().get("responses", [{}])[0]
     if "error" in answer:
-        raise RuntimeError(f"Google could not search this image: {answer['error'].get('message', '')[:160]}")
+        raise RuntimeError("Google could not search this image")
     return answer
 
 

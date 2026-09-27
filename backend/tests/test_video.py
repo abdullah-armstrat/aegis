@@ -230,3 +230,26 @@ def test_the_same_audio_always_gives_the_same_transcript():
     first = run_model(Sampling(), Path("audio.wav"))[0].text
     torch.rand(7)  # anything else drawing from the generator in between
     assert run_model(Sampling(), Path("audio.wav"))[0].text == first
+
+
+@pytest.mark.parametrize("reader, marker, message", [
+    ("grab_frame", "-frames:v", "could not be read"),
+    ("extract_audio", "-vn", "The audio track could not be read."),
+])
+def test_an_ffmpeg_timeout_is_a_read_failure_not_a_crash(tmp_path, monkeypatch, reader, marker, message):
+    import app.extractors.video as video
+
+    real = subprocess.run
+
+    def slow(args, *a, **kw):
+        if marker in args:
+            raise subprocess.TimeoutExpired(args, kw.get("timeout", 60))
+        return real(args, *a, **kw)
+
+    monkeypatch.setattr(subprocess, "run", slow)
+    path = _video(tmp_path / "clip.mp4", ["red"], seconds=2.0, audio="sine=frequency=440")
+    with pytest.raises(VideoError, match=message):
+        if reader == "grab_frame":
+            video.grab_frame(path, 1.0)
+        else:
+            video.extract_audio(path, tmp_path / "a.wav")
