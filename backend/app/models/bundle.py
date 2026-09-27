@@ -148,7 +148,9 @@ class EvidenceBundle(BaseModel):
     """
 
     schema_version: str = Field(
-        default=SCHEMA_VERSION, description="Contract version that produced this bundle (ADR-010)."
+        default=SCHEMA_VERSION,
+        description="Contract version that produced this bundle, so a reader can tell which "
+        "shape it holds.",
     )
     scene_descriptions: list[SceneDescription] = Field(default_factory=list)
     on_screen_text: list[str] = Field(default_factory=list)
@@ -166,7 +168,7 @@ class EvidenceBundle(BaseModel):
         description=(
             "Per-extractor outcome (e.g. {'ocr': 'clear'}). Lets fusion tell an empty field "
             "that was CLEARED from one that could not be assessed, so absence is never read "
-            "as consistency (ADR-009)."
+            "as consistency."
         ),
     )
     meta: Meta
@@ -206,7 +208,9 @@ class Scorecard(BaseModel):
     """
 
     schema_version: str = Field(
-        default=SCHEMA_VERSION, description="Contract version that produced this scorecard (ADR-010)."
+        default=SCHEMA_VERSION,
+        description="Contract version that produced this scorecard, so a reader can tell "
+        "which shape it holds.",
     )
     flags: list[Flag] = Field(default_factory=list)
     summary: str | None = Field(

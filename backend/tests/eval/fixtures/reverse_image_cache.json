@@ -1,5 +1,5 @@
 {
-  "_about": "TEST-ONLY since WP-1 (ADR-018). This was the pre-WP-1 reverse-image fixture (ADR-007), keyed by filename. Production no longer uses it: the app now matches images by content against backend/app/data/image_history_index.json (ADR-017). It is kept because the 19-example regression set injects each example's lookup result from here by source_ref (tests/eval/legacy_lookup.py), which keeps those pinned results independent of the hash threshold. The sources are fictional example.com pages (RFC 2606). Dates are ISO-8601.",
+  "_about": "Test only. This is the earlier reverse-image fixture, keyed by filename. The app no longer uses it: it now matches images by content against backend/app/data/image_history_index.json. It is kept because the 19-example regression set injects each example's lookup result from here by source_ref (tests/eval/legacy_lookup.py), which keeps those pinned results independent of the hash threshold. The sources are fictional example.com pages (RFC 2606). Dates are ISO-8601.",
   "matches": {
     "flood_recycled_2019.jpg": [
       {

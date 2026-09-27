@@ -49,10 +49,9 @@ uploads/
 *.log
 backend/_m.txt
 
-# Personal/test media (not redistributed - ethics)
-fbr-test.jpeg
+# Personal and third-party test images: keep them in local_media/, which is never published.
+local_media/
 *-test.jpeg
-[name]-test.jpeg
 
 # Demo/test images (personal media, not redistributed)
 beach.jpeg
