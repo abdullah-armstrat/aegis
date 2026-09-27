@@ -43,6 +43,14 @@ class Settings(BaseSettings):
     # catching images used out of context (26 of 69).
     caption_match_method: Literal["image", "meaning", "overlap", "off"] = "image"
 
+    # --- Video ---
+    # Whisper model for the video path's speech. Chosen by the tiny-vs-base comparison.
+    whisper_model: Literal["tiny", "base"] = "tiny"
+    # Upload limits. 100 MB holds a minute of phone video at ordinary bitrates; longer clips are
+    # refused because every stage's cost grows with length on this CPU-only machine.
+    video_max_mb: int = 100
+    video_max_seconds: float = 60.0
+
     # --- Local LLM reasoner (Ollama) ---
     ollama_host: str = "http://localhost:11434"
     ollama_model: str = "phi3:mini"

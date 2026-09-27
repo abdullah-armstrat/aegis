@@ -16,7 +16,16 @@ from __future__ import annotations
 from app.config import get_settings
 from app.fusion.llm_reasoner import reason_over_text
 from app.fusion.rules import run_rules
-from app.models import EvidenceBundle, Flag, FlagStatus, FlagType, Scorecard, Severity
+from app.models import (
+    EvidenceBundle,
+    Flag,
+    FlagStatus,
+    FlagType,
+    KeyframeView,
+    Modality,
+    Scorecard,
+    Severity,
+)
 
 
 def _llm_caption_scene_flag(bundle: EvidenceBundle) -> Flag:
@@ -94,7 +103,8 @@ def build_scorecard(bundle: EvidenceBundle) -> Scorecard:
     """Assemble the Scorecard: deterministic rules always; LLM second opinion when enabled."""
     flags: list[Flag] = list(run_rules(bundle))
 
-    if get_settings().use_llm:
+    # The LLM stays out of video runs: the laptop cannot hold it alongside the video models.
+    if get_settings().use_llm and bundle.meta.modality == Modality.IMAGE:
         flags.append(_llm_caption_scene_flag(bundle))
 
     return Scorecard(
@@ -102,4 +112,6 @@ def build_scorecard(bundle: EvidenceBundle) -> Scorecard:
         summary=_summarise(flags),
         modality=bundle.meta.modality,
         source_ref=bundle.meta.source_ref,
+        duration_s=bundle.meta.duration_s,
+        keyframes=[KeyframeView(timestamp=k.timestamp, thumbnail=k.thumbnail) for k in bundle.keyframes],
     )

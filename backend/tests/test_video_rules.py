@@ -1,0 +1,109 @@
+"""The rules on video bundles, built directly (no extractor runs)."""
+
+import pytest
+
+from app.config import get_settings
+from app.fusion.rules import (
+    CAPTION_IMAGE_ONLY_THRESHOLD,
+    caption_scene_mismatch_rule,
+    emotional_framing_rule,
+    recycled_context_rule,
+)
+from app.models import (
+    EvidenceBundle,
+    FlagStatus,
+    Keyframe,
+    Meta,
+    Modality,
+    TranscriptSegment,
+    WebMatch,
+)
+
+LOW = CAPTION_IMAGE_ONLY_THRESHOLD - 0.05
+HIGH = CAPTION_IMAGE_ONLY_THRESHOLD + 0.05
+
+
+def _video(**kwargs) -> EvidenceBundle:
+    kwargs.setdefault("meta", Meta(modality=Modality.VIDEO, duration_s=30.0, has_audio=True))
+    return EvidenceBundle(**kwargs)
+
+
+@pytest.fixture(autouse=True)
+def _picture_method(monkeypatch):
+    get_settings.cache_clear()
+    monkeypatch.setenv("AEGIS_CAPTION_MATCH_METHOD", "image")
+    get_settings.cache_clear()
+    yield
+    get_settings.cache_clear()
+
+
+def test_caption_fires_when_no_keyframe_matches_and_cites_the_best_frame():
+    b = _video(caption="A busy market", keyframes=[Keyframe(timestamp=3.0, caption_similarity=LOW - 0.02),
+                                                  Keyframe(timestamp=12.0, caption_similarity=LOW)])
+    flag = caption_scene_mismatch_rule(b)
+    assert flag.status == FlagStatus.FIRED
+    assert flag.timestamps == [12.0]
+    assert "0:12" in flag.evidence
+    assert "cannot catch a wrong name, place or date" in flag.plain_explanation
+
+
+def test_caption_clear_when_at_least_one_keyframe_matches():
+    b = _video(caption="A busy market", keyframes=[Keyframe(timestamp=3.0, caption_similarity=LOW),
+                                                  Keyframe(timestamp=20.0, caption_similarity=HIGH)])
+    flag = caption_scene_mismatch_rule(b)
+    assert flag.status == FlagStatus.CLEAR
+    assert flag.timestamps == [20.0]
+
+
+def test_caption_not_assessed_without_a_caption_and_says_why():
+    flag = caption_scene_mismatch_rule(_video(keyframes=[Keyframe(timestamp=3.0)]))
+    assert flag.status == FlagStatus.NOT_ASSESSED
+    assert "no caption" in flag.evidence
+
+
+def test_recycled_matches_cite_the_frames_that_matched():
+    b = _video(web_matches=[WebMatch(url="https://e.com/a", published_date="2019-03-04", hash_distance=3,
+                                     frame_timestamp=14.5)],
+               extractor_status={"reverse_image": FlagStatus.FIRED},
+               keyframes=[Keyframe(timestamp=2.0), Keyframe(timestamp=14.5)])
+    flag = recycled_context_rule(b)
+    assert flag.status == FlagStatus.FIRED
+    assert flag.timestamps == [14.5]
+    assert flag.evidence.startswith("The keyframe at 0:14 matches a known image.")
+    assert "A frame from this video" in flag.plain_explanation
+
+
+def test_recycled_clear_counts_the_keyframes_looked_up():
+    b = _video(extractor_status={"reverse_image": FlagStatus.CLEAR},
+               keyframes=[Keyframe(timestamp=2.0), Keyframe(timestamp=9.0)])
+    flag = recycled_context_rule(b)
+    assert flag.status == FlagStatus.CLEAR
+    assert "None of the 2 keyframes" in flag.evidence
+
+
+def test_framing_is_judged_per_source_and_cites_the_frame():
+    b = _video(caption="Harbour at dawn",
+               keyframes=[Keyframe(timestamp=6.0, on_screen_text=["SHARE BEFORE THEY DELETE IT!!"])],
+               transcript_segments=[TranscriptSegment(start=0, end=4, text="Boats leave the harbour.")])
+    flag = emotional_framing_rule(b)
+    assert flag.status == FlagStatus.FIRED
+    assert flag.timestamps == [6.0]
+    assert "the on-screen text at 0:06" in flag.evidence
+
+
+def test_framing_reads_the_speech_and_cites_its_segment():
+    b = _video(transcript_segments=[
+        TranscriptSegment(start=0, end=3, text="The tide is out."),
+        TranscriptSegment(start=5, end=9, text="Urgent! Share this now before they delete it!!"),
+    ])
+    flag = emotional_framing_rule(b)
+    assert flag.status == FlagStatus.FIRED
+    assert flag.timestamps == [5]
+    assert "In the speech" in flag.evidence
+
+
+def test_framing_clear_names_what_it_could_not_check():
+    b = _video(caption="Harbour at dawn", extractor_detail={"speech": "The video has no audio track."})
+    flag = emotional_framing_rule(b)
+    assert flag.status == FlagStatus.CLEAR
+    assert "speech was not checked (the video has no audio track)" in flag.evidence

@@ -18,11 +18,13 @@ from datetime import date
 
 from app.config import get_settings
 from app.extractors.caption_match import read_from_image
+from app.extractors.video import clock
 from app.models import (
     EvidenceBundle,
     Flag,
     FlagStatus,
     FlagType,
+    Modality,
     Severity,
 )
 
@@ -155,8 +157,11 @@ def emotional_framing_rule(bundle: EvidenceBundle) -> Flag:
     removed, since nothing read it.
 
     NOT_ASSESSED when there is no caption text to measure — markers are properties of text, so
-    absent text means the check could not run, never a silent pass.
+    absent text means the check could not run, never a silent pass. For a video the markers are
+    run on the caption, the speech and each keyframe's on-screen text (see below).
     """
+    if bundle.meta.modality == Modality.VIDEO:
+        return _video_emotional_framing(bundle)
     caption = (bundle.caption or "").strip()
     if not caption or not re.search(r"[A-Za-z]", caption):
         return Flag(
@@ -212,6 +217,69 @@ def emotional_framing_rule(bundle: EvidenceBundle) -> Flag:
     )
 
 
+def _video_emotional_framing(bundle: EvidenceBundle) -> Flag:
+    """The markers on each text a video carries: caption, speech, and each keyframe's on-screen
+    text, each judged on its own. Fires when any one source shows the combination of markers."""
+    sources: list[tuple[str, str, list[float]]] = []
+    if bundle.caption and re.search(r"[A-Za-z]", bundle.caption):
+        sources.append(("the caption", bundle.caption.strip(), []))
+    if bundle.transcript_segments:
+        marked = [s.start for s in bundle.transcript_segments if find_manipulation_markers(s.text)]
+        sources.append(("the speech", " ".join(s.text for s in bundle.transcript_segments), marked))
+    for k in bundle.keyframes:
+        text = " ".join(k.on_screen_text)
+        if re.search(r"[A-Za-z]", text):
+            sources.append((f"the on-screen text at {clock(k.timestamp)}", text, [k.timestamp]))
+
+    missing = []
+    if not bundle.caption:
+        missing.append("there is no caption")
+    if not bundle.transcript_segments:
+        reason = bundle.extractor_detail.get("speech", "No speech was found.")
+        missing.append("speech was not checked (" + reason[0].lower() + reason[1:].rstrip(".") + ")")
+    if not any(k.on_screen_text for k in bundle.keyframes):
+        missing.append("no on-screen text was found in the keyframes")
+    gaps = f" Not checked: {'; '.join(missing)}." if missing else ""
+
+    if not sources:
+        return Flag(
+            type=FlagType.EMOTIONAL_FRAMING,
+            status=FlagStatus.NOT_ASSESSED,
+            severity=Severity.INFO,
+            evidence=f"No text was available to examine for manipulation markers.{gaps}",
+            plain_explanation="How this video's words are presented could not be assessed.",
+            what_to_check="Listen and read yourself: is it pressuring you to share rather than to check?",
+        )
+
+    results = [(label, find_manipulation_markers(text), times) for label, text, times in sources]
+    firing = [r for r in results if len(r[1]) >= MIN_MARKERS_TO_FIRE]
+    if firing:
+        return Flag(
+            type=FlagType.EMOTIONAL_FRAMING,
+            status=FlagStatus.FIRED,
+            severity=Severity.MEDIUM,
+            evidence=" ".join(f"In {label}, {len(m)} of 4 manipulation markers: {'; '.join(m)}."
+                              for label, m, _ in firing) + gaps,
+            plain_explanation=(
+                "Some of the words in this video use several techniques that pressure a viewer to react "
+                "and share rather than to check: shouting, heavy punctuation, urgency wording, or an "
+                "'us against them' frame. These are features of how the message is presented, not "
+                "evidence that it is false."
+            ),
+            what_to_check="Restate the claim without the urgency and the capitals. Does it still stand on its own?",
+            timestamps=sorted({t for _, _, times in firing for t in times}),
+        )
+    checked = "; ".join(f"{label}: {len(m)} marker{'s' if len(m) != 1 else ''}" for label, m, _ in results)
+    return Flag(
+        type=FlagType.EMOTIONAL_FRAMING,
+        status=FlagStatus.CLEAR,
+        severity=Severity.INFO,
+        evidence=f"Checked {checked}; {MIN_MARKERS_TO_FIRE} in one source are required to fire.{gaps}",
+        plain_explanation="The video's words are not presented in a high-pressure or sensational style.",
+        what_to_check="Wording alone says nothing about accuracy; the other checks cover the content.",
+    )
+
+
 def _parse_iso(value: str | None) -> date | None:
     try:
         return date.fromisoformat(value) if value else None
@@ -220,6 +288,46 @@ def _parse_iso(value: str | None) -> date | None:
 
 
 def recycled_context_rule(bundle: EvidenceBundle) -> Flag:
+    """Has this image, or a frame of this video, appeared before the post claims to be from?
+
+    For a video every keyframe is looked up; the flag names the frames that matched and cites
+    their times.
+    """
+    if bundle.meta.modality != Modality.VIDEO:
+        return _recycled_context(bundle)
+    status = bundle.extractor_status.get("reverse_image")
+    if not bundle.web_matches and status != FlagStatus.CLEAR:
+        return Flag(
+            type=FlagType.RECYCLED_CONTEXT,
+            status=FlagStatus.NOT_ASSESSED,
+            severity=Severity.INFO,
+            evidence=("The keyframes could not all be looked up in the image history index. "
+                      + bundle.extractor_detail.get("reverse_image", "")).strip(),
+            plain_explanation="Whether this video's frames have appeared elsewhere before could not be checked.",
+            what_to_check="Take a screenshot of a key moment and run it through a reverse-image search.",
+        )
+    if not bundle.web_matches:
+        return Flag(
+            type=FlagType.RECYCLED_CONTEXT,
+            status=FlagStatus.CLEAR,
+            severity=Severity.INFO,
+            evidence=f"None of the {len(bundle.keyframes)} keyframes is close enough to an image in the "
+                     "image history index to be a copy.",
+            plain_explanation="No earlier appearances of this video's frames were found in the searched index.",
+            what_to_check="Absence of matches is not proof of originality; the index is not exhaustive.",
+        )
+    flag = _recycled_context(bundle)
+    times = sorted({m.frame_timestamp for m in bundle.web_matches if m.frame_timestamp is not None})
+    many = len(times) != 1
+    flag.evidence = (f"The keyframe{'s' if many else ''} at {', '.join(clock(t) for t in times)} "
+                     f"match{'' if many else 'es'} a known image. " + flag.evidence)
+    flag.plain_explanation = flag.plain_explanation.replace("This image", "A frame from this video").replace(
+        "this image", "a frame from this video")
+    flag.timestamps = times
+    return flag
+
+
+def _recycled_context(bundle: EvidenceBundle) -> Flag:
     """Has this image appeared before the post claims to be from?
 
     The lookup matches the image by content against the image history index. The posting date,
@@ -351,6 +459,8 @@ def caption_scene_mismatch_rule(bundle: EvidenceBundle) -> Flag:
     content-word overlap, or not at all.
     """
     method = get_settings().caption_match_method
+    if bundle.meta.modality == Modality.VIDEO:
+        return _caption_check_off(bundle) if method == "off" else _video_caption_rule(bundle)
     if method == "image":
         return _caption_image_rule(bundle)
     if method == "meaning":
@@ -379,6 +489,52 @@ def _caption_check_off(bundle: EvidenceBundle) -> Flag:
         evidence=CAPTION_CHECK_OFF_REASON,
         plain_explanation="Whether the picture fits the caption was not checked.",
         what_to_check="Look at the image yourself and ask whether the caption fits what you see.",
+    )
+
+
+def _video_caption_rule(bundle: EvidenceBundle) -> Flag:
+    """The caption must be a reasonable match for at least one keyframe, by the same CLIP score
+    and threshold as the picture-only check on images. BLIP and spaCy play no part for video."""
+    scored = [k for k in bundle.keyframes if k.caption_similarity is not None]
+    if not bundle.caption or not scored:
+        reason = ("there is no caption." if not bundle.caption
+                  else bundle.extractor_detail.get("caption_match", "No keyframe could be compared with the caption."))
+        return Flag(
+            type=FlagType.CAPTION_CONTENT_MISMATCH,
+            status=FlagStatus.NOT_ASSESSED,
+            severity=Severity.INFO,
+            evidence=f"Cannot compare: {reason[0].lower() + reason[1:]}",
+            plain_explanation="Whether the video shows the kind of scene the caption describes could not be assessed.",
+            what_to_check="Watch the video yourself and ask whether the caption fits what you see.",
+        )
+    best = max(scored, key=lambda k: k.caption_similarity)
+    low = best.caption_similarity < CAPTION_IMAGE_ONLY_THRESHOLD
+    evidence = (
+        f"Of {len(scored)} keyframes, the best match for the caption is the one at {clock(best.timestamp)}, "
+        f"a {'weak' if low else 'reasonable'} match (similarity {best.caption_similarity:.2f}; under "
+        f"{CAPTION_IMAGE_ONLY_THRESHOLD:.2f} counts as weak)."
+    )
+    if low:
+        return Flag(
+            type=FlagType.CAPTION_CONTENT_MISMATCH,
+            status=FlagStatus.FIRED,
+            severity=Severity.MEDIUM,
+            evidence=evidence + " No keyframe is a reasonable match.",
+            plain_explanation=(
+                "None of the video's keyframes seems to show the kind of scene the caption describes. "
+                f"{_MEANING_LIMIT}"
+            ),
+            what_to_check="Find where the video first appeared and check what it actually shows, and when and where.",
+            timestamps=[best.timestamp],
+        )
+    return Flag(
+        type=FlagType.CAPTION_CONTENT_MISMATCH,
+        status=FlagStatus.CLEAR,
+        severity=Severity.INFO,
+        evidence=evidence,
+        plain_explanation=f"At least one keyframe seems to show the kind of scene the caption describes. {_MEANING_LIMIT}",
+        what_to_check="Check the names, places and dates in the caption against a trusted source; this check cannot.",
+        timestamps=[best.timestamp],
     )
 
 

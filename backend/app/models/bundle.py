@@ -19,7 +19,7 @@ from pydantic import BaseModel, Field
 # structure the whole system pivots on, and it will grow when the video path lands
 # (temporal/transcript fields). Stamping a version lets the eval harness and cached
 # fixtures tell which shape they are dealing with later. Bump on any breaking change.
-SCHEMA_VERSION = "1.1"
+SCHEMA_VERSION = "2.0"
 
 
 # --------------------------------------------------------------------------- enums
@@ -105,6 +105,9 @@ class WebMatch(BaseModel):
         description="Number of image keypoints that line up geometrically with the matched "
         "entry, when the match came from keypoint matching rather than the hash.",
     )
+    frame_timestamp: float | None = Field(
+        default=None, description="Seconds into the video of the keyframe that matched; None for an image."
+    )
 
 
 class CaptionMatch(BaseModel):
@@ -124,6 +127,33 @@ class CaptionMatch(BaseModel):
         description="True when the caption was longer than CLIP's 77-token limit and was cut to fit.",
     )
     detail: str = Field(default="", description="Why a similarity is missing, when one is.")
+
+
+class Keyframe(BaseModel):
+    """One frame taken from a video, with what was read from it."""
+
+    timestamp: float = Field(description="Seconds into the video.")
+    phash: str | None = Field(default=None, description="64-bit pHash of the frame, as 16 hex characters.")
+    on_screen_text: list[str] = Field(default_factory=list, description="Text OCR read in the frame.")
+    caption_similarity: float | None = Field(
+        default=None, description="CLIP similarity between this frame and the caption."
+    )
+    thumbnail: str | None = Field(default=None, description="Small JPEG of the frame, as a data URL.")
+
+
+class TranscriptSegment(BaseModel):
+    """One stretch of speech, as the speech recogniser segmented it."""
+
+    start: float = Field(description="Seconds into the video.")
+    end: float = Field(description="Seconds into the video.")
+    text: str
+    frame_timestamps: list[float] = Field(
+        default_factory=list, description="Frames the segment's words were compared with."
+    )
+    picture_similarity: float | None = Field(
+        default=None, description="Highest CLIP similarity between the segment's text and those frames."
+    )
+    best_frame: float | None = Field(default=None, description="The frame that scored highest.")
 
 
 class AiGenHint(BaseModel):
@@ -149,6 +179,8 @@ class Meta(BaseModel):
     image_phash: str | None = Field(
         default=None, description="64-bit pHash of the analysed image, as 16 hex characters."
     )
+    duration_s: float | None = Field(default=None, description="Length of the video; None for an image.")
+    has_audio: bool | None = Field(default=None, description="Whether the video has an audio track.")
 
 
 class EvidenceBundle(BaseModel):
@@ -171,6 +203,10 @@ class EvidenceBundle(BaseModel):
     transcript: str | None = Field(
         default=None, description="Whisper transcript (video path)."
     )
+    transcript_segments: list[TranscriptSegment] = Field(
+        default_factory=list, description="The transcript with start and end times (video path)."
+    )
+    keyframes: list[Keyframe] = Field(default_factory=list, description="Frames taken from the video.")
     web_matches: list[WebMatch] = Field(default_factory=list)
     caption_match: CaptionMatch | None = None
     ai_gen_hint: AiGenHint | None = None
@@ -181,6 +217,10 @@ class EvidenceBundle(BaseModel):
             "that was CLEARED from one that could not be assessed, so absence is never read "
             "as consistency."
         ),
+    )
+    extractor_detail: dict[str, str] = Field(
+        default_factory=dict,
+        description="Why an extractor produced nothing, when it did not (e.g. 'The video has no audio track.').",
     )
     meta: Meta
 
@@ -208,6 +248,16 @@ class Flag(BaseModel):
     source: str = Field(
         default="rules", description="Which fusion layer raised it: 'rules' or 'llm'."
     )
+    timestamps: list[float] = Field(
+        default_factory=list, description="Moments in the video, in seconds, that the flag cites."
+    )
+
+
+class KeyframeView(BaseModel):
+    """A keyframe as the interface shows it."""
+
+    timestamp: float
+    thumbnail: str | None = None
 
 
 class Scorecard(BaseModel):
@@ -229,3 +279,5 @@ class Scorecard(BaseModel):
     )
     modality: Modality
     source_ref: str | None = None
+    duration_s: float | None = None
+    keyframes: list[KeyframeView] = Field(default_factory=list)

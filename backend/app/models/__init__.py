@@ -8,11 +8,14 @@ from app.models.bundle import (
     Flag,
     FlagStatus,
     FlagType,
+    Keyframe,
+    KeyframeView,
     Meta,
     Modality,
     Scorecard,
     SceneDescription,
     Severity,
+    TranscriptSegment,
     WebMatch,
 )
 
@@ -24,10 +27,13 @@ __all__ = [
     "Flag",
     "FlagStatus",
     "FlagType",
+    "Keyframe",
+    "KeyframeView",
     "Meta",
     "Modality",
     "Scorecard",
     "SceneDescription",
     "Severity",
+    "TranscriptSegment",
     "WebMatch",
 ]

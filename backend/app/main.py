@@ -1,8 +1,9 @@
 """Aegis FastAPI application — entry point and routes.
 
-Routes: ``/health`` (liveness) and ``/analyze`` (image + caption -> explainable scorecard).
-``/analyze`` runs the image adapter to build an Evidence Bundle, then the fusion core to
-produce a :class:`Scorecard` — a list of typed, explained flags, never a trust verdict.
+Routes: ``/health`` (liveness), ``/analyze`` (image + caption) and ``/analyze/video`` (a video of
+up to 60 s + caption), each returning an explainable scorecard. The adapters build an Evidence
+Bundle, then the fusion core produces a :class:`Scorecard` — a list of typed, explained flags,
+never a trust verdict.
 """
 
 from __future__ import annotations
@@ -79,6 +80,9 @@ def health() -> dict:
             "phash_mirror_lookup": settings.phash_mirror_lookup,
             "keypoint_matching": settings.keypoint_matching,
             "caption_match_method": settings.caption_match_method,
+            "whisper_model": settings.whisper_model,
+            "video_max_mb": settings.video_max_mb,
+            "video_max_seconds": settings.video_max_seconds,
         },
     }
 
@@ -121,4 +125,69 @@ async def analyze(
         source_ref=image.filename,
         posted_date=posted_date or None,
     )
+    return build_scorecard(bundle)
+
+
+_VIDEO_TYPES = {"video/mp4": ".mp4", "video/quicktime": ".mov", "video/webm": ".webm"}
+_VIDEO_EXTENSIONS = {".mp4", ".mov", ".webm"}
+# A clip reported as "1:00" is often a few hundredths of a second longer.
+_DURATION_SLACK_S = 0.5
+
+
+@app.post("/analyze/video", response_model=Scorecard, tags=["analysis"])
+async def analyze_video(
+    video: UploadFile = File(..., description="The video to audit: mp4, mov or webm, up to 60 s."),
+    caption: str = Form("", description="The post's caption accompanying the video."),
+    posted_date: str = Form(
+        "", description="Optional: the date the post says it was published, as YYYY-MM-DD."
+    ),
+) -> Scorecard:
+    """Audit a short video + caption and return an explainable :class:`Scorecard`.
+
+    Runs the video adapter (keyframes, OCR, reverse-image per keyframe, speech, CLIP) and the
+    rules. Refuses other file types, files over the size cap and videos over the length limit,
+    each with a message saying which limit was hit.
+    """
+    import tempfile
+    from pathlib import Path
+
+    from starlette.concurrency import run_in_threadpool
+
+    from app.adapters.video_adapter import build_video_bundle
+    from app.extractors.video import VideoError, probe
+
+    suffix = Path(video.filename or "").suffix.lower()
+    if video.content_type not in _VIDEO_TYPES and suffix not in _VIDEO_EXTENSIONS:
+        raise HTTPException(status_code=415, detail=f"Unsupported file type: {video.content_type}. "
+                                                    "Upload an mp4, mov or webm video.")
+    posted_date = posted_date.strip()
+    if (problem := _posted_date_error(posted_date)) is not None:
+        return JSONResponse(status_code=400, content={"detail": problem})
+
+    cap = settings.video_max_mb * 1024 * 1024
+    with tempfile.TemporaryDirectory() as tmp:
+        path = Path(tmp) / f"upload{suffix if suffix in _VIDEO_EXTENSIONS else _VIDEO_TYPES.get(video.content_type, '.mp4')}"
+        size = 0
+        with open(path, "wb") as fh:
+            while chunk := await video.read(1 << 20):
+                size += len(chunk)
+                if size > cap:
+                    return JSONResponse(status_code=413, content={
+                        "detail": f"Video exceeds the {settings.video_max_mb} MB limit."})
+                fh.write(chunk)
+        if size == 0:
+            return JSONResponse(status_code=400, content={"detail": "Empty video upload."})
+        try:
+            info = probe(path)
+        except VideoError as exc:
+            return JSONResponse(status_code=400, content={"detail": str(exc)})
+        if info.duration_s > settings.video_max_seconds + _DURATION_SLACK_S:
+            return JSONResponse(status_code=400, content={
+                "detail": f"The video is {info.duration_s:.1f} s long; the limit is "
+                          f"{settings.video_max_seconds:.0f} s."})
+        try:
+            bundle = await run_in_threadpool(
+                build_video_bundle, path, caption or None, video.filename, posted_date or None)
+        except VideoError as exc:
+            return JSONResponse(status_code=400, content={"detail": str(exc)})
     return build_scorecard(bundle)
