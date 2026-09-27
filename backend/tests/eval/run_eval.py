@@ -108,12 +108,12 @@ def _caption_note() -> str:
                 "output so the rule is scored on controlled text.")
     if method == "meaning":
         return ("caption_content_mismatch (meaning) reads the injected scene description (inject_scene) "
-                "for its text score; its picture score sees the example's picture, the same blank "
-                "image for every example.")
+                "for its text score; its picture score needs the example's picture, the same blank "
+                "image for every example, which the check reports as not assessed (nearly blank).")
     if method == "image":
         return ("caption_content_mismatch (picture vs caption) compares each caption with the example's "
-                "picture, the same blank image for every example, so this run tests the wiring, not "
-                "accuracy; accuracy comes from the VERITE evaluations.")
+                "picture; every example here uses the same blank image, which the check reports as not "
+                "assessed (nearly blank). The cases with real pictures are in caption_pairs_A.json.")
     return "caption_content_mismatch is switched off, so it is reported as not assessed."
 
 

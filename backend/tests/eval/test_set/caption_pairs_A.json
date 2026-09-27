@@ -1,0 +1,149 @@
+{
+ "_about": "Caption regression cases on real pictures from dataset A (public-domain NASA photos, kept out of the repository; data/A_originals/). Built by backend/scripts/build_caption_pairs.py: 2 photos per topic drawn with seed 20260927; each photo with the first sentence of its own NASA description (expected clear) and with that of a photo from another topic (expected fire).",
+ "cases": [
+  {
+   "id": "KSC-2009-1011-own",
+   "nasa_id": "KSC-2009-1011",
+   "file": "A11_KSC-2009-1011.jpg",
+   "topic": "weather",
+   "caption": "Sunrise casts an orange glow over the wooded landscape surrounding NASA's Kennedy Space Center in Florida.",
+   "caption_from": "KSC-2009-1011",
+   "expected": "clear"
+  },
+  {
+   "id": "KSC-2009-1011-other",
+   "nasa_id": "KSC-2009-1011",
+   "file": "A11_KSC-2009-1011.jpg",
+   "topic": "weather",
+   "caption": "This impressive scene was photographed when the NASA 747 carrier aircraft and five T-38 aircraft flew over the shuttle Orbiter 101 \"Enterprise\" while it was parked on the runway at Edwards Air Force Base in Southern California.",
+   "caption_from": "S77-28200",
+   "expected": "fire"
+  },
+  {
+   "id": "KSC-2011-2584-own",
+   "nasa_id": "KSC-2011-2584",
+   "file": "A02_KSC-2011-2584.jpg",
+   "topic": "weather",
+   "caption": "At NASA's Kennedy Space Center in Florida, an ominous thunderstorm cloud hovers over the Vehicle Assembly Building in the Launch Complex 39 area.",
+   "caption_from": "KSC-2011-2584",
+   "expected": "clear"
+  },
+  {
+   "id": "KSC-2011-2584-other",
+   "nasa_id": "KSC-2011-2584",
+   "file": "A02_KSC-2011-2584.jpg",
+   "topic": "weather",
+   "caption": "A NASA railroad train moves past Launch Pad 39A at NASA's Kennedy Space Center in Florida.",
+   "caption_from": "KSC-98PC-629",
+   "expected": "fire"
+  },
+  {
+   "id": "S77-28200-own",
+   "nasa_id": "S77-28200",
+   "file": "A13_S77-28200.jpg",
+   "topic": "transport",
+   "caption": "This impressive scene was photographed when the NASA 747 carrier aircraft and five T-38 aircraft flew over the shuttle Orbiter 101 \"Enterprise\" while it was parked on the runway at Edwards Air Force Base in Southern California.",
+   "caption_from": "S77-28200",
+   "expected": "clear"
+  },
+  {
+   "id": "S77-28200-other",
+   "nasa_id": "S77-28200",
+   "file": "A13_S77-28200.jpg",
+   "topic": "transport",
+   "caption": "Seen at NASA's Kennedy Space Center, this nine-banded armadillo may be looking for food.",
+   "caption_from": "KSC-07pd0148",
+   "expected": "fire"
+  },
+  {
+   "id": "KSC-98PC-629-own",
+   "nasa_id": "KSC-98PC-629",
+   "file": "A17_KSC-98PC-629.jpg",
+   "topic": "transport",
+   "caption": "A NASA railroad train moves past Launch Pad 39A at NASA's Kennedy Space Center in Florida.",
+   "caption_from": "KSC-98PC-629",
+   "expected": "clear"
+  },
+  {
+   "id": "KSC-98PC-629-other",
+   "nasa_id": "KSC-98PC-629",
+   "file": "A17_KSC-98PC-629.jpg",
+   "topic": "transport",
+   "caption": "A wood stork eats breakfast while wading in brackish water at NASA's Kennedy Space Center in Florida around dawn.",
+   "caption_from": "KSC-2010-5875",
+   "expected": "fire"
+  },
+  {
+   "id": "KSC-07pd0148-own",
+   "nasa_id": "KSC-07pd0148",
+   "file": "A23_KSC-07pd0148.jpg",
+   "topic": "animals",
+   "caption": "Seen at NASA's Kennedy Space Center, this nine-banded armadillo may be looking for food.",
+   "caption_from": "KSC-07pd0148",
+   "expected": "clear"
+  },
+  {
+   "id": "KSC-07pd0148-other",
+   "nasa_id": "KSC-07pd0148",
+   "file": "A23_KSC-07pd0148.jpg",
+   "topic": "animals",
+   "caption": "The narrow end of the island is to the north by northeast.",
+   "caption_from": "sts059-219-065",
+   "expected": "fire"
+  },
+  {
+   "id": "KSC-2010-5875-own",
+   "nasa_id": "KSC-2010-5875",
+   "file": "A28_KSC-2010-5875.jpg",
+   "topic": "animals",
+   "caption": "A wood stork eats breakfast while wading in brackish water at NASA's Kennedy Space Center in Florida around dawn.",
+   "caption_from": "KSC-2010-5875",
+   "expected": "clear"
+  },
+  {
+   "id": "KSC-2010-5875-other",
+   "nasa_id": "KSC-2010-5875",
+   "file": "A28_KSC-2010-5875.jpg",
+   "topic": "animals",
+   "caption": "This near-vertical color photograph shows the very diverse landscape that is part of the great Sahara Desert of north Africa.",
+   "caption_from": "sts054-152-189",
+   "expected": "fire"
+  },
+  {
+   "id": "sts059-219-065-own",
+   "nasa_id": "sts059-219-065",
+   "file": "A40_sts059-219-065.jpg",
+   "topic": "landscapes",
+   "caption": "The narrow end of the island is to the north by northeast.",
+   "caption_from": "sts059-219-065",
+   "expected": "clear"
+  },
+  {
+   "id": "sts059-219-065-other",
+   "nasa_id": "sts059-219-065",
+   "file": "A40_sts059-219-065.jpg",
+   "topic": "landscapes",
+   "caption": "Sunrise casts an orange glow over the wooded landscape surrounding NASA's Kennedy Space Center in Florida.",
+   "caption_from": "KSC-2009-1011",
+   "expected": "fire"
+  },
+  {
+   "id": "sts054-152-189-own",
+   "nasa_id": "sts054-152-189",
+   "file": "A32_sts054-152-189.jpg",
+   "topic": "landscapes",
+   "caption": "This near-vertical color photograph shows the very diverse landscape that is part of the great Sahara Desert of north Africa.",
+   "caption_from": "sts054-152-189",
+   "expected": "clear"
+  },
+  {
+   "id": "sts054-152-189-other",
+   "nasa_id": "sts054-152-189",
+   "file": "A32_sts054-152-189.jpg",
+   "topic": "landscapes",
+   "caption": "At NASA's Kennedy Space Center in Florida, an ominous thunderstorm cloud hovers over the Vehicle Assembly Building in the Launch Complex 39 area.",
+   "caption_from": "KSC-2011-2584",
+   "expected": "fire"
+  }
+ ]
+}

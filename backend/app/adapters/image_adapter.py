@@ -15,7 +15,13 @@ for "meaning" only).
 from __future__ import annotations
 
 from app.config import get_settings
-from app.extractors.caption_match import IMAGE_MODEL, SPACY_MODEL, TEXT_METHOD, measure_caption_match
+from app.extractors.caption_match import (
+    IMAGE_MODEL,
+    SPACY_MODEL,
+    TEXT_METHOD,
+    measure_caption_match,
+    picture_limit,
+)
 from app.extractors.captioner import describe_scene
 from app.extractors.ocr import extract_on_screen_text
 from app.extractors.reverse_image import find_web_matches
@@ -31,9 +37,13 @@ def measure_caption_fit(
 ) -> tuple[CaptionMatch, FlagStatus]:
     """The caption-vs-picture similarities a method needs, and the measurement's status.
 
-    "image" measures only the picture against the caption, so spaCy is never loaded for it.
+    "image" measures only the picture against the caption, so spaCy is never loaded for it. A
+    picture that is nearly blank or mostly text has no scene for CLIP to compare, so the check is
+    not assessed, with the reason, and CLIP is not run.
     """
     text_method = TEXT_METHOD if method == "meaning" else None
+    if caption and caption.strip() and (limit := picture_limit(image_bytes, on_screen_text)):
+        return CaptionMatch(image_model=f"CLIP {IMAGE_MODEL}", detail=limit), FlagStatus.NOT_ASSESSED
     result = measure_caption_match(
         image_bytes, caption, scene_texts, on_screen_text,
         image_model=IMAGE_MODEL, text_method=text_method,

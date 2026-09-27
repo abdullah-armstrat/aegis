@@ -9,12 +9,11 @@ matrix; and individual deterministic outcomes.
 The caption-vs-picture check is pinned once per method (``caption_match_method``):
 ``test_rules_only_confusion_is_exactly_as_expected`` pins word overlap, and
 ``test_caption_check_pinned_per_method`` pins the others. Every test image is the same blank
-picture, so for the methods that compare by meaning these cases say nothing about the picture:
-  * "meaning": the blank picture scores low against every caption (0.18-0.20), so only the text
-    path, the caption against the injected scene description, decides the result.
-  * "image": there is no text path, and the blank picture scores under the threshold for every
-    caption, so the check fires on all eight captioned cases. The pin holds the wiring steady;
-    it is not a measure of accuracy, which comes from the VERITE evaluations.
+picture, which the picture-based methods ("image" and "meaning") report as not assessed: a nearly
+blank picture has no scene for CLIP to compare (ADR-041). Before that limit, the blank picture
+scored under the threshold for every caption and "image" fired on all eight captioned cases. The
+caption cases on real pictures are in test_caption_pairs.py; accuracy comes from the VERITE
+evaluations.
 """
 
 import pytest
@@ -144,8 +143,8 @@ def test_regression_lookups_are_injected_not_hashed():
 # (3, 0, 0, 3, 1) and recycled context (3, 0, 0, 2, 1) do not depend on the method.
 CAPTION_PINS = {
     "off": ((0, 0, 0, 0, 8), (6, 0, 0, 5, 10)),
-    "image": ((3, 5, 0, 0, 0), (9, 5, 0, 5, 2)),
-    "meaning": ((0, 1, 3, 4, 0), (6, 1, 3, 9, 2)),
+    "image": ((0, 0, 0, 0, 8), (6, 0, 0, 5, 10)),    # the blank picture: not assessed (ADR-041)
+    "meaning": ((0, 0, 0, 0, 8), (6, 0, 0, 5, 10)),
 }
 
 
@@ -155,8 +154,7 @@ CAPTION_PINS = {
     pytest.param("meaning", marks=pytest.mark.slow),
 ])
 def test_caption_check_pinned_per_method(monkeypatch, method):
-    """See the module docstring: on these blank test images the meaning-based methods exercise
-    only their text path ("meaning") or fire on every caption ("image")."""
+    """See the module docstring: on these blank test images the picture-based methods are not assessed."""
     get_settings.cache_clear()
     monkeypatch.setenv("AEGIS_CAPTION_MATCH_METHOD", method)
     get_settings.cache_clear()

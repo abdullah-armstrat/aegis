@@ -77,3 +77,29 @@ def extract_on_screen_text(image_bytes: bytes) -> OcrResult:
     if not lines:
         return OcrResult(status=FlagStatus.CLEAR, detail="No legible on-screen text found.")
     return OcrResult(lines=lines, status=FlagStatus.FIRED)
+
+
+def text_box_share(image_bytes: bytes) -> float | None:
+    """The share of the image's area covered by the boxes of the words Tesseract reads in it.
+
+    Every word with non-empty text and a confidence of 0 or more counts, and overlapping boxes are
+    counted once. None when the image or the engine could not be read.
+    """
+    try:
+        import numpy as np
+        import pytesseract
+        from PIL import Image
+
+        image = Image.open(BytesIO(image_bytes))
+        image.load()
+        _configure_tesseract()
+        data = pytesseract.image_to_data(image, output_type=pytesseract.Output.DICT)
+    except Exception:  # noqa: BLE001 - no measurement rather than a crash
+        return None
+    covered = np.zeros((image.height, image.width), dtype=bool)
+    for text, conf, left, top, width, height in zip(
+        data["text"], data["conf"], data["left"], data["top"], data["width"], data["height"]
+    ):
+        if str(text).strip() and float(conf) >= 0:
+            covered[top:top + height, left:left + width] = True
+    return float(covered.mean()) if covered.size else None

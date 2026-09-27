@@ -138,6 +138,45 @@ def spacy_similarity(a: str, b: str) -> float | None:
     return float(da.similarity(db))
 
 
+# ------------------------------------------------------------------------------ the picture's limits
+# CLIP compares the scene in a picture with the caption, so a picture with no scene gives it nothing
+# to compare: then the check is not assessed, with the reason (fixed before measuring, ADR-041).
+NEARLY_BLANK_STD = 10.0   # greyscale standard deviation (0-255) under this: nearly blank
+MOSTLY_TEXT_SHARE = 0.40  # the words OCR reads covering more than this share of it: mostly text
+
+
+def picture_measures(image_bytes: bytes, on_screen_text: list[str]) -> tuple[float | None, float | None]:
+    """(greyscale standard deviation, share covered by the words read in it). The share is measured
+    only when OCR read some text (otherwise 0.0); either is None when it could not be measured."""
+    from PIL import Image, UnidentifiedImageError
+
+    try:
+        with Image.open(BytesIO(image_bytes)) as img:
+            img.load()
+            spread = float(np.asarray(img.convert("L"), dtype=np.float32).std())
+    except (UnidentifiedImageError, OSError, ValueError):
+        return None, None
+    if not on_screen_text:
+        return spread, 0.0
+    from app.extractors.ocr import text_box_share
+
+    return spread, text_box_share(image_bytes)
+
+
+def picture_limit(image_bytes: bytes, on_screen_text: list[str]) -> str | None:
+    """Why the picture gives CLIP no scene to compare with a caption, or None when it has one."""
+    spread, share = picture_measures(image_bytes, on_screen_text)
+    if spread is not None and spread < NEARLY_BLANK_STD:
+        return (f"The picture is nearly blank (its brightness varies by only {spread:.1f} on a scale of 0 to "
+                f"255; under {NEARLY_BLANK_STD:.0f} counts as nearly blank), so there is no scene in it to "
+                "compare with the caption.")
+    if share is not None and share > MOSTLY_TEXT_SHARE:
+        return (f"The picture is mostly text (the words read in it cover {share:.0%} of it; over "
+                f"{MOSTLY_TEXT_SHARE:.0%} counts as mostly text), so there is little scene in it to compare "
+                "with the caption.")
+    return None
+
+
 # ------------------------------------------------------------------------------ the check's inputs
 def read_from_image(scene_descriptions: list[str], on_screen_text: list[str]) -> str:
     """What the other extractors read from the picture, as one text."""
