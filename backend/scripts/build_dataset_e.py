@@ -21,6 +21,12 @@ data/E_videos/ or data/E_speech/:
              data/labels/E_video_clips.csv (per clip) and data/labels/E_video_segments.csv (per
              line: start, end, text, label).
   keyframes  The frame at the middle of each line and one every 3 s, for checking the labels.
+  speech-tuning
+             100 other LibriSpeech test-clean utterances, for choosing Whisper's decoding without
+             touching the test sets: the same checked stream, the 100 not among the original 100
+             whose SHA-256 of "20260928-tuning:utterance id" is lowest, each also written as a WAV
+             with 5 s of silence added to its end (data/E_speech/tuning/). Writes
+             data/labels/E_speech_tuning.csv.
 
 Every narration line describes something concrete. Each was checked against the keyframe from its
 own segment before its label was fixed; five lines were rewritten after that check because their
@@ -57,6 +63,8 @@ LIBRISPEECH_URL = "https://www.openslr.org/resources/12/test-clean.tar.gz"
 LIBRISPEECH_MD5_URL = "https://www.openslr.org/resources/12/md5sum.txt"
 SPEECH_SEED = 20260927
 SPEECH_COUNT = 100
+TUNING_SEED = "20260928-tuning"
+TUNING_SILENCE_S = 5.0
 
 
 # ------------------------------------------------------------------------------ real speech
@@ -88,7 +96,8 @@ def _duration(path: Path) -> float:
     return round(float(json.loads(out)["format"]["duration"]), 3)
 
 
-def build_speech() -> None:
+def build_speech(seed=SPEECH_SEED, out_dir: Path = SPEECH_DIR, manifest: str = "E_speech.csv",
+                 exclude: frozenset = frozenset()) -> list[dict]:
     """Stream LibriSpeech test-clean once and keep the 100 seeded utterances."""
     with httpx.Client(headers={"User-Agent": USER_AGENT}, timeout=60, follow_redirects=True) as client:
         sums = client.get(LIBRISPEECH_MD5_URL).text
@@ -105,7 +114,9 @@ def build_speech() -> None:
                     name = member.name
                     if name.endswith(".flac"):
                         utt = Path(name).stem
-                        key = int(hashlib.sha256(f"{SPEECH_SEED}:{utt}".encode()).hexdigest(), 16)
+                        if utt in exclude:
+                            continue
+                        key = int(hashlib.sha256(f"{seed}:{utt}".encode()).hexdigest(), 16)
                         if len(chosen) < SPEECH_COUNT or key < -chosen[0][0]:
                             item = (-key, utt, tar.extractfile(member).read())
                             if len(chosen) < SPEECH_COUNT:
@@ -128,10 +139,10 @@ def build_speech() -> None:
         sys.exit(f"LibriSpeech test-clean MD5 {digest.hexdigest()} differs from the published {expected}; "
                  "nothing was written")
 
-    SPEECH_DIR.mkdir(parents=True, exist_ok=True)
+    out_dir.mkdir(parents=True, exist_ok=True)
     rows = []
     for _, utt, data in sorted(chosen, key=lambda item: item[1]):
-        path = SPEECH_DIR / f"{utt}.flac"
+        path = out_dir / f"{utt}.flac"
         path.write_bytes(data)
         speaker, chapter, _ = utt.split("-")
         rows.append({
@@ -143,14 +154,15 @@ def build_speech() -> None:
             "licence": "CC BY 4.0", "licence_url": "https://creativecommons.org/licenses/by/4.0/",
             "access_date": date.today().isoformat(),
         })
-    with open(LABELS / "E_speech.csv", "w", encoding="utf-8", newline="") as fh:
+    with open(LABELS / manifest, "w", encoding="utf-8", newline="") as fh:
         w = csv.DictWriter(fh, fieldnames=list(rows[0]))
         w.writeheader()
         w.writerows(rows)
     total = sum(r["duration_s"] for r in rows)
     print(f"LibriSpeech test-clean: MD5 matches the published {expected}; archive not kept")
     print(f"wrote {len(rows)} utterances ({total / 60:.1f} min, {len({r['speaker_id'] for r in rows})} speakers) "
-          f"to {SPEECH_DIR.relative_to(ROOT)} and data/labels/E_speech.csv")
+          f"to {out_dir.relative_to(ROOT)} and data/labels/{manifest}")
+    return rows
 
 
 # ------------------------------------------------------------------------------ footage
@@ -559,12 +571,25 @@ def build_keyframes() -> None:
     print(f"wrote keyframes to {KEYFRAMES_DIR.relative_to(ROOT)}")
 
 
+def build_speech_tuning() -> None:
+    """The tuning set: 100 other utterances, each also with silence added to its end."""
+    with open(LABELS / "E_speech.csv", encoding="utf-8") as fh:
+        originals = frozenset(r["utterance_id"] for r in csv.DictReader(fh))
+    out_dir = SPEECH_DIR / "tuning"
+    rows = build_speech(TUNING_SEED, out_dir, "E_speech_tuning.csv", originals)
+    for r in rows:
+        subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(out_dir / r["file"]), "-af",
+                        f"apad=pad_dur={TUNING_SILENCE_S}", "-ar", "16000", "-ac", "1",
+                        str(out_dir / f"{r['utterance_id']}_silence.wav")], check=True)
+    print(f"added {TUNING_SILENCE_S:.0f} s of silence to the end of each, as *_silence.wav")
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("step", choices=["speech", "footage", "narration", "clips", "keyframes"])
+    parser.add_argument("step", choices=["speech", "speech-tuning", "footage", "narration", "clips", "keyframes"])
     args = parser.parse_args()
-    {"speech": build_speech, "footage": build_footage, "narration": build_narration,
-     "clips": build_clips, "keyframes": build_keyframes}[args.step]()
+    {"speech": build_speech, "speech-tuning": build_speech_tuning, "footage": build_footage,
+     "narration": build_narration, "clips": build_clips, "keyframes": build_keyframes}[args.step]()
 
 
 if __name__ == "__main__":

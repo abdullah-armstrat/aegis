@@ -201,9 +201,14 @@ def test_speech_times_come_from_the_first_and_last_word():
                  "words": [{"word": " hum", "start": 20.5, "end": 21.0}]},
             ]}
 
+    from app.extractors.speech import DECODING
+
     model = FakeWhisper()
     segments = run_model(model, Path("audio.wav"))
     assert model.options["word_timestamps"] is True
+    assert {k: model.options[k] for k in DECODING} == DECODING  # the decoding kept after ADR-047
+    run_model(model, Path("audio.wav"), condition_on_previous_text=False)
+    assert model.options["condition_on_previous_text"] is False  # a setting can be compared
     assert [(s.start, s.end, s.text) for s in segments] == [
         (1.02, 2.98, "The barge approaches."),  # from its words
         (11.0, 20.0, "A tugboat pushes."),      # no words: Whisper's own times

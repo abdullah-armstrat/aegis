@@ -13,6 +13,12 @@ Run one model per process, then compare:
   python backend/scripts/eval_whisper.py run --model tiny
   python backend/scripts/eval_whisper.py run --model base
   python backend/scripts/eval_whisper.py compare
+
+Decoding settings for base, chosen on a tuning set, never on the test sets (ADR-047):
+  python backend/scripts/eval_whisper.py decoding --setting a|b|c --on tuning|original|e
+  python backend/scripts/eval_whisper.py choose
+An invented sentence is a Whisper segment more than half of whose words are insertions in the word
+alignment against the reference.
 """
 
 from __future__ import annotations
@@ -45,6 +51,100 @@ def edits(ref: list[str], hyp: list[str]) -> int:
             cur[j] = min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + (r != h))
         prev = cur
     return prev[-1]
+
+
+def inserted(ref: list[str], hyp: list[str]) -> list[bool]:
+    """For each hypothesis word, whether the word alignment (Levenshtein) makes it an insertion."""
+    n, m = len(ref), len(hyp)
+    d = [[0] * (m + 1) for _ in range(n + 1)]
+    for i in range(n + 1):
+        d[i][0] = i
+    for j in range(m + 1):
+        d[0][j] = j
+    for i in range(1, n + 1):
+        for j in range(1, m + 1):
+            d[i][j] = min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + (ref[i - 1] != hyp[j - 1]))
+    flags, i, j = [False] * m, n, m
+    while i > 0 or j > 0:  # from the end: where a tie allows, the later words are the extra ones
+        if j > 0 and d[i][j] == d[i][j - 1] + 1:
+            flags[j - 1] = True
+            j -= 1
+        elif i > 0 and j > 0 and d[i][j] == d[i - 1][j - 1] + (ref[i - 1] != hyp[j - 1]):
+            i, j = i - 1, j - 1
+        else:
+            i -= 1
+    return flags
+
+
+SETTINGS = {
+    "a": {"condition_on_previous_text": True, "hallucination_silence_threshold": None},
+    "b": {"condition_on_previous_text": False, "hallucination_silence_threshold": None},
+    "c": {"condition_on_previous_text": False, "hallucination_silence_threshold": 2.0},
+}
+
+
+def decoding(setting: str, on: str) -> None:
+    """Whisper base with one decoding setting, on the tuning set, the original 100 or dataset E."""
+    from whisper.normalizers import EnglishTextNormalizer
+
+    from app.extractors.speech import load_model, run_model
+    from app.extractors.video import extract_audio
+
+    norm = EnglishTextNormalizer()
+    model = load_model("base")
+    with tempfile.TemporaryDirectory() as tmp:
+        if on == "tuning":
+            rows = csv.DictReader(open(LABELS / "E_speech_tuning.csv", encoding="utf-8"))
+            items = [(r["utterance_id"], ROOT / "data" / "E_speech" / "tuning" / f"{r['utterance_id']}_silence.wav",
+                      r["transcript"]) for r in rows]
+        elif on == "original":
+            rows = csv.DictReader(open(LABELS / "E_speech.csv", encoding="utf-8"))
+            items = [(r["utterance_id"], ROOT / "data" / "E_speech" / r["file"], r["transcript"]) for r in rows]
+        else:
+            items = []
+            for r in csv.DictReader(open(LABELS / "E_video_clips.csv", encoding="utf-8")):
+                if r["has_speech"] == "yes":
+                    wav = Path(tmp) / f"{r['clip_id']}.wav"
+                    extract_audio(ROOT / "data" / "E_videos" / "clips" / r["file"], wav)
+                    items.append((r["clip_id"], wav, r["script"]))
+        out_rows = []
+        for item_id, audio, reference in items:
+            s = time.perf_counter()
+            segments = run_model(model, audio, **SETTINGS[setting])
+            seconds = time.perf_counter() - s
+            ref_words = norm(reference).split()
+            hyp_words = norm(" ".join(seg.text for seg in segments)).split()
+            per_segment = [norm(seg.text).split() for seg in segments]
+            flags = inserted(ref_words, [w for words in per_segment for w in words])
+            invented, at = [], 0
+            for seg, words in zip(segments, per_segment):
+                if words and sum(flags[at:at + len(words)]) > len(words) / 2:
+                    invented.append(seg.text)
+                at += len(words)
+            out_rows.append({"id": item_id, "seconds": round(seconds, 3), "ref_words": len(ref_words),
+                             "edits": edits(ref_words, hyp_words), "hypothesis": " ".join(seg.text for seg in segments),
+                             "segments": [seg.text for seg in segments], "invented": invented})
+    wer = 100 * sum(r["edits"] for r in out_rows) / sum(r["ref_words"] for r in out_rows)
+    out = {"model": "base", "setting": setting, "options": SETTINGS[setting], "on": on, "items": len(out_rows),
+           "wer_pct": round(wer, 2), "invented_sentences": sum(len(r["invented"]) for r in out_rows),
+           "items_with_invented": sum(bool(r["invented"]) for r in out_rows),
+           "mean_s": round(statistics.mean(r["seconds"] for r in out_rows), 3), "rows": out_rows}
+    OUT.mkdir(exist_ok=True)
+    (OUT / f"wp5_whisper_{setting}_{on}.json").write_text(json.dumps(out, indent=1), encoding="utf-8")
+    print(f"setting {setting} on {on}: WER {wer:.2f}% over {len(out_rows)} items, invented sentences "
+          f"{out['invented_sentences']} in {out['items_with_invented']} items, mean {out['mean_s']:.2f} s")
+
+
+def choose() -> None:
+    """The lowest tuning-set error rate; a tie at two decimals to fewer invented sentences, then (a)."""
+    runs = {k: json.loads((OUT / f"wp5_whisper_{k}_tuning.json").read_text(encoding="utf-8")) for k in SETTINGS}
+    order = sorted(SETTINGS, key=lambda k: (runs[k]["wer_pct"], runs[k]["invented_sentences"], k != "a"))
+    res = {"rule": "lowest tuning-set WER; ties at two decimals to fewer invented sentences, then (a)",
+           "tuning": {k: {f: runs[k][f] for f in ("wer_pct", "invented_sentences", "items_with_invented", "mean_s")}
+                      for k in SETTINGS},
+           "chosen": order[0], "options": SETTINGS[order[0]]}
+    (OUT / "wp5_whisper_decoding_choice.json").write_text(json.dumps(res, indent=2), encoding="utf-8")
+    print(json.dumps(res, indent=2))
 
 
 def run(model_name: str, out_name: str | None = None) -> None:
@@ -128,11 +228,17 @@ def compare() -> None:
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("step", choices=["run", "compare"])
+    parser.add_argument("step", choices=["run", "compare", "decoding", "choose"])
     parser.add_argument("--model", choices=["tiny", "base"])
     parser.add_argument("--out", help="write the run to this file in results/ instead of wp3_whisper_<model>.json")
+    parser.add_argument("--setting", choices=list(SETTINGS), help="decoding: which setting")
+    parser.add_argument("--on", choices=["tuning", "original", "e"], help="decoding: which items")
     args = parser.parse_args()
-    if args.step == "run":
+    if args.step == "decoding":
+        decoding(args.setting, args.on)
+    elif args.step == "choose":
+        choose()
+    elif args.step == "run":
         run(args.model, args.out)
     else:
         compare()

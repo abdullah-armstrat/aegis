@@ -26,6 +26,9 @@ from app.models import FlagStatus
 
 WHISPER_CACHE = Path(os.path.expanduser("~/.cache/whisper"))
 NO_SPEECH_PROB = 0.6
+# Decoding settings beyond the language and word timestamps; chosen on a tuning set of LibriSpeech
+# utterances with silence added to their ends, never on the test sets (ADR-047).
+DECODING = {"condition_on_previous_text": True, "hallucination_silence_threshold": None}
 
 
 @dataclass
@@ -87,9 +90,13 @@ def _times(segment: dict) -> tuple[float, float]:
     return float(segment["start"]), float(segment["end"])
 
 
-def run_model(model, audio: Path) -> list[Segment]:
-    """Transcribe with the fixed decoding settings and keep only segments that are speech."""
-    out = model.transcribe(str(audio), language="en", fp16=False, verbose=None, word_timestamps=True)
+def run_model(model, audio: Path, **decoding) -> list[Segment]:
+    """Transcribe with the fixed decoding settings and keep only segments that are speech.
+
+    ``decoding`` overrides ``DECODING``, for comparing settings.
+    """
+    options = {**DECODING, **decoding}
+    out = model.transcribe(str(audio), language="en", fp16=False, verbose=None, word_timestamps=True, **options)
     kept = []
     for s in out.get("segments", []):
         if s["text"].strip() and float(s["no_speech_prob"]) <= NO_SPEECH_PROB:
