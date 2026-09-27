@@ -82,7 +82,8 @@ FALSE_ALARMS: dict[str, FalseAlarms | None] = {
     "caption_video": None,        # no set of captioned videos has been evaluated
     # Matching lines flagged on the held-out-side dataset E clips, with the decoding of ADR-049.
     "speech_picture": FalseAlarms(9, 50, "matching lines flagged, held-out dataset E clips"),
-    "emotional_framing": None,    # dataset F is evaluated in WP-6
+    # Honest dataset F texts it fired on (ADR-053; the flag's words since then, ADR-057).
+    "emotional_framing": FalseAlarms(5, 49, "honest dataset F texts flagged"),
     "llm": None,                  # not measured on real pairs
 }
 

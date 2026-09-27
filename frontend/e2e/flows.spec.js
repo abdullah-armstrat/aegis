@@ -76,9 +76,9 @@ test("image flow: upload, results, and the reason a check could not run", async 
   await expect(page.getByText("Audit result")).toBeVisible();
   await expect(page.getByText(/Findings \(3\)/)).toBeVisible();
   // No caption: the wording check could not run, and the card says why.
-  const framing = page.locator("article", { hasText: "Emotional framing" });
+  const framing = page.locator("article", { hasText: "Shouting style" });
   await expect(framing.getByText("Why:")).toBeVisible();
-  await expect(framing).toContainText("No caption text was available");
+  await expect(framing).toContainText("There is no caption text to check");
   // An image has no player and no time buttons.
   await expect(page.locator("video")).toHaveCount(0);
   await expect(page.locator('button[title^="Play from"]')).toHaveCount(0);
@@ -98,7 +98,7 @@ test("video flow: player, keyframe strip, reasons, and every time button seeks",
   await expect(speech.getByText("Why:")).toBeVisible();
   await expect(speech).toContainText("the video has no audio track");
   // The burned-in pressure wording is found in the frame that shows it.
-  const framing = page.locator("article", { hasText: "Emotional framing" });
+  const framing = page.locator("article", { hasText: "Shouting style" });
   await expect(framing).toContainText("Some of the words in this video");
   await expect(framing.getByRole("button", { name: /0:05/ })).toBeVisible();
 

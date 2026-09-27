@@ -11,7 +11,7 @@ import Signal, { STATUS_META } from "./Signal";
 const TYPE_LABELS = {
   caption_content_mismatch: "Caption ↔ picture match",
   recycled_context: "Recycled context",
-  emotional_framing: "Emotional framing",
+  emotional_framing: "Shouting style",
   audio_visual_mismatch: "Speech ↔ picture match",
 };
 

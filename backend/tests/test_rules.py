@@ -48,9 +48,11 @@ def test_emotional_framing_fires_on_a_combination_of_markers():
     assert flag.status == FlagStatus.FIRED
     assert flag.what_to_check
     # The evidence must report the specific markers found, not just a score.
-    assert "ALL-CAPS" in flag.evidence
+    assert "words in capitals" in flag.evidence
     assert "exclamation" in flag.evidence
-    assert "manipulation markers present" in flag.evidence
+    assert "style markers present" in flag.evidence
+    assert "shouting style" in flag.plain_explanation
+    assert not any(w in flag.plain_explanation.lower() for w in ("manipulat", "pressure", "sensational"))
 
 
 def test_emotional_framing_clear_on_neutral_wording():
@@ -93,11 +95,11 @@ def test_emotional_framing_not_assessed_without_caption_text():
 
 def test_marker_detector_units():
     """Each of the four markers is detectable on its own."""
-    assert any("ALL-CAPS" in m for m in find_manipulation_markers("THIS IS ALL SHOUTED TEXT"))
+    assert any("words in capitals" in m for m in find_manipulation_markers("THIS IS ALL SHOUTED TEXT"))
     assert any("exclamation" in m for m in find_manipulation_markers("Look at this!!"))
     assert any("urgency" in m for m in find_manipulation_markers("URGENT: read this"))
     assert any(
-        "in-/out-group" in m
+        "listed phrases" in m
         for m in find_manipulation_markers("They are hiding the truth about it")
     )
     # Bare pronouns are deliberately not markers — too common in ordinary reporting.

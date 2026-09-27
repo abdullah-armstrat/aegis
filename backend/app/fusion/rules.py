@@ -130,7 +130,7 @@ def find_manipulation_markers(text: str) -> list[str]:
         ratio = len(caps) / len(shoutable)
         if ratio >= CAPS_RATIO_THRESHOLD:
             markers.append(
-                f"ALL-CAPS ratio {ratio:.0%} ({len(caps)} of {len(shoutable)} words: "
+                f"words in capitals: {ratio:.0%} ({len(caps)} of {len(shoutable)} words: "
                 f"{', '.join(caps[:4])})"
             )
 
@@ -140,17 +140,17 @@ def find_manipulation_markers(text: str) -> list[str]:
     if bangs >= EXCLAMATION_ABSOLUTE_THRESHOLD or (
         bangs and density >= EXCLAMATION_DENSITY_THRESHOLD
     ):
-        markers.append(f"{bangs} exclamation mark(s) across {len(words)} words")
+        markers.append(f"{bangs} exclamation mark{'s' if bangs != 1 else ''} in {len(words)} words")
 
     # 3. Urgency / sensational lexicon.
-    urgency_hits = [label for label, pattern in _URGENCY_PATTERNS if re.search(pattern, normalised)]
+    urgency_hits = [m.group(0) for _, pattern in _URGENCY_PATTERNS if (m := re.search(pattern, normalised))]
     if urgency_hits:
-        markers.append(f"urgency/sensational language ({', '.join(urgency_hits)})")
+        markers.append("words from the urgency list: " + ", ".join(f'"{h}"' for h in urgency_hits))
 
     # 4. In-/out-group framing.
-    group_hits = [label for label, pattern in _GROUP_FRAMING_PATTERNS if re.search(pattern, normalised)]
+    group_hits = [m.group(0) for _, pattern in _GROUP_FRAMING_PATTERNS if (m := re.search(pattern, normalised))]
     if group_hits:
-        markers.append(f"in-/out-group framing ({', '.join(group_hits)})")
+        markers.append("listed phrases: " + ", ".join(f'"{h}"' for h in group_hits))
 
     return markers
 
@@ -181,9 +181,9 @@ def emotional_framing_rule(bundle: EvidenceBundle) -> Flag:
             type=FlagType.EMOTIONAL_FRAMING,
             status=FlagStatus.NOT_ASSESSED,
             severity=Severity.INFO,
-            evidence="No caption text was available to examine for manipulation markers.",
-            plain_explanation="How this post is worded could not be assessed.",
-            what_to_check="Read the wording yourself: is it pressuring you to share rather than to check?",
+            evidence="There is no caption text to check for a shouting style.",
+            plain_explanation="Whether the caption is written in a shouting style could not be checked.",
+            what_to_check="Read the wording yourself. Is it shouting, or telling you to share at once?",
         )
 
     markers = find_manipulation_markers(caption)
@@ -193,41 +193,44 @@ def emotional_framing_rule(bundle: EvidenceBundle) -> Flag:
             type=FlagType.EMOTIONAL_FRAMING,
             status=FlagStatus.FIRED,
             severity=severity("emotional_framing", Evidence.INDIRECT),
-            evidence=(
-                f"{len(markers)} of 4 manipulation markers present: " + "; ".join(markers) + "."
-            ),
+            evidence=f"{len(markers)} of 4 style markers present: " + "; ".join(markers) + ".",
             plain_explanation=(
-                "This caption is written using several techniques that pressure a reader to "
-                "react and share rather than to check: shouting, heavy punctuation, urgency "
-                "wording, or an 'us against them' frame. These are features of how the message "
-                "is presented, not evidence that it is false."
+                f"This caption is written in a shouting style: {_style_summary(markers)}. "
+                "This is about how it is written, not about what it says."
             ),
-            what_to_check=(
-                "Try restating the claim without the capitals, exclamation marks and urgency "
-                "wording. Does it still stand on its own?"
-            ),
+            what_to_check="Read the caption without the capitals and exclamation marks. Then look at what it actually says.",
         )
 
     # Clear: fewer than the required combination. Name the single marker if there was one, so
     # "clear" is never an unexplained pass.
     if markers:
-        reason = (
-            f"Only 1 of 4 manipulation markers present ({markers[0]}); "
-            f"{MIN_MARKERS_TO_FIRE} are required to fire."
-        )
+        reason = f"Only 1 of 4 style markers present ({markers[0]}); {MIN_MARKERS_TO_FIRE} are needed."
     else:
-        reason = (
-            "None of the 4 manipulation markers were present (ALL-CAPS ratio, exclamation "
-            "density, urgency/sensational lexicon, in-/out-group framing)."
-        )
+        reason = ("None of the 4 style markers is present (words in capitals, exclamation marks, words "
+                  "from the urgency list, listed phrases).")
     return Flag(
         type=FlagType.EMOTIONAL_FRAMING,
         status=FlagStatus.CLEAR,
         severity=Severity.INFO,
         evidence=reason,
-        plain_explanation="This caption is not written in a high-pressure or sensational style.",
-        what_to_check="Wording alone says nothing about accuracy; the other checks cover the content.",
+        plain_explanation="This caption is not written in a shouting style.",
+        what_to_check="How words are written says nothing about what they claim. The other checks look at the content.",
     )
+
+
+def _style_summary(markers: list[str]) -> str:
+    """The style markers found, in plain words."""
+    parts = []
+    for m in markers:
+        if m.startswith("words in capitals"):
+            parts.append("many of its words are in capitals")
+        elif "exclamation mark" in m:
+            parts.append("it has several exclamation marks")
+        elif m.startswith("words from the urgency list"):
+            parts.append("it uses words from a list of urgency words (" + m.split(": ", 1)[1] + ")")
+        elif m.startswith("listed phrases"):
+            parts.append("it uses phrases from a list (" + m.split(": ", 1)[1] + ")")
+    return ", ".join(parts[:-1]) + (" and " if len(parts) > 1 else "") + parts[-1]
 
 
 def _video_emotional_framing(bundle: EvidenceBundle) -> Flag:
@@ -263,9 +266,9 @@ def _video_emotional_framing(bundle: EvidenceBundle) -> Flag:
             type=FlagType.EMOTIONAL_FRAMING,
             status=FlagStatus.NOT_ASSESSED,
             severity=Severity.INFO,
-            evidence=f"No text was available to examine for manipulation markers.{gaps}",
-            plain_explanation="How this video's words are presented could not be assessed.",
-            what_to_check="Listen and read yourself: is it pressuring you to share rather than to check?",
+            evidence=f"There is no text to check for a shouting style.{gaps}",
+            plain_explanation="Whether the video's words are written in a shouting style could not be checked.",
+            what_to_check="Listen and read yourself. Is it shouting, or telling you to share at once?",
         )
 
     results = [(label, find_manipulation_markers(text), times) for label, text, times in sources]
@@ -275,15 +278,13 @@ def _video_emotional_framing(bundle: EvidenceBundle) -> Flag:
             type=FlagType.EMOTIONAL_FRAMING,
             status=FlagStatus.FIRED,
             severity=severity("emotional_framing", Evidence.INDIRECT),
-            evidence=" ".join(f"In {label}, {len(m)} of 4 manipulation markers: {'; '.join(m)}."
+            evidence=" ".join(f"In {label}, {len(m)} of 4 style markers: {'; '.join(m)}."
                               for label, m, _ in firing) + gaps,
             plain_explanation=(
-                "Some of the words in this video use several techniques that pressure a viewer to react "
-                "and share rather than to check: shouting, heavy punctuation, urgency wording, or an "
-                "'us against them' frame. These are features of how the message is presented, not "
-                "evidence that it is false."
+                f"Some of the words in this video are written in a shouting style: {_style_summary(firing[0][1])}. "
+                "This is about how they are written, not about what they say."
             ),
-            what_to_check="Restate the claim without the urgency and the capitals. Does it still stand on its own?",
+            what_to_check="Read and listen without the capitals and the urgency. Then look at what is actually said.",
             timestamps=sorted({t for _, _, times in firing for t in times}),
         )
     checked = "; ".join(f"{label}: {len(m)} marker{'s' if len(m) != 1 else ''}" for label, m, _ in results)
@@ -292,8 +293,8 @@ def _video_emotional_framing(bundle: EvidenceBundle) -> Flag:
         status=FlagStatus.CLEAR,
         severity=Severity.INFO,
         evidence=f"Checked {checked}; {MIN_MARKERS_TO_FIRE} in one source are required to fire.{gaps}",
-        plain_explanation="The video's words are not presented in a high-pressure or sensational style.",
-        what_to_check="Wording alone says nothing about accuracy; the other checks cover the content.",
+        plain_explanation="The video's words are not written in a shouting style.",
+        what_to_check="How words are written says nothing about what they claim. The other checks look at the content.",
     )
 
 
