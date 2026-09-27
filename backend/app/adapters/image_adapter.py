@@ -6,7 +6,7 @@ core consumes. Extractors are wired in one at a time as they land; each records 
 in ``extractor_status`` so fusion can tell a check that ran and found nothing from one that
 could not run, rather than inferring meaning from an empty field.
 
-Wired: OCR, sentiment, reverse-image (matched by content against the image history index),
+Wired: OCR, reverse-image (matched by content against the image history index),
 the BLIP captioner, which runs locally on the CPU, and, when ``caption_match_method`` is
 "image" or "meaning", the caption-vs-picture similarities that method needs (CLIP, and spaCy
 for "meaning" only).
@@ -19,7 +19,6 @@ from app.extractors.caption_match import IMAGE_MODEL, SPACY_MODEL, TEXT_METHOD, 
 from app.extractors.captioner import describe_scene
 from app.extractors.ocr import extract_on_screen_text
 from app.extractors.reverse_image import find_web_matches
-from app.extractors.sentiment import analyse_sentiment
 from app.models import CaptionMatch, EvidenceBundle, FlagStatus, Meta, Modality
 
 
@@ -70,7 +69,7 @@ def build_bundle(
     ``posted_date`` is the optional ISO date the post claims; the recycled-context rule compares
     earlier appearances against it.
 
-    Wired: OCR, sentiment (over the caption), reverse-image (history index), BLIP captioner. The
+    Wired: OCR, reverse-image (history index), BLIP captioner. The
     captioner can be disabled via ``AEGIS_USE_CAPTIONER`` (e.g. for fast tests); when off, the
     caption↔scene check honestly reports NOT_ASSESSED rather than passing silently. It also runs
     only when something reads the scene description: word overlap, the meaning check's text
@@ -80,7 +79,6 @@ def build_bundle(
     settings = get_settings()
     method = settings.caption_match_method
     ocr = extract_on_screen_text(image_bytes)
-    sentiment = analyse_sentiment(caption, source="caption")
     reverse = find_web_matches(image_bytes)
 
     needs_scene = method in ("meaning", "overlap") or settings.use_llm
@@ -94,7 +92,6 @@ def build_bundle(
 
     extractor_status = {
         "ocr": ocr.status,
-        "sentiment": sentiment.status,
         "reverse_image": reverse.status,
         "captioner": caption_status,
     }
@@ -108,7 +105,6 @@ def build_bundle(
         scene_descriptions=scene_descriptions,
         on_screen_text=ocr.lines,
         caption=caption,
-        sentiment=sentiment.sentiment,
         web_matches=reverse.matches,
         caption_match=caption_match,
         extractor_status=extractor_status,

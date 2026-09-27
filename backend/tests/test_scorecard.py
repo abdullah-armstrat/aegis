@@ -15,7 +15,6 @@ from app.models import (
     Meta,
     Modality,
     SceneDescription,
-    Sentiment,
     WebMatch,
 )
 
@@ -24,9 +23,8 @@ def _mismatch_bundle() -> EvidenceBundle:
     return EvidenceBundle(
         caption="URGENT massive flood hitting the city now, share!",
         scene_descriptions=[SceneDescription(text="a calm dry residential street, parked cars")],
-        sentiment=Sentiment(label="negative", score=0.97, source="caption"),
         web_matches=[WebMatch(url="https://e.com/2019/flood", published_date="2019-03-04")],
-        extractor_status={"sentiment": FlagStatus.FIRED, "reverse_image": FlagStatus.FIRED},
+        extractor_status={"reverse_image": FlagStatus.FIRED},
         meta=Meta(modality=Modality.IMAGE, source_ref="flood.jpg"),
     )
 

@@ -90,7 +90,7 @@
       "image": "blank.png", "source_ref": "blank.png",
       "caption": "I'm a little disappointed the 7am bus was late again this morning.",
       "expected": { "emotional_framing": "clear" },
-      "_hard": "Mild, measured negativity — NOT manipulative framing, so should be clear. Targets the sentiment model's tendency to report high confidence even on mildly polar text, which can over-fire the 0.90 threshold."
+      "_hard": "Mild, measured negativity — NOT manipulative framing, so should be clear. Mild negative wording carries no manipulation markers and must not be read as emotional framing."
     },
     {
       "id": "hard_em02", "category": "emotional-framing",

@@ -12,7 +12,6 @@ from app.models.bundle import (
     Modality,
     Scorecard,
     SceneDescription,
-    Sentiment,
     Severity,
     WebMatch,
 )
@@ -29,7 +28,6 @@ __all__ = [
     "Modality",
     "Scorecard",
     "SceneDescription",
-    "Sentiment",
     "Severity",
     "WebMatch",
 ]

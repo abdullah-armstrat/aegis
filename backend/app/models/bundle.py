@@ -19,7 +19,7 @@ from pydantic import BaseModel, Field
 # structure the whole system pivots on, and it will grow when the video path lands
 # (temporal/transcript fields). Stamping a version lets the eval harness and cached
 # fixtures tell which shape they are dealing with later. Bump on any breaking change.
-SCHEMA_VERSION = "1.0"
+SCHEMA_VERSION = "1.1"
 
 
 # --------------------------------------------------------------------------- enums
@@ -78,14 +78,6 @@ class SceneDescription(BaseModel):
     frame_timestamp: float | None = Field(
         default=None, description="Seconds into the video; None for a still image."
     )
-
-
-class Sentiment(BaseModel):
-    """Emotional-intensity reading over the available text."""
-
-    label: str
-    score: float = Field(description="Model confidence / intensity in [0, 1].")
-    source: str = Field(description="Which text was scored, e.g. 'caption' or 'transcript'.")
 
 
 class WebMatch(BaseModel):
@@ -179,7 +171,6 @@ class EvidenceBundle(BaseModel):
     transcript: str | None = Field(
         default=None, description="Whisper transcript (video path)."
     )
-    sentiment: Sentiment | None = None
     web_matches: list[WebMatch] = Field(default_factory=list)
     caption_match: CaptionMatch | None = None
     ai_gen_hint: AiGenHint | None = None

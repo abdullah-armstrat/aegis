@@ -93,7 +93,7 @@ async def analyze(
 ) -> Scorecard:
     """Audit an image + caption and return an explainable :class:`Scorecard`.
 
-    Runs the image adapter (OCR, sentiment, reverse-image by content, captioner) to build an
+    Runs the image adapter (OCR, reverse-image by content, captioner) to build an
     Evidence Bundle, then the fusion core (deterministic rules + optional LLM second opinion)
     to produce the scorecard. The result describes what was checked — never a trust verdict.
     """

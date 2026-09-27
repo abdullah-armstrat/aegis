@@ -14,7 +14,6 @@ from app.models import (
     Modality,
     Scorecard,
     SceneDescription,
-    Sentiment,
     Severity,
     WebMatch,
 )
@@ -34,7 +33,6 @@ def test_full_image_bundle_roundtrip():
         scene_descriptions=[SceneDescription(text="a flooded street", confidence=0.9)],
         on_screen_text=["BREAKING"],
         caption="Floods hit the city today",
-        sentiment=Sentiment(label="negative", score=0.8, source="caption"),
         web_matches=[
             WebMatch(
                 url="https://example.com/2019-article",

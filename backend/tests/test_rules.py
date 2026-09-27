@@ -29,7 +29,6 @@ from app.models import (
     Meta,
     Modality,
     SceneDescription,
-    Sentiment,
     WebMatch,
 )
 
@@ -80,9 +79,6 @@ def test_emotional_framing_does_not_fire_on_sober_but_negative_text():
             "Residents say they are concerned about the proposed parking changes, and have "
             "asked the council to verify the wording and context before acting."
         ),
-        # A strongly negative reading is present and must be IGNORED by this rule now.
-        sentiment=Sentiment(label="negative", score=0.9994, source="caption"),
-        extractor_status={"sentiment": FlagStatus.FIRED},
     )
     flag = emotional_framing_rule(b)
     assert flag.status == FlagStatus.CLEAR
@@ -366,14 +362,10 @@ def test_run_rules_on_built_mismatch_example():
     b = _bundle(
         caption="URGENT: massive flood hitting the city right now, share immediately!",
         scene_descriptions=[SceneDescription(text="a calm dry residential street, parked cars")],
-        sentiment=Sentiment(label="negative", score=0.97, source="caption"),
         web_matches=[
             WebMatch(url="https://news.example.com/2019/flood", published_date="2019-03-04")
         ],
-        extractor_status={
-            "sentiment": FlagStatus.FIRED,
-            "reverse_image": FlagStatus.FIRED,
-        },
+        extractor_status={"reverse_image": FlagStatus.FIRED},
     )
     flags = run_rules(b)
     fired = {f.type for f in flags if f.status == FlagStatus.FIRED}

@@ -100,7 +100,7 @@ def find_manipulation_markers(text: str) -> list[str]:
     The four markers are the ALL-CAPS ratio, exclamation
     density, an urgency/sensational lexicon, and in-/out-group framing cues. Each returned
     string is evidence the user can verify by looking at the caption, which is the whole point
-    of replacing the sentiment-polarity proxy: the rule now measures what its name claims.
+    of measuring markers rather than sentiment: the rule measures what its name claims.
 
     Returns an empty list when no marker is present. Deterministic and side-effect free.
     """
@@ -151,8 +151,8 @@ def emotional_framing_rule(bundle: EvidenceBundle) -> Flag:
     This replaces the previous sentiment-polarity proxy, which keyed on distilbert SST-2's
     negative-class confidence. That measured negative *polarity*, not manipulation, and so
     labelled sober-but-critical posts as manipulative: a measured, critical real-world news post
-    was flagged that way in testing on 2026-06-29. ``bundle.sentiment`` is deliberately
-    no longer consulted by this rule.
+    was flagged that way in testing on 2026-06-29. The sentiment extractor has since been
+    removed, since nothing read it.
 
     NOT_ASSESSED when there is no caption text to measure — markers are properties of text, so
     absent text means the check could not run, never a silent pass.
