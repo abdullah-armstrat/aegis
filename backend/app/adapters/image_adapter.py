@@ -58,6 +58,7 @@ def build_bundle(
     caption: str | None,
     source_ref: str | None = None,
     posted_date: str | None = None,
+    search_web: bool = False,
 ) -> EvidenceBundle:
     """Run the image extractors and assemble an :class:`EvidenceBundle`.
 
@@ -79,7 +80,7 @@ def build_bundle(
     settings = get_settings()
     method = settings.caption_match_method
     ocr = extract_on_screen_text(image_bytes)
-    reverse = find_web_matches(image_bytes)
+    reverse = find_web_matches(image_bytes, search_web=search_web)
 
     needs_scene = method in ("meaning", "overlap") or settings.use_llm
     if settings.use_captioner and needs_scene:
@@ -90,6 +91,11 @@ def build_bundle(
         scene_descriptions = []
         caption_status = FlagStatus.NOT_ASSESSED
 
+    extractor_detail = {}
+    if reverse.detail:
+        extractor_detail["reverse_image"] = reverse.detail
+    if reverse.web_searched:
+        extractor_detail["web_search"] = reverse.web_detail
     extractor_status = {
         "ocr": ocr.status,
         "reverse_image": reverse.status,
@@ -108,6 +114,7 @@ def build_bundle(
         web_matches=reverse.matches,
         caption_match=caption_match,
         extractor_status=extractor_status,
+        extractor_detail=extractor_detail,
         meta=Meta(
             modality=Modality.IMAGE,
             source_ref=source_ref,

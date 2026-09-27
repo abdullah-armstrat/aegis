@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { analyze } from "./api";
+import { useEffect, useState } from "react";
+import { analyze, getHealth } from "./api";
 import SubmitPanel from "./components/SubmitPanel";
 import Scorecard from "./components/Scorecard";
 
@@ -9,13 +9,21 @@ export default function App() {
   const [submission, setSubmission] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  // Whether the server can search the web (it has a Google Cloud Vision key).
+  const [webSearchAvailable, setWebSearchAvailable] = useState(false);
+
+  useEffect(() => {
+    getHealth()
+      .then((h) => setWebSearchAvailable(Boolean(h?.config?.live_lookup_available)))
+      .catch(() => setWebSearchAvailable(false));
+  }, []);
 
   async function handleAnalyze(file, caption, ctx) {
     setLoading(true);
     setError(null);
     setScorecard(null);
     try {
-      const card = await analyze(file, caption, ctx?.postedDate);
+      const card = await analyze(file, caption, ctx?.postedDate, ctx?.searchWeb);
       setSubmission({ ...ctx, caption });
       setScorecard(card);
       setScreen("scorecard");
@@ -77,7 +85,11 @@ export default function App() {
           )}
 
           {screen === "submit" && (
-            <SubmitPanel onAnalyze={handleAnalyze} loading={loading} />
+            <SubmitPanel
+              onAnalyze={handleAnalyze}
+              loading={loading}
+              webSearchAvailable={webSearchAvailable}
+            />
           )}
 
           {screen === "scorecard" &&

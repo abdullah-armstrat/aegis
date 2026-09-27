@@ -193,8 +193,8 @@ def test_every_matching_entry_is_reported_nearest_first(use_index):
 # --- modes -----------------------------------------------------------------------------------
 
 
-def test_live_api_mode_is_not_assessed(use_index):
-    """There is no live lookup yet, so 'api' mode must say NOT_ASSESSED, not pretend."""
+def test_unknown_mode_is_not_assessed(use_index):
+    """A mode the app does not know (here the old reserved name 'api') must say NOT_ASSESSED."""
     use_index([_entry("orig", phash_of_image(_photo(1)))], reverse_image_mode="api")
     assert find_web_matches(_bytes(_photo(1))).status == FlagStatus.NOT_ASSESSED
 

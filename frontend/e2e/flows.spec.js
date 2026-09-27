@@ -131,3 +131,17 @@ test("narrated clip: the speech finding's moments move the player", async ({ pag
   }
   await expectEveryTimeButtonSeeks(page);
 });
+
+test("the web-search option is offered unticked for images only", async ({ page }) => {
+  const image = join(work, "option.png");
+  ffmpeg(["-f", "lavfi", "-i", "testsrc2=s=320x240", "-frames:v", "1", image]);
+  await page.goto("/");
+  const option = page.getByRole("checkbox", { name: /Also search the web/ });
+  await expect(option).toHaveCount(0); // nothing chosen yet
+  await page.setInputFiles('input[type="file"]', image);
+  await expect(option).toBeVisible();
+  await expect(option).not.toBeChecked();
+  await expect(page.getByText(/The image will be sent to Google/)).toBeVisible();
+  await page.setInputFiles('input[type="file"]', makeVideo(join(work, "option.mp4")));
+  await expect(option).toHaveCount(0); // videos use the local index only
+});

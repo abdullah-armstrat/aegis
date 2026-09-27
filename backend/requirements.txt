@@ -28,6 +28,8 @@ transformers>=4.40              # BLIP captioner, loaded from the local cache on
 # ---- Added 2026-09-27 — pinned exactly; verified installing on the CPU laptop ----
 # Match images by content: 64-bit perceptual hash.
 ImageHash==4.3.2
+# Date web pages from their own metadata for the live reverse-image lookup.
+htmldate==1.10.0
 # Models come from their makers' own servers, not the Hugging Face Hub (which rate-limits the
 # development laptop). Each loads with the network blocked once downloaded:
 #   python scripts/probe_models.py --download   then   python scripts/probe_models.py

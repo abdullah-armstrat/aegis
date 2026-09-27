@@ -6,11 +6,12 @@
 import { useRef, useState } from "react";
 import { isVideo } from "../api";
 
-export default function SubmitPanel({ onAnalyze, loading }) {
+export default function SubmitPanel({ onAnalyze, loading, webSearchAvailable = false }) {
   const [file, setFile] = useState(null);
   const [preview, setPreview] = useState(null);
   const [caption, setCaption] = useState("");
   const [postedDate, setPostedDate] = useState("");
+  const [searchWeb, setSearchWeb] = useState(false);
   const [dragging, setDragging] = useState(false);
   const inputRef = useRef(null);
 
@@ -30,7 +31,14 @@ export default function SubmitPanel({ onAnalyze, loading }) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    if (file && !loading) onAnalyze(file, caption, { preview, filename: file.name, postedDate, video });
+    if (file && !loading)
+      onAnalyze(file, caption, {
+        preview,
+        filename: file.name,
+        postedDate,
+        video,
+        searchWeb: searchWeb && !video,
+      });
   }
 
   return (
@@ -138,6 +146,25 @@ export default function SubmitPanel({ onAnalyze, loading }) {
           appeared elsewhere.
         </p>
       </div>
+
+      {/* Optional web search: offered only when the server has a key, and only for images. */}
+      {webSearchAvailable && file && !video && (
+        <label className="mt-6 flex max-w-[640px] items-start gap-3">
+          <input
+            type="checkbox"
+            checked={searchWeb}
+            onChange={(e) => setSearchWeb(e.target.checked)}
+            className="mt-1 h-4 w-4 accent-ink"
+          />
+          <span className="text-[13.5px] leading-relaxed text-ink">
+            <span className="font-semibold">Also search the web for this image.</span>{" "}
+            <span className="text-muted">
+              The image will be sent to Google (Cloud Vision) to find pages that show it. Without
+              this, Aegis only checks its own offline index.
+            </span>
+          </span>
+        </label>
+      )}
 
       {/* Action row */}
       <div

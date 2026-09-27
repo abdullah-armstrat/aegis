@@ -27,10 +27,14 @@ class Settings(BaseSettings):
     cors_origins: str = "http://localhost:5173,http://127.0.0.1:5173"
 
     # --- Feature flags ---
-    # "index": content-matched image history index, offline (the default). "cache" is the
-    # earlier name for the offline mode and is accepted as an alias. "api" is reserved for a
-    # live web lookup and reports NOT_ASSESSED until one exists.
-    reverse_image_mode: str = "index"
+    # "local": the content-matched image history index, offline (the default; "index" and "cache"
+    # are earlier names for it). "live": every image upload also searches the web with Google
+    # Cloud Vision, which needs GOOGLE_VISION_API_KEY in the environment. Without "live", a user
+    # can still ask for a web search on one upload, when the key is set. Video keyframes always
+    # use the local index only.
+    reverse_image_mode: str = "local"
+    # Where live web results are cached, by the image's SHA-256. Empty => data/live_cache/.
+    live_cache_dir: str = ""
     use_llm: bool = False              # rules-only fusion until the LLM is wired in
     use_captioner: bool = True         # BLIP scene captioning, local on CPU; false skips it
     # How the caption is compared with the picture. "image": CLIP similarity between the picture

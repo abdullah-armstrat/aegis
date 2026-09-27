@@ -108,6 +108,17 @@ class WebMatch(BaseModel):
     frame_timestamp: float | None = Field(
         default=None, description="Seconds into the video of the keyframe that matched; None for an image."
     )
+    found_by: str | None = Field(
+        default=None, description="'index' for the local image history index, 'web' for the live web search."
+    )
+    match_kind: str | None = Field(
+        default=None, description="For a web match: 'full' or 'partial' copy of the image on the page."
+    )
+    date_source: str | None = Field(
+        default=None,
+        description="Where a web match's date came from: 'htmldate' (the page's own metadata), 'wayback' "
+        "(the Wayback Machine's first capture), or None when the page could not be dated.",
+    )
 
 
 class CaptionMatch(BaseModel):

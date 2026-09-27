@@ -18,15 +18,16 @@ export function isVideo(file) {
   return VIDEO_EXTENSIONS.some((ext) => name.endsWith(ext));
 }
 
-// analyze(file, caption, postedDate) -> Scorecard JSON. Images go to POST /analyze, videos to
-// POST /analyze/video. postedDate is optional ("YYYY-MM-DD"); recycled context compares earlier
-// appearances with it.
-export async function analyze(file, caption, postedDate) {
+// analyze(file, caption, postedDate, searchWeb) -> Scorecard JSON. Images go to POST /analyze,
+// videos to POST /analyze/video. postedDate is optional ("YYYY-MM-DD"); recycled context compares
+// earlier appearances with it. searchWeb (images only) also searches the web through the server.
+export async function analyze(file, caption, postedDate, searchWeb = false) {
   const video = isVideo(file);
   const form = new FormData();
   form.append(video ? "video" : "image", file);
   form.append("caption", caption ?? "");
   if (postedDate) form.append("posted_date", postedDate);
+  if (searchWeb && !video) form.append("search_web", "true");
 
   const resp = await fetch(`${API_BASE}${video ? "/analyze/video" : "/analyze"}`, {
     method: "POST",

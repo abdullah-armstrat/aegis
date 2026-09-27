@@ -339,6 +339,15 @@ def recycled_context_rule(bundle: EvidenceBundle) -> Flag:
     return flag
 
 
+def _dated_by(match) -> str:
+    """How a web page's date was found, for the evidence."""
+    if match.date_source == "htmldate":
+        return "; date from the page's own metadata"
+    if match.date_source == "wayback":
+        return "; date of the Wayback Machine's first capture of the page"
+    return ""
+
+
 def _recycled_context(bundle: EvidenceBundle) -> Flag:
     """Has this image appeared before the post claims to be from?
 
@@ -359,12 +368,14 @@ def _recycled_context(bundle: EvidenceBundle) -> Flag:
     appearance on the posting date itself is not "earlier": it may be the post being checked.
     """
     status = bundle.extractor_status.get("reverse_image")
+    web_note = bundle.extractor_detail.get("web_search", "")
     if not bundle.web_matches and status != FlagStatus.CLEAR:
         return Flag(
             type=FlagType.RECYCLED_CONTEXT,
             status=FlagStatus.NOT_ASSESSED,
             severity=Severity.INFO,
-            evidence="The image could not be looked up in the image history index.",
+            evidence=bundle.extractor_detail.get(
+                "reverse_image", "The image could not be looked up in the image history index."),
             plain_explanation="Whether this image has appeared elsewhere before could not be checked.",
             what_to_check="Run the image through a reverse-image search to see where else it appears.",
         )
@@ -374,8 +385,10 @@ def _recycled_context(bundle: EvidenceBundle) -> Flag:
             type=FlagType.RECYCLED_CONTEXT,
             status=FlagStatus.CLEAR,
             severity=Severity.INFO,
-            evidence="The image history index holds no image close enough to this one to be a copy.",
-            plain_explanation="No earlier appearances of this image were found in the searched index.",
+            evidence="The image history index holds no image close enough to this one to be a copy."
+                     + (f" {web_note}" if web_note else ""),
+            plain_explanation=("No earlier appearances of this image were found in the local index or on the web."
+                               if web_note else "No earlier appearances of this image were found in the searched index."),
             what_to_check="Absence of matches is not proof of originality; the index is not exhaustive.",
         )
 
@@ -392,10 +405,15 @@ def _recycled_context(bundle: EvidenceBundle) -> Flag:
     else:
         closeness = ""
     found = f"{len(matches)} earlier appearance(s) of a matching image found, e.g. {matches[0].url}."
+    if any(m.found_by == "web" for m in matches):
+        on_web = sum(m.found_by == "web" for m in matches)
+        found += f" {on_web} of them {'is a web page' if on_web == 1 else 'are web pages'} found by the live web search."
+    elif web_note:
+        found += f" {web_note}"
     posted = _parse_iso(bundle.meta.posted_date)
 
     if posted is None:
-        when = (f" The earliest known appearance is dated {earliest[0].isoformat()}."
+        when = (f" The earliest known appearance is dated {earliest[0].isoformat()}{_dated_by(earliest[1])}."
                 if earliest else " None of the appearances is dated.")
         return Flag(
             type=FlagType.RECYCLED_CONTEXT,
@@ -418,7 +436,7 @@ def _recycled_context(bundle: EvidenceBundle) -> Flag:
             status=FlagStatus.FIRED,
             severity=Severity.HIGH,
             evidence=(
-                f"The image appeared on {first_date.isoformat()} ({first.url}), before the stated "
+                f"The image appeared on {first_date.isoformat()} ({first.url}{_dated_by(first)}), before the stated "
                 f"posting date of {posted.isoformat()}. {len(earlier)} of {len(matches)} known "
                 f"appearance(s) predate the post.{closeness}"
             ),

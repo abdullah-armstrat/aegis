@@ -1,0 +1,190 @@
+"""The live web lookup, with every network call replaced by a stand-in: no key is used and no
+Vision call is spent. What is pinned: only full and partial matches count, dates and their sources
+are recorded, results replay from the cache, the monthly limit holds, every failure is NOT_ASSESSED
+with a reason, and the key never appears in a result, a reason or the cache."""
+
+import json
+from datetime import date
+from io import BytesIO
+
+import httpx
+import pytest
+from fastapi.testclient import TestClient
+from PIL import Image
+
+from app import main
+from app.config import get_settings
+from app.extractors import reverse_image, web_lookup
+from app.fusion.rules import recycled_context_rule
+from app.models import EvidenceBundle, FlagStatus, Meta, Modality
+
+FAKE_KEY = "test-key-not-real-123"
+
+VISION = {"responses": [{"webDetection": {
+    "pagesWithMatchingImages": [
+        {"url": "https://old.example.org/2015/story", "pageTitle": "<b>Old</b> story",
+         "fullMatchingImages": [{"url": "https://old.example.org/a.jpg"}]},
+        {"url": "https://blog.example.net/post", "pageTitle": "A blog",
+         "partialMatchingImages": [{"url": "https://blog.example.net/b.jpg"}]},
+        {"url": "https://similar.example.com/page", "pageTitle": "Looks alike",
+         "visuallySimilarImages": [{"url": "https://similar.example.com/c.jpg"}]},
+    ],
+    "visuallySimilarImages": [{"url": "https://elsewhere.example.com/d.jpg"}],
+}}]}
+DATES = {"https://old.example.org/2015/story": {"date": "2015-06-01", "source": "htmldate"},
+         "https://blog.example.net/post": {"date": "2019-02-03", "source": "wayback"}}
+
+
+def _png(seed: int = 1) -> bytes:
+    buf = BytesIO()
+    Image.new("RGB", (64, 48), (seed * 40 % 255, 90, 160)).save(buf, "PNG")
+    return buf.getvalue()
+
+
+@pytest.fixture
+def live(monkeypatch, tmp_path):
+    """A fake key, a temporary cache and usage file, and a counter of calls made to Google."""
+    get_settings.cache_clear()
+    monkeypatch.setenv("AEGIS_LIVE_CACHE_DIR", str(tmp_path / "cache"))
+    monkeypatch.setenv(web_lookup.KEY_ENV, FAKE_KEY)
+    monkeypatch.setattr(web_lookup, "_usage_file", lambda: tmp_path / "usage.json")
+    monkeypatch.setattr(web_lookup, "date_page", lambda url: DATES.get(url, {"date": None, "source": None}))
+    calls = []
+
+    def serve(response):
+        def handler(request: httpx.Request):
+            calls.append(request)
+            if isinstance(response, Exception):
+                raise response
+            return response
+
+        monkeypatch.setattr(web_lookup, "_client", lambda timeout: httpx.Client(transport=httpx.MockTransport(handler)))
+
+    serve(httpx.Response(200, json=VISION))
+    yield {"calls": calls, "serve": serve, "tmp": tmp_path}
+    get_settings.cache_clear()
+
+
+def test_only_full_and_partial_matches_count_and_each_date_keeps_its_source(live):
+    result = web_lookup.web_lookup(_png())
+    assert result.status == FlagStatus.FIRED and result.live_call
+    assert [m.url for m in result.matches] == ["https://old.example.org/2015/story", "https://blog.example.net/post"]
+    assert [m.match_kind for m in result.matches] == ["full", "partial"]
+    assert [(m.published_date, m.date_source) for m in result.matches] == [("2015-06-01", "htmldate"),
+                                                                          ("2019-02-03", "wayback")]
+    assert result.matches[0].title == "Old story"
+    assert all(m.found_by == "web" for m in result.matches)
+    request = live["calls"][0]
+    assert request.headers["x-goog-api-key"] == FAKE_KEY
+    assert FAKE_KEY not in str(request.url)
+    assert json.loads(request.content)["requests"][0]["features"][0]["type"] == "WEB_DETECTION"
+
+
+def test_a_repeat_lookup_replays_from_the_cache_without_a_call(live):
+    first = web_lookup.web_lookup(_png())
+    live["serve"](httpx.ConnectError("offline"))
+    again = web_lookup.web_lookup(_png())
+    assert not again.live_call
+    assert [m.model_dump() for m in again.matches] == [m.model_dump() for m in first.matches]
+    assert len(live["calls"]) == 1 + 0  # the second lookup never reached the network
+    assert web_lookup.calls_this_month() == 1
+    cached = list((live["tmp"] / "cache").glob("*.json"))
+    assert len(cached) == 1 and FAKE_KEY not in cached[0].read_text(encoding="utf-8")
+
+
+def test_no_key_is_not_assessed_and_spends_nothing(live, monkeypatch):
+    monkeypatch.delenv(web_lookup.KEY_ENV)
+    result = web_lookup.web_lookup(_png())
+    assert result.status == FlagStatus.NOT_ASSESSED
+    assert "no Google Cloud Vision key" in result.detail
+    assert live["calls"] == []
+
+
+def test_the_monthly_limit_refuses_further_live_calls(live):
+    (live["tmp"] / "usage.json").write_text(json.dumps({date.today().strftime("%Y-%m"): 900}))
+    result = web_lookup.web_lookup(_png())
+    assert result.status == FlagStatus.NOT_ASSESSED
+    assert "limit of 900" in result.detail
+    assert live["calls"] == []
+
+
+@pytest.mark.parametrize("failure, reason", [
+    (httpx.ReadTimeout("slow"), "timed out"),
+    (httpx.ConnectError("no route"), "could not reach Google"),
+    (httpx.Response(429, json={"error": {"message": "Quota exceeded"}}), "HTTP 429"),
+    (httpx.Response(403, json={"error": {"message": f"API key {FAKE_KEY} not valid"}}), "HTTP 403"),
+])
+def test_every_failure_is_not_assessed_with_a_reason_and_never_shows_the_key(live, failure, reason):
+    live["serve"](failure)
+    result = web_lookup.web_lookup(_png())
+    assert result.status == FlagStatus.NOT_ASSESSED
+    assert reason in result.detail
+    assert FAKE_KEY not in result.detail
+
+
+def test_a_failed_web_search_never_turns_into_clear(live, monkeypatch):
+    live["serve"](httpx.ReadTimeout("slow"))
+    monkeypatch.setattr(reverse_image, "find_local_matches",
+                        lambda b: reverse_image.ReverseImageResult(status=FlagStatus.CLEAR, phash="0" * 16))
+    result = reverse_image.find_web_matches(_png(), search_web=True)
+    assert result.status == FlagStatus.NOT_ASSESSED
+    assert "The web search could not run: the web search timed out." in result.detail
+
+
+def test_without_search_web_the_default_mode_stays_local(live, monkeypatch):
+    monkeypatch.setattr(reverse_image, "find_local_matches",
+                        lambda b: reverse_image.ReverseImageResult(status=FlagStatus.CLEAR, phash="0" * 16))
+    assert reverse_image.find_web_matches(_png()).status == FlagStatus.CLEAR
+    assert live["calls"] == []
+
+
+def test_the_earliest_dated_page_drives_the_unchanged_date_check(live):
+    matches = web_lookup.web_lookup(_png()).matches
+    bundle = EvidenceBundle(web_matches=matches, extractor_status={"reverse_image": FlagStatus.FIRED},
+                            extractor_detail={"web_search": ""},
+                            meta=Meta(modality=Modality.IMAGE, posted_date="2024-05-01"))
+    flag = recycled_context_rule(bundle)
+    assert flag.status == FlagStatus.FIRED
+    assert "appeared on 2015-06-01" in flag.evidence
+    assert "date from the page's own metadata" in flag.evidence
+
+
+def test_a_page_is_dated_from_its_metadata_then_from_the_wayback_machine(monkeypatch):
+    pages = {"https://a.example/x": '<html><head><meta property="article:published_time" '
+                                    'content="2018-04-05T10:00:00Z"></head><body>x</body></html>',
+             "https://b.example/y": "<html><body>no date here</body></html>"}
+
+    def handler(request: httpx.Request):
+        if request.url.host == "web.archive.org":
+            if request.url.params["url"] == "https://b.example/y":
+                return httpx.Response(200, json=[["timestamp"], ["20200102030405"]])
+            return httpx.Response(200, json=[])
+        return httpx.Response(200, text=pages[str(request.url)], headers={"content-type": "text/html"})
+
+    monkeypatch.setattr(web_lookup, "_client", lambda timeout: httpx.Client(transport=httpx.MockTransport(handler)))
+    assert web_lookup.date_page("https://a.example/x") == {"date": "2018-04-05", "source": "htmldate"}
+    assert web_lookup.date_page("https://b.example/y") == {"date": "2020-01-02", "source": "wayback"}
+
+
+def test_health_says_whether_live_lookup_is_possible(monkeypatch):
+    client = TestClient(main.app)
+    monkeypatch.delenv(web_lookup.KEY_ENV, raising=False)
+    assert client.get("/health").json()["config"]["live_lookup_available"] is False
+    monkeypatch.setenv(web_lookup.KEY_ENV, FAKE_KEY)
+    body = client.get("/health").json()
+    assert body["config"]["live_lookup_available"] is True
+    assert FAKE_KEY not in json.dumps(body)
+
+
+def test_the_api_passes_the_web_search_choice_to_the_lookup(monkeypatch):
+    from app.adapters import image_adapter
+
+    seen = []
+    monkeypatch.setattr(image_adapter, "find_web_matches",
+                        lambda b, search_web=False: seen.append(search_web)
+                        or reverse_image.ReverseImageResult(status=FlagStatus.CLEAR))
+    client = TestClient(main.app)
+    for flag in ("true", "false"):
+        client.post("/analyze", files={"image": ("x.png", _png(), "image/png")},
+                    data={"caption": "", "search_web": flag})
+    assert seen == [True, False]

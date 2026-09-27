@@ -28,7 +28,7 @@ from pathlib import Path
 from app.config import get_settings
 from app.extractors.caption_match import IMAGE_MODEL
 from app.extractors.ocr import extract_on_screen_text
-from app.extractors.reverse_image import find_web_matches
+from app.extractors.reverse_image import find_local_matches
 from app.extractors.speech import transcribe
 from app.extractors.video import (
     VideoError,
@@ -133,7 +133,7 @@ def build_video_bundle(
     with _stage(stages, "reverse_image"):
         matches, lookups = [], []
         for t, png in frames.items():
-            result = find_web_matches(png)
+            result = find_local_matches(png)  # keyframes never use the live web search
             keyframes[t].phash = result.phash
             lookups.append(result.status)
             matches += [m.model_copy(update={"frame_timestamp": t}) for m in result.matches]

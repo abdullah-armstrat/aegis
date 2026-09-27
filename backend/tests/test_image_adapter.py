@@ -19,7 +19,7 @@ from app.models import EvidenceBundle, FlagStatus, Modality, SceneDescription, W
 
 def _patch(monkeypatch, ocr, rev, cap=None):
     monkeypatch.setattr(image_adapter, "extract_on_screen_text", lambda _b: ocr)
-    monkeypatch.setattr(image_adapter, "find_web_matches", lambda _ref: rev)
+    monkeypatch.setattr(image_adapter, "find_web_matches", lambda _ref, **_k: rev)
     if cap is not None:
         monkeypatch.setattr(image_adapter, "describe_scene", lambda _b: cap)
     # Captioner is enabled by default; ensure settings reflect that for these tests.
@@ -83,7 +83,7 @@ def test_adapter_skips_captioner_when_disabled(monkeypatch):
     def _boom(_b):
         raise AssertionError("captioner should not run when disabled")
     monkeypatch.setattr(image_adapter, "extract_on_screen_text", lambda _b: ocr)
-    monkeypatch.setattr(image_adapter, "find_web_matches", lambda _ref: rev)
+    monkeypatch.setattr(image_adapter, "find_web_matches", lambda _ref, **_k: rev)
     monkeypatch.setattr(image_adapter, "describe_scene", _boom)
     get_settings.cache_clear()
     monkeypatch.setenv("AEGIS_USE_CAPTIONER", "false")
@@ -97,7 +97,7 @@ def test_adapter_skips_captioner_when_disabled(monkeypatch):
 
 def _patch_basic(monkeypatch, method: str):
     monkeypatch.setattr(image_adapter, "extract_on_screen_text", lambda _b: OcrResult(lines=["SALE"], status=FlagStatus.FIRED))
-    monkeypatch.setattr(image_adapter, "find_web_matches", lambda _ref: ReverseImageResult(status=FlagStatus.CLEAR))
+    monkeypatch.setattr(image_adapter, "find_web_matches", lambda _ref, **_k: ReverseImageResult(status=FlagStatus.CLEAR))
     monkeypatch.setattr(image_adapter, "describe_scene", lambda _b: CaptionResult(
         scene_descriptions=[SceneDescription(text="a cat on a rug")], status=FlagStatus.FIRED))
     get_settings.cache_clear()

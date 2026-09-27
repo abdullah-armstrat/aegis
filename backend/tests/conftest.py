@@ -19,3 +19,7 @@ import os
 # Set before any test imports trigger a settings read. Only set if the caller hasn't.
 os.environ.setdefault("AEGIS_USE_CAPTIONER", "false")
 os.environ.setdefault("AEGIS_CAPTION_MATCH_METHOD", "overlap")
+
+# No test may spend a live Google Cloud Vision call: the key is removed for the whole session.
+# Tests that exercise the live path set a fake key and replace the network.
+os.environ.pop("GOOGLE_VISION_API_KEY", None)

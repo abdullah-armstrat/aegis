@@ -24,7 +24,9 @@ export default defineConfig({
       url: "http://localhost:8000/health",
       timeout: 120_000,
       reuseExistingServer: false,
-      env: { HF_HUB_OFFLINE: "1", AEGIS_USE_LLM: "false" },
+      // A fake key makes the web-search option appear; no test ticks it, and the real key is
+      // never given to the test server.
+      env: { HF_HUB_OFFLINE: "1", AEGIS_USE_LLM: "false", GOOGLE_VISION_API_KEY: "e2e-not-a-real-key" },
     },
     {
       command: "npm run dev -- --port 5173 --strictPort",

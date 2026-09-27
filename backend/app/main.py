@@ -17,6 +17,7 @@ from fastapi.responses import JSONResponse
 
 from app import __version__
 from app.adapters.image_adapter import build_bundle
+from app.extractors.web_lookup import live_available
 from app.config import get_settings
 from app.fusion.scorecard import build_scorecard
 from app.models import Scorecard
@@ -75,6 +76,7 @@ def health() -> dict:
         "version": __version__,
         "config": {
             "reverse_image_mode": settings.reverse_image_mode,
+            "live_lookup_available": live_available(),
             "use_llm": settings.use_llm,
             "phash_match_threshold": settings.phash_match_threshold,
             "phash_mirror_lookup": settings.phash_mirror_lookup,
@@ -93,6 +95,9 @@ async def analyze(
     caption: str = Form("", description="The post's caption accompanying the image."),
     posted_date: str = Form(
         "", description="Optional: the date the post says it was published, as YYYY-MM-DD."
+    ),
+    search_web: bool = Form(
+        False, description="Also search the web for the image (it is sent to Google). Needs the server's key."
     ),
 ) -> Scorecard:
     """Audit an image + caption and return an explainable :class:`Scorecard`.
@@ -124,6 +129,7 @@ async def analyze(
         caption=caption or None,
         source_ref=image.filename,
         posted_date=posted_date or None,
+        search_web=search_web,
     )
     return build_scorecard(bundle)
 

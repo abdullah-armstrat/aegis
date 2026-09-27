@@ -9,8 +9,9 @@ replaces was defeated by any re-save. When the hash finds nothing, a second stag
 keypoints (``keypoint_match.py``, behind ``keypoint_matching``), which finds copies that were
 cropped, bordered or framed in a screenshot: the changes that defeat the hash.
 
-The index runs fully offline with no key. A live web lookup would sit behind the same
-function and the same ``ReverseImageResult``.
+The index runs fully offline with no key. The live web lookup (``web_lookup.py``, Google Cloud
+Vision) sits behind the same function and the same ``ReverseImageResult``: it runs, in addition
+to the index, when the mode is "live" or when one upload asks for it, and only for images.
 
 Status semantics. This extractor reports what the *lookup* found; whether that makes
 the post look recycled depends on the posting date, which the rule layer decides.
@@ -18,6 +19,8 @@ the post look recycled depends on the posting date, which the rule layer decides
   * ``CLEAR``        — the lookup ran against a readable index and nothing is within the threshold.
   * ``NOT_ASSESSED`` — the lookup could not run: unreadable image, missing or invalid index, or an
                        unsupported mode. Never reported as CLEAR, which would be false reassurance.
+                       A web search that was asked for and failed makes the result NOT_ASSESSED
+                       unless the index found a match on its own.
 """
 
 from __future__ import annotations
@@ -36,7 +39,8 @@ from app.models import FlagStatus, WebMatch
 
 _DEFAULT_INDEX = Path(__file__).resolve().parents[1] / "data" / "image_history_index.json"
 _REPO_ROOT = Path(__file__).resolve().parents[3]  # index entries name their image relative to this
-_OFFLINE_MODES = {"index", "cache"}  # "cache" = the earlier name, accepted as an alias
+_LOCAL_MODES = {"local", "index", "cache"}  # "index" and "cache" are earlier names for "local"
+_MODES = _LOCAL_MODES | {"live"}
 _HEX = re.compile(rf"^[0-9a-f]{{{HASH_BITS // 4}}}$")
 
 
@@ -61,6 +65,9 @@ class ReverseImageResult:
     phash: str | None = None
     best_distance: int | None = None
     method: str | None = None  # "hash" or "keypoints": which stage found the match
+    web_searched: bool = False  # the live web search was asked for
+    web_detail: str = ""        # what the web search found or why it could not run
+    live_call: bool = False     # a Vision call was spent (not a cache replay)
 
 
 class HistoryIndexError(ValueError):
@@ -107,14 +114,43 @@ def load_index(path_str: str) -> tuple[IndexEntry, ...]:
     return parsed
 
 
-def find_web_matches(image_bytes: bytes) -> ReverseImageResult:
-    """Look up prior appearances of this image by its content. Never raises."""
+def find_web_matches(image_bytes: bytes, search_web: bool = False) -> ReverseImageResult:
+    """Look up prior appearances of this image by its content: the local index, and the web too
+    when the mode is "live" or ``search_web`` asks for it. Never raises."""
     settings = get_settings()
-    if settings.reverse_image_mode not in _OFFLINE_MODES:
+    if settings.reverse_image_mode not in _MODES:
         return ReverseImageResult(
             detail=f"reverse_image_mode='{settings.reverse_image_mode}' is not available; "
-            "only the offline image history index is implemented."
+            "use 'local' or 'live'."
         )
+    local = find_local_matches(image_bytes)
+    if not (search_web or settings.reverse_image_mode == "live"):
+        return local
+
+    from app.extractors.web_lookup import web_lookup
+
+    web = web_lookup(image_bytes)
+    result = ReverseImageResult(
+        matches=local.matches + web.matches, phash=local.phash, best_distance=local.best_distance,
+        method=local.method, web_searched=True, web_detail=web.detail, live_call=web.live_call,
+        detail=local.detail,
+    )
+    if result.matches:
+        result.status = FlagStatus.FIRED
+    elif local.status == FlagStatus.CLEAR and web.status == FlagStatus.CLEAR:
+        result.status = FlagStatus.CLEAR
+    else:
+        # Nothing found, and at least one of the two searches could not run: never "clear".
+        result.status = FlagStatus.NOT_ASSESSED
+        result.detail = " ".join(d for d in (
+            local.detail if local.status == FlagStatus.NOT_ASSESSED else "The local image history index holds no copy.",
+            web.detail) if d)
+    return result
+
+
+def find_local_matches(image_bytes: bytes) -> ReverseImageResult:
+    """The image history index: pHash, then keypoints when the hash finds nothing."""
+    settings = get_settings()
 
     hashed = compute_phash(image_bytes)
     if hashed.hash_hex is None:
@@ -137,7 +173,7 @@ def find_web_matches(image_bytes: bytes) -> ReverseImageResult:
     if scored:
         scored.sort(key=lambda pair: (pair[0], pair[1].id))
         matches = [
-            source.model_copy(update={"hash_distance": d})
+            source.model_copy(update={"hash_distance": d, "found_by": "index"})
             for d, entry in scored
             for source in entry.sources
         ]
@@ -165,7 +201,7 @@ def find_web_matches(image_bytes: bytes) -> ReverseImageResult:
             detail=f"{no_hash_match} Keypoint matching found no cropped or framed copy either.",
         )
     matches = [
-        source.model_copy(update={"keypoint_inliers": inliers})
+        source.model_copy(update={"keypoint_inliers": inliers, "found_by": "index"})
         for inliers, entry in by_keypoints
         for source in entry.sources
     ]
