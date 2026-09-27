@@ -62,6 +62,10 @@ flood_recycled_2019.jpg
 # Raw and third-party datasets: IDs and labels live in data/labels/, never the media itself.
 data/raw/
 data/verite/
+data/A_originals/
+data/E_videos/
+data/E_speech/
+data/F_captions/
 data/**/images/
 data/**/video/
 # Environment files (only *.env.example is tracked).

@@ -231,6 +231,30 @@ def test_committed_index_matches_the_committed_illustrative_images():
     _reset()
 
 
+def test_committed_index_holds_every_dataset_a_photo_with_its_date():
+    """Every dataset A photo is an index entry carrying the manifest's date and source page.
+
+    The photos themselves are not in the repository; where get_dataset_a.py has fetched them,
+    each entry's hash must still describe its file.
+    """
+    import csv
+
+    _reset()
+    with open(_REPO / "data" / "labels" / "A_originals.csv", encoding="utf-8", newline="") as fh:
+        rows = list(csv.DictReader(fh))
+    assert len(rows) == 40
+    by_id = {e.id: e for e in reverse_image.load_index(str(reverse_image._DEFAULT_INDEX))}
+    for row in rows:
+        entry = by_id[f"nasa-{row['nasa_id']}"]
+        assert entry.earliest_date == row["earliest_date"]
+        assert entry.sources[0].url == row["source_url"]
+        assert entry.image == f"data/A_originals/{row['file']}"
+        path = _REPO / entry.image
+        if path.is_file():
+            assert entry.phash == phash_of_image(Image.open(path))
+    _reset()
+
+
 # --- second stage: keypoint matching when the hash finds nothing ------------------------------
 
 from app.extractors.keypoint_match import orb_features, orb_inliers  # noqa: E402
