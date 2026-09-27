@@ -136,7 +136,7 @@ def test_speech_fires_on_a_weak_stretch_and_cites_its_moment():
     assert flag.status == FlagStatus.FIRED
     assert flag.timestamps == [5.0]
     assert "At 0:05" in flag.evidence and '"line 1"' in flag.evidence
-    assert "seems to describe a different scene from the picture at that moment" in flag.plain_explanation
+    assert "seem to describe a different scene from the picture" in flag.plain_explanation
     assert "cannot catch a wrong detail" in flag.plain_explanation
 
 

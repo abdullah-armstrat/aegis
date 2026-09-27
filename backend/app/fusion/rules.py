@@ -56,8 +56,8 @@ SPEECH_PICTURE_THRESHOLD = 0.2354  # CLIP ViT-B/32: a stretch of speech against 
 
 # What the speech check can and cannot see, stated on every result it gives.
 _SPEECH_LIMIT = (
-    "This compares only the kind of scene: it cannot catch a wrong detail, such as a wrong colour, "
-    "count, name or place, in speech that fits the scene."
+    "This only compares the kind of scene. It cannot catch a wrong detail, such as a colour, a number, "
+    "a name or a place, in words that fit the scene."
 )
 
 # --- Emotional-framing marker thresholds ---
@@ -195,7 +195,7 @@ def emotional_framing_rule(bundle: EvidenceBundle) -> Flag:
             severity=severity("emotional_framing", Evidence.INDIRECT),
             evidence=f"{len(markers)} of 4 style markers present: " + "; ".join(markers) + ".",
             plain_explanation=(
-                f"This caption is written in a shouting style: {_style_summary(markers)}. "
+                f"This caption is written in a shouting style. {_style_summary(markers)} "
                 "This is about how it is written, not about what it says."
             ),
             what_to_check="Read the caption without the capitals and exclamation marks. Then look at what it actually says.",
@@ -223,14 +223,14 @@ def _style_summary(markers: list[str]) -> str:
     parts = []
     for m in markers:
         if m.startswith("words in capitals"):
-            parts.append("many of its words are in capitals")
+            parts.append("Many words are in capitals.")
         elif "exclamation mark" in m:
-            parts.append("it has several exclamation marks")
+            parts.append("There are several exclamation marks.")
         elif m.startswith("words from the urgency list"):
-            parts.append("it uses words from a list of urgency words (" + m.split(": ", 1)[1] + ")")
+            parts.append("It uses words from a list of urgent words: " + m.split(": ", 1)[1] + ".")
         elif m.startswith("listed phrases"):
-            parts.append("it uses phrases from a list (" + m.split(": ", 1)[1] + ")")
-    return ", ".join(parts[:-1]) + (" and " if len(parts) > 1 else "") + parts[-1]
+            parts.append("It uses phrases from a list: " + m.split(": ", 1)[1] + ".")
+    return " ".join(parts)
 
 
 def _video_emotional_framing(bundle: EvidenceBundle) -> Flag:
@@ -281,7 +281,7 @@ def _video_emotional_framing(bundle: EvidenceBundle) -> Flag:
             evidence=" ".join(f"In {label}, {len(m)} of 4 style markers: {'; '.join(m)}."
                               for label, m, _ in firing) + gaps,
             plain_explanation=(
-                f"Some of the words in this video are written in a shouting style: {_style_summary(firing[0][1])}. "
+                f"Some of the words in this video are written in a shouting style. {_style_summary(firing[0][1])} "
                 "This is about how they are written, not about what they say."
             ),
             what_to_check="Read and listen without the capitals and the urgency. Then look at what is actually said.",
@@ -321,7 +321,7 @@ def recycled_context_rule(bundle: EvidenceBundle) -> Flag:
             severity=Severity.INFO,
             evidence=bundle.extractor_detail.get(
                 "reverse_image", "The keyframes could not all be searched for earlier copies."),
-            plain_explanation="Whether this video's frames have appeared elsewhere before could not be checked.",
+            plain_explanation="We could not check whether this video's frames have been online before.",
             what_to_check="Take a screenshot of a key moment and run it through a reverse-image search.",
         )
     if not bundle.web_matches:
@@ -331,8 +331,8 @@ def recycled_context_rule(bundle: EvidenceBundle) -> Flag:
             severity=Severity.INFO,
             evidence=f"None of the {len(bundle.keyframes)} keyframes is close enough to an image in the "
                      "image history index to be a copy.",
-            plain_explanation="No earlier appearances of this video's frames were found in the searched index.",
-            what_to_check="Absence of matches is not proof of originality; the index is not exhaustive.",
+            plain_explanation="No earlier copies of this video's frames were found in the index we searched.",
+            what_to_check="Finding no copies does not prove the video is new. The index does not hold every image.",
         )
     flag = _recycled_context(bundle)
     times = sorted({m.frame_timestamp for m in bundle.web_matches if m.frame_timestamp is not None})
@@ -347,7 +347,7 @@ def recycled_context_rule(bundle: EvidenceBundle) -> Flag:
 
 # A page's date belongs to the page, not to the picture on it: a Wikipedia article created years
 # before a photo was added to it carries the article's date. Said on every result that cites a page.
-_PAGE_DATE_LIMIT = "A page's date is the page's own: the page may be older or newer than the image on it."
+_PAGE_DATE_LIMIT = "A page can be older or newer than the image on it."
 
 
 def _recycled_check(pages) -> str:
@@ -397,7 +397,7 @@ def _recycled_context(bundle: EvidenceBundle) -> Flag:
             severity=Severity.INFO,
             evidence=bundle.extractor_detail.get(
                 "reverse_image", "The image could not be looked up in the image history index."),
-            plain_explanation="Whether this image has appeared elsewhere before could not be checked.",
+            plain_explanation="We could not check whether this image has been online before.",
             what_to_check="Run the image through a reverse-image search to see where else it appears.",
         )
 
@@ -408,9 +408,9 @@ def _recycled_context(bundle: EvidenceBundle) -> Flag:
             severity=Severity.INFO,
             evidence="The image history index holds no image close enough to this one to be a copy."
                      + (f" {web_note}" if web_note else ""),
-            plain_explanation=("No earlier appearances of this image were found in the local index or on the web."
-                               if web_note else "No earlier appearances of this image were found in the searched index."),
-            what_to_check="Absence of matches is not proof of originality; the index is not exhaustive.",
+            plain_explanation=("No earlier copies of this image were found in our index or on the web."
+                               if web_note else "No earlier copies of this image were found in the index we searched."),
+            what_to_check="Finding no copies does not prove the image is new. The index does not hold every image.",
         )
 
     matches = bundle.web_matches
@@ -442,9 +442,9 @@ def _recycled_context(bundle: EvidenceBundle) -> Flag:
             severity=severity(_recycled_check(matches), Evidence.DIRECT_INCOMPLETE),
             evidence=found + when + closeness,
             plain_explanation=(
-                "This image has been found on other pages. No posting date was given, so it is not "
-                "possible to say whether those pages came before this post; adding the date the post "
-                f"was published would allow that comparison. {_PAGE_DATE_LIMIT}"
+                "This image has been found on other pages. No posting date was given, so we cannot say "
+                "whether those pages came before this post. Add the date the post was published to "
+                f"compare them. {_PAGE_DATE_LIMIT}"
             ),
             what_to_check="Open the pages and compare their dates, and what they say the image shows, with this post's claim.",
         )
@@ -462,8 +462,8 @@ def _recycled_context(bundle: EvidenceBundle) -> Flag:
                 f"showing the image are dated before the post.{closeness}"
             ),
             plain_explanation=(
-                "A matching image was found on a page dated before this post says it was published. "
-                "Old images presented as new are a common way of misleading about when or where "
+                "A copy of this image was found on a page dated before this post says it was published. "
+                "Old pictures shown as new are a common way to mislead people about when or where "
                 f"something happened. {_PAGE_DATE_LIMIT}"
             ),
             what_to_check="Open that page: check when the image was added to it, and what it said the image showed.",
@@ -480,8 +480,8 @@ def _recycled_context(bundle: EvidenceBundle) -> Flag:
                 f"{undated} page(s) carry no date, so the comparison is incomplete.{closeness}"
             ),
             plain_explanation=(
-                "This image has been found on other pages, and some of them have no date, so it "
-                f"cannot be confirmed that this post came first. {_PAGE_DATE_LIMIT}"
+                "This image has been found on other pages. Some of them have no date, so we cannot tell "
+                f"whether this post came first. {_PAGE_DATE_LIMIT}"
             ),
             what_to_check="Check when the undated pages first showed this image.",
         )
@@ -498,7 +498,7 @@ def _recycled_context(bundle: EvidenceBundle) -> Flag:
             "Copies of this image were found, but none on a page dated before this post's date. "
             f"{_PAGE_DATE_LIMIT}"
         ),
-        what_to_check="Absence of an earlier page is not proof of originality; the search is not exhaustive.",
+        what_to_check="Not finding an earlier page does not prove the image is new. The search does not cover every page.",
     )
 
 
@@ -523,7 +523,7 @@ def caption_scene_mismatch_rule(bundle: EvidenceBundle) -> Flag:
 
 # What the meaning checks can and cannot see, stated on every result they give.
 _MEANING_LIMIT = (
-    "This compares only the kind of scene: it cannot catch a wrong name, place or date in a "
+    "This only compares the kind of scene. It cannot catch a wrong name, place or date in a "
     "caption that fits the scene."
 )
 
@@ -584,7 +584,7 @@ def _video_caption_rule(bundle: EvidenceBundle) -> Flag:
         severity=Severity.INFO,
         evidence=evidence,
         plain_explanation=f"At least one keyframe seems to show the kind of scene the caption describes. {_MEANING_LIMIT}",
-        what_to_check="Check the names, places and dates in the caption against a trusted source; this check cannot.",
+        what_to_check="This check cannot test names, places or dates. Look them up in a source you rely on.",
         timestamps=[best.timestamp],
     )
 
@@ -645,7 +645,7 @@ def _caption_image_rule(bundle: EvidenceBundle) -> Flag:
         severity=Severity.INFO,
         evidence=evidence,
         plain_explanation=f"The picture seems to show the kind of scene the caption describes. {_MEANING_LIMIT}",
-        what_to_check="Check the names, places and dates in the caption against a trusted source; this check cannot.",
+        what_to_check="This check cannot test names, places or dates. Look them up in a source you rely on.",
     )
 
 
@@ -701,7 +701,7 @@ def _caption_meaning_rule(bundle: EvidenceBundle) -> Flag:
         severity=Severity.INFO,
         evidence=evidence + " This check is raised only when both matches are weak.",
         plain_explanation=f"The picture seems to show the kind of scene the caption describes. {_MEANING_LIMIT}",
-        what_to_check="Check the names, places and dates in the caption against a trusted source; this check cannot.",
+        what_to_check="This check cannot test names, places or dates. Look them up in a source you rely on.",
     )
 
 
@@ -751,8 +751,8 @@ def _caption_overlap_rule(bundle: EvidenceBundle) -> Flag:
                 f"{CAPTION_SCENE_OVERLAP_THRESHOLD:.0%}. Scene: \"{scene_text.strip()}\"."
             ),
             plain_explanation=(
-                "The caption and what the image appears to show have little in common, which can "
-                "indicate the image does not actually depict what the caption claims."
+                "The caption and what the picture seems to show share few words. This can mean the "
+                "picture does not show what the caption says."
             ),
             what_to_check="Check whether the image genuinely shows what the caption says it does.",
         )
@@ -763,7 +763,7 @@ def _caption_overlap_rule(bundle: EvidenceBundle) -> Flag:
         severity=Severity.INFO,
         evidence=f"Caption↔scene content-word overlap {overlap:.0%} meets the {CAPTION_SCENE_OVERLAP_THRESHOLD:.0%} threshold.",
         plain_explanation="The caption is broadly consistent with what the image appears to show.",
-        what_to_check="Consistency here is about wording overlap, not a guarantee of accuracy.",
+        what_to_check="This only counts shared words. It cannot tell you if the caption is right about the picture.",
     )
 
 
@@ -810,8 +810,8 @@ def audio_visual_mismatch_rule(bundle: EvidenceBundle) -> Flag:
                 f"(similarity {seg.picture_similarity:.2f}; under {SPEECH_PICTURE_THRESHOLD:.2f} counts as weak)."
                 for seg in low) + f" {len(scored) - len(low)} of {len(scored)} stretches of speech match reasonably.",
             plain_explanation=(
-                f"At {moments}, the spoken line seems to describe a different scene from the picture at "
-                f"that moment. {_SPEECH_LIMIT}"
+                f"At {moments}, the words spoken seem to describe a different scene from the picture. "
+                f"{_SPEECH_LIMIT}"
             ),
             what_to_check="Watch those moments: does the picture show what is being said?",
             timestamps=[seg.start for seg in low],
@@ -825,7 +825,7 @@ def audio_visual_mismatch_rule(bundle: EvidenceBundle) -> Flag:
                   f"the weakest, at {clock(weakest.start)}, scores {weakest.picture_similarity:.2f} "
                   f"(under {SPEECH_PICTURE_THRESHOLD:.2f} counts as weak)."),
         plain_explanation=f"What is said seems to fit the kind of scene shown at each moment. {_SPEECH_LIMIT}",
-        what_to_check="Check any names, numbers and places that are spoken against a trusted source; this check cannot.",
+        what_to_check="This check cannot test spoken names, numbers or places. Look them up in a source you rely on.",
         timestamps=[weakest.start],
     )
 

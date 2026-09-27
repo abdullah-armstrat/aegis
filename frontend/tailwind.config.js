@@ -9,7 +9,7 @@ export default {
         panel: "#FAFAFA",
         fill: "#F0F0F0",
         line: "#D6D6D6",
-        muted: "#8C8C8C",
+        muted: "#595959", // 7:1 on white (was #8C8C8C, 3.4:1)
         // The single deliberate accent: amber, reserved for raised flags.
         flag: "#B7791F",
         flagbg: "#FBF6EC",

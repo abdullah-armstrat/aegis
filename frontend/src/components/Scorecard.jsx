@@ -32,7 +32,7 @@ function countSentence(flags) {
 function VideoReview({ src, keyframes, duration, playerRef, onSeek }) {
   return (
     <div className="mt-5 border border-line bg-panel p-4">
-      <div className="font-mono text-[10px] uppercase tracking-[0.14em] text-muted">
+      <div className="font-mono text-base uppercase tracking-[0.14em] text-muted">
         Video under review{duration ? ` · ${clock(duration)}` : ""}
       </div>
       {src && (
@@ -40,7 +40,7 @@ function VideoReview({ src, keyframes, duration, playerRef, onSeek }) {
       )}
       {keyframes?.length > 0 && (
         <div className="mt-3">
-          <div className="font-mono text-[10px] uppercase tracking-[0.14em] text-muted">
+          <div className="font-mono text-base uppercase tracking-[0.14em] text-muted">
             Keyframes checked ({keyframes.length})
           </div>
           <div className="mt-2 flex flex-wrap gap-2">
@@ -55,7 +55,7 @@ function VideoReview({ src, keyframes, duration, playerRef, onSeek }) {
                 {k.thumbnail && (
                   <img src={k.thumbnail} alt={`frame at ${clock(k.timestamp)}`} className="h-16 w-auto" />
                 )}
-                <span className="mt-1 block font-mono text-[11px] text-ink">{clock(k.timestamp)}</span>
+                <span className="mt-1 block font-mono text-base text-ink">{clock(k.timestamp)}</span>
               </button>
             ))}
           </div>
@@ -85,9 +85,9 @@ export default function Scorecard({ scorecard, submission }) {
     <section>
       {/* Result header. */}
       <div className="flex items-baseline justify-between border-b border-ink pb-2">
-        <h2 className="text-sm font-semibold uppercase tracking-[0.16em] text-ink">Audit result</h2>
+        <h2 className="text-base font-semibold uppercase tracking-[0.16em] text-ink">Audit result</h2>
         {scorecard.source_ref && (
-          <span className="font-mono text-[11px] text-muted">{scorecard.source_ref}</span>
+          <span className="font-mono text-base text-muted">{scorecard.source_ref}</span>
         )}
       </div>
 
@@ -95,7 +95,7 @@ export default function Scorecard({ scorecard, submission }) {
       <p className="mt-4 text-xl font-medium leading-snug tracking-tight text-ink">
         {countSentence(flags)}
       </p>
-      <p className="mt-2 max-w-prose text-sm leading-relaxed text-muted">
+      <p className="mt-2 max-w-prose text-base leading-relaxed text-muted">
         {scorecard.summary ? `${scorecard.summary} ` : ""}
         Aegis doesn’t decide what is true. It surfaces specific, checkable findings and shows you
         how to weigh them. The judgement stays with you.
@@ -114,7 +114,7 @@ export default function Scorecard({ scorecard, submission }) {
       {/* The post under review. */}
       {submission && (
         <div className="mt-5 border border-line bg-panel p-4">
-          <div className="font-mono text-[10px] uppercase tracking-[0.14em] text-muted">
+          <div className="font-mono text-base uppercase tracking-[0.14em] text-muted">
             Under review
           </div>
           <div className="mt-3 flex gap-4">
@@ -127,13 +127,13 @@ export default function Scorecard({ scorecard, submission }) {
             )}
             <div className="min-w-0">
               {submission.caption ? (
-                <p className="text-sm italic leading-relaxed text-ink/80">
+                <p className="text-base italic leading-relaxed text-ink/80">
                   “{submission.caption}”
                 </p>
               ) : (
-                <p className="text-sm text-muted">No caption provided.</p>
+                <p className="text-base text-muted">No caption provided.</p>
               )}
-              <p className="mt-2 font-mono text-[11px] text-muted">
+              <p className="mt-2 font-mono text-base text-muted">
                 {submission.filename ? `${submission.filename} · ` : ""}
                 {submission.postedDate ? `posted ${submission.postedDate} · ` : ""}
                 {submission.caption
@@ -148,7 +148,7 @@ export default function Scorecard({ scorecard, submission }) {
       {/* Findings. */}
       <div className="mt-6">
         <div className="flex items-baseline justify-between border-b border-line pb-1.5">
-          <h3 className="font-mono text-[11px] uppercase tracking-[0.14em] text-muted">
+          <h3 className="font-mono text-base uppercase tracking-[0.14em] text-muted">
             Findings ({flags.length})
           </h3>
         </div>

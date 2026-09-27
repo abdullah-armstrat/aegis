@@ -56,11 +56,12 @@ export default function SubmitPanel({ onAnalyze, loading, webSearchAvailable = f
         {/* Image */}
         <div>
           <div className="mb-3 flex items-baseline justify-between">
-            <span className="text-[13px] font-semibold text-ink">The image or video</span>
-            <span className="text-xs text-muted">Required</span>
+            <span className="text-base font-semibold text-ink">The image or video</span>
+            <span className="text-base text-muted">Required</span>
           </div>
           <button
             type="button"
+            aria-label={file ? `Chosen file: ${file.name}. Choose a different image or video` : "Choose an image or video"}
             onClick={() => inputRef.current?.click()}
             onDragOver={(e) => {
               e.preventDefault();
@@ -90,11 +91,11 @@ export default function SubmitPanel({ onAnalyze, loading, webSearchAvailable = f
                   <circle cx="8.5" cy="8.5" r="1.8" fill="#9A9A9A" />
                   <path d="M21 15l-5-5L5 21" stroke="#9A9A9A" strokeWidth="1.5" />
                 </svg>
-                <span className="text-sm text-muted">
+                <span className="text-base text-muted">
                   Drag an image or video here, or{" "}
                   <span className="text-ink underline">click to browse</span>
                 </span>
-                <span className="text-xs text-muted">Videos: mp4, mov or webm, up to 60 seconds</span>
+                <span className="text-base text-muted">Videos: mp4, mov or webm, up to 60 seconds</span>
               </div>
             )}
             <input
@@ -105,20 +106,20 @@ export default function SubmitPanel({ onAnalyze, loading, webSearchAvailable = f
               onChange={(e) => handleFile(e.target.files?.[0])}
             />
           </button>
-          {file && <p className="mt-2 font-mono text-[11px] text-muted">{file.name}</p>}
+          {file && <p className="mt-2 font-mono text-base text-muted">{file.name}</p>}
         </div>
 
         {/* Caption */}
         <div>
           <div className="mb-3 flex items-baseline justify-between">
-            <span className="text-[13px] font-semibold text-ink">The caption</span>
-            <span className="text-xs text-muted">As posted</span>
+            <span className="text-base font-semibold text-ink">The caption</span>
+            <span className="text-base text-muted">As posted</span>
           </div>
           <textarea
             value={caption}
             onChange={(e) => setCaption(e.target.value)}
             placeholder="Paste the full caption here. Keep the original wording, hashtags, links and emoji."
-            className="h-[360px] w-full resize-y border bg-white px-[19px] py-[17px] text-[15px] leading-relaxed text-ink placeholder:text-muted focus:border-ink focus:outline-none"
+            className="h-[360px] w-full resize-y border bg-white px-[19px] py-[17px] text-base leading-relaxed text-ink placeholder:text-muted focus:border-ink focus:outline-none"
             style={{ borderColor: "#D6D6D6" }}
           />
         </div>
@@ -128,19 +129,19 @@ export default function SubmitPanel({ onAnalyze, loading, webSearchAvailable = f
       <div className="mt-8 flex flex-wrap items-end gap-x-6 gap-y-2">
         <label className="flex flex-col gap-2">
           <span className="flex items-baseline gap-3">
-            <span className="text-[13px] font-semibold text-ink">Date posted</span>
-            <span className="text-xs text-muted">Optional</span>
+            <span className="text-base font-semibold text-ink">Date posted</span>
+            <span className="text-base text-muted">Optional</span>
           </span>
           <input
             type="date"
             value={postedDate}
             max={new Date().toISOString().slice(0, 10)}
             onChange={(e) => setPostedDate(e.target.value)}
-            className="border bg-white px-3 py-2 text-[15px] text-ink focus:border-ink focus:outline-none"
+            className="min-h-[44px] border bg-white px-3 py-2 text-base text-ink focus:border-ink focus:outline-none"
             style={{ borderColor: "#D6D6D6" }}
           />
         </label>
-        <p className="max-w-[420px] pb-2 text-[12.5px] leading-relaxed text-muted">
+        <p className="max-w-[420px] pb-2 text-base leading-relaxed text-muted">
           If you know when the post was published, add it. Aegis can then say whether the image, or
           a frame of the video, was online before that date, rather than only whether it has
           appeared elsewhere.
@@ -154,9 +155,9 @@ export default function SubmitPanel({ onAnalyze, loading, webSearchAvailable = f
             type="checkbox"
             checked={searchWeb}
             onChange={(e) => setSearchWeb(e.target.checked)}
-            className="mt-1 h-4 w-4 accent-ink"
+            className="mt-0.5 h-7 w-7 shrink-0 accent-ink"
           />
-          <span className="text-[13.5px] leading-relaxed text-ink">
+          <span className="text-base leading-relaxed text-ink">
             <span className="font-semibold">Also search the web for this image.</span>{" "}
             <span className="text-muted">
               The image will be sent to Google (Cloud Vision) to find pages that show it. Without
@@ -174,7 +175,7 @@ export default function SubmitPanel({ onAnalyze, loading, webSearchAvailable = f
         <button
           type="submit"
           disabled={!file || loading}
-          className="inline-flex items-center gap-2.5 px-7 py-3.5 text-[15px] font-semibold tracking-tight text-white transition-colors"
+          className="inline-flex items-center gap-2.5 px-7 py-3.5 text-base font-semibold tracking-tight text-white transition-colors"
           style={{
             background: !file || loading ? "#8C8C8C" : "#161616",
             cursor: !file || loading ? "not-allowed" : "pointer",
@@ -184,7 +185,7 @@ export default function SubmitPanel({ onAnalyze, loading, webSearchAvailable = f
           {loading ? (video ? "Running audit… a video takes up to a minute" : "Running audit…") : "Run audit"}
           <span className="text-base leading-none">→</span>
         </button>
-        <p className="max-w-[280px] text-right text-[12.5px] leading-relaxed text-muted">
+        <p className="max-w-[280px] text-right text-base leading-relaxed text-muted">
           Nothing is published. Your file and caption stay in this session.
         </p>
       </div>

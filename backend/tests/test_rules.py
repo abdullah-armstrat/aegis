@@ -203,7 +203,7 @@ def test_a_page_date_is_never_called_the_image_s_first_appearance(posted, dates)
     flag = recycled_context_rule(_matched(posted_date=posted, dates=dates))
     text = " ".join((flag.evidence, flag.plain_explanation, flag.what_to_check)).lower()
     assert "appeared on" not in text and "first appeared" not in text
-    assert "the page may be older or newer than the image on it" in flag.plain_explanation
+    assert "older or newer than the image on it" in flag.plain_explanation
     if flag.status == FlagStatus.FIRED and posted and dates[1]:
         assert flag.evidence.startswith("Found on a page dated 2019-03-04 (https://e.com/0)")
 

@@ -38,10 +38,10 @@ export default function App() {
     <button
       type="button"
       onClick={() => setScreen(id)}
-      className="border-b-2 pb-1 text-sm transition-colors"
+      className="min-h-[44px] border-b-2 px-1 pb-1 pt-2 text-base transition-colors"
       style={{
         fontWeight: screen === id ? 600 : 500,
-        color: screen === id ? "#161616" : "#8C8C8C",
+        color: screen === id ? "#161616" : "#595959",
         borderColor: screen === id ? "#161616" : "transparent",
       }}
     >
@@ -63,7 +63,7 @@ export default function App() {
               <div className="text-[23px] font-bold leading-none tracking-[0.02em] text-ink">
                 AEGIS
               </div>
-              <div className="mt-1.5 text-xs text-muted">
+              <div className="mt-1.5 text-base text-muted">
                 Image, video and caption misinformation auditor
               </div>
             </div>
@@ -77,7 +77,7 @@ export default function App() {
         <main>
           {error && (
             <div
-              className="mt-8 bg-white px-4 py-3 font-mono text-[13px] text-ink"
+              className="mt-8 bg-white px-4 py-3 font-mono text-base text-ink"
               style={{ border: "1px solid #E4E4E4", borderLeft: "3px solid #B7791F" }}
             >
               Audit could not run: {error}
@@ -94,26 +94,29 @@ export default function App() {
 
           {screen === "scorecard" &&
             (scorecard ? (
-              <div className="py-12">
+              <div className="pb-12">
+                {/* Kept in view while the result scrolls, so starting again never needs a search. */}
+                <div className="sticky top-0 z-10 -mx-2 mb-6 bg-white/95 px-2 py-3" style={{ borderBottom: "1px solid #E4E4E4" }}>
+                  <button
+                    type="button"
+                    onClick={() => setScreen("submit")}
+                    className="min-h-[44px] px-5 py-2.5 text-base font-semibold tracking-tight text-ink transition-colors hover:bg-ink hover:text-white"
+                    style={{ border: "1px solid #161616" }}
+                  >
+                    ← Review another post
+                  </button>
+                </div>
                 <Scorecard scorecard={scorecard} submission={submission} />
-                <button
-                  type="button"
-                  onClick={() => setScreen("submit")}
-                  className="mt-9 px-5 py-2.5 text-sm font-semibold tracking-tight text-ink transition-colors hover:bg-ink hover:text-white"
-                  style={{ border: "1px solid #161616" }}
-                >
-                  ← Review another post
-                </button>
               </div>
             ) : (
               <div className="py-24 text-center">
-                <p className="text-sm text-muted">
+                <p className="text-base text-muted">
                   No audit yet. Submit a post for review to see its scorecard.
                 </p>
                 <button
                   type="button"
                   onClick={() => setScreen("submit")}
-                  className="mt-4 px-5 py-2.5 text-sm font-semibold tracking-tight text-ink"
+                  className="mt-4 min-h-[44px] px-5 py-2.5 text-base font-semibold tracking-tight text-ink"
                   style={{ border: "1px solid #161616" }}
                 >
                   Go to submit

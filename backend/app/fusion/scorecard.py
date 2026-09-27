@@ -44,7 +44,7 @@ def _llm_caption_scene_flag(bundle: EvidenceBundle) -> Flag:
             status=FlagStatus.NOT_ASSESSED,
             severity=Severity.INFO,
             evidence=verdict.explanation or "LLM reasoner unavailable.",
-            plain_explanation="The language model's second opinion on caption↔image agreement was not available.",
+            plain_explanation="The language model could not give its second opinion on the caption.",
             what_to_check="Look at the image yourself and ask whether the caption fits what you see.",
             source="llm",
         )
@@ -57,8 +57,8 @@ def _llm_caption_scene_flag(bundle: EvidenceBundle) -> Flag:
             severity=severity("llm", Evidence.INDIRECT),
             evidence=f"LLM judged the supplied texts to describe different things. {verdict.explanation}".strip(),
             plain_explanation=(
-                "A language model reading only the extracted text judged the caption and the image's "
-                "description to be about different things."
+                "A language model read only the words taken from the post. It judged that the caption and "
+                "the picture's description are about different things."
             ),
             what_to_check="Check whether the image genuinely shows what the caption says it does.",
             source="llm",
@@ -70,8 +70,8 @@ def _llm_caption_scene_flag(bundle: EvidenceBundle) -> Flag:
             status=FlagStatus.CLEAR,
             severity=Severity.INFO,
             evidence=f"LLM judged the supplied texts to describe the same thing. {verdict.explanation}".strip(),
-            plain_explanation="A language model judged the caption and the image description broadly consistent.",
-            what_to_check="Model agreement is not a guarantee; trust the deterministic checks more.",
+            plain_explanation="A language model compared the caption with a description of the picture. It judged them to be about the same thing.",
+            what_to_check="The model can be wrong. Rely more on the other checks.",
             source="llm",
         )
 
@@ -81,7 +81,7 @@ def _llm_caption_scene_flag(bundle: EvidenceBundle) -> Flag:
         status=FlagStatus.NOT_ASSESSED,
         severity=Severity.INFO,
         evidence=f"LLM did not return a clear judgement. {verdict.explanation}".strip(),
-        plain_explanation="The language model could not clearly judge caption↔image agreement.",
+        plain_explanation="The language model could not decide whether the caption fits the picture.",
         what_to_check="Look at the image yourself and ask whether the caption fits what you see.",
         source="llm",
     )
@@ -94,7 +94,7 @@ def _summarise(flags: list[Flag]) -> str:
     if fired == 0:
         base = "No flags were raised by the checks that could be run."
     else:
-        base = f"{fired} point{'s' if fired != 1 else ''} to check before trusting this content."
+        base = f"{fired} point{'s' if fired != 1 else ''} to check before you share this post."
     if not_assessed:
         base += f" {not_assessed} check{'s' if not_assessed != 1 else ''} could not be performed."
     return base

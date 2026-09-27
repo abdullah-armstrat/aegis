@@ -43,7 +43,7 @@ export default function FlagCard({ flag, onSeek }) {
       <div className="flex w-[84px] shrink-0 flex-col gap-2.5 pt-0.5">
         <Signal status={flag.status} />
         <div
-          className="text-xs font-semibold leading-tight"
+          className="text-base font-semibold leading-tight"
           style={{ color: meta.labelColor }}
         >
           {meta.label}
@@ -57,7 +57,7 @@ export default function FlagCard({ flag, onSeek }) {
           <div className="flex flex-wrap items-center gap-2">
             {flag.status === "fired" && flag.severity && (
               <span
-                className="px-2.5 py-[3px] text-[11px] font-medium"
+                className="px-2.5 py-[3px] text-base font-medium"
                 style={{ color: "#8A5A12", border: "1px solid #D9B877" }}
               >
                 {SEVERITY_WORD[flag.severity] ?? "Notable"}
@@ -65,7 +65,7 @@ export default function FlagCard({ flag, onSeek }) {
             )}
             {flag.source === "llm" && (
               <span
-                className="px-2.5 py-[3px] text-[11px] font-medium text-muted"
+                className="px-2.5 py-[3px] text-base font-medium text-muted"
                 style={{ border: "1px solid #D6D6D6" }}
               >
                 AI second opinion
@@ -74,13 +74,13 @@ export default function FlagCard({ flag, onSeek }) {
           </div>
         </div>
 
-        <p className="mt-2.5 max-w-[64ch] text-[15px] leading-relaxed text-ink/80">
+        <p className="mt-2.5 max-w-[64ch] text-base leading-relaxed text-ink/80">
           {flag.plain_explanation}
         </p>
 
         {/* A check that could not run says why, in the card itself. */}
         {flag.status === "not_assessed" && flag.evidence && (
-          <p className="mt-2 max-w-[64ch] text-sm leading-relaxed text-ink/70">
+          <p className="mt-2 max-w-[64ch] text-base leading-relaxed text-ink/70">
             <span className="font-semibold text-ink">Why: </span>
             {flag.evidence}
           </p>
@@ -89,7 +89,7 @@ export default function FlagCard({ flag, onSeek }) {
         {/* Moments this finding cites: each jumps the player there. */}
         {onSeek && flag.timestamps?.length > 0 && (
           <div className="mt-3 flex flex-wrap items-center gap-2">
-            <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-muted">
+            <span className="font-mono text-base uppercase tracking-[0.14em] text-muted">
               {flag.timestamps.length === 1 ? "Moment" : "Moments"}
             </span>
             {flag.timestamps.map((t) => (
@@ -97,7 +97,7 @@ export default function FlagCard({ flag, onSeek }) {
                 key={t}
                 type="button"
                 onClick={() => onSeek(t)}
-                className="px-2 py-0.5 font-mono text-[12px] text-ink hover:bg-ink hover:text-white"
+                className="min-h-[44px] px-3 py-2 font-mono text-base text-ink hover:bg-ink hover:text-white"
                 style={{ border: "1px solid #161616" }}
                 title={`Play from ${clock(t)}`}
               >
@@ -109,10 +109,10 @@ export default function FlagCard({ flag, onSeek }) {
 
         {flag.what_to_check && (
           <div className="mt-4">
-            <div className="font-mono text-[10px] uppercase tracking-[0.14em] text-muted">
+            <div className="font-mono text-base uppercase tracking-[0.14em] text-muted">
               {CHECK_HEADING[flag.status] ?? "What to check"}
             </div>
-            <p className="mt-1 max-w-[64ch] text-sm leading-relaxed text-ink/75">
+            <p className="mt-1 max-w-[64ch] text-base leading-relaxed text-ink/75">
               {flag.what_to_check}
             </p>
           </div>
@@ -120,12 +120,12 @@ export default function FlagCard({ flag, onSeek }) {
 
         {flag.evidence && (
           <details className="group mt-4">
-            <summary className="flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.12em] text-muted hover:text-ink">
+            <summary className="flex min-h-[44px] items-center gap-1.5 py-2 font-mono text-base uppercase tracking-[0.12em] text-muted hover:text-ink">
               <span className="chev inline-block transition-transform">▸</span>
               Supporting evidence
             </summary>
             <p
-              className="mt-2 max-w-[68ch] whitespace-pre-wrap break-words bg-panel px-3 py-2 font-mono text-[12px] leading-relaxed text-ink/75"
+              className="mt-2 max-w-[68ch] whitespace-pre-wrap break-words bg-panel px-3 py-2 font-mono text-base leading-relaxed text-ink/75"
               style={{ border: "1px solid #E4E4E4" }}
             >
               {flag.evidence}
