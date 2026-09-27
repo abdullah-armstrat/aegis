@@ -229,3 +229,99 @@ def test_committed_index_matches_the_committed_illustrative_images():
     for filename in ("sunset_illustrative.png", "cat_illustrative.png"):
         assert find_web_matches((images / filename).read_bytes()).status == FlagStatus.CLEAR
     _reset()
+
+
+# --- second stage: keypoint matching when the hash finds nothing ------------------------------
+
+from app.extractors.keypoint_match import orb_features, orb_inliers  # noqa: E402
+from tests.eval.image_transforms import border, screenshot  # noqa: E402
+
+
+def _textured(seed: int, size=(320, 240)) -> Image.Image:
+    """Sharp random blocks: plenty of corners for ORB, distinct per seed."""
+    rng = np.random.default_rng(seed)
+    blocks = (rng.random((size[1] // 8, size[0] // 8, 3)) * 255).astype(np.uint8)
+    return Image.fromarray(blocks).resize(size, Image.Resampling.NEAREST)
+
+
+def _entry_with_image(tmp_path, entry_id: str, img: Image.Image) -> dict:
+    path = tmp_path / f"{entry_id}.png"
+    img.save(path)
+    return _entry(entry_id, phash_of_image(img), image=str(path))
+
+
+def test_screenshot_copy_is_found_by_keypoints_when_the_hash_misses(use_index, tmp_path):
+    """The point of the second stage: a screenshot frame defeats the hash, not the keypoints."""
+    original = _textured(1)
+    shot = screenshot(original)
+    assert hamming(phash_of_image(shot), phash_of_image(original)) > 10  # the hash really misses
+    use_index([_entry_with_image(tmp_path, "orig", original)])
+    result = find_web_matches(_bytes(shot))
+    assert result.status == FlagStatus.FIRED
+    assert result.method == "keypoints"
+    assert result.matches[0].keypoint_inliers >= get_settings().keypoint_min_inliers
+    assert result.matches[0].hash_distance is None
+
+
+def test_bordered_copy_is_found_by_keypoints(use_index, tmp_path):
+    original = _textured(1)
+    use_index([_entry_with_image(tmp_path, "orig", original)])
+    assert find_web_matches(_bytes(border(original))).method == "keypoints"
+
+
+def test_keypoint_matching_can_be_switched_off(use_index, tmp_path):
+    original = _textured(1)
+    use_index([_entry_with_image(tmp_path, "orig", original)], keypoint_matching="false")
+    assert find_web_matches(_bytes(screenshot(original))).status == FlagStatus.CLEAR
+
+
+def test_unrelated_framed_image_is_not_matched_by_keypoints(use_index, tmp_path):
+    use_index([_entry_with_image(tmp_path, "orig", _textured(1))])
+    result = find_web_matches(_bytes(screenshot(_textured(2))))
+    assert result.status == FlagStatus.CLEAR
+    assert "Keypoint matching found no" in result.detail
+
+
+def test_entry_without_its_image_is_matched_by_hash_only(use_index):
+    """No image to compare against means no keypoint match, and no crash."""
+    original = _textured(1)
+    use_index([_entry("orig", phash_of_image(original))])  # no "image" field
+    assert find_web_matches(_bytes(screenshot(original))).status == FlagStatus.CLEAR
+
+
+def test_keypoint_stage_failure_keeps_the_hash_result_and_says_why(use_index, tmp_path, monkeypatch):
+    use_index([_entry_with_image(tmp_path, "orig", _textured(1))])
+
+    def boom(*_args):
+        raise RuntimeError("opencv unavailable")
+
+    monkeypatch.setattr(reverse_image, "_keypoint_matches", boom)
+    result = find_web_matches(_bytes(screenshot(_textured(1))))
+    assert result.status == FlagStatus.CLEAR
+    assert "Keypoint matching could not run" in result.detail
+
+
+def test_keypoint_matches_are_one_to_one():
+    """Regression: many query points must not pile onto the few keypoints of a low-texture image.
+
+    `clock` (a motion-blurred photo, openly licensed in scikit-image) yields about 10 keypoints.
+    Before matches were made one-to-one, an unrelated bordered `coins` image scored 32 inliers
+    against it, above the threshold: a false match. One-to-one matching cannot exceed the known
+    image's own keypoint count.
+    """
+    data = pytest.importorskip("skimage.data")
+    clock = orb_features(Image.fromarray(data.clock()).convert("RGB"))
+    coins = orb_features(border(Image.fromarray(data.coins()).convert("RGB")))
+    inliers = orb_inliers(coins, clock)
+    assert inliers <= len(clock[0])
+    assert inliers < get_settings().keypoint_min_inliers
+
+
+def test_screenshot_of_the_committed_flood_image_is_found_by_keypoints():
+    """End-to-end on the shipped index: a screenshot of a registered image is still found."""
+    _reset()
+    data = (_REPO / "data" / "illustrative" / "flood_illustrative.png").read_bytes()
+    result = find_web_matches(_bytes(screenshot(Image.open(BytesIO(data)))))
+    assert result.status == FlagStatus.FIRED and result.method == "keypoints"
+    assert result.matches[0].published_date == "2019-03-04"
+    _reset()

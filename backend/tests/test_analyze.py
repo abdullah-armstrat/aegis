@@ -128,3 +128,18 @@ def test_unregistered_image_is_clear_not_not_assessed():
     """A readable image that is not in the index: the lookup ran and found nothing."""
     resp = client.post("/analyze", files={"image": ("p.png", _png(colour="navy"), "image/png")})
     assert _recycled(resp.json())["status"] == "clear"
+
+
+def test_screenshot_of_a_known_image_is_found_through_the_api():
+    """A screenshot defeats the hash; the keypoint stage still finds it, and says so."""
+    from tests.eval.image_transforms import screenshot
+
+    get_settings.cache_clear()
+    buf = BytesIO()
+    screenshot(Image.open(_FLOOD)).save(buf, format="PNG")
+    body = client.post("/analyze", files={"image": ("screenshot_2026.png", buf.getvalue(), "image/png")},
+                       data={"posted_date": "2026-09-01"}).json()
+    flag = _recycled(body)
+    assert flag["status"] == "fired"
+    assert "2019-03-04" in flag["evidence"]
+    assert "image details that line up" in flag["evidence"]

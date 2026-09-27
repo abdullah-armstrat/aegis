@@ -237,3 +237,16 @@ def test_run_rules_on_built_mismatch_example():
     assert FlagType.EMOTIONAL_FRAMING in fired
     # Exactly one flag per rule, always.
     assert len(flags) == 3
+
+
+def test_recycled_evidence_explains_a_keypoint_match():
+    """A match found by keypoints has no hash distance; the evidence must say how it was found."""
+    b = _bundle(
+        web_matches=[WebMatch(url="https://e.com/0", published_date="2019-03-04", keypoint_inliers=40)],
+        extractor_status={"reverse_image": FlagStatus.FIRED},
+        meta=Meta(modality=Modality.IMAGE, source_ref="t.jpg", posted_date="2026-09-01"),
+    )
+    flag = recycled_context_rule(b)
+    assert flag.status == FlagStatus.FIRED
+    assert "40 image details that line up" in flag.evidence
+    assert "hash bits" not in flag.evidence

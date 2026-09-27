@@ -52,6 +52,13 @@ class Settings(BaseSettings):
     # Also compare the hash of the upload's horizontal mirror, so flipped re-posts match.
     # PROVISIONAL, same basis as the threshold.
     phash_mirror_lookup: bool = True
+    # Second stage, run only when the hash finds nothing: ORB keypoints confirmed by a RANSAC
+    # homography, which finds cropped, bordered and screenshot-framed copies the hash misses.
+    keypoint_matching: bool = True
+    # A match needs at least this many geometrically agreeing keypoint pairs. PROVISIONAL: a
+    # floor well above the highest score seen between unrelated images (6) in the sample-image
+    # comparison; to be confirmed once the project's own originals and distractors are collected.
+    keypoint_min_inliers: int = 12
 
     @property
     def cors_origin_list(self) -> list[str]:

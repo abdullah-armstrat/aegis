@@ -108,6 +108,11 @@ class WebMatch(BaseModel):
         description="pHash Hamming distance (of 64 bits) between the upload and the matched "
         "image-history entry. None when the match did not come from a hash lookup.",
     )
+    keypoint_inliers: int | None = Field(
+        default=None,
+        description="Number of image keypoints that line up geometrically with the matched "
+        "entry, when the match came from keypoint matching rather than the hash.",
+    )
 
 
 class AiGenHint(BaseModel):

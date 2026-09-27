@@ -5,7 +5,9 @@ perceptual hash (``phash.py``) and compared against an **image history index**: 
 which each entry holds a hash, the earliest known date the image appeared, and the pages it
 appeared on. A match is a Hamming distance at or below ``phash_match_threshold``. Matching on
 content means a renamed, recompressed or resized copy is still found — the filename lookup it
-replaces was defeated by any re-save.
+replaces was defeated by any re-save. When the hash finds nothing, a second stage matches image
+keypoints (``keypoint_match.py``, behind ``keypoint_matching``), which finds copies that were
+cropped, bordered or framed in a screenshot: the changes that defeat the hash.
 
 The index runs fully offline with no key. A live web lookup would sit behind the same
 function and the same ``ReverseImageResult``.
@@ -25,6 +27,7 @@ import re
 from dataclasses import dataclass, field
 from datetime import date
 from functools import lru_cache
+from io import BytesIO
 from pathlib import Path
 
 from app.config import get_settings
@@ -32,6 +35,7 @@ from app.extractors.phash import HASH_BITS, compute_phash, hamming
 from app.models import FlagStatus, WebMatch
 
 _DEFAULT_INDEX = Path(__file__).resolve().parents[1] / "data" / "image_history_index.json"
+_REPO_ROOT = Path(__file__).resolve().parents[3]  # index entries name their image relative to this
 _OFFLINE_MODES = {"index", "cache"}  # "cache" = the earlier name, accepted as an alias
 _HEX = re.compile(rf"^[0-9a-f]{{{HASH_BITS // 4}}}$")
 
@@ -44,6 +48,7 @@ class IndexEntry:
     phash: str
     earliest_date: str
     sources: tuple[WebMatch, ...]
+    image: str | None = None  # the known image itself, if available; keypoint matching needs it
 
 
 @dataclass
@@ -55,6 +60,7 @@ class ReverseImageResult:
     detail: str = ""
     phash: str | None = None
     best_distance: int | None = None
+    method: str | None = None  # "hash" or "keypoints": which stage found the match
 
 
 class HistoryIndexError(ValueError):
@@ -82,8 +88,9 @@ def _parse_entry(raw: dict, position: int) -> IndexEntry:
     dated = [date.fromisoformat(s.published_date) for s in sources if s.published_date]
     if not dated or min(dated) != earliest:
         raise HistoryIndexError(f"{where}: earliest_date must equal the earliest dated source")
+    image = raw.get("image")
     return IndexEntry(id=str(raw["id"]), phash=phash, earliest_date=earliest.isoformat(),
-                      sources=sources)
+                      sources=sources, image=str(image) if image else None)
 
 
 @lru_cache(maxsize=8)
@@ -127,20 +134,77 @@ def find_web_matches(image_bytes: bytes) -> ReverseImageResult:
         if d <= threshold:
             scored.append((d, entry))
 
-    if not scored:
+    if scored:
+        scored.sort(key=lambda pair: (pair[0], pair[1].id))
+        matches = [
+            source.model_copy(update={"hash_distance": d})
+            for d, entry in scored
+            for source in entry.sources
+        ]
         return ReverseImageResult(
-            status=FlagStatus.CLEAR, phash=hashed.hash_hex,
-            detail=f"No image in the history index ({len(index)} entries) is within "
-            f"{threshold} of {HASH_BITS} bits.",
+            matches=matches, status=FlagStatus.FIRED, phash=hashed.hash_hex,
+            best_distance=scored[0][0], method="hash",
         )
 
-    scored.sort(key=lambda pair: (pair[0], pair[1].id))
+    no_hash_match = (f"No image in the history index ({len(index)} entries) is within "
+                     f"{threshold} of {HASH_BITS} bits.")
+    if not settings.keypoint_matching:
+        return ReverseImageResult(status=FlagStatus.CLEAR, phash=hashed.hash_hex, detail=no_hash_match)
+
+    # Second stage: the hash found nothing, so look for a cropped or framed copy by keypoints.
+    try:
+        by_keypoints = _keypoint_matches(image_bytes, index, settings.keypoint_min_inliers)
+    except Exception as exc:  # noqa: BLE001 - the hash lookup still ran; report what did not
+        return ReverseImageResult(
+            status=FlagStatus.CLEAR, phash=hashed.hash_hex,
+            detail=f"{no_hash_match} Keypoint matching could not run: {exc}",
+        )
+    if not by_keypoints:
+        return ReverseImageResult(
+            status=FlagStatus.CLEAR, phash=hashed.hash_hex,
+            detail=f"{no_hash_match} Keypoint matching found no cropped or framed copy either.",
+        )
     matches = [
-        source.model_copy(update={"hash_distance": d})
-        for d, entry in scored
+        source.model_copy(update={"keypoint_inliers": inliers})
+        for inliers, entry in by_keypoints
         for source in entry.sources
     ]
     return ReverseImageResult(
-        matches=matches, status=FlagStatus.FIRED, phash=hashed.hash_hex,
-        best_distance=scored[0][0],
+        matches=matches, status=FlagStatus.FIRED, phash=hashed.hash_hex, method="keypoints",
     )
+
+
+@lru_cache(maxsize=256)
+def _entry_keypoints(path_str: str, mtime: float):
+    """Keypoint features of a known image, cached per file version."""
+    from PIL import Image
+
+    from app.extractors.keypoint_match import orb_features
+
+    with Image.open(path_str) as img:
+        return orb_features(img.convert("RGB"))
+
+
+def _keypoint_matches(image_bytes: bytes, index, min_inliers: int) -> list[tuple[int, IndexEntry]]:
+    """Entries whose own image lines up with the upload by keypoints, best first.
+
+    An entry without an available image cannot be matched this way; only its hash is used.
+    """
+    from PIL import Image
+
+    from app.extractors.keypoint_match import orb_features, orb_inliers
+
+    with Image.open(BytesIO(image_bytes)) as img:
+        query = orb_features(img.convert("RGB"))
+    found = []
+    for entry in index:
+        if not entry.image:
+            continue
+        path = Path(entry.image)
+        path = path if path.is_absolute() else _REPO_ROOT / path
+        if not path.is_file():
+            continue
+        inliers = orb_inliers(query, _entry_keypoints(str(path), path.stat().st_mtime))
+        if inliers >= min_inliers:
+            found.append((inliers, entry))
+    return sorted(found, key=lambda pair: (-pair[0], pair[1].id))

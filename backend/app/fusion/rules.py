@@ -245,7 +245,14 @@ def recycled_context_rule(bundle: EvidenceBundle) -> Flag:
     dated = [(d, m) for m in matches if (d := _parse_iso(m.published_date)) is not None]
     earliest = min(dated, key=lambda pair: pair[0]) if dated else None
     distances = [m.hash_distance for m in matches if m.hash_distance is not None]
-    closeness = f" Closest match differs by {min(distances)} of 64 hash bits." if distances else ""
+    inliers = [m.keypoint_inliers for m in matches if m.keypoint_inliers is not None]
+    if distances:
+        closeness = f" Closest match differs by {min(distances)} of 64 hash bits."
+    elif inliers:
+        closeness = (f" Found by {max(inliers)} image details that line up with a known image, "
+                     "which still works when a picture has been cropped or framed in a screenshot.")
+    else:
+        closeness = ""
     found = f"{len(matches)} earlier appearance(s) of a matching image found, e.g. {matches[0].url}."
     posted = _parse_iso(bundle.meta.posted_date)
 
