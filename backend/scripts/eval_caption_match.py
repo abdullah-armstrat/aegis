@@ -321,7 +321,7 @@ def counts(pred: np.ndarray, subset) -> dict:
 def calibrate(pairs, scores, part_time) -> tuple[list[dict], dict, list[dict]]:
     """Fit and rank every candidate on the calibration pairs only. Held-out labels are not read."""
     probe = {r["model"]: r for r in
-             json.loads((ROOT / "docs" / "results" / "wp0_model_probe.json").read_text(encoding="utf-8"))}
+             json.loads((ROOT / "results" / "wp0_model_probe.json").read_text(encoding="utf-8"))}
     cal = [p for p in pairs if p["split"] == "calibration"]
     yc = [p["y"] for p in cal]
     table, f1_table = [], []
@@ -627,7 +627,7 @@ def main() -> None:
     parser.add_argument("step", choices=["split", "features", "llm", "calibrate", "evaluate", "timing"])
     parser.add_argument("--phase", default="")
     parser.add_argument("--images", type=int, default=31, help="timing: images to time (the first loads models)")
-    parser.add_argument("--json", default=str(ROOT / "docs" / "results" / "wp2_caption_match.json"))
+    parser.add_argument("--json", default=str(ROOT / "results" / "wp2_caption_match.json"))
     args = parser.parse_args()
     CACHE.mkdir(parents=True, exist_ok=True)
     if args.step == "split":

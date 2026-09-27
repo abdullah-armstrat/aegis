@@ -77,7 +77,10 @@ data/**/video/
 *.m4a
 # Working artefacts that are not source.
 Demo Posts/
-docs/results/
+# Local documents (plan, interface review, screenshots): kept on this laptop, not published.
+/docs/
+# Evaluation output. Ignored until the release step commits the frozen final results.
+/results/
 # Submitted reports and the colour-coded draft. Matched by pattern,
 # never by a filename that carries personal data. (A broad *.html rule would catch
 # frontend/index.html, so the draft is named.)
