@@ -345,6 +345,12 @@ def recycled_context_rule(bundle: EvidenceBundle) -> Flag:
 _PAGE_DATE_LIMIT = "A page's date is the page's own: the page may be older or newer than the image on it."
 
 
+def _recycled_check(pages) -> str:
+    """Which lookup a finding rests on: the image history index if any of these pages comes from
+    it, otherwise the live web search, whose page dates are read from the pages themselves."""
+    return "recycled_index" if any(m.found_by != "web" for m in pages) else "recycled_web"
+
+
 def _dated_by(match) -> str:
     """How a web page's date was found, for the evidence."""
     if match.date_source == "htmldate":
@@ -428,7 +434,7 @@ def _recycled_context(bundle: EvidenceBundle) -> Flag:
         return Flag(
             type=FlagType.RECYCLED_CONTEXT,
             status=FlagStatus.FIRED,
-            severity=severity("recycled_context", Evidence.DIRECT_INCOMPLETE),
+            severity=severity(_recycled_check(matches), Evidence.DIRECT_INCOMPLETE),
             evidence=found + when + closeness,
             plain_explanation=(
                 "This image has been found on other pages. No posting date was given, so it is not "
@@ -444,7 +450,7 @@ def _recycled_context(bundle: EvidenceBundle) -> Flag:
         return Flag(
             type=FlagType.RECYCLED_CONTEXT,
             status=FlagStatus.FIRED,
-            severity=severity("recycled_context", Evidence.DIRECT_COMPLETE),
+            severity=severity(_recycled_check([m for _, m in earlier]), Evidence.DIRECT_COMPLETE),
             evidence=(
                 f"Found on a page dated {first_date.isoformat()} ({first.url}{_dated_by(first)}), before the "
                 f"stated posting date of {posted.isoformat()}. {len(earlier)} of {len(matches)} page(s) "
@@ -463,7 +469,7 @@ def _recycled_context(bundle: EvidenceBundle) -> Flag:
         return Flag(
             type=FlagType.RECYCLED_CONTEXT,
             status=FlagStatus.FIRED,
-            severity=severity("recycled_context", Evidence.DIRECT_INCOMPLETE),
+            severity=severity(_recycled_check(matches), Evidence.DIRECT_INCOMPLETE),
             evidence=(
                 f"{found} None of the dated pages is dated before {posted.isoformat()}, but "
                 f"{undated} page(s) carry no date, so the comparison is incomplete.{closeness}"

@@ -1,5 +1,6 @@
-"""Severity follows one stated rule per level (ADR-045): the kind of evidence and the check's
-measured false-alarm rate decide it, and no level uses a verdict word."""
+"""Severity follows one stated rule per level (ADR-045, ADR-048): the kind of evidence and the upper
+end of the 95% interval of the check's false-alarm rate decide it, a finding resting on the live
+web search is medium at most, and no level uses a verdict word."""
 
 import re
 import sys
@@ -8,8 +9,9 @@ from pathlib import Path
 import pytest
 
 from app.fusion import severity as sev
-from app.fusion.severity import FALSE_ALARMS, Evidence, FalseAlarms, severity
-from app.models import FlagStatus, Severity
+from app.fusion.rules import recycled_context_rule
+from app.fusion.severity import CAPS, FALSE_ALARMS, Evidence, FalseAlarms, severity
+from app.models import EvidenceBundle, FlagStatus, Meta, Modality, Severity, WebMatch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
 
@@ -21,21 +23,27 @@ def rates(monkeypatch):
     return set_rate
 
 
-def test_high_is_complete_direct_evidence_from_a_check_under_5_percent(rates):
-    rates("x", 0, 100)
-    assert severity("x", Evidence.DIRECT_COMPLETE) == Severity.HIGH
-    rates("x", 4, 100)
-    assert severity("x", Evidence.DIRECT_COMPLETE) == Severity.HIGH
-    rates("x", 5, 100)
-    assert severity("x", Evidence.DIRECT_COMPLETE) == Severity.LOW  # 5% is not under 5%
+def test_the_rate_used_is_the_upper_end_of_the_95_percent_interval():
+    assert FalseAlarms(0, 15, "x").upper == pytest.approx(0.2039, abs=1e-4)
+    assert FalseAlarms(3, 48, "x").upper == pytest.approx(0.1684, abs=1e-4)
+    assert FalseAlarms(0, 9977, "x").upper < 0.0004
 
 
-def test_medium_is_incomplete_direct_evidence_or_an_indirect_signal_at_most_10_percent(rates):
+def test_high_is_complete_direct_evidence_from_a_check_whose_upper_rate_is_under_5_percent(rates):
+    rates("x", 0, 100)  # upper 3.7%
+    assert severity("x", Evidence.DIRECT_COMPLETE) == Severity.HIGH
+    rates("x", 0, 72)   # upper 5.1%: too few cases for high
+    assert severity("x", Evidence.DIRECT_COMPLETE) == Severity.LOW
+    rates("x", 1, 100)  # measured 1%, upper 5.4%
+    assert severity("x", Evidence.DIRECT_COMPLETE) == Severity.LOW
+
+
+def test_medium_is_incomplete_direct_evidence_or_an_indirect_signal_whose_upper_rate_is_at_most_10_percent(rates):
     rates("x", 0, 100)
     assert severity("x", Evidence.DIRECT_INCOMPLETE) == Severity.MEDIUM
-    rates("y", 10, 100)
+    rates("y", 2, 200)  # upper 3.6%
     assert severity("y", Evidence.INDIRECT) == Severity.MEDIUM
-    rates("y", 11, 100)
+    rates("y", 3, 48)   # measured 6.3%, upper 16.8%
     assert severity("y", Evidence.INDIRECT) == Severity.LOW
 
 
@@ -54,31 +62,59 @@ def test_info_is_every_check_that_raised_no_finding(rates):
 
 
 def test_indirect_evidence_never_reaches_high(rates):
-    rates("x", 0, 1000)
+    rates("x", 0, 100000)
     assert severity("x", Evidence.INDIRECT) == Severity.MEDIUM
 
 
-def test_every_rule_result_carries_the_level_the_rule_gives_it():
+def test_a_live_web_page_date_is_medium_at_most(rates):
+    assert CAPS["recycled_web"] == Severity.MEDIUM
+    rates("recycled_web", 0, 1000)  # even with a rate low enough for high
+    assert severity("recycled_web", Evidence.DIRECT_COMPLETE) == Severity.MEDIUM
+    rates("recycled_web", 0, 15)    # as measured: 0 of 15, upper 20.4%
+    assert severity("recycled_web", Evidence.DIRECT_COMPLETE) == Severity.LOW
+
+
+def _recycled(found_by, dates, posted):
+    return recycled_context_rule(EvidenceBundle(
+        web_matches=[WebMatch(url=f"https://e.com/{i}", published_date=d, found_by=f)
+                     for i, (d, f) in enumerate(zip(dates, found_by))],
+        extractor_status={"reverse_image": FlagStatus.FIRED},
+        meta=Meta(modality=Modality.IMAGE, posted_date=posted)))
+
+
+@pytest.mark.parametrize("found_by, dates, posted, level", [
+    (["index"], ["2019-03-04"], "2024-01-01", Severity.HIGH),            # index page dated earlier
+    (["index"], ["2019-03-04"], None, Severity.MEDIUM),                  # index, no posting date
+    (["index", "index"], ["2025-01-01", None], "2024-01-01", Severity.MEDIUM),  # an undated page
+    (["web"], ["2019-03-04"], "2024-01-01", Severity.LOW),               # web only: 0/15, upper 20.4%
+    (["web"], ["2019-03-04"], None, Severity.LOW),
+    (["web", "index"], ["2019-03-04", "2025-01-01"], "2024-01-01", Severity.LOW),  # only the web page is earlier
+    (["web", "index"], ["2019-03-04", "2020-01-01"], "2024-01-01", Severity.HIGH),  # an index page is earlier too
+])
+def test_recycled_context_levels_follow_the_lookup_the_finding_rests_on(found_by, dates, posted, level):
+    flag = _recycled(found_by, dates, posted)
+    assert flag.status == FlagStatus.FIRED
+    assert flag.severity == level
+
+
+def test_every_rule_result_carries_a_level_the_rule_allows():
     """Every branch of every check (the interface review's text audit builds them all)."""
     from interface_text_audit import all_flags
 
-    expected_fired = {
-        "recycled_context": {Severity.HIGH, Severity.MEDIUM},
-        "caption_content_mismatch": {Severity.MEDIUM, Severity.LOW},
+    allowed_when_fired = {
+        "recycled_context": {Severity.HIGH, Severity.MEDIUM},  # the audit's pages come from the index
+        "caption_content_mismatch": {Severity.LOW},
         "emotional_framing": {Severity.LOW},
         "audio_visual_mismatch": {Severity.LOW},
     }
-    flags = all_flags()
-    for flag in flags:
+    for flag in all_flags():
         if flag.status != FlagStatus.FIRED:
             assert flag.severity == Severity.INFO, flag
         else:
-            assert flag.severity in expected_fired[flag.type.value], flag
-    # Complete direct evidence (a page dated before the stated posting date) is high; the rest medium.
-    recycled = [f for f in flags if f.type.value == "recycled_context" and f.status == FlagStatus.FIRED]
-    assert recycled
-    for f in recycled:
-        assert f.severity == (Severity.HIGH if "before the stated posting date" in f.evidence else Severity.MEDIUM)
+            assert flag.severity in allowed_when_fired[flag.type.value], flag
+            if flag.type.value == "recycled_context":
+                complete = "before the stated posting date" in flag.evidence
+                assert flag.severity == (Severity.HIGH if complete else Severity.MEDIUM)
 
 
 def test_the_measured_rates_come_from_the_named_evaluations():
