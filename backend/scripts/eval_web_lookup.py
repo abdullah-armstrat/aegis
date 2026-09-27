@@ -10,6 +10,9 @@ known appearance.
                          committed data/live_cache_eval/; D, the user's own photos kept outside the
                          repository, caches into the ignored data/live_cache/. Stops at the first
                          failed live call.
+  run --set X --redate   the same, after dropping the cached page dates of the set's images, so
+                         every page is dated again by the current code; the cached Vision
+                         responses are reused, so no live call is needed (run it without the key).
   report                 the tables, with Wilson 95% intervals, and the date-source split.
 
 Run from the repo root: python backend/scripts/eval_web_lookup.py run --set A
@@ -73,10 +76,13 @@ def images(which: str) -> list[dict]:
     return [{"id": img, "path": on_disk[img]} for img in chosen]
 
 
-def run(which: str) -> None:
+def run(which: str, redate: bool = False) -> None:
     os.environ["AEGIS_LIVE_CACHE_DIR"] = LOCAL_CACHE if which == "D" else EVAL_CACHE
     from app.config import get_settings
     get_settings.cache_clear()
+    import hashlib
+
+    from app.extractors import web_lookup as lookup
     from app.extractors.web_lookup import calls_this_month, web_lookup
     from app.fusion.rules import recycled_context_rule
     from app.models import EvidenceBundle, FlagStatus, Meta, Modality
@@ -84,6 +90,14 @@ def run(which: str) -> None:
     before = calls_this_month()
     rows = []
     for item in images(which):
+        if redate:
+            sha = hashlib.sha256(item["path"].read_bytes()).hexdigest()
+            entry = lookup._load(sha)
+            if "vision" not in entry:
+                sys.exit(f"{item['id']}: no cached Vision response, so re-dating would need a live call")
+            entry.pop("page_dates", None)
+            entry.pop("dated_at", None)
+            lookup._save(sha, entry)
         result = web_lookup(item["path"].read_bytes())
         if result.status == FlagStatus.NOT_ASSESSED:
             sys.exit(f"{item['id']}: the lookup could not run, stopping: {result.detail}")
@@ -158,8 +172,9 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("step", choices=["run", "report"])
     parser.add_argument("--set", dest="which", choices=["A", "D", "VERITE"])
+    parser.add_argument("--redate", action="store_true", help="date every page again from the cached responses")
     args = parser.parse_args()
-    run(args.which) if args.step == "run" else report()
+    run(args.which, args.redate) if args.step == "run" else report()
 
 
 if __name__ == "__main__":

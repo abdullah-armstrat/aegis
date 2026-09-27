@@ -145,7 +145,7 @@ def test_the_earliest_dated_page_drives_the_unchanged_date_check(live):
                             meta=Meta(modality=Modality.IMAGE, posted_date="2024-05-01"))
     flag = recycled_context_rule(bundle)
     assert flag.status == FlagStatus.FIRED
-    assert "appeared on 2015-06-01" in flag.evidence
+    assert "Found on a page dated 2015-06-01" in flag.evidence
     assert "date from the page's own metadata" in flag.evidence
 
 
@@ -212,6 +212,38 @@ def test_a_script_only_page_falls_through_to_the_archive(monkeypatch):
     _archive(monkeypatch, {"https://social.example/post/1": FACEBOOK_LIKE_PAGE},
              available={"https://social.example/post/1": "20210315120000"})
     assert web_lookup.date_page("https://social.example/post/1") == {"date": "2021-03-15", "source": "wayback"}
+
+
+# A made-up page in the shape of the one the spot-check found misdated: its publication date is in
+# a meta tag htmldate cannot parse (Portuguese) and in its structured data, and its modification
+# date is in a meta tag htmldate can parse, which it used to fall back on.
+MODIFIED_FALLBACK_PAGE = (
+    '<!DOCTYPE html><html><head><title>Visita guiada</title>'
+    '<meta property="article:modified_time" content="2018-11-26T14:27:56+00:00">'
+    '<meta itemprop="datePublished" content="5 de maio de 2018">'
+    '<meta itemprop="dateModified" content="26 de novembro de 2018">'
+    '<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", '
+    '"datePublished": "2018-05-06T00:25:12+00:00", "dateModified": "2018-11-26T14:27:56+00:00"}</script>'
+    '</head><body><p>Uma visita guiada.</p></body></html>'
+)
+
+
+def test_a_page_is_dated_by_its_publication_not_its_last_modification():
+    from htmldate import find_date
+
+    # htmldate alone, asked for the original date, falls back to the modification date...
+    assert find_date(MODIFIED_FALLBACK_PAGE, extensive_search=False, original_date=True,
+                     outputformat="%Y-%m-%d") == "2018-11-26"
+    # ...and the app reads the publication date the page declares.
+    assert web_lookup.date_from_html(MODIFIED_FALLBACK_PAGE) == "2018-05-06"
+
+
+def test_a_page_with_only_a_modification_date_goes_to_the_archive(monkeypatch):
+    page = ('<html><head><meta property="article:modified_time" content="2024-02-03T10:00:00Z">'
+            '<meta itemprop="copyrightYear" content="2023"></head><body>x</body></html>')
+    assert web_lookup.date_from_html(page) is None
+    _archive(monkeypatch, {"https://m.example/p": page}, available={"https://m.example/p": "20190102030405"})
+    assert web_lookup.date_page("https://m.example/p") == {"date": "2019-01-02", "source": "wayback"}
 
 
 def test_health_says_whether_live_lookup_is_possible(monkeypatch):

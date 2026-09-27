@@ -3,7 +3,7 @@
 Vision lists pages that show the image. Only pages holding a full or partial matching copy count
 as appearances; "visually similar" images are ignored, since they are other pictures. Vision gives
 no dates, so each page is dated from its own metadata with htmldate (the publication date the page
-declares, not a later modification, and never a year guessed from the page's text), or failing
+declares, never its modification date and never a year guessed from the page's text), or failing
 that from the Wayback Machine's earliest capture of the page. The source of every date is kept.
 The earliest dated page is then the earliest known appearance, which the recycled-context rule
 compares with the posting date exactly as it does for the local index.
@@ -160,15 +160,43 @@ def _plain(title: str) -> str:
     return re.sub(r"\s+", " ", re.sub(r"<[^>]+>", "", title)).strip()
 
 
+def _without_fallback_dates(html: str):
+    """The parsed page without the tags htmldate falls back on when it finds no publication date.
+
+    Asked for the original date, htmldate still keeps a modified-date tag (or a copyright year) in
+    reserve and returns it when the page's meta tags hold no publication date it can read, before
+    it looks at the page's structured data. A page whose meta tags give its publication date in
+    words htmldate cannot parse (Portuguese, in the case that showed this) was dated by its last
+    modification. With those tags gone, only a date the page declares as its publication counts.
+    """
+    from htmldate.core import ITEMPROP_ATTRS_MODIFIED, NAME_MODIFIED, PROPERTY_MODIFIED
+    from htmldate.utils import load_html
+
+    tree = load_html(html)
+    if tree is None:
+        return None
+    for meta in list(tree.iter("meta")):
+        name, prop = (meta.get("name") or "").lower(), (meta.get("property") or "").lower()
+        itemprop, equiv = (meta.get("itemprop") or "").lower(), (meta.get("http-equiv") or "").lower()
+        if (name in NAME_MODIFIED or prop in PROPERTY_MODIFIED or itemprop in ITEMPROP_ATTRS_MODIFIED
+                or itemprop == "copyrightyear" or equiv == "last-modified"):
+            meta.drop_tree()
+    return tree
+
+
 def date_from_html(html: str) -> str | None:
     """The page's own publication date from its metadata and structured markup, by htmldate.
 
     htmldate's extensive text search is off: it read numbers in page scripts as years (Facebook's
     retry settings, `"404": 2000`, came back as 2000-01-01), so only dates the page declares count.
+    Its fallback to a modification date is removed too (see ``_without_fallback_dates``).
     """
     from htmldate import find_date
 
-    return find_date(html, extensive_search=False, original_date=True, outputformat="%Y-%m-%d",
+    tree = _without_fallback_dates(html)
+    if tree is None:
+        return None
+    return find_date(tree, extensive_search=False, original_date=True, outputformat="%Y-%m-%d",
                      max_date=date.today().isoformat())
 
 

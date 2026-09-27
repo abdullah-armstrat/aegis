@@ -172,7 +172,7 @@ def test_recycled_same_day_appearance_is_not_earlier():
 def test_recycled_fires_without_a_posting_date_and_says_why():
     flag = recycled_context_rule(_matched(posted_date=None))
     assert flag.status == FlagStatus.FIRED
-    assert "earliest known appearance is dated 2019-03-04" in flag.evidence
+    assert "found on a page dated 2019-03-04 (https://e.com/0)" in flag.evidence
     assert "posting date" in flag.plain_explanation
 
 
@@ -187,7 +187,23 @@ def test_recycled_undated_appearances_never_read_as_clear():
 def test_recycled_without_posting_date_and_no_dates_at_all():
     flag = recycled_context_rule(_matched(posted_date=None, dates=(None,)))
     assert flag.status == FlagStatus.FIRED
-    assert "None of the appearances is dated" in flag.evidence
+    assert "None of the pages is dated" in flag.evidence
+
+
+@pytest.mark.parametrize("posted, dates", [
+    ("2026-09-01", ("2019-03-04", "2021-08-17")),   # a page dated earlier
+    (None, ("2019-03-04", "2021-08-17")),           # no posting date
+    ("2018-12-31", ("2019-03-04", None)),           # an undated page
+    ("2018-12-31", ("2019-03-04", "2021-08-17")),   # every page dated after the post
+])
+def test_a_page_date_is_never_called_the_image_s_first_appearance(posted, dates):
+    """A page's date is the page's: a Wikipedia article can be created years before a photo is added."""
+    flag = recycled_context_rule(_matched(posted_date=posted, dates=dates))
+    text = " ".join((flag.evidence, flag.plain_explanation, flag.what_to_check)).lower()
+    assert "appeared on" not in text and "first appeared" not in text
+    assert "the page may be older or newer than the image on it" in flag.plain_explanation
+    if flag.status == FlagStatus.FIRED and posted and dates[1]:
+        assert flag.evidence.startswith("Found on a page dated 2019-03-04 (https://e.com/0)")
 
 
 # --- caption <-> scene mismatch ---

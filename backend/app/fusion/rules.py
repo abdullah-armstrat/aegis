@@ -339,6 +339,11 @@ def recycled_context_rule(bundle: EvidenceBundle) -> Flag:
     return flag
 
 
+# A page's date belongs to the page, not to the picture on it: a Wikipedia article created years
+# before a photo was added to it carries the article's date. Said on every result that cites a page.
+_PAGE_DATE_LIMIT = "A page's date is the page's own: the page may be older or newer than the image on it."
+
+
 def _dated_by(match) -> str:
     """How a web page's date was found, for the evidence."""
     if match.date_source == "htmldate":
@@ -357,15 +362,19 @@ def _recycled_context(bundle: EvidenceBundle) -> Flag:
       Situation                                                   Status
       lookup could not run                                        not_assessed
       lookup ran, no match                                        clear
-      match, posting date given, an appearance is earlier         fired, citing the earliest date
-      match, posting date given, nothing earlier                  clear
+      match, posting date given, a page is dated earlier          fired, citing the earliest-dated page
+      match, posting date given, nothing dated earlier            clear
       match, no posting date                                      fired, saying a date would allow
                                                                   a comparison
 
-    One case the table above does not cover: a match whose appearances are not all dated, and
-    none of the dated ones is earlier. That comparison is incomplete, so it is reported as fired
-    with the gap named, never as clear: an incomplete check must not reassure. An
-    appearance on the posting date itself is not "earlier": it may be the post being checked.
+    One case the table above does not cover: a match whose pages are not all dated, and none of
+    the dated ones is earlier. That comparison is incomplete, so it is reported as fired with the
+    gap named, never as clear: an incomplete check must not reassure. A page dated on the posting
+    date itself is not "earlier": it may be the post being checked.
+
+    A date is a page's date, not the image's: the evidence says the image was found on a page
+    dated so, never that the image first appeared then, and every result citing pages says the
+    page may be older or newer than the image on it.
     """
     status = bundle.extractor_status.get("reverse_image")
     web_note = bundle.extractor_detail.get("web_search", "")
@@ -404,7 +413,7 @@ def _recycled_context(bundle: EvidenceBundle) -> Flag:
                      "which still works when a picture has been cropped or framed in a screenshot.")
     else:
         closeness = ""
-    found = f"{len(matches)} earlier appearance(s) of a matching image found, e.g. {matches[0].url}."
+    found = f"{len(matches)} page(s) showing a matching image found, e.g. {matches[0].url}."
     if any(m.found_by == "web" for m in matches):
         on_web = sum(m.found_by == "web" for m in matches)
         found += f" {on_web} of them {'is a web page' if on_web == 1 else 'are web pages'} found by the live web search."
@@ -413,19 +422,19 @@ def _recycled_context(bundle: EvidenceBundle) -> Flag:
     posted = _parse_iso(bundle.meta.posted_date)
 
     if posted is None:
-        when = (f" The earliest known appearance is dated {earliest[0].isoformat()}{_dated_by(earliest[1])}."
-                if earliest else " None of the appearances is dated.")
+        when = (f" The earliest date among them: found on a page dated {earliest[0].isoformat()} "
+                f"({earliest[1].url}{_dated_by(earliest[1])})." if earliest else " None of the pages is dated.")
         return Flag(
             type=FlagType.RECYCLED_CONTEXT,
             status=FlagStatus.FIRED,
             severity=Severity.HIGH,
             evidence=found + when + closeness,
             plain_explanation=(
-                "This image has appeared elsewhere before. No posting date was given, so it is not "
-                "possible to say whether those appearances came before this post; adding the date "
-                "the post was published would allow that comparison."
+                "This image has been found on other pages. No posting date was given, so it is not "
+                "possible to say whether those pages came before this post; adding the date the post "
+                f"was published would allow that comparison. {_PAGE_DATE_LIMIT}"
             ),
-            what_to_check="Compare the dates and contexts of the earlier appearances with this post's claim.",
+            what_to_check="Open the pages and compare their dates, and what they say the image shows, with this post's claim.",
         )
 
     earlier = [(d, m) for d, m in dated if d < posted]
@@ -436,16 +445,16 @@ def _recycled_context(bundle: EvidenceBundle) -> Flag:
             status=FlagStatus.FIRED,
             severity=Severity.HIGH,
             evidence=(
-                f"The image appeared on {first_date.isoformat()} ({first.url}{_dated_by(first)}), before the stated "
-                f"posting date of {posted.isoformat()}. {len(earlier)} of {len(matches)} known "
-                f"appearance(s) predate the post.{closeness}"
+                f"Found on a page dated {first_date.isoformat()} ({first.url}{_dated_by(first)}), before the "
+                f"stated posting date of {posted.isoformat()}. {len(earlier)} of {len(matches)} page(s) "
+                f"showing the image are dated before the post.{closeness}"
             ),
             plain_explanation=(
-                "This image was online before this post says it was published. Old images "
-                "presented as new are a common way of misleading about when or where something "
-                "happened."
+                "A matching image was found on a page dated before this post says it was published. "
+                "Old images presented as new are a common way of misleading about when or where "
+                f"something happened. {_PAGE_DATE_LIMIT}"
             ),
-            what_to_check="Open the earlier appearance and compare what it said the image showed.",
+            what_to_check="Open that page: check when the image was added to it, and what it said the image showed.",
         )
 
     undated = len(matches) - len(dated)
@@ -455,12 +464,12 @@ def _recycled_context(bundle: EvidenceBundle) -> Flag:
             status=FlagStatus.FIRED,
             severity=Severity.HIGH,
             evidence=(
-                f"{found} None of the dated appearances is earlier than {posted.isoformat()}, but "
-                f"{undated} appearance(s) carry no date, so the comparison is incomplete.{closeness}"
+                f"{found} None of the dated pages is dated before {posted.isoformat()}, but "
+                f"{undated} page(s) carry no date, so the comparison is incomplete.{closeness}"
             ),
             plain_explanation=(
-                "This image has appeared elsewhere, and some of those appearances have no date, so "
-                "it cannot be confirmed that this post came first."
+                "This image has been found on other pages, and some of them have no date, so it "
+                f"cannot be confirmed that this post came first. {_PAGE_DATE_LIMIT}"
             ),
             what_to_check="Check when the undated pages first showed this image.",
         )
@@ -470,14 +479,14 @@ def _recycled_context(bundle: EvidenceBundle) -> Flag:
         status=FlagStatus.CLEAR,
         severity=Severity.INFO,
         evidence=(
-            f"{len(matches)} matching appearance(s) found, all dated on or after the stated posting "
-            f"date of {posted.isoformat()} (earliest {earliest[0].isoformat()}).{closeness}"
+            f"{len(matches)} page(s) showing a matching image found, all dated on or after the stated "
+            f"posting date of {posted.isoformat()} (the earliest dated {earliest[0].isoformat()}).{closeness}"
         ),
         plain_explanation=(
-            "Copies of this image exist elsewhere, but none is known from before this post's date, "
-            "which is consistent with this being where it first appeared."
+            "Copies of this image were found, but none on a page dated before this post's date. "
+            f"{_PAGE_DATE_LIMIT}"
         ),
-        what_to_check="Absence of an earlier appearance is not proof of originality; the index is not exhaustive.",
+        what_to_check="Absence of an earlier page is not proof of originality; the search is not exhaustive.",
     )
 
 
