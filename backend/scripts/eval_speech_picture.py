@@ -15,7 +15,9 @@ The method was fixed before any score was computed (the project's decision log):
             a bootstrap interval resampling sources.
   pipeline  The whole app on all 34 clips, Whisper base transcripts; each ground-truth line matched
             to the Whisper segment overlapping it most. Per-line and per-clip tables, held-out-side
-            clips first, then all clips.
+            clips first, then all clips. Drift: each line against the segment that transcribes it
+            (the most similar text, difflib ratio at least 0.5), start and end differences.
+            ``--tag`` keeps a re-run apart: its own cache folder (pipeline_<tag>) and results file.
 
 Run from the repo root: python backend/scripts/eval_speech_picture.py <step>
 """
@@ -27,7 +29,9 @@ import csv
 import json
 import math
 import random
+import re
 import sys
+from difflib import SequenceMatcher
 from pathlib import Path
 
 import numpy as np
@@ -203,12 +207,16 @@ def do_fit_and_heldout() -> None:
 
 
 # ------------------------------------------------------------------------------ whole pipeline
-def do_pipeline() -> None:
+def _pipeline_cache(tag: str) -> Path:
+    return CACHE / ("pipeline" + (f"_{tag}" if tag else ""))
+
+
+def do_pipeline(tag: str = "") -> None:
     """The app on every clip (no caption), then the line-level and clip-level tables."""
     from app.adapters.video_adapter import build_video_bundle
     from app.fusion.rules import audio_visual_mismatch_rule
 
-    cache = CACHE / "pipeline"
+    cache = _pipeline_cache(tag)
     cache.mkdir(parents=True, exist_ok=True)
     for cid, c in sorted(clips().items()):
         out = cache / f"{cid}.json"
@@ -222,15 +230,47 @@ def do_pipeline() -> None:
             "detail": bundle.extractor_detail,
             "segments": [s.model_dump() for s in bundle.transcript_segments]}, indent=1), encoding="utf-8")
         print(f"  {cid}: {flag.status.value}, {len(bundle.transcript_segments)} segments")
-    analyse_pipeline()
+    analyse_pipeline(tag)
 
 
-def analyse_pipeline() -> None:
+def _plain(text: str) -> str:
+    return " ".join(re.findall(r"[a-z0-9]+", text.lower()))
+
+
+def drift(runs: dict) -> dict:
+    """Each script line against the Whisper segment that transcribes it: how far apart they start and end."""
+    rows = []
+    for line in lines():
+        scored = [(SequenceMatcher(None, _plain(line["text"]), _plain(s["text"])).ratio(), s)
+                  for s in runs[line["clip_id"]]["segments"]]
+        ratio, seg = max(scored, key=lambda pair: pair[0]) if scored else (0.0, None)
+        row = {"clip_id": line["clip_id"], "line_index": int(line["line_index"]), "text": line["text"]}
+        if seg is None or ratio < 0.5:
+            rows.append({**row, "segment": None})
+            continue
+        rows.append({**row, "segment": seg["text"], "ratio": round(ratio, 3),
+                     "start_drift": round(abs(seg["start"] - float(line["start_s"])), 2),
+                     "end_drift": round(abs(seg["end"] - float(line["end_s"])), 2)})
+    found = [r for r in rows if r["segment"] is not None]
+    starts = sorted(r["start_drift"] for r in found)
+    return {"lines": len(rows), "no_transcribing_segment": len(rows) - len(found),
+            "start_over_1s": sum(r["start_drift"] > 1 for r in found),
+            "end_over_1s": sum(r["end_drift"] > 1 for r in found),
+            "either_over_1s": sum(r["start_drift"] > 1 or r["end_drift"] > 1 for r in found),
+            "start_over_2s": sum(r["start_drift"] > 2 for r in found),
+            "median_start_drift": starts[len(starts) // 2] if len(starts) % 2 else
+            round((starts[len(starts) // 2 - 1] + starts[len(starts) // 2]) / 2, 3),
+            "max_start_drift": starts[-1],
+            "over_1s": [r for r in found if r["start_drift"] > 1 or r["end_drift"] > 1],
+            "untranscribed": [r for r in rows if r["segment"] is None]}
+
+
+def analyse_pipeline(tag: str = "") -> None:
     from app.fusion.rules import SPEECH_PICTURE_THRESHOLD
 
     clip = clips()
     side_of_source = {p["source"]: p["side"] for p in csv.DictReader(open(PAIRS, encoding="utf-8"))}
-    runs = {cid: json.loads((CACHE / "pipeline" / f"{cid}.json").read_text(encoding="utf-8")) for cid in clip}
+    runs = {cid: json.loads((_pipeline_cache(tag) / f"{cid}.json").read_text(encoding="utf-8")) for cid in clip}
 
     def fired(seg):
         return seg["picture_similarity"] is not None and seg["picture_similarity"] < SPEECH_PICTURE_THRESHOLD
@@ -269,8 +309,10 @@ def analyse_pipeline() -> None:
                               "clip_level": per_clip(held_clips)},
            "all_clips": {"clips": len(clip), "lines": per_line(matched), "clip_level": per_clip(list(clip))},
            "no_speech_clips": {c: runs[c]["flag_status"] + ": " + runs[c]["flag_evidence"]
-                               for c in clip if clip[c]["has_speech"] == "no"}}
-    (OUT / "wp3_speech_picture_pipeline.json").write_text(json.dumps(res, indent=2), encoding="utf-8")
+                               for c in clip if clip[c]["has_speech"] == "no"},
+           "drift": drift(runs)}
+    name = f"wp5_speech_picture_pipeline_{tag}.json" if tag else "wp3_speech_picture_pipeline.json"
+    (OUT / name).write_text(json.dumps(res, indent=2), encoding="utf-8")
     for name in ("held_out_clips", "all_clips"):
         r = res[name]
         print(f"== {name} ({r['clips']} clips)")
@@ -281,14 +323,21 @@ def analyse_pipeline() -> None:
               f"matching clips with a false flag: {cl['with_a_false_flag']}/{cl['matching_clips']}")
     for c, v in res["no_speech_clips"].items():
         print(f"   {c}: {v}")
+    d = res["drift"]
+    print(f"drift over {d['lines']} lines: start > 1 s {d['start_over_1s']}, end > 1 s {d['end_over_1s']}, "
+          f"either {d['either_over_1s']}, start > 2 s {d['start_over_2s']}; median start "
+          f"{d['median_start_drift']} s, largest {d['max_start_drift']} s; untranscribed {d['no_transcribing_segment']}")
 
 
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("step", choices=["pairs", "scores", "fit", "pipeline", "analyse"])
+    parser.add_argument("--tag", default="", help="pipeline/analyse: keep a re-run in its own cache and file")
     args = parser.parse_args()
-    {"pairs": do_pairs, "scores": do_scores, "fit": do_fit_and_heldout, "pipeline": do_pipeline,
-     "analyse": analyse_pipeline}[args.step]()
+    if args.step in ("pipeline", "analyse"):
+        (do_pipeline if args.step == "pipeline" else analyse_pipeline)(args.tag)
+    else:
+        {"pairs": do_pairs, "scores": do_scores, "fit": do_fit_and_heldout}[args.step]()
 
 
 if __name__ == "__main__":

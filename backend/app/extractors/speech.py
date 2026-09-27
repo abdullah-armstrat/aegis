@@ -4,6 +4,10 @@ The model is read from Whisper's own cache folder, checked against the checksum 
 and not downloaded unless ``allow_model_downloads`` is set. It is loaded for one call and released afterwards, because the laptop
 cannot hold every model at once. Decoding is English on the CPU with Whisper's default settings.
 
+Each segment's start and end are its first word's start and its last word's end, from Whisper's
+word-level timestamps: Whisper's own segment times drift by several seconds after a long pause,
+so a line of speech would be compared with the picture at the wrong moment.
+
 A segment Whisper itself rates as probably not speech (its no-speech probability above 0.6,
 Whisper's own default threshold) is dropped, as is one with no words, so background noise alone
 comes back as "no speech" rather than as invented words. Never raises: a failure is a result with
@@ -75,14 +79,23 @@ def load_model(name: str):
     return whisper.load_model(source, device="cpu", download_root=str(WHISPER_CACHE))
 
 
+def _times(segment: dict) -> tuple[float, float]:
+    """A segment's start and end from its first and last word; Whisper's own times if it has no words."""
+    words = segment.get("words") or []
+    if words:
+        return float(words[0]["start"]), float(words[-1]["end"])
+    return float(segment["start"]), float(segment["end"])
+
+
 def run_model(model, audio: Path) -> list[Segment]:
     """Transcribe with the fixed decoding settings and keep only segments that are speech."""
-    out = model.transcribe(str(audio), language="en", fp16=False, verbose=None)
-    return [
-        Segment(round(float(s["start"]), 2), round(float(s["end"]), 2), s["text"].strip(), float(s["no_speech_prob"]))
-        for s in out.get("segments", [])
-        if s["text"].strip() and float(s["no_speech_prob"]) <= NO_SPEECH_PROB
-    ]
+    out = model.transcribe(str(audio), language="en", fp16=False, verbose=None, word_timestamps=True)
+    kept = []
+    for s in out.get("segments", []):
+        if s["text"].strip() and float(s["no_speech_prob"]) <= NO_SPEECH_PROB:
+            start, end = _times(s)
+            kept.append(Segment(round(start, 2), round(end, 2), s["text"].strip(), float(s["no_speech_prob"])))
+    return kept
 
 
 def transcribe(wav: Path, model_name: str) -> SpeechResult:

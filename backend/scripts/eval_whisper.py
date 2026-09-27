@@ -47,7 +47,7 @@ def edits(ref: list[str], hyp: list[str]) -> int:
     return prev[-1]
 
 
-def run(model_name: str) -> None:
+def run(model_name: str, out_name: str | None = None) -> None:
     import psutil
     from whisper.normalizers import EnglishTextNormalizer
 
@@ -86,7 +86,7 @@ def run(model_name: str) -> None:
            "peak_memory_mb": round(getattr(mem, "peak_wset", mem.rss) / 2**20, 1),
            "librispeech": libri, "dataset_e": e_rows}
     OUT.mkdir(exist_ok=True)
-    (OUT / f"wp3_whisper_{model_name}.json").write_text(json.dumps(out, indent=1), encoding="utf-8")
+    (OUT / (out_name or f"wp3_whisper_{model_name}.json")).write_text(json.dumps(out, indent=1), encoding="utf-8")
     for name, rows in (("LibriSpeech", libri), ("dataset E", e_rows)):
         wer = 100 * sum(r["edits"] for r in rows) / sum(r["ref_words"] for r in rows)
         print(f"{model_name} {name}: WER {wer:.2f}% over {len(rows)} items, "
@@ -130,9 +130,10 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("step", choices=["run", "compare"])
     parser.add_argument("--model", choices=["tiny", "base"])
+    parser.add_argument("--out", help="write the run to this file in results/ instead of wp3_whisper_<model>.json")
     args = parser.parse_args()
     if args.step == "run":
-        run(args.model)
+        run(args.model, args.out)
     else:
         compare()
 

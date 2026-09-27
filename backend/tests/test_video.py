@@ -184,3 +184,27 @@ def test_clip_stays_loaded_between_videos_and_whisper_is_loaded_for_each(tmp_pat
     clip = caption_match._clip.cache_info()
     assert (clip.misses, clip.currsize) == (1, 1)  # loaded by the first video, still loaded after both
     assert loads == [get_settings().whisper_model] * 2  # Whisper is loaded for each video
+
+
+def test_speech_times_come_from_the_first_and_last_word():
+    """Whisper's own segment times drift after a pause; its word times do not (ADR-040)."""
+    from app.extractors.speech import run_model
+
+    class FakeWhisper:
+        def transcribe(self, audio, **options):
+            self.options = options
+            return {"segments": [
+                {"start": 0.0, "end": 7.0, "text": " The barge approaches.", "no_speech_prob": 0.1,
+                 "words": [{"word": " The", "start": 1.02, "end": 1.2}, {"word": " approaches.", "start": 1.9, "end": 2.98}]},
+                {"start": 11.0, "end": 20.0, "text": " A tugboat pushes.", "no_speech_prob": 0.2, "words": []},
+                {"start": 20.0, "end": 22.0, "text": " hum", "no_speech_prob": 0.9,
+                 "words": [{"word": " hum", "start": 20.5, "end": 21.0}]},
+            ]}
+
+    model = FakeWhisper()
+    segments = run_model(model, Path("audio.wav"))
+    assert model.options["word_timestamps"] is True
+    assert [(s.start, s.end, s.text) for s in segments] == [
+        (1.02, 2.98, "The barge approaches."),  # from its words
+        (11.0, 20.0, "A tugboat pushes."),      # no words: Whisper's own times
+    ]                                           # the third is not speech (no-speech probability 0.9)
