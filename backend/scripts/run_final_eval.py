@@ -6,10 +6,13 @@ threshold is changed because of a result.
   matching-a        image matching on the 40 dataset A photos: match rate per transformation, hash
                     alone and with the keypoint stage, and false matches against every downloaded
                     VERITE image (ADR-051)
+  hard-pairs        20 pairs of different NASA photos of the same subject: wrong matches with and
+                    without the alignment check (ADR-056)
   date-check        the recycled-context date check on the A photos under seven posting-date
                     conditions (ADR-052)
   framing-f         emotional framing on the 99 SemEval texts of dataset F, as written and
                     lowercased (ADR-053)
+  framing-llm       the local LLM on the same 99 texts, next to the wording check (ADR-058)
   fault-injection   every extractor switched off, timed out or broken in turn (ADR-054)
   web-archive       the WP-4 web lookup replayed from saved page and archive answers (ADR-050)
 
@@ -175,6 +178,73 @@ def matching_a() -> None:
         print(f"false matches, {stage}: images {v['images']['k']}/{v['images']['n']}, pairs {v['pairs']['k']}/{v['pairs']['n']}")
 
 
+def hard_pairs() -> None:
+    """ADR-056: 20 pairs of different NASA photos of one subject, as their own index; every photo under
+    the 15 transformations, with the alignment check and with it replaced by acceptance."""
+    import tempfile
+    from unittest import mock
+
+    from PIL import Image
+
+    from app.extractors import reverse_image
+    from tests.eval.image_transforms import TRANSFORMS
+
+    with open(LABELS / "hard_pairs.csv", encoding="utf-8") as fh:
+        photos = list(csv.DictReader(fh))
+    folder = ROOT / "data" / "hard_pairs"
+    rows = []
+    with tempfile.TemporaryDirectory() as tmp:
+        entries = []
+        for p in photos:
+            try:
+                dated = date.fromisoformat(p["date_created"]).isoformat()
+            except ValueError:
+                dated = "1970-01-01"
+            entries.append({"id": f"{p['pair']}{p['side']}", "phash": p["phash"], "earliest_date": dated,
+                            "image": str(folder / p["file"]),
+                            "sources": [{"url": p["source_url"], "published_date": dated}]})
+        index = Path(tmp) / "hard_pairs_index.json"
+        index.write_text(json.dumps({"entries": entries}), encoding="utf-8")
+        entry_of = {e["sources"][0]["url"]: e["id"] for e in entries}
+        for n, p in enumerate(photos, 1):
+            own = f"{p['pair']}{p['side']}"
+            partner = f"{p['pair']}{'b' if p['side'] == 'a' else 'a'}"
+            with Image.open(folder / p["file"]) as img:
+                original = img.convert("RGB")
+            for name, transform in TRANSFORMS.items():
+                data = _png(transform(original))
+                for variant in ("without alignment", "with alignment"):
+                    production_settings(image_index_path=str(index))
+                    reverse_image.load_index.cache_clear()
+                    with mock.patch.object(reverse_image, "_aligned_distance", lambda *a: 0) \
+                            if variant == "without alignment" else mock.patch.object(reverse_image, "HASH_BITS", 64):
+                        result = reverse_image.find_local_matches(data)
+                    found = {entry_of[m.url] for m in result.matches}
+                    rows.append({"photo": own, "pair": p["pair"], "transform": name, "variant": variant,
+                                 "method": result.method, "own": own in found, "partner": partner in found,
+                                 "other": sorted(found - {own})})
+            print(f"  {n}/{len(photos)} {own}", flush=True)
+    production_settings()
+    reverse_image.load_index.cache_clear()
+    res = {"pairs": len(photos) // 2, "photos": len(photos), "queries_per_variant": len(photos) * len(TRANSFORMS)}
+    for variant in ("without alignment", "with alignment"):
+        rs = [r for r in rows if r["variant"] == variant]
+        res[variant] = {
+            "queries_with_another_photo": rate(sum(bool(r["other"]) for r in rs), len(rs)),
+            "pairs_with_a_partner_match": rate(len({r["pair"] for r in rs if r["partner"]}), len(photos) // 2),
+            "own_photo_found": rate(sum(r["own"] for r in rs), len(rs)),
+            "own_by_transformation": {t: sum(r["own"] for r in rs if r["transform"] == t) for t in TRANSFORMS},
+            "wrong_by_transformation": {t: sum(bool(r["other"]) for r in rs if r["transform"] == t) for t in TRANSFORMS},
+            "wrong_pairs": sorted({r["pair"] for r in rs if r["partner"]})}
+    res["rows"] = rows
+    write("wp6_hard_pairs.json", res)
+    for variant in ("without alignment", "with alignment"):
+        v = res[variant]
+        print(f"  {variant}: queries matching another photo {v['queries_with_another_photo']['k']}/"
+              f"{v['queries_with_another_photo']['n']}; pairs with a partner match {v['pairs_with_a_partner_match']['k']}/"
+              f"{v['pairs_with_a_partner_match']['n']}; own photo found {v['own_photo_found']['k']}/{v['own_photo_found']['n']}")
+
+
 # ------------------------------------------------------------------------------ Part B
 DATE_CONDITIONS = [  # (name, days from the index date or None, expected status, expected severity)
     ("365 days before", -365, "clear", "info"),
@@ -237,8 +307,8 @@ def date_check() -> None:
 
 
 # ------------------------------------------------------------------------------ Part C
-MARKER_KINDS = (("capitals", "ALL-CAPS ratio"), ("exclamation", "exclamation mark"),
-                ("urgency", "urgency/sensational"), ("group framing", "in-/out-group"))  # words each marker's text contains
+MARKER_KINDS = (("capitals", "words in capitals"), ("exclamation", "exclamation mark"),
+                ("urgency", "urgency list"), ("listed phrases", "listed phrases"))  # words each marker's text contains
 F_GROUPS = ["calm_honest", "calm_manipulative", "loud_honest", "loud_manipulative"]
 
 
@@ -296,6 +366,81 @@ def framing_f() -> None:
             print(f"     {g:<18} fired {fr['k']}/{fr['n']} {fr['ci']}  markers {v['markers_present'][g]}")
 
 
+FRAMING_LLM_PROMPT = """\
+Here is the text printed on an image shared on social media:
+
+\"\"\"{text}\"\"\"
+
+Does this text use any of these persuasion techniques?
+- Loaded language: words or phrases with strong emotional meaning, used to influence the reader.
+- Appeal to fear or prejudice: building support for an idea by raising fear, anxiety or prejudice.
+- Exaggeration or minimisation: making something seem bigger or smaller than it really is.
+
+Answer with a single JSON object and nothing else: {{"uses_technique": true}} or {{"uses_technique": false}}
+"""
+
+
+def framing_llm() -> None:
+    """ADR-058: the local LLM asked about the three techniques on each dataset F text, next to the
+    wording check. Pre-registered; nothing is changed because of the result."""
+    import httpx
+
+    from app.config import get_settings
+
+    production_settings()
+    settings = get_settings()
+    with open(ROOT / "data" / "F_captions" / "captions.csv", encoding="utf-8") as fh:
+        texts = {r["caption_id"]: r["text"] for r in csv.DictReader(fh)}
+    with open(LABELS / "F_harder_captions.csv", encoding="utf-8") as fh:
+        items = [{**r, "text": texts[r["caption_id"]]} for r in csv.DictReader(fh)]
+    rows = []
+    for n, r in enumerate(items, 1):
+        started = time.perf_counter()
+        answer, raw = None, None
+        try:
+            resp = httpx.post(f"{settings.ollama_host}/api/generate", timeout=180, json={
+                "model": settings.ollama_model, "prompt": FRAMING_LLM_PROMPT.format(text=r["text"]),
+                "stream": False, "format": "json", "options": {"temperature": 0, "seed": SEED}})
+            resp.raise_for_status()
+            raw = resp.json()["response"]
+            value = json.loads(raw).get("uses_technique")
+            if isinstance(value, bool):
+                answer = value
+            elif str(value).strip().lower() in ("true", "false"):
+                answer = str(value).strip().lower() == "true"
+        except (httpx.HTTPError, ValueError, KeyError, AttributeError) as exc:
+            raw = raw or type(exc).__name__
+        rows.append({"id": r["caption_id"], "group": r["group"], "manipulative": r["manipulative"] == "yes",
+                     "answer": answer, "raw": raw, "seconds": round(time.perf_counter() - started, 2),
+                     "status": "not_assessed" if answer is None else ("fired" if answer else "clear")})
+        if n % 10 == 0:
+            print(f"  {n}/{len(items)}", flush=True)
+    answered = [x for x in rows if x["answer"] is not None]
+    tp = sum(x["manipulative"] and x["answer"] for x in answered)
+    fp = sum(not x["manipulative"] and x["answer"] for x in answered)
+    fn = sum(x["manipulative"] and not x["answer"] for x in answered)
+    rng = random.Random(SEED)
+    draws = sorted(_f1([rng.choice(answered) for _ in answered]) for _ in range(2000)) if answered else [0.0] * 2000
+    words = json.loads((OUT / "wp6_framing_F.json").read_text(encoding="utf-8"))["as written"] \
+        if (OUT / "wp6_framing_F.json").exists() else None
+    res = {"model": settings.ollama_model, "texts": len(rows), "unreadable_answers": len(rows) - len(answered),
+           "tp": tp, "fp": fp, "fn": fn, "tn": len(answered) - tp - fp - fn,
+           "precision": rate(tp, tp + fp), "recall": rate(tp, tp + fn),
+           "f1": round(_f1(answered), 3), "f1_ci": [round(draws[49], 3), round(draws[1949], 3)],
+           "yes_rate": {g: rate(sum(bool(x["answer"]) for x in rows if x["group"] == g),
+                                sum(x["group"] == g for x in rows)) for g in F_GROUPS},
+           "mean_seconds": round(sum(x["seconds"] for x in rows) / len(rows), 2),
+           "wording_check": None if words is None else {k: words[k] for k in ("precision", "recall", "f1", "f1_ci",
+                                                                               "fire_rate")},
+           "rows": rows}
+    write("wp6_framing_llm.json", res)
+    print(f"  LLM: P {res['precision']['k']}/{res['precision']['n']} {res['precision']['ci']}  "
+          f"R {res['recall']['k']}/{res['recall']['n']} {res['recall']['ci']}  F1 {res['f1']} {res['f1_ci']}  "
+          f"unreadable {res['unreadable_answers']}  {res['mean_seconds']} s each")
+    for g in F_GROUPS:
+        print(f"     {g:<18} yes {res['yes_rate'][g]['k']}/{res['yes_rate'][g]['n']} {res['yes_rate'][g]['ci']}")
+
+
 # ------------------------------------------------------------------------------ Part D
 def fault_injection() -> None:
     """ADR-054: every extractor switched off, timed out or broken in turn."""
@@ -307,8 +452,38 @@ def fault_injection() -> None:
     print(f"  {s['passed']}/{s['faults']} faults passed; failed: {s['failed']}")
 
 
-STEPS = {"matching-a": matching_a, "date-check": date_check, "framing-f": framing_f,
-         "fault-injection": fault_injection}
+# ------------------------------------------------------------------------------ Part E
+WEB_RUNS = (("first live run (ADR-033)", "wp4_web_report_run1.json"),
+            ("fixed live run (ADR-034)", "wp4_web_report_run2.json"),
+            ("saved inputs, dating before ADR-043", "wp4_web_report_saved_before.json"),
+            ("saved inputs, current dating", "wp4_web_report_saved_after.json"))
+
+
+def web_archive() -> None:
+    """ADR-050: the WP-4 evaluation replayed from saved page and archive answers only."""
+    import eval_web_lookup
+
+    production_settings()  # no key: a Vision call is impossible, the cached responses are used
+    eval_web_lookup.dates_from_inputs()
+    runs = {}
+    for name, file in WEB_RUNS:
+        path = OUT / file
+        runs[name] = json.loads(path.read_text(encoding="utf-8")) if path.exists() else None
+    pages = json.loads((OUT / "wp4_page_dates_saved.json").read_text(encoding="utf-8"))
+    write("wp6_web_archive.json", {"runs": runs, "saved_inputs": {k: pages[k] for k in (
+        "pages", "page_fetch_failures", "page_status", "transitions")}})
+    for name, r in runs.items():
+        if r is None:
+            print(f"  {name}: not on this machine")
+            continue
+        a, v = r["A"], r["VERITE"]
+        print(f"  {name:<38} A found {a['found'][0]}/{a['found'][1]} dated {a['dated'][0]}/{a['dated'][1]} "
+              f"errors {a['dating_errors'][0]}/{a['dating_errors'][1]}  VERITE dated {v['dated'][0]}/{v['dated'][1]}  "
+              f"sources {r['date_sources']}")
+
+
+STEPS = {"matching-a": matching_a, "hard-pairs": hard_pairs, "date-check": date_check, "framing-f": framing_f, "framing-llm": framing_llm,
+         "fault-injection": fault_injection, "web-archive": web_archive}
 
 
 def main() -> None:

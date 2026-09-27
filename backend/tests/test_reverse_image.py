@@ -434,3 +434,18 @@ def test_keypoints_are_computed_again_only_when_the_index_or_an_image_changes(us
     reverse_image.index_keypoints.cache_clear()
     find_web_matches(shot)
     assert computed == [1, 1, 1]
+
+
+def test_a_different_picture_sharing_a_region_is_not_taken_for_a_copy(use_index, tmp_path):
+    """Keypoints agree on what two pictures share (a building, here a patch), so a keypoint match is
+    confirmed by aligning the upload onto the candidate: over the region it covers, a different
+    picture fails the hash threshold where a framed copy passes (ADR-056)."""
+    original = _textured(1)
+    other = _textured(9)
+    other.paste(original.crop((40, 30, 280, 210)), (40, 30))  # the shared "building"
+    use_index([_entry_with_image(tmp_path, "orig", original)])
+    query = orb_features(screenshot(other).convert("RGB"))
+    known = orb_features(original.convert("RGB"))
+    assert orb_inliers(query, known) >= get_settings().keypoint_min_inliers  # keypoints alone would match
+    assert find_web_matches(_bytes(screenshot(other))).status == FlagStatus.CLEAR
+    assert find_web_matches(_bytes(screenshot(original))).method == "keypoints"  # a real copy still matches

@@ -287,24 +287,43 @@ def index_keypoints(index_path_str: str, fingerprint: str) -> dict[str, tuple]:
     return {i: (arrays[f"pts_{n}"], arrays[f"desc_{n}"]) for n, i in enumerate(features)}
 
 
+def _aligned_distance(query, entry: IndexEntry, homography) -> int:
+    """The copy aligned onto the entry's own image: their hash distance over the region it covers."""
+    from PIL import Image
+
+    from app.extractors.keypoint_match import aligned_distance
+    from app.extractors.phash import HASH_BITS
+
+    path = _entry_image(entry)
+    if path is None:
+        return HASH_BITS
+    with Image.open(path) as img:
+        return aligned_distance(query, img.convert("RGB"), homography)
+
+
 def _keypoint_matches(image_bytes: bytes, index, min_inliers: int) -> list[tuple[int, IndexEntry]]:
     """Entries whose own image lines up with the upload by keypoints, best first.
 
-    An entry without an available image cannot be matched this way; only its hash is used.
+    A keypoint match is kept only if, aligned onto the entry's image, the upload is also within the
+    hash threshold over the region it covers (ADR-056), so another photo of the same subject is not
+    taken for a copy. An entry without an available image cannot be matched this way.
     """
     from PIL import Image
 
-    from app.extractors.keypoint_match import orb_features, orb_inliers
+    from app.extractors.keypoint_match import orb_features, orb_homography
 
     index_path = _index_path()
     known = index_keypoints(str(index_path), keypoints_fingerprint(index_path, index))
     with Image.open(BytesIO(image_bytes)) as img:
-        query = orb_features(img.convert("RGB"))
+        query_image = img.convert("RGB")
+    query = orb_features(query_image)
+    threshold = get_settings().phash_match_threshold
     found = []
     for entry in index:
         if entry.id not in known:
             continue
-        inliers = orb_inliers(query, known[entry.id])
-        if inliers >= min_inliers:
+        inliers, homography = orb_homography(query, known[entry.id])
+        if inliers >= min_inliers and homography is not None \
+                and _aligned_distance(query_image, entry, homography) <= threshold:
             found.append((inliers, entry))
     return sorted(found, key=lambda pair: (-pair[0], pair[1].id))
