@@ -66,6 +66,7 @@ const results = {
   reading_level: null,
 };
 const packSteps = [];
+const screenShots = [];
 
 function ffmpeg(args) {
   execFileSync("ffmpeg", ["-v", "error", "-y", ...args]);
@@ -91,7 +92,12 @@ function materials() {
 
 // --- measures taken on a screen ------------------------------------------------------------------
 
-async function measureScreen(page, name) {
+async function measureScreen(page, name, caption) {
+  // The whole screen, top to bottom at 1366 wide, for the heuristic review; taken first, so a
+  // passing state such as loading is caught as it is measured.
+  const file = `S${String(screenShots.length + 1).padStart(2, "0")}.png`;
+  await page.screenshot({ path: join(PACK, file), fullPage: true });
+  screenShots.push({ file, name, caption });
   const axe = await new AxeBuilder({ page })
     .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"])
     .analyze();
@@ -388,11 +394,12 @@ test("every screen in section 4: accessibility, targets, text size and wording",
   test.setTimeout(1_800_000);
   await page.setViewportSize(SIZES.desktop);
   await freshStart(page);
-  await measureScreen(page, "upload form");
+  await measureScreen(page, "upload form", "The upload form, as it first appears.");
   await page.setInputFiles('input[type="file"]', PHOTO);
   await captionBox(page).fill(PHOTO_CAPTION);
   await expect(page.getByText(/The image will be sent to Google/)).toBeVisible();
-  await measureScreen(page, "upload form, photo chosen (with the live-lookup notice)");
+  await measureScreen(page, "upload form, photo chosen (with the live-lookup notice)",
+    "The form with a photo chosen and a caption pasted: the web-search option and its notice appear.");
 
   await page.route("**/analyze", async (route) => {
     await new Promise((r) => setTimeout(r, 4000));
@@ -400,35 +407,38 @@ test("every screen in section 4: accessibility, targets, text size and wording",
   });
   await runButton(page).click();
   await expect(page.getByRole("button", { name: /Running audit/ })).toBeVisible();
-  await measureScreen(page, "loading");
+  await measureScreen(page, "loading", 'Loading: after "Run audit" is clicked, while the result is prepared.');
   await expect(page.getByText("Audit result")).toBeVisible({ timeout: 180_000 });
   await page.unroute("**/analyze");
-  await measureScreen(page, "image scorecard");
+  await measureScreen(page, "image scorecard", "The result for an image post.");
   await page.locator("article", { hasText: "Flag raised" }).first().locator("summary").click();
-  await measureScreen(page, "an opened flag (supporting evidence shown)");
+  await measureScreen(page, "an opened flag (supporting evidence shown)",
+    'A finding opened: "Supporting evidence" shown under the flag that was raised.');
 
   await submit(page, files.textPost, TEXT_POST_CAPTION);
-  await measureScreen(page, "a \"Couldn't check\" result");
+  await measureScreen(page, "a \"Couldn't check\" result",
+    "A result with a \"Couldn't check\" finding (the post is a screenshot of a text post).");
 
   await submit(page, CLIP, CLIP_CAPTION);
-  await measureScreen(page, "video scorecard");
+  await measureScreen(page, "video scorecard", "The result for a video post.");
 
   await freshStart(page);
   await page.setInputFiles('input[type="file"]', files.note);
-  await measureScreen(page, "error: wrong file type (a text file chosen)");
+  await measureScreen(page, "error: wrong file type (a text file chosen)",
+    "A text file chosen instead of a picture or video: what the page shows then.");
 
   await freshStart(page);
   await page.setInputFiles('input[type="file"]', files.longClip);
   await runButton(page).click();
   await expect(page.getByText(/Audit could not run/)).toBeVisible({ timeout: 60_000 });
-  await measureScreen(page, "error: video too long");
+  await measureScreen(page, "error: video too long", 'A 65-second video after "Run audit": the message shown.');
 
   await freshStart(page);
   await page.setInputFiles('input[type="file"]', PHOTO);
   await page.route("**/analyze", (route) => route.abort());
   await runButton(page).click();
   await expect(page.getByText(/Audit could not run/)).toBeVisible();
-  await measureScreen(page, "error: backend down");
+  await measureScreen(page, "error: backend down", 'The server cannot be reached, after "Run audit": the message shown.');
   await page.unroute("**/analyze");
 
   // Interface wording in the source, and the backend's own lines (reading level, verdict words).
@@ -457,7 +467,8 @@ test.afterAll(() => {
   // The walkthrough pack: captions, a page to view it, and the empty recording sheet.
   const csv = (v) => `"${String(v).replace(/"/g, '""')}"`;
   writeFileSync(join(PACK, "captions.csv"),
-    ["task,step,file,caption", ...packSteps.map((s) => [s.task, s.step, s.file, csv(s.caption)].join(","))].join("\n") + "\n");
+    ["task,step,file,caption", ...packSteps.map((s) => [s.task, s.step, s.file, csv(s.caption)].join(",")),
+      ...screenShots.map((s, i) => ["screens", i + 1, s.file, csv(`${s.name}: ${s.caption}`)].join(","))].join("\n") + "\n");
   const titles = Object.fromEntries(Object.values(tasks(files)).map((t) => [t.id, t.title]));
   const html = ["<!doctype html><meta charset='utf-8'><title>Walkthrough, round " + ROUND + "</title>",
     "<style>body{font:16px/1.5 system-ui,sans-serif;max-width:1400px;margin:24px auto;padding:0 16px}",
@@ -469,6 +480,12 @@ test.afterAll(() => {
       html.push(`<figure><figcaption>${id}-${s.step}. ${s.caption.replace(/</g, "&lt;")}</figcaption><img src="${s.file}" alt=""></figure>`);
     }
   }
+  html.push("<h2>Screens for the heuristic review</h2><p>Every screen in section 4 of the review plan, "
+    + "whole page at 1366 wide, as the automated measures saw it.</p>");
+  screenShots.forEach((s, i) => {
+    html.push(`<figure><figcaption>S${i + 1}. ${s.name}: ${s.caption.replace(/</g, "&lt;")}</figcaption>`
+      + `<img src="${s.file}" alt=""></figure>`);
+  });
   writeFileSync(join(PACK, "index.html"), html.join("\n"));
   const sheet = join(PACK, `round_${ROUND}.csv`);
   if (!existsSync(sheet)) writeFileSync(sheet, "id,method,where,check,problem,severity\n");
