@@ -22,7 +22,9 @@ function countSentence(flags) {
   const checks = `${word(flags.length).replace(/^\w/, (c) => c.toUpperCase())} check${
     flags.length === 1 ? "" : "s"
   } run.`;
-  return parts.length ? `${checks} ${parts.join(", ")}.` : checks;
+  // Each part is a new sentence after "N checks run.", so it starts with a capital.
+  const rest = parts.join(", ").replace(/^\w/, (c) => c.toUpperCase());
+  return parts.length ? `${checks} ${rest}.` : checks;
 }
 
 // The video under review: the player, and a strip of the keyframes Aegis looked at, each with
@@ -41,7 +43,7 @@ function VideoReview({ src, keyframes, duration, playerRef, onSeek }) {
           <div className="font-mono text-[10px] uppercase tracking-[0.14em] text-muted">
             Keyframes checked ({keyframes.length})
           </div>
-          <div className="mt-2 flex gap-2 overflow-x-auto pb-1">
+          <div className="mt-2 flex flex-wrap gap-2">
             {keyframes.map((k) => (
               <button
                 key={k.timestamp}

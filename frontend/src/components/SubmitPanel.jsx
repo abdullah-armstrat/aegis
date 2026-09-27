@@ -64,7 +64,14 @@ export default function SubmitPanel({ onAnalyze, loading }) {
             style={{ borderColor: dragging ? "#161616" : "#C9C9C9" }}
           >
             {preview && video ? (
-              <video src={preview} muted className="max-h-full max-w-full object-contain" />
+              // "#t=0.1" and preload make the browser draw a frame instead of an empty box.
+              <video
+                src={`${preview}#t=0.1`}
+                preload="metadata"
+                muted
+                playsInline
+                className="max-h-full max-w-full object-contain"
+              />
             ) : preview ? (
               <img src={preview} alt="preview" className="max-h-full max-w-full object-contain" />
             ) : (

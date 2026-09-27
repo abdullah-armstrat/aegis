@@ -2,3 +2,5 @@ node_modules/
 dist/
 .vite/
 .env
+test-results/
+playwright-report/
