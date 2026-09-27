@@ -2,8 +2,8 @@
 
 Describes what an image actually shows, so the fusion core can compare that description with
 the user's caption (the caption↔scene-mismatch check). Uses BLIP-base via ``transformers``,
-loaded lazily and memoised so import stays cheap and the ~1GB model downloads only on first
-use. Measured on the development laptop on 2026-05-31: first load 118.0s (including the
+loaded lazily and memoised so import stays cheap. It is read from the local Hugging Face cache
+only; ``allow_model_downloads`` lets a missing copy be downloaded. Measured on the development laptop on 2026-05-31: first load 118.0s (including the
 one-time model download), then warm captioning ~1.6s/image on CPU — well under the pre-set
 20s/image threshold, so it runs locally rather than on a hosted service.
 
@@ -35,11 +35,22 @@ class CaptionResult:
 
 @lru_cache(maxsize=1)
 def _get_model():
-    """Lazily build and memoise the BLIP processor+model (CPU)."""
+    """Lazily build and memoise the BLIP processor+model (CPU), from local files unless downloads are allowed."""
     from transformers import BlipForConditionalGeneration, BlipProcessor
 
-    processor = BlipProcessor.from_pretrained(_MODEL_NAME)
-    model = BlipForConditionalGeneration.from_pretrained(_MODEL_NAME)
+    from app.config import get_settings
+
+    local_only = not get_settings().allow_model_downloads
+    if local_only:
+        # The cached folder itself, not the Hub name: given a name, transformers asks the Hub about
+        # a safetensors conversion even with local_files_only set.
+        from huggingface_hub import snapshot_download
+
+        source = snapshot_download(_MODEL_NAME, local_files_only=True)
+    else:
+        source = _MODEL_NAME
+    processor = BlipProcessor.from_pretrained(source, local_files_only=local_only)
+    model = BlipForConditionalGeneration.from_pretrained(source, local_files_only=local_only)
     model.eval()
     return processor, model
 

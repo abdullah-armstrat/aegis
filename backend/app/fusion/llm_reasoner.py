@@ -48,6 +48,11 @@ Answer with a single JSON object, no other text:
 """
 
 _TIMEOUT_SECONDS = 30.0
+# Loading the model from disk into memory is the slow part of a first call, so at start-up the
+# server asks Ollama to load it (an empty prompt loads the model without generating anything) and
+# to keep it loaded for a while. The warm-up may wait longer than a request would.
+_WARM_UP_TIMEOUT_SECONDS = 180.0
+_WARM_UP_KEEP_ALIVE = "30m"
 
 
 @dataclass
@@ -237,6 +242,27 @@ def _parse_payload(payload: dict) -> ReasonerVerdict:
     near-miss key if the exact one is absent.
     """
     return _parse_payload_traced(payload)[0]
+
+
+def warm_up() -> str:
+    """Load the model into Ollama's memory before the first request needs it.
+
+    Returns a one-line status for /health. Never raises: if the server is not running, the first
+    request will find that out and its check is reported as NOT_ASSESSED, as before.
+    """
+    settings = get_settings()
+    started = perf_counter()
+    try:
+        resp = httpx.post(
+            f"{settings.ollama_host}/api/generate",
+            json={"model": settings.ollama_model, "prompt": "", "stream": False,
+                  "keep_alive": _WARM_UP_KEEP_ALIVE},
+            timeout=_WARM_UP_TIMEOUT_SECONDS,
+        )
+        resp.raise_for_status()
+    except httpx.HTTPError as exc:
+        return f"not loaded: {type(exc).__name__}"
+    return f"loaded in {perf_counter() - started:.1f} s"
 
 
 def reason_over_text(

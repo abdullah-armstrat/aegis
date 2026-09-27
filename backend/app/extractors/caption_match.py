@@ -11,9 +11,9 @@ Two scores, each the cosine similarity of two unit-length vectors:
 Word overlap cannot see that "a crowd marching" and "protesters on the street" describe the same
 thing; both scores can, because they compare meaning rather than spelling.
 
-Weights are never downloaded here. CLIP's checkpoint must already be in its cache folder with
-the checksum OpenAI publishes, and spaCy's model must be installed as a package; if either is
-missing the result is NOT_ASSESSED. CLIP's text encoder reads at most 77 tokens, so longer text
+Weights are not downloaded unless ``allow_model_downloads`` is set. By default CLIP's checkpoint
+must already be in its cache folder with the checksum OpenAI publishes, and spaCy's model must be
+installed as a package; if either is missing the result is NOT_ASSESSED. CLIP's text encoder reads at most 77 tokens, so longer text
 is cut to fit and the result records that it was.
 """
 
@@ -72,10 +72,21 @@ def clip_checkpoint(arch: str) -> Path:
 
 @lru_cache(maxsize=2)
 def _clip(arch: str):
-    """Load CLIP from the verified local file (a file path never triggers a download)."""
+    """Load CLIP from the verified local file (a file path never triggers a download).
+
+    Only when ``allow_model_downloads`` is set does a missing file come from OpenAI's server.
+    """
     import clip
 
-    model, preprocess = clip.load(str(clip_checkpoint(arch)), device="cpu")
+    from app.config import get_settings
+
+    try:
+        source = str(clip_checkpoint(arch))
+    except FileNotFoundError:
+        if not get_settings().allow_model_downloads:
+            raise
+        source = arch  # a model name makes the clip package download it into CLIP_CACHE
+    model, preprocess = clip.load(source, device="cpu", download_root=str(CLIP_CACHE))
     model.eval()
     return model, preprocess
 

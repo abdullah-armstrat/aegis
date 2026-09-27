@@ -13,7 +13,6 @@ const TYPE_LABELS = {
   recycled_context: "Recycled context",
   emotional_framing: "Emotional framing",
   audio_visual_mismatch: "Speech ↔ picture match",
-  ai_generation_hint: "AI-generation hint",
 };
 
 // Seconds as m:ss, the way the backend's evidence cites moments.

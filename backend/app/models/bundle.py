@@ -13,13 +13,27 @@ from __future__ import annotations
 
 from enum import Enum
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 
-# Version of the Evidence Bundle / Scorecard contract. The bundle is the one
-# structure the whole system pivots on, and it will grow when the video path lands
-# (temporal/transcript fields). Stamping a version lets the eval harness and cached
-# fixtures tell which shape they are dealing with later. Bump on any breaking change.
-SCHEMA_VERSION = "2.0"
+# Version of the Evidence Bundle / Scorecard contract. The bundle is the one structure the whole
+# system pivots on. Stamping a version lets a reader tell which shape it holds, and a bundle or
+# scorecard with any other version is refused when it is read (see ``read_bundle``). Bump on any
+# breaking change. 2.1: the never-produced AI-generation hint was removed from the flag types and
+# the bundle.
+SCHEMA_VERSION = "2.1"
+
+
+class SchemaVersionError(ValueError):
+    """A bundle or scorecard was written with a different version of the contract."""
+
+
+def _check_version(value: str, what: str) -> str:
+    if value != SCHEMA_VERSION:
+        raise SchemaVersionError(
+            f"This {what} has schema version {value!r}, but this version of Aegis reads version "
+            f"{SCHEMA_VERSION!r} only. Create it again with the current version."
+        )
+    return value
 
 
 # --------------------------------------------------------------------------- enums
@@ -48,7 +62,6 @@ class FlagType(str, Enum):
     CAPTION_CONTENT_MISMATCH = "caption_content_mismatch"
     RECYCLED_CONTEXT = "recycled_context"
     EMOTIONAL_FRAMING = "emotional_framing"
-    AI_GENERATION_HINT = "ai_generation_hint"
 
 
 class FlagStatus(str, Enum):
@@ -167,13 +180,6 @@ class TranscriptSegment(BaseModel):
     best_frame: float | None = Field(default=None, description="The frame that scored highest.")
 
 
-class AiGenHint(BaseModel):
-    """An optional, explicitly weak AI-generation signal — never conclusive."""
-
-    indicative: bool
-    confidence: float = Field(description="Weak signal strength in [0, 1]; treat with caution.")
-
-
 class Meta(BaseModel):
     """Provenance for the bundle."""
 
@@ -220,7 +226,6 @@ class EvidenceBundle(BaseModel):
     keyframes: list[Keyframe] = Field(default_factory=list, description="Frames taken from the video.")
     web_matches: list[WebMatch] = Field(default_factory=list)
     caption_match: CaptionMatch | None = None
-    ai_gen_hint: AiGenHint | None = None
     extractor_status: dict[str, FlagStatus] = Field(
         default_factory=dict,
         description=(
@@ -234,6 +239,11 @@ class EvidenceBundle(BaseModel):
         description="Why an extractor produced nothing, when it did not (e.g. 'The video has no audio track.').",
     )
     meta: Meta
+
+    @field_validator("schema_version")
+    @classmethod
+    def _same_version(cls, value: str) -> str:
+        return _check_version(value, "evidence bundle")
 
 
 # ------------------------------------------------------------------- scorecard side
@@ -292,3 +302,34 @@ class Scorecard(BaseModel):
     source_ref: str | None = None
     duration_s: float | None = None
     keyframes: list[KeyframeView] = Field(default_factory=list)
+
+    @field_validator("schema_version")
+    @classmethod
+    def _same_version(cls, value: str) -> str:
+        return _check_version(value, "scorecard")
+
+
+def _read(model, raw: str | bytes | dict, what: str):
+    """Validate stored JSON as ``model``, refusing it first if its version is missing or different."""
+    import json
+
+    data = json.loads(raw) if isinstance(raw, (str, bytes)) else raw
+    if not isinstance(data, dict):
+        raise SchemaVersionError(f"This {what} is not a JSON object.")
+    if "schema_version" not in data:
+        raise SchemaVersionError(
+            f"This {what} carries no schema version, so its shape is unknown; this version of Aegis "
+            f"reads version {SCHEMA_VERSION!r} only."
+        )
+    _check_version(data["schema_version"], what)
+    return model.model_validate(data)
+
+
+def read_bundle(raw: str | bytes | dict) -> EvidenceBundle:
+    """Read a stored evidence bundle. Raises SchemaVersionError for a missing or different version."""
+    return _read(EvidenceBundle, raw, "evidence bundle")
+
+
+def read_scorecard(raw: str | bytes | dict) -> Scorecard:
+    """Read a stored scorecard. Raises SchemaVersionError for a missing or different version."""
+    return _read(Scorecard, raw, "scorecard")

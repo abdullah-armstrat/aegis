@@ -2,7 +2,6 @@
 
 from app.models.bundle import (
     SCHEMA_VERSION,
-    AiGenHint,
     CaptionMatch,
     EvidenceBundle,
     Flag,
@@ -12,16 +11,18 @@ from app.models.bundle import (
     KeyframeView,
     Meta,
     Modality,
+    SchemaVersionError,
     Scorecard,
     SceneDescription,
     Severity,
     TranscriptSegment,
     WebMatch,
+    read_bundle,
+    read_scorecard,
 )
 
 __all__ = [
     "SCHEMA_VERSION",
-    "AiGenHint",
     "CaptionMatch",
     "EvidenceBundle",
     "Flag",
@@ -31,9 +32,12 @@ __all__ = [
     "KeyframeView",
     "Meta",
     "Modality",
+    "SchemaVersionError",
     "Scorecard",
     "SceneDescription",
     "Severity",
     "TranscriptSegment",
     "WebMatch",
+    "read_bundle",
+    "read_scorecard",
 ]

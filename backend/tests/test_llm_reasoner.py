@@ -183,3 +183,44 @@ def test_record_calls_captures_a_failed_call_and_restores_state(monkeypatch, tmp
     assert llm_reasoner._probe is None
     assert llm_reasoner._bypass_cache is False
     get_settings.cache_clear()
+
+
+def test_warm_up_asks_ollama_to_load_the_model_and_never_raises(monkeypatch):
+    import httpx
+
+    sent = []
+
+    def fake_post(url, json, timeout):
+        sent.append((url, json, timeout))
+        return httpx.Response(200, json={"done": True, "done_reason": "load"},
+                              request=httpx.Request("POST", url))
+
+    monkeypatch.setattr(llm_reasoner.httpx, "post", fake_post)
+    assert llm_reasoner.warm_up().startswith("loaded in ")
+    url, body, timeout = sent[0]
+    assert url.endswith("/api/generate") and body["prompt"] == "" and body["model"] == get_settings().ollama_model
+    assert timeout > llm_reasoner._TIMEOUT_SECONDS
+
+    def refused(url, json, timeout):
+        raise httpx.ConnectError("refused")
+
+    monkeypatch.setattr(llm_reasoner.httpx, "post", refused)
+    assert llm_reasoner.warm_up() == "not loaded: ConnectError"
+
+
+def test_the_server_warms_the_llm_at_start_up_only_when_it_is_on(monkeypatch):
+    from fastapi.testclient import TestClient
+
+    from app import main
+
+    calls = []
+    monkeypatch.setattr(llm_reasoner, "warm_up", lambda: calls.append(1) or "loaded in 0.1 s")
+    for on, expected in (("false", []), ("true", [1])):
+        calls.clear()
+        monkeypatch.setenv("AEGIS_USE_LLM", on)
+        get_settings.cache_clear()
+        with TestClient(main.app) as client:
+            assert calls == expected
+            warm = client.get("/health").json()["config"]["llm_warm_up"]
+            assert warm == ("loaded in 0.1 s" if expected else None)
+    get_settings.cache_clear()

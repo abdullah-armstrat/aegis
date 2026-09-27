@@ -97,6 +97,26 @@ def _predict(example: dict, use_llm: bool) -> dict[str, str]:
     return predicted
 
 
+def _caption_note() -> str:
+    """What caption_content_mismatch reads in this run, for the configured method."""
+    from app.config import get_settings
+
+    method = get_settings().caption_match_method
+    if method == "overlap":
+        return ("caption_content_mismatch (word overlap) compares each caption with the example's "
+                "injected scene description (inject_scene), which stands in for the BLIP captioner's "
+                "output so the rule is scored on controlled text.")
+    if method == "meaning":
+        return ("caption_content_mismatch (meaning) reads the injected scene description (inject_scene) "
+                "for its text score; its picture score sees the example's picture, the same blank "
+                "image for every example.")
+    if method == "image":
+        return ("caption_content_mismatch (picture vs caption) compares each caption with the example's "
+                "picture, the same blank image for every example, so this run tests the wiring, not "
+                "accuracy; accuracy comes from the VERITE evaluations.")
+    return "caption_content_mismatch is switched off, so it is reported as not assessed."
+
+
 def evaluate(use_llm: bool):
     """Run every example for one configuration; return (EvalReport, per-example records)."""
     examples = _load_examples()
@@ -170,10 +190,7 @@ def main() -> None:
         else [False, True]
     )
 
-    print(
-        "Note: caption_content_mismatch is scored at the RULE level using controlled "
-        "scene descriptions (inject_scene); the real captioner is not yet integrated."
-    )
+    print(f"Note: {_caption_note()}")
     out = {"reports": [], "examples": None}
     for use_llm in configs:
         report, records = evaluate(use_llm=use_llm)

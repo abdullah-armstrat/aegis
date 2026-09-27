@@ -1,7 +1,7 @@
 """Speech: transcribe a WAV with openai-whisper into segments with start and end times.
 
 The model is read from Whisper's own cache folder, checked against the checksum OpenAI publishes,
-and never downloaded here. It is loaded for one call and released afterwards, because the laptop
+and not downloaded unless ``allow_model_downloads`` is set. It is loaded for one call and released afterwards, because the laptop
 cannot hold every model at once. Decoding is English on the CPU with Whisper's default settings.
 
 A segment Whisper itself rates as probably not speech (its no-speech probability above 0.6,
@@ -58,10 +58,21 @@ def whisper_checkpoint(name: str) -> Path:
 
 
 def load_model(name: str):
-    """A Whisper model from the verified local file (a file path never triggers a download)."""
+    """A Whisper model from the verified local file (a file path never triggers a download).
+
+    Only when ``allow_model_downloads`` is set does a missing file come from OpenAI's server.
+    """
     import whisper
 
-    return whisper.load_model(str(whisper_checkpoint(name)), device="cpu")
+    from app.config import get_settings
+
+    try:
+        source = str(whisper_checkpoint(name))
+    except FileNotFoundError:
+        if not get_settings().allow_model_downloads:
+            raise
+        source = name  # a model name makes the whisper package download it into WHISPER_CACHE
+    return whisper.load_model(source, device="cpu", download_root=str(WHISPER_CACHE))
 
 
 def run_model(model, audio: Path) -> list[Segment]:

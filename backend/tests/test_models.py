@@ -4,6 +4,11 @@ These lock the shape that everything downstream depends on and assert the
 'explain, don't verdict' rule by construction — there is no trust-score field.
 """
 
+import json
+
+import pytest
+from pydantic import ValidationError
+
 from app.models import (
     SCHEMA_VERSION,
     EvidenceBundle,
@@ -12,10 +17,13 @@ from app.models import (
     FlagType,
     Meta,
     Modality,
+    SchemaVersionError,
     Scorecard,
     SceneDescription,
     Severity,
     WebMatch,
+    read_bundle,
+    read_scorecard,
 )
 
 
@@ -91,3 +99,42 @@ def test_scorecard_has_no_verdict_field():
     assert card.flags == []
     assert card.schema_version == SCHEMA_VERSION
     assert "verdict" not in Scorecard.model_fields
+
+
+def test_no_flag_type_or_field_is_declared_without_being_produced():
+    """The AI-generation hint was declared but never produced, so it was removed."""
+    assert "ai_generation_hint" not in {t.value for t in FlagType}
+    assert "ai_gen_hint" not in EvidenceBundle.model_fields
+
+
+def test_a_stored_bundle_or_scorecard_of_the_current_version_is_read():
+    bundle = EvidenceBundle(caption="x", meta=Meta(modality=Modality.IMAGE))
+    assert read_bundle(bundle.model_dump_json()) == bundle
+    card = Scorecard(modality=Modality.IMAGE)
+    assert read_scorecard(card.model_dump()) == card
+
+
+@pytest.mark.parametrize("reader, model, what", [
+    ("bundle", EvidenceBundle, "evidence bundle"),
+    ("scorecard", Scorecard, "scorecard"),
+])
+def test_a_different_schema_version_is_refused_with_a_clear_error(reader, model, what):
+    read = read_bundle if reader == "bundle" else read_scorecard
+    stored = (EvidenceBundle(meta=Meta(modality=Modality.IMAGE)) if reader == "bundle"
+              else Scorecard(modality=Modality.IMAGE)).model_dump()
+    stored["schema_version"] = "1.0"
+    with pytest.raises(SchemaVersionError) as refused:
+        read(json.dumps(stored))
+    message = str(refused.value)
+    assert f"This {what} has schema version '1.0'" in message
+    assert f"reads version '{SCHEMA_VERSION}' only" in message
+    # Validating the model directly refuses it too, with the same reason.
+    with pytest.raises(ValidationError, match="has schema version '1.0'"):
+        model.model_validate(stored)
+
+
+def test_a_stored_bundle_without_a_version_is_refused():
+    stored = EvidenceBundle(meta=Meta(modality=Modality.IMAGE)).model_dump()
+    del stored["schema_version"]
+    with pytest.raises(SchemaVersionError, match="carries no schema version"):
+        read_bundle(stored)

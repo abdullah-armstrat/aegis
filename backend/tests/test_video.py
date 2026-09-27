@@ -21,7 +21,7 @@ from app.extractors.video import (
     sample_keyframes,
 )
 from app.fusion.scorecard import build_scorecard
-from app.models import FlagStatus, FlagType, Modality
+from app.models import SCHEMA_VERSION, FlagStatus, FlagType, Modality
 
 client = TestClient(main.app)
 
@@ -151,7 +151,7 @@ def test_api_returns_a_video_scorecard(tmp_path):
     assert resp.status_code == 200
     body = resp.json()
     assert body["modality"] == "video"
-    assert body["schema_version"] == "2.0"
+    assert body["schema_version"] == SCHEMA_VERSION
     assert len(body["keyframes"]) == 2
     assert {f["type"] for f in body["flags"]} >= {"caption_content_mismatch", "recycled_context", "emotional_framing"}
 

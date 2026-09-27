@@ -36,6 +36,10 @@ class Settings(BaseSettings):
     # Where live web results are cached, by the image's SHA-256. Empty => data/live_cache/.
     live_cache_dir: str = ""
     use_llm: bool = False              # rules-only fusion until the LLM is wired in
+    # Models load from files already on this machine only. True lets a missing model be downloaded
+    # (CLIP and Whisper from OpenAI's server, BLIP from the Hugging Face Hub); the default mode
+    # never opens a network connection.
+    allow_model_downloads: bool = False
     use_captioner: bool = True         # BLIP scene captioning, local on CPU; false skips it
     # How the caption is compared with the picture. "image": CLIP similarity between the picture
     # and the caption; the flag fires when it is low. "meaning": that, and spaCy similarity

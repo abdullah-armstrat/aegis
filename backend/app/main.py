@@ -8,7 +8,9 @@ never a trust verdict.
 
 from __future__ import annotations
 
+import logging
 import re
+from contextlib import asynccontextmanager
 from datetime import date, timedelta
 
 from fastapi import FastAPI, File, Form, HTTPException, UploadFile
@@ -48,6 +50,24 @@ def _posted_date_error(value: str) -> str | None:
         return "posted_date cannot be in the future."
     return None
 
+_log = logging.getLogger("aegis")
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    """When the LLM is switched on, load it before the server takes requests, so the first request
+    does not spend its timeout waiting for the model to load."""
+    app.state.llm_warm_up = None
+    if get_settings().use_llm:
+        from starlette.concurrency import run_in_threadpool
+
+        from app.fusion.llm_reasoner import warm_up
+
+        app.state.llm_warm_up = await run_in_threadpool(warm_up)
+        _log.info("LLM warm-up: %s", app.state.llm_warm_up)
+    yield
+
+
 app = FastAPI(
     title="Aegis",
     description=(
@@ -56,6 +76,7 @@ app = FastAPI(
         "outputs a trust verdict."
     ),
     version=__version__,
+    lifespan=lifespan,
 )
 
 app.add_middleware(
@@ -78,6 +99,8 @@ def health() -> dict:
             "reverse_image_mode": settings.reverse_image_mode,
             "live_lookup_available": live_available(),
             "use_llm": settings.use_llm,
+            "allow_model_downloads": settings.allow_model_downloads,
+            "llm_warm_up": getattr(app.state, "llm_warm_up", None),
             "phash_match_threshold": settings.phash_match_threshold,
             "phash_mirror_lookup": settings.phash_mirror_lookup,
             "keypoint_matching": settings.keypoint_matching,
