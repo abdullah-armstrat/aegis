@@ -16,6 +16,7 @@ from __future__ import annotations
 from app.config import get_settings
 from app.fusion.llm_reasoner import reason_over_text
 from app.fusion.rules import run_rules
+from app.fusion.severity import Evidence, severity
 from app.models import (
     EvidenceBundle,
     Flag,
@@ -53,7 +54,7 @@ def _llm_caption_scene_flag(bundle: EvidenceBundle) -> Flag:
         return Flag(
             type=FlagType.CAPTION_CONTENT_MISMATCH,
             status=FlagStatus.FIRED,
-            severity=Severity.MEDIUM,
+            severity=severity("llm", Evidence.INDIRECT),
             evidence=f"LLM judged the supplied texts to describe different things. {verdict.explanation}".strip(),
             plain_explanation=(
                 "A language model reading only the extracted text judged the caption and the image's "

@@ -19,6 +19,7 @@ from datetime import date
 from app.config import get_settings
 from app.extractors.caption_match import read_from_image
 from app.extractors.video import clock
+from app.fusion.severity import Evidence, severity
 from app.models import (
     EvidenceBundle,
     Flag,
@@ -191,7 +192,7 @@ def emotional_framing_rule(bundle: EvidenceBundle) -> Flag:
         return Flag(
             type=FlagType.EMOTIONAL_FRAMING,
             status=FlagStatus.FIRED,
-            severity=Severity.MEDIUM,
+            severity=severity("emotional_framing", Evidence.INDIRECT),
             evidence=(
                 f"{len(markers)} of 4 manipulation markers present: " + "; ".join(markers) + "."
             ),
@@ -269,7 +270,7 @@ def _video_emotional_framing(bundle: EvidenceBundle) -> Flag:
         return Flag(
             type=FlagType.EMOTIONAL_FRAMING,
             status=FlagStatus.FIRED,
-            severity=Severity.MEDIUM,
+            severity=severity("emotional_framing", Evidence.INDIRECT),
             evidence=" ".join(f"In {label}, {len(m)} of 4 manipulation markers: {'; '.join(m)}."
                               for label, m, _ in firing) + gaps,
             plain_explanation=(
@@ -427,7 +428,7 @@ def _recycled_context(bundle: EvidenceBundle) -> Flag:
         return Flag(
             type=FlagType.RECYCLED_CONTEXT,
             status=FlagStatus.FIRED,
-            severity=Severity.HIGH,
+            severity=severity("recycled_context", Evidence.DIRECT_INCOMPLETE),
             evidence=found + when + closeness,
             plain_explanation=(
                 "This image has been found on other pages. No posting date was given, so it is not "
@@ -443,7 +444,7 @@ def _recycled_context(bundle: EvidenceBundle) -> Flag:
         return Flag(
             type=FlagType.RECYCLED_CONTEXT,
             status=FlagStatus.FIRED,
-            severity=Severity.HIGH,
+            severity=severity("recycled_context", Evidence.DIRECT_COMPLETE),
             evidence=(
                 f"Found on a page dated {first_date.isoformat()} ({first.url}{_dated_by(first)}), before the "
                 f"stated posting date of {posted.isoformat()}. {len(earlier)} of {len(matches)} page(s) "
@@ -462,7 +463,7 @@ def _recycled_context(bundle: EvidenceBundle) -> Flag:
         return Flag(
             type=FlagType.RECYCLED_CONTEXT,
             status=FlagStatus.FIRED,
-            severity=Severity.HIGH,
+            severity=severity("recycled_context", Evidence.DIRECT_INCOMPLETE),
             evidence=(
                 f"{found} None of the dated pages is dated before {posted.isoformat()}, but "
                 f"{undated} page(s) carry no date, so the comparison is incomplete.{closeness}"
@@ -557,7 +558,7 @@ def _video_caption_rule(bundle: EvidenceBundle) -> Flag:
         return Flag(
             type=FlagType.CAPTION_CONTENT_MISMATCH,
             status=FlagStatus.FIRED,
-            severity=Severity.MEDIUM,
+            severity=severity("caption_video", Evidence.INDIRECT),
             evidence=evidence + " No keyframe is a reasonable match.",
             plain_explanation=(
                 "None of the video's keyframes seems to show the kind of scene the caption describes. "
@@ -616,7 +617,7 @@ def _caption_image_rule(bundle: EvidenceBundle) -> Flag:
         return Flag(
             type=FlagType.CAPTION_CONTENT_MISMATCH,
             status=FlagStatus.FIRED,
-            severity=Severity.MEDIUM,
+            severity=severity("caption_image", Evidence.INDIRECT),
             evidence=evidence,
             plain_explanation=(
                 "The picture seems to show a different kind of scene from the one the caption "
@@ -671,7 +672,7 @@ def _caption_meaning_rule(bundle: EvidenceBundle) -> Flag:
         return Flag(
             type=FlagType.CAPTION_CONTENT_MISMATCH,
             status=FlagStatus.FIRED,
-            severity=Severity.MEDIUM,
+            severity=severity("caption_meaning", Evidence.INDIRECT),
             evidence=evidence + " Both matches are weak, which is when this check is raised.",
             plain_explanation=(
                 "The picture seems to show a different kind of scene from the one the caption "
@@ -730,7 +731,7 @@ def _caption_overlap_rule(bundle: EvidenceBundle) -> Flag:
         return Flag(
             type=FlagType.CAPTION_CONTENT_MISMATCH,
             status=FlagStatus.FIRED,
-            severity=Severity.HIGH,
+            severity=severity("caption_overlap", Evidence.INDIRECT),
             evidence=(
                 f"Caption↔scene content-word overlap {overlap:.0%} is below "
                 f"{CAPTION_SCENE_OVERLAP_THRESHOLD:.0%}. Scene: \"{scene_text.strip()}\"."
@@ -788,7 +789,7 @@ def audio_visual_mismatch_rule(bundle: EvidenceBundle) -> Flag:
         return Flag(
             type=FlagType.AUDIO_VISUAL_MISMATCH,
             status=FlagStatus.FIRED,
-            severity=Severity.MEDIUM,
+            severity=severity("speech_picture", Evidence.INDIRECT),
             evidence=" ".join(
                 f"At {clock(seg.start)}, \"{seg.text}\" is a weak match for the picture at that moment "
                 f"(similarity {seg.picture_similarity:.2f}; under {SPEECH_PICTURE_THRESHOLD:.2f} counts as weak)."
