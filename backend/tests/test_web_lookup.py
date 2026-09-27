@@ -149,21 +149,69 @@ def test_the_earliest_dated_page_drives_the_unchanged_date_check(live):
     assert "date from the page's own metadata" in flag.evidence
 
 
-def test_a_page_is_dated_from_its_metadata_then_from_the_wayback_machine(monkeypatch):
-    pages = {"https://a.example/x": '<html><head><meta property="article:published_time" '
-                                    'content="2018-04-05T10:00:00Z"></head><body>x</body></html>',
-             "https://b.example/y": "<html><body>no date here</body></html>"}
+def _archive(monkeypatch, pages, available=None, cdx=None):
+    """Stand-ins for the pages, the Wayback availability API and the CDX API."""
+    seen = []
 
     def handler(request: httpx.Request):
+        seen.append(request.url.host)
+        url = request.url.params.get("url")
+        if request.url.host == "archive.org":
+            if available is None:
+                return httpx.Response(503)
+            snap = available.get(url)
+            closest = {"available": True, "status": "200", "timestamp": snap} if snap else None
+            return httpx.Response(200, json={"archived_snapshots": {"closest": closest} if closest else {}})
         if request.url.host == "web.archive.org":
-            if request.url.params["url"] == "https://b.example/y":
-                return httpx.Response(200, json=[["timestamp"], ["20200102030405"]])
-            return httpx.Response(200, json=[])
+            if cdx is None:
+                return httpx.Response(503)
+            return httpx.Response(200, json=[["timestamp"], [cdx[url]]] if url in (cdx or {}) else [])
         return httpx.Response(200, text=pages[str(request.url)], headers={"content-type": "text/html"})
 
     monkeypatch.setattr(web_lookup, "_client", lambda timeout: httpx.Client(transport=httpx.MockTransport(handler)))
+    return seen
+
+
+def test_a_page_is_dated_from_its_metadata_then_from_the_earliest_archive_capture(monkeypatch):
+    pages = {"https://a.example/x": '<html><head><meta property="article:published_time" '
+                                    'content="2018-04-05T10:00:00Z"></head><body>x</body></html>',
+             "https://b.example/y": "<html><body>no date here</body></html>"}
+    _archive(monkeypatch, pages, available={"https://b.example/y": "20200102030405"})
     assert web_lookup.date_page("https://a.example/x") == {"date": "2018-04-05", "source": "htmldate"}
     assert web_lookup.date_page("https://b.example/y") == {"date": "2020-01-02", "source": "wayback"}
+
+
+def test_the_cdx_api_is_the_second_try_when_the_availability_api_fails(monkeypatch):
+    pages = {"https://b.example/y": "<html><body>no date here</body></html>"}
+    seen = _archive(monkeypatch, pages, available=None, cdx={"https://b.example/y": "20190708090000"})
+    assert web_lookup.date_page("https://b.example/y") == {"date": "2019-07-08", "source": "wayback"}
+    assert seen == ["b.example", "archive.org", "web.archive.org"]
+
+
+# A made-up page in the shape that produced the fault: no date in its metadata, and an inline script
+# holding retry settings like Facebook's, whose "2000" htmldate's extensive text search read as a year.
+FACEBOOK_LIKE_PAGE = (
+    '<!DOCTYPE html><html><head><title>A post - Example social site</title></head><body>'
+    '<div role="main"><p>Look at this picture of the harbour.</p></div>'
+    '<script>window.config = {"network_retry_intervals_json": '
+    '"{\\"0\\": 1000, \\"404\\": 2000, \\"502\\": 1000, \\"429\\": 2000}"};</script>'
+    '</body></html>'
+)
+
+
+def test_numbers_in_page_scripts_are_never_read_as_a_year():
+    from htmldate import find_date
+
+    # The page does reproduce the fault when the extensive search is on...
+    assert find_date(FACEBOOK_LIKE_PAGE, original_date=True, outputformat="%Y-%m-%d") == "2000-01-01"
+    # ...and the app's dating, on metadata only, finds no date in it.
+    assert web_lookup.date_from_html(FACEBOOK_LIKE_PAGE) is None
+
+
+def test_a_script_only_page_falls_through_to_the_archive(monkeypatch):
+    _archive(monkeypatch, {"https://social.example/post/1": FACEBOOK_LIKE_PAGE},
+             available={"https://social.example/post/1": "20210315120000"})
+    assert web_lookup.date_page("https://social.example/post/1") == {"date": "2021-03-15", "source": "wayback"}
 
 
 def test_health_says_whether_live_lookup_is_possible(monkeypatch):

@@ -2,10 +2,11 @@
 
 Vision lists pages that show the image. Only pages holding a full or partial matching copy count
 as appearances; "visually similar" images are ignored, since they are other pictures. Vision gives
-no dates, so each page is dated from its own metadata with htmldate (the publication date, not a
-later modification), or failing that from the Wayback Machine's first capture of the page. The
-source of every date is kept. The earliest dated page is then the earliest known appearance, which
-the recycled-context rule compares with the posting date exactly as it does for the local index.
+no dates, so each page is dated from its own metadata with htmldate (the publication date the page
+declares, not a later modification, and never a year guessed from the page's text), or failing
+that from the Wayback Machine's earliest capture of the page. The source of every date is kept.
+The earliest dated page is then the earliest known appearance, which the recycled-context rule
+compares with the posting date exactly as it does for the local index.
 
 Every Vision response and every page date is cached against the image's SHA-256, so a repeat
 lookup costs nothing and replays offline. Live calls are counted per calendar month in a local
@@ -36,6 +37,7 @@ from app.models import FlagStatus, WebMatch
 
 KEY_ENV = "GOOGLE_VISION_API_KEY"
 VISION_URL = "https://vision.googleapis.com/v1/images:annotate"
+WAYBACK_AVAILABLE = "https://archive.org/wayback/available"
 WAYBACK_CDX = "https://web.archive.org/cdx/search/cdx"
 MONTHLY_LIMIT = 900
 MAX_RESULTS = 20       # asked of Vision for each list
@@ -159,28 +161,48 @@ def _plain(title: str) -> str:
 
 
 def date_from_html(html: str) -> str | None:
-    """The page's own publication date from its metadata, by htmldate, as YYYY-MM-DD."""
+    """The page's own publication date from its metadata and structured markup, by htmldate.
+
+    htmldate's extensive text search is off: it read numbers in page scripts as years (Facebook's
+    retry settings, `"404": 2000`, came back as 2000-01-01), so only dates the page declares count.
+    """
     from htmldate import find_date
 
-    return find_date(html, original_date=True, outputformat="%Y-%m-%d",
+    return find_date(html, extensive_search=False, original_date=True, outputformat="%Y-%m-%d",
                      max_date=date.today().isoformat())
 
 
+def _stamp(ts: str) -> str | None:
+    return f"{ts[:4]}-{ts[4:6]}-{ts[6:8]}" if len(ts) >= 8 and ts[:8].isdigit() else None
+
+
 def date_from_wayback(url: str) -> str | None:
-    """The date of the Wayback Machine's first successful capture of the page."""
+    """The date of the Wayback Machine's earliest capture of the page.
+
+    First the availability API, asked for the capture closest to 1990 (which is the earliest), then
+    the CDX API's first successful capture as a second try.
+    """
+    try:
+        with _client(PAGE_TIMEOUT_S) as client:
+            resp = client.get(WAYBACK_AVAILABLE, params={"url": url, "timestamp": "19900101"})
+        if resp.status_code == 200:
+            closest = resp.json().get("archived_snapshots", {}).get("closest") or {}
+            if closest.get("available") and str(closest.get("status")) == "200":
+                found = _stamp(str(closest.get("timestamp", "")))
+                if found:
+                    return found
+    except (httpx.HTTPError, ValueError):
+        pass
     params = {"url": url, "output": "json", "limit": "1", "fl": "timestamp", "filter": "statuscode:200"}
-    for _ in range(2):
-        try:
-            with _client(PAGE_TIMEOUT_S) as client:
-                resp = client.get(WAYBACK_CDX, params=params)
-            if resp.status_code == 200:
-                rows = resp.json()
-                if len(rows) > 1 and rows[1]:
-                    ts = rows[1][0]
-                    return f"{ts[:4]}-{ts[4:6]}-{ts[6:8]}"
-                return None
-        except (httpx.HTTPError, ValueError):
-            pass
+    try:
+        with _client(PAGE_TIMEOUT_S) as client:
+            resp = client.get(WAYBACK_CDX, params=params)
+        if resp.status_code == 200:
+            rows = resp.json()
+            if len(rows) > 1 and rows[1]:
+                return _stamp(rows[1][0])
+    except (httpx.HTTPError, ValueError):
+        pass
     return None
 
 
