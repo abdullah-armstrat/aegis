@@ -47,6 +47,18 @@ CAPTION_TEXT_SIMILARITY_THRESHOLD = 0.7274   # spaCy: the caption against scene 
 # caught 26 of 69 images used out of context and 7 of 48 miscaptioned ones.
 CAPTION_IMAGE_ONLY_THRESHOLD = 0.27746  # CLIP ViT-B/32: the picture against the caption
 
+# --- Speech vs picture (video) ---
+# Fitted on the fitting side of dataset E's swap test (true narration lines against lines taken
+# from other footage): flags at most 1 in 10 true lines there while catching the most swapped
+# ones. On the held-out side it flagged 8 of 50 true lines and caught 42 of 50 swapped ones.
+SPEECH_PICTURE_THRESHOLD = 0.2354  # CLIP ViT-B/32: a stretch of speech against its frames
+
+# What the speech check can and cannot see, stated on every result it gives.
+_SPEECH_LIMIT = (
+    "This compares only the kind of scene: it cannot catch a wrong detail, such as a wrong colour, "
+    "count, name or place, in speech that fits the scene."
+)
+
 # --- Emotional-framing marker thresholds ---
 # Set from reasoning about what each marker means, BEFORE measuring on the labelled set, so the
 # rule is not tuned to its own evaluation. Each is a presentation property of the caption text.
@@ -713,6 +725,68 @@ def _caption_overlap_rule(bundle: EvidenceBundle) -> Flag:
     )
 
 
+def audio_visual_mismatch_rule(bundle: EvidenceBundle) -> Flag:
+    """Does what is said match what is shown at that moment? (video only)
+
+    Each stretch of speech was scored against the frame at its midpoint and any keyframe inside
+    it, with CLIP; its score is the highest. A stretch below the threshold fires the flag, which
+    cites its time. No audio track or no speech makes the check not assessed, with the reason.
+    """
+    segments = bundle.transcript_segments
+    if not segments:
+        reason = bundle.extractor_detail.get("speech_picture") or bundle.extractor_detail.get(
+            "speech", "No speech was found in the audio.")
+        return Flag(
+            type=FlagType.AUDIO_VISUAL_MISMATCH,
+            status=FlagStatus.NOT_ASSESSED,
+            severity=Severity.INFO,
+            evidence=f"Cannot compare speech with the picture: {reason[0].lower() + reason[1:]}",
+            plain_explanation="Whether what is said matches what is shown could not be assessed.",
+            what_to_check="Watch with the sound on and ask whether the words fit the pictures.",
+        )
+    scored = [seg for seg in segments if seg.picture_similarity is not None]
+    if not scored:
+        reason = bundle.extractor_detail.get("speech_picture", "The picture-matching model did not run.")
+        return Flag(
+            type=FlagType.AUDIO_VISUAL_MISMATCH,
+            status=FlagStatus.NOT_ASSESSED,
+            severity=Severity.INFO,
+            evidence=f"Cannot compare speech with the picture: {reason[0].lower() + reason[1:]}",
+            plain_explanation="Whether what is said matches what is shown could not be assessed.",
+            what_to_check="Watch with the sound on and ask whether the words fit the pictures.",
+        )
+    low = [seg for seg in scored if seg.picture_similarity < SPEECH_PICTURE_THRESHOLD]
+    if low:
+        moments = ", ".join(clock(seg.start) for seg in low)
+        return Flag(
+            type=FlagType.AUDIO_VISUAL_MISMATCH,
+            status=FlagStatus.FIRED,
+            severity=Severity.MEDIUM,
+            evidence=" ".join(
+                f"At {clock(seg.start)}, \"{seg.text}\" is a weak match for the picture at that moment "
+                f"(similarity {seg.picture_similarity:.2f}; under {SPEECH_PICTURE_THRESHOLD:.2f} counts as weak)."
+                for seg in low) + f" {len(scored) - len(low)} of {len(scored)} stretches of speech match reasonably.",
+            plain_explanation=(
+                f"At {moments}, the spoken line seems to describe a different scene from the picture at "
+                f"that moment. {_SPEECH_LIMIT}"
+            ),
+            what_to_check="Watch those moments: does the picture show what is being said?",
+            timestamps=[seg.start for seg in low],
+        )
+    weakest = min(scored, key=lambda seg: seg.picture_similarity)
+    return Flag(
+        type=FlagType.AUDIO_VISUAL_MISMATCH,
+        status=FlagStatus.CLEAR,
+        severity=Severity.INFO,
+        evidence=(f"All {len(scored)} stretches of speech are a reasonable match for the picture at that moment; "
+                  f"the weakest, at {clock(weakest.start)}, scores {weakest.picture_similarity:.2f} "
+                  f"(under {SPEECH_PICTURE_THRESHOLD:.2f} counts as weak)."),
+        plain_explanation=f"What is said seems to fit the kind of scene shown at each moment. {_SPEECH_LIMIT}",
+        what_to_check="Check any names, numbers and places that are spoken against a trusted source; this check cannot.",
+        timestamps=[weakest.start],
+    )
+
+
 # Order is the order flags are presented in the scorecard.
 ALL_RULES = (
     caption_scene_mismatch_rule,
@@ -722,5 +796,11 @@ ALL_RULES = (
 
 
 def run_rules(bundle: EvidenceBundle) -> list[Flag]:
-    """Run every deterministic rule and return one Flag per rule, whatever its outcome."""
-    return [rule(bundle) for rule in ALL_RULES]
+    """Run every deterministic rule and return one Flag per rule, whatever its outcome.
+
+    Speech vs picture applies only to video, so an image scorecard does not carry it.
+    """
+    flags = [rule(bundle) for rule in ALL_RULES]
+    if bundle.meta.modality == Modality.VIDEO:
+        flags.append(audio_visual_mismatch_rule(bundle))
+    return flags

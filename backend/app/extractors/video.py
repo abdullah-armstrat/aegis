@@ -89,6 +89,14 @@ def sample_keyframes(path: Path, duration_s: float) -> tuple[list[float], str]:
     return keyframes_from_scenes(scenes, duration_s)
 
 
+def segment_frame_times(start: float, end: float, keyframe_times: list[float]) -> list[float]:
+    """The frames a stretch of speech is compared with: the frame at its midpoint, then every
+    keyframe that falls inside it, each once."""
+    middle = round((start + end) / 2, 3)
+    inside = [t for t in keyframe_times if start <= t <= end and abs(t - middle) > 1e-3]
+    return [middle] + sorted(inside)
+
+
 def grab_frame(path: Path, t: float) -> bytes:
     """The frame at ``t`` seconds as PNG bytes."""
     out = subprocess.run(

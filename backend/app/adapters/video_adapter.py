@@ -7,7 +7,9 @@ Stages, in order, each loading at most one model and releasing it before the nex
   ocr            Tesseract on every keyframe (an external program, no model in this process)
   reverse_image  the image history lookup (hash, then keypoints) on every keyframe
   speech         the audio track through Whisper, loaded for this stage only
-  clip           CLIP ViT-B/32, loaded for this stage only: the caption against every keyframe
+  clip           CLIP ViT-B/32, loaded for this stage only: the caption against every keyframe,
+                 and each stretch of speech against the frame at its midpoint and any keyframe
+                 inside it (the highest of these is the stretch's score)
 
 BLIP and spaCy are never loaded here, and the LLM is not used for video. Every item carries its
 time in the video. A stage that cannot run records NOT_ASSESSED and the reason in
@@ -34,6 +36,7 @@ from app.extractors.video import (
     grab_frame,
     probe,
     sample_keyframes,
+    segment_frame_times,
     thumbnail,
 )
 from app.models import EvidenceBundle, FlagStatus, Keyframe, Meta, Modality, TranscriptSegment
@@ -67,8 +70,8 @@ def _stage(record: list | None, name: str):
                        "peak_mb": round(peak[0] / 2**20, 1)})
 
 
-def _clip_scores(texts: list[str], frames: dict[float, bytes]) -> dict[tuple[int, float], float]:
-    """CLIP similarity of each text with each frame. Loads CLIP once and releases it afterwards."""
+def _clip_vectors(texts: list[str], frames: dict[float, bytes]):
+    """CLIP vectors for each text and each frame. Loads CLIP once and releases it afterwards."""
     from io import BytesIO
 
     from PIL import Image
@@ -77,13 +80,11 @@ def _clip_scores(texts: list[str], frames: dict[float, bytes]) -> dict[tuple[int
 
     try:
         text_vecs = [caption_match.clip_text_vector(t, IMAGE_MODEL) for t in texts]
-        scores = {}
+        frame_vecs = {}
         for t, png in frames.items():
             with Image.open(BytesIO(png)) as img:
-                vec = caption_match.clip_image_vector(img.convert("RGB"), IMAGE_MODEL)
-            for i, tv in enumerate(text_vecs):
-                scores[(i, t)] = float(vec @ tv)
-        return scores
+                frame_vecs[t] = caption_match.clip_image_vector(img.convert("RGB"), IMAGE_MODEL)
+        return text_vecs, frame_vecs
     finally:
         caption_match._clip.cache_clear()
         gc.collect()
@@ -164,24 +165,50 @@ def build_video_bundle(
                     status["speech"], detail["speech"] = FlagStatus.NOT_ASSESSED, str(exc)
             if status["speech"] == FlagStatus.CLEAR:
                 status["speech"] = FlagStatus.NOT_ASSESSED  # audio, but no speech to check
+        # Each stretch of speech is compared with the frame at its midpoint and any keyframe inside it.
+        segment_frames: dict[float, bytes] = {}
+        for seg in segments:
+            seg.frame_timestamps = segment_frame_times(seg.start, seg.end, sorted(frames))
+            for t in seg.frame_timestamps:
+                if t not in frames and t not in segment_frames:
+                    try:
+                        segment_frames[t] = grab_frame(path, t)
+                    except VideoError:
+                        pass
 
     with _stage(stages, "clip"):
-        texts = [caption.strip()] if caption and caption.strip() else []
+        want_caption = bool(caption and caption.strip()) and settings.caption_match_method != "off" and bool(frames)
         if settings.caption_match_method == "off":
             status["caption_match"], detail["caption_match"] = FlagStatus.NOT_ASSESSED, "The check is switched off."
-        elif not texts:
+        elif not (caption and caption.strip()):
             status["caption_match"], detail["caption_match"] = FlagStatus.NOT_ASSESSED, "There is no caption."
         elif not frames:
             status["caption_match"], detail["caption_match"] = FlagStatus.NOT_ASSESSED, "No keyframes could be read."
-        else:
+        if not segments:
+            status["speech_picture"] = FlagStatus.NOT_ASSESSED
+            detail["speech_picture"] = detail.get("speech", "No speech was found in the audio.")
+        texts = ([caption.strip()] if want_caption else []) + [seg.text for seg in segments]
+        if texts:
             try:
-                scores = _clip_scores(texts, frames)
-                for t in frames:
-                    keyframes[t].caption_similarity = scores[(0, t)]
-                status["caption_match"] = FlagStatus.FIRED
+                text_vecs, frame_vecs = _clip_vectors(texts, {**frames, **segment_frames})
+                if want_caption:
+                    for t in frames:
+                        keyframes[t].caption_similarity = float(frame_vecs[t] @ text_vecs[0])
+                    status["caption_match"] = FlagStatus.FIRED
+                offset = 1 if want_caption else 0
+                for i, seg in enumerate(segments):
+                    scored = {t: float(frame_vecs[t] @ text_vecs[offset + i]) for t in seg.frame_timestamps if t in frame_vecs}
+                    if scored:
+                        seg.best_frame = max(scored, key=scored.get)
+                        seg.picture_similarity = scored[seg.best_frame]
+                if segments:
+                    status["speech_picture"] = FlagStatus.FIRED
             except (FileNotFoundError, OSError, ValueError, ImportError, RuntimeError) as exc:
-                status["caption_match"] = FlagStatus.NOT_ASSESSED
-                detail["caption_match"] = f"The picture-matching model could not run: {exc}"
+                reason = f"The picture-matching model could not run: {exc}"
+                if want_caption:
+                    status["caption_match"], detail["caption_match"] = FlagStatus.NOT_ASSESSED, reason
+                if segments:
+                    status["speech_picture"], detail["speech_picture"] = FlagStatus.NOT_ASSESSED, reason
 
     ordered = [keyframes[t] for t in sorted(keyframes)]
     seen, on_screen = set(), []

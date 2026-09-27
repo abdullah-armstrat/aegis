@@ -107,3 +107,54 @@ def test_framing_clear_names_what_it_could_not_check():
     flag = emotional_framing_rule(b)
     assert flag.status == FlagStatus.CLEAR
     assert "speech was not checked (the video has no audio track)" in flag.evidence
+
+
+# --- speech vs picture -----------------------------------------------------------------------
+
+from app.extractors.video import segment_frame_times  # noqa: E402
+from app.fusion.rules import SPEECH_PICTURE_THRESHOLD, audio_visual_mismatch_rule, run_rules  # noqa: E402
+from app.models import FlagType  # noqa: E402
+
+
+def test_linking_takes_the_midpoint_and_every_keyframe_inside():
+    assert segment_frame_times(10.0, 16.0, [2.0, 11.0, 15.5, 20.0]) == [13.0, 11.0, 15.5]
+    assert segment_frame_times(10.0, 16.0, [2.0, 20.0]) == [13.0]
+    # A keyframe exactly at the midpoint is not counted twice; the ends are inside.
+    assert segment_frame_times(10.0, 16.0, [10.0, 13.0, 16.0]) == [13.0, 10.0, 16.0]
+
+
+def _spoken(*scores):
+    return _video(transcript_segments=[
+        TranscriptSegment(start=5.0 * i, end=5.0 * i + 3, text=f"line {i}", picture_similarity=s,
+                          frame_timestamps=[5.0 * i + 1.5])
+        for i, s in enumerate(scores)])
+
+
+def test_speech_fires_on_a_weak_stretch_and_cites_its_moment():
+    flag = audio_visual_mismatch_rule(_spoken(SPEECH_PICTURE_THRESHOLD + 0.05, SPEECH_PICTURE_THRESHOLD - 0.05))
+    assert flag.type == FlagType.AUDIO_VISUAL_MISMATCH
+    assert flag.status == FlagStatus.FIRED
+    assert flag.timestamps == [5.0]
+    assert "At 0:05" in flag.evidence and '"line 1"' in flag.evidence
+    assert "seems to describe a different scene from the picture at that moment" in flag.plain_explanation
+    assert "cannot catch a wrong detail" in flag.plain_explanation
+
+
+def test_speech_clear_when_every_stretch_matches_and_still_states_the_limit():
+    flag = audio_visual_mismatch_rule(_spoken(SPEECH_PICTURE_THRESHOLD + 0.05, SPEECH_PICTURE_THRESHOLD + 0.01))
+    assert flag.status == FlagStatus.CLEAR
+    assert flag.timestamps == [5.0]
+    assert "cannot catch a wrong detail" in flag.plain_explanation
+
+
+@pytest.mark.parametrize("reason", ["The video has no audio track.", "No speech was found in the audio."])
+def test_speech_not_assessed_without_speech_and_says_why(reason):
+    flag = audio_visual_mismatch_rule(_video(extractor_detail={"speech": reason, "speech_picture": reason}))
+    assert flag.status == FlagStatus.NOT_ASSESSED
+    assert reason[1:].rstrip(".") in flag.evidence
+
+
+def test_speech_check_runs_for_video_only():
+    assert FlagType.AUDIO_VISUAL_MISMATCH in {f.type for f in run_rules(_spoken(0.3))}
+    image = EvidenceBundle(meta=Meta(modality=Modality.IMAGE))
+    assert FlagType.AUDIO_VISUAL_MISMATCH not in {f.type for f in run_rules(image)}
