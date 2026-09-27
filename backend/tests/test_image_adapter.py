@@ -6,6 +6,8 @@ adapter's job is to call each extractor, carry the caption through, place output
 right bundle fields, and record each extractor's honest status.
 """
 
+import pytest
+
 from app.adapters import image_adapter
 from app.config import get_settings
 from app.extractors.caption_match import CaptionMatchResult
@@ -138,13 +140,68 @@ def test_adapter_measures_caption_fit_by_meaning(monkeypatch):
     get_settings.cache_clear()
 
 
-def test_adapter_skips_the_similarity_models_for_word_overlap(monkeypatch):
-    def _boom(*_a, **_k):
-        raise AssertionError("similarity models should not run for word overlap")
+def test_adapter_measures_only_the_picture_for_the_image_method(monkeypatch):
+    """The image method asks for no text score, so spaCy is never loaded for it."""
+    asked = {}
 
-    _patch_basic(monkeypatch, "overlap")
+    def _measure(image_bytes, caption, scenes, on_screen, *, image_model, text_method):
+        asked.update(image_model=image_model, text_method=text_method)
+        return CaptionMatchResult(image_similarity=0.21, status=FlagStatus.FIRED)
+
+    _patch_basic(monkeypatch, "image")
+    monkeypatch.setattr(image_adapter, "measure_caption_match", _measure)
+    bundle = image_adapter.build_bundle(b"img", caption="A dog in a park", source_ref="t.png")
+
+    assert asked == {"image_model": "ViT-B/32", "text_method": None}
+    assert bundle.caption_match.image_similarity == 0.21
+    assert bundle.caption_match.text_similarity is None
+    assert bundle.caption_match.text_model is None
+    assert bundle.extractor_status["caption_match"] == FlagStatus.FIRED
+    get_settings.cache_clear()
+
+
+@pytest.mark.parametrize("method", ["overlap", "off"])
+def test_adapter_skips_the_similarity_models_when_not_needed(monkeypatch, method):
+    def _boom(*_a, **_k):
+        raise AssertionError(f"similarity models should not run for {method}")
+
+    _patch_basic(monkeypatch, method)
     monkeypatch.setattr(image_adapter, "measure_caption_match", _boom)
     bundle = image_adapter.build_bundle(b"img", caption="A dog in a park", source_ref="t.png")
     assert bundle.caption_match is None
     assert "caption_match" not in bundle.extractor_status
+    get_settings.cache_clear()
+
+
+def test_default_method_is_the_picture_only_check(monkeypatch):
+    """Set by the fresh-set test: of the methods tried, only the picture-only check flagged few
+    truthful captions while catching images used out of context. Tests run word overlap by
+    default (conftest), so read the production default with that override removed."""
+    from app.config import Settings
+
+    monkeypatch.delenv("AEGIS_CAPTION_MATCH_METHOD", raising=False)
+    assert Settings().caption_match_method == "image"
+
+
+@pytest.mark.parametrize("method, use_llm, runs", [
+    ("image", "false", False),
+    ("off", "false", False),
+    ("image", "true", True),
+    ("meaning", "false", True),
+    ("overlap", "false", True),
+])
+def test_captioner_runs_only_when_its_description_is_read(monkeypatch, method, use_llm, runs):
+    """BLIP is loaded only for word overlap, the meaning check's text score or the LLM."""
+    called = []
+    _patch_basic(monkeypatch, method)
+    monkeypatch.setattr(image_adapter, "describe_scene", lambda _b: called.append(1) or CaptionResult(
+        scene_descriptions=[SceneDescription(text="a cat on a rug")], status=FlagStatus.FIRED))
+    monkeypatch.setattr(image_adapter, "measure_caption_match",
+                        lambda *a, **k: CaptionMatchResult(image_similarity=0.3, text_similarity=0.8,
+                                                           status=FlagStatus.FIRED))
+    monkeypatch.setenv("AEGIS_USE_LLM", use_llm)
+    get_settings.cache_clear()
+    bundle = image_adapter.build_bundle(b"img", caption="A dog in a park", source_ref="t.png")
+    assert bool(called) is runs
+    assert bundle.extractor_status["captioner"] == (FlagStatus.FIRED if runs else FlagStatus.NOT_ASSESSED)
     get_settings.cache_clear()

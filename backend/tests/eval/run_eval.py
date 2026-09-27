@@ -84,7 +84,7 @@ def _predict(example: dict, use_llm: bool) -> dict[str, str]:
             # The caption-vs-description similarity reads the scene text, so re-measure it from
             # the injected text. The picture similarity still sees the blank test image.
             bundle.caption_match, bundle.extractor_status["caption_match"] = measure_caption_fit(
-                image_bytes, bundle.caption, example["inject_scene"], bundle.on_screen_text
+                image_bytes, bundle.caption, example["inject_scene"], bundle.on_screen_text, "meaning"
             )
 
     card = build_scorecard(bundle)

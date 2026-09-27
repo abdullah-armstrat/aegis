@@ -64,6 +64,22 @@ def test_nothing_read_from_the_picture_leaves_the_text_score_unmeasured(monkeypa
     assert "no scene description or on-screen text" in result.detail
 
 
+def test_picture_only_measurement_never_loads_spacy(monkeypatch):
+    """With no text method, only CLIP is used; spaCy must not even be loaded."""
+    import numpy as np
+
+    monkeypatch.setattr(caption_match, "_spacy", lambda: pytest.fail("spaCy must not load"))
+    monkeypatch.setattr(caption_match, "clip_token_count", lambda text: 10)
+    monkeypatch.setattr(caption_match, "clip_context_length", lambda arch: 77)
+    monkeypatch.setattr(caption_match, "clip_image_vector", lambda img, arch: np.array([1.0, 0.0]))
+    monkeypatch.setattr(caption_match, "clip_text_vector", lambda text, arch: np.array([0.6, 0.8]))
+    result = measure_caption_match(_cat_png(), "A cat on a rug", ["a cat"], [],
+                                   image_model="ViT-B/32", text_method=None)
+    assert result.status == FlagStatus.FIRED
+    assert result.image_similarity == pytest.approx(0.6)
+    assert result.text_similarity is None
+
+
 def test_read_from_image_joins_scene_and_on_screen_text():
     assert read_from_image(["a cat on a rug"], ["SALE", "50% off"]) == "a cat on a rug SALE 50% off"
     assert read_from_image([], []) == ""

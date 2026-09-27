@@ -8,7 +8,8 @@ could not run, rather than inferring meaning from an empty field.
 
 Wired: OCR, sentiment, reverse-image (matched by content against the image history index),
 the BLIP captioner, which runs locally on the CPU, and, when ``caption_match_method`` is
-"meaning", the caption-vs-picture similarities (CLIP and spaCy).
+"image" or "meaning", the caption-vs-picture similarities that method needs (CLIP, and spaCy
+for "meaning" only).
 """
 
 from __future__ import annotations
@@ -27,13 +28,21 @@ def measure_caption_fit(
     caption: str | None,
     scene_texts: list[str],
     on_screen_text: list[str],
+    method: str = "meaning",
 ) -> tuple[CaptionMatch, FlagStatus]:
-    """The caption-vs-picture similarities with the chosen models, and the measurement's status."""
+    """The caption-vs-picture similarities a method needs, and the measurement's status.
+
+    "image" measures only the picture against the caption, so spaCy is never loaded for it.
+    """
+    text_method = TEXT_METHOD if method == "meaning" else None
     result = measure_caption_match(
         image_bytes, caption, scene_texts, on_screen_text,
-        image_model=IMAGE_MODEL, text_method=TEXT_METHOD,
+        image_model=IMAGE_MODEL, text_method=text_method,
     )
-    text_model = f"spaCy {SPACY_MODEL}" if TEXT_METHOD == "spacy" else f"CLIP {IMAGE_MODEL} text encoder"
+    if text_method is None:
+        text_model = None
+    else:
+        text_model = f"spaCy {SPACY_MODEL}" if text_method == "spacy" else f"CLIP {IMAGE_MODEL} text encoder"
     match = CaptionMatch(
         image_similarity=result.image_similarity,
         text_similarity=result.text_similarity,
@@ -63,13 +72,19 @@ def build_bundle(
 
     Wired: OCR, sentiment (over the caption), reverse-image (history index), BLIP captioner. The
     captioner can be disabled via ``AEGIS_USE_CAPTIONER`` (e.g. for fast tests); when off, the
-    caption↔scene check honestly reports NOT_ASSESSED rather than passing silently.
+    caption↔scene check honestly reports NOT_ASSESSED rather than passing silently. It also runs
+    only when something reads the scene description: word overlap, the meaning check's text
+    score, or the LLM. The picture-only check and a switched-off check do not, so BLIP is not
+    loaded for them.
     """
+    settings = get_settings()
+    method = settings.caption_match_method
     ocr = extract_on_screen_text(image_bytes)
     sentiment = analyse_sentiment(caption, source="caption")
     reverse = find_web_matches(image_bytes)
 
-    if get_settings().use_captioner:
+    needs_scene = method in ("meaning", "overlap") or settings.use_llm
+    if settings.use_captioner and needs_scene:
         caption_result = describe_scene(image_bytes)
         scene_descriptions = caption_result.scene_descriptions
         caption_status = caption_result.status
@@ -84,9 +99,9 @@ def build_bundle(
         "captioner": caption_status,
     }
     caption_match = None
-    if get_settings().caption_match_method == "meaning":
+    if method in ("image", "meaning"):
         caption_match, extractor_status["caption_match"] = measure_caption_fit(
-            image_bytes, caption, [s.text for s in scene_descriptions], ocr.lines
+            image_bytes, caption, [s.text for s in scene_descriptions], ocr.lines, method
         )
 
     return EvidenceBundle(

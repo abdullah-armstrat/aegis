@@ -33,8 +33,10 @@ from app.models import FlagStatus
 CLIP_CACHE = Path(os.path.expanduser("~/.cache/clip"))
 SPACY_MODEL = "en_core_web_md"
 
-# The pair the comparison on the VERITE calibration set chose: of the candidates held to flagging
-# at most 1 in 10 truthful captions there, this one caught the most images used out of context.
+# The models the caption checks use, chosen by comparison on the VERITE sample: of the candidates
+# held to flagging at most 1 in 10 truthful captions there, this pair caught the most images used
+# out of context. The picture-only check, the default, uses IMAGE_MODEL alone; the meaning check
+# adds TEXT_METHOD.
 IMAGE_MODEL = "ViT-B/32"
 TEXT_METHOD = "spacy"
 

@@ -37,6 +37,14 @@ CAPTION_SCENE_OVERLAP_THRESHOLD = 0.15  # min content-word overlap before captio
 CAPTION_IMAGE_SIMILARITY_THRESHOLD = 0.3772  # CLIP ViT-B/32: the picture against the caption
 CAPTION_TEXT_SIMILARITY_THRESHOLD = 0.7274   # spaCy: the caption against scene description + on-screen text
 
+# --- Caption vs picture, picture similarity only (the default method) ---
+# Fitted on all 300 pairs of the VERITE sample: flags at most 10 of its 100 truthful captions
+# while catching the most images used out of context. Stored to 5 decimals because two sampled
+# pairs score 0.27745 and 0.27747; this value decides every one of the 300 exactly as fitted.
+# On 165 VERITE pairs no earlier evaluation had touched, it flagged 3 of 48 truthful captions and
+# caught 26 of 69 images used out of context and 7 of 48 miscaptioned ones.
+CAPTION_IMAGE_ONLY_THRESHOLD = 0.27746  # CLIP ViT-B/32: the picture against the caption
+
 # --- Emotional-framing marker thresholds ---
 # Set from reasoning about what each marker means, BEFORE measuring on the labelled set, so the
 # rule is not tuned to its own evaluation. Each is a presentation property of the caption text.
@@ -338,19 +346,100 @@ def recycled_context_rule(bundle: EvidenceBundle) -> Flag:
 def caption_scene_mismatch_rule(bundle: EvidenceBundle) -> Flag:
     """Does the caption describe what the image actually shows? (caption ↔ scene)
 
-    ``caption_match_method`` selects how: by meaning (CLIP and spaCy similarities) or by the
-    earlier content-word overlap.
+    ``caption_match_method`` selects how: by the picture's similarity to the caption (CLIP), by
+    that and the caption's similarity to the scene description (CLIP and spaCy), by the earlier
+    content-word overlap, or not at all.
     """
-    if get_settings().caption_match_method == "meaning":
+    method = get_settings().caption_match_method
+    if method == "image":
+        return _caption_image_rule(bundle)
+    if method == "meaning":
         return _caption_meaning_rule(bundle)
+    if method == "off":
+        return _caption_check_off(bundle)
     return _caption_overlap_rule(bundle)
 
 
-# What the meaning check can and cannot see, stated on every result it gives.
+# What the meaning checks can and cannot see, stated on every result they give.
 _MEANING_LIMIT = (
     "This compares only the kind of scene: it cannot catch a wrong name, place or date in a "
     "caption that fits the scene."
 )
+
+# Why the check can be switched off, shown on the scorecard when it is.
+CAPTION_CHECK_OFF_REASON = "The caption-vs-picture check is switched off in this configuration."
+
+
+def _caption_check_off(bundle: EvidenceBundle) -> Flag:
+    """The check is switched off: say so, rather than leave it out or call it clear."""
+    return Flag(
+        type=FlagType.CAPTION_CONTENT_MISMATCH,
+        status=FlagStatus.NOT_ASSESSED,
+        severity=Severity.INFO,
+        evidence=CAPTION_CHECK_OFF_REASON,
+        plain_explanation="Whether the picture fits the caption was not checked.",
+        what_to_check="Look at the image yourself and ask whether the caption fits what you see.",
+    )
+
+
+def _similarity_not_assessed(bundle: EvidenceBundle) -> Flag:
+    """NOT_ASSESSED for a similarity check, with the reason the score is missing."""
+    match = bundle.caption_match
+    if not bundle.caption:
+        reason = "no caption available."
+    elif match is not None and match.detail:
+        reason = match.detail
+    else:
+        reason = "the similarity models did not run."
+    return Flag(
+        type=FlagType.CAPTION_CONTENT_MISMATCH,
+        status=FlagStatus.NOT_ASSESSED,
+        severity=Severity.INFO,
+        evidence=f"Cannot compare: {reason}",
+        plain_explanation="Whether the picture fits the kind of scene the caption describes could not be assessed.",
+        what_to_check="Look at the image yourself and ask whether the caption fits what you see.",
+    )
+
+
+def _caption_image_rule(bundle: EvidenceBundle) -> Flag:
+    """Fires when the picture itself matches the caption weakly (CLIP similarity).
+
+    Uses no scene description, so it does not depend on the captioner.
+    """
+    match = bundle.caption_match
+    if not bundle.caption or match is None or match.image_similarity is None:
+        return _similarity_not_assessed(bundle)
+
+    low = match.image_similarity < CAPTION_IMAGE_ONLY_THRESHOLD
+    evidence = (
+        f"The picture is a {'weak' if low else 'reasonable'} match for the caption (similarity "
+        f"{match.image_similarity:.2f}; under {CAPTION_IMAGE_ONLY_THRESHOLD:.2f} counts as weak)."
+    )
+    if match.caption_truncated:
+        evidence += " The caption was longer than the model can read, so only its beginning was compared."
+    if low:
+        return Flag(
+            type=FlagType.CAPTION_CONTENT_MISMATCH,
+            status=FlagStatus.FIRED,
+            severity=Severity.MEDIUM,
+            evidence=evidence,
+            plain_explanation=(
+                "The picture seems to show a different kind of scene from the one the caption "
+                f"describes. {_MEANING_LIMIT}"
+            ),
+            what_to_check=(
+                "Find where the picture first appeared and check what it actually shows, and when "
+                "and where it was taken."
+            ),
+        )
+    return Flag(
+        type=FlagType.CAPTION_CONTENT_MISMATCH,
+        status=FlagStatus.CLEAR,
+        severity=Severity.INFO,
+        evidence=evidence,
+        plain_explanation=f"The picture seems to show the kind of scene the caption describes. {_MEANING_LIMIT}",
+        what_to_check="Check the names, places and dates in the caption against a trusted source; this check cannot.",
+    )
 
 
 def _caption_meaning_rule(bundle: EvidenceBundle) -> Flag:
@@ -364,20 +453,7 @@ def _caption_meaning_rule(bundle: EvidenceBundle) -> Flag:
     """
     match = bundle.caption_match
     if not bundle.caption or match is None or match.image_similarity is None or match.text_similarity is None:
-        if not bundle.caption:
-            reason = "no caption available."
-        elif match is not None and match.detail:
-            reason = match.detail
-        else:
-            reason = "the similarity models did not run."
-        return Flag(
-            type=FlagType.CAPTION_CONTENT_MISMATCH,
-            status=FlagStatus.NOT_ASSESSED,
-            severity=Severity.INFO,
-            evidence=f"Cannot compare: {reason}",
-            plain_explanation="Whether the picture fits the kind of scene the caption describes could not be assessed.",
-            what_to_check="Look at the image yourself and ask whether the caption fits what you see.",
-        )
+        return _similarity_not_assessed(bundle)
 
     image_low = match.image_similarity < CAPTION_IMAGE_SIMILARITY_THRESHOLD
     text_low = match.text_similarity < CAPTION_TEXT_SIMILARITY_THRESHOLD

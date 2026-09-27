@@ -1,0 +1,44 @@
+{
+  "source": "https://github.com/stevejpapad/image-text-verification",
+  "commit": "74adfa1c8e13a027bfc1146c775958e832bd1089",
+  "annotation_sha256": {
+    "VERITE.csv": "7f5661860f2e34624c1721710ed37fac5e1e78a4307400530dd587cb0d15a040",
+    "VERITE_articles.csv": "add4059c43dd796d512d9489358923263110a5e9430f1ea930dee0dfa5bc2197"
+  },
+  "excluded_sample_articles": 198,
+  "fresh_articles": 140,
+  "kept_articles": 93,
+  "labels": {
+    "true": {
+      "in_fresh_articles": 140,
+      "image_failed": 92,
+      "kept": 48
+    },
+    "miscaptioned": {
+      "in_fresh_articles": 140,
+      "image_failed": 92,
+      "kept": 48
+    },
+    "out-of-context": {
+      "in_fresh_articles": 132,
+      "image_failed": 63,
+      "kept": 69
+    }
+  },
+  "images_attempted": 272,
+  "images_ok": 117,
+  "failure_reasons": {
+    "HTTP 404": 26,
+    "connection error: ConnectError": 22,
+    "HTTP 403": 93,
+    "HTTP 406": 2,
+    "not a readable image: UnidentifiedImageError": 4,
+    "connection error: RemoteProtocolError": 1,
+    "timeout": 1,
+    "HTTP 410": 1,
+    "HTTP 400": 1,
+    "HTTP 502": 2,
+    "HTTP 503": 1,
+    "too small , likely a placeholder": 1
+  }
+}

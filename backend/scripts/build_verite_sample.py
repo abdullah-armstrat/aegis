@@ -21,11 +21,18 @@ Images, captions and URLs stay in data/verite/, which git ignores. Only IDs, lab
 this script are committed. The truthful and miscaptioned pair of one article share an image, so
 the sample records each pair's article ID for any later split that must keep articles together.
 
-Run:  python backend/scripts/build_verite_sample.py
+With ``--fresh`` it instead builds the fresh set: every VERITE pair whose article is not in the
+sample, for testing on pairs no earlier evaluation has touched. Every image is tried once, the same
+way as above; a pair whose image fails is dropped, since the fresh set is everything left and has
+no reserves. It writes data/labels/C_verite_fresh.csv (IDs and labels only),
+data/labels/C_verite_fresh_meta.json and data/verite/fresh_download_log.csv.
+
+Run:  python backend/scripts/build_verite_sample.py [--fresh]
 """
 
 from __future__ import annotations
 
+import argparse
 import csv
 import hashlib
 import json
@@ -54,6 +61,9 @@ IMAGES = WORK / "images"
 OUT_CSV = ROOT / "data" / "labels" / "C_verite_sample.csv"
 OUT_META = ROOT / "data" / "labels" / "C_verite_sample_meta.json"
 LOG_CSV = WORK / "download_log.csv"
+FRESH_CSV = ROOT / "data" / "labels" / "C_verite_fresh.csv"
+FRESH_META = ROOT / "data" / "labels" / "C_verite_fresh_meta.json"
+FRESH_LOG = WORK / "fresh_download_log.csv"
 EXT = {"JPEG": "jpg", "PNG": "png", "WEBP": "webp", "GIF": "gif", "BMP": "bmp", "MPO": "jpg"}
 
 
@@ -122,7 +132,61 @@ def download(client: httpx.Client, image: str, url: str) -> dict:
     return rec
 
 
+def failure_reasons(attempts: list[dict]) -> dict[str, int]:
+    return dict(Counter(re.sub(r"\(.*\)", "", r["reason"]).strip() for r in attempts if not r["ok"]))
+
+
+def build_fresh() -> None:
+    """Every pair whose article is not in the sample, with the images that can still be fetched."""
+    recorded = json.loads(OUT_META.read_text(encoding="utf-8"))["annotation_sha256"]
+    for name, digest in recorded.items():
+        if hashlib.sha256((WORK / name).read_bytes()).hexdigest() != digest:
+            sys.exit(f"{name} differs from the file the sample was drawn from")
+    with open(OUT_CSV, encoding="utf-8", newline="") as fh:
+        sampled = {int(row["article_id"]) for row in csv.DictReader(fh)}
+    fresh = [p for p in load_pairs() if p["article_id"] not in sampled]
+    wanted = {p["image"]: p["url"] for p in fresh}
+
+    IMAGES.mkdir(parents=True, exist_ok=True)
+    timeout = httpx.Timeout(30.0, connect=15.0)
+    with httpx.Client(headers={"User-Agent": USER_AGENT}, follow_redirects=True, timeout=timeout) as client:
+        with ThreadPoolExecutor(max_workers=6) as pool:
+            results = {rec["image"]: rec for rec in pool.map(lambda iu: download(client, *iu), sorted(wanted.items()))}
+    kept = [p for p in fresh if results[p["image"]]["ok"]]
+
+    with open(FRESH_CSV, "w", encoding="utf-8", newline="") as fh:
+        w = csv.writer(fh)
+        w.writerow(["verite_row", "article_id", "label", "image"])
+        for p in sorted(kept, key=lambda p: (LABELS.index(p["label"]), p["verite_row"])):
+            w.writerow([p["verite_row"], p["article_id"], p["label"], p["image"]])
+    attempts = sorted(results.values(), key=lambda r: r["image"])
+    with open(FRESH_LOG, "w", encoding="utf-8", newline="") as fh:
+        w = csv.DictWriter(fh, fieldnames=list(attempts[0]))
+        w.writeheader()
+        w.writerows(attempts)
+    labels = {label: {"in_fresh_articles": sum(p["label"] == label for p in fresh),
+                      "image_failed": sum(p["label"] == label and not results[p["image"]]["ok"] for p in fresh),
+                      "kept": sum(p["label"] == label for p in kept)} for label in LABELS}
+    meta = {"source": f"https://github.com/{REPO}", "commit": COMMIT, "annotation_sha256": recorded,
+            "excluded_sample_articles": len(sampled), "fresh_articles": len({p["article_id"] for p in fresh}),
+            "kept_articles": len({p["article_id"] for p in kept}), "labels": labels,
+            "images_attempted": len(attempts), "images_ok": sum(r["ok"] for r in attempts),
+            "failure_reasons": failure_reasons(attempts)}
+    FRESH_META.write_text(json.dumps(meta, indent=2) + "\n", encoding="utf-8")
+
+    print(f"fresh set: {len(fresh)} pairs from {meta['fresh_articles']} articles not in the sample")
+    for label, c in labels.items():
+        print(f"  {label:<15} {c['kept']}/{c['in_fresh_articles']} kept, {c['image_failed']} image failed")
+    print(f"  images attempted {meta['images_attempted']}, downloaded {meta['images_ok']}")
+    print(f"  failure reasons: {meta['failure_reasons']}")
+    print(f"wrote {FRESH_CSV.relative_to(ROOT)}, {FRESH_META.relative_to(ROOT)}, {FRESH_LOG.relative_to(ROOT)}")
+
+
 def main() -> None:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--fresh", action="store_true", help="build the fresh set instead of the sample")
+    if parser.parse_args().fresh:
+        return build_fresh()
     IMAGES.mkdir(parents=True, exist_ok=True)
     timeout = httpx.Timeout(30.0, connect=15.0)
     with httpx.Client(headers={"User-Agent": USER_AGENT}, follow_redirects=True, timeout=timeout) as client:
@@ -193,8 +257,7 @@ def main() -> None:
         "labels": summary,
         "images_attempted": len(attempts),
         "images_ok": sum(r["ok"] for r in attempts),
-        "failure_reasons": dict(Counter(re.sub(r"\(.*\)", "", r["reason"]).strip()
-                                        for r in attempts if not r["ok"])),
+        "failure_reasons": failure_reasons(attempts),
         "articles_with_both_true_and_miscaptioned_in_sample": sum(1 for n in arts.values() if n > 1),
     }
     OUT_META.write_text(json.dumps(meta, indent=2) + "\n", encoding="utf-8")

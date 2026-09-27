@@ -33,11 +33,15 @@ class Settings(BaseSettings):
     reverse_image_mode: str = "index"
     use_llm: bool = False              # rules-only fusion until the LLM is wired in
     use_captioner: bool = True         # BLIP scene captioning, local on CPU; false skips it
-    # How the caption is compared with the picture. "meaning": CLIP similarity between the picture
-    # and the caption, and spaCy similarity between the caption and the scene description plus
-    # on-screen text; the flag fires when both are low. "overlap": the earlier content-word
-    # overlap between the caption and the scene description, kept for comparison.
-    caption_match_method: Literal["meaning", "overlap"] = "overlap"
+    # How the caption is compared with the picture. "image": CLIP similarity between the picture
+    # and the caption; the flag fires when it is low. "meaning": that, and spaCy similarity
+    # between the caption and the scene description plus on-screen text; fires when both are low.
+    # "overlap": the earlier content-word overlap between the caption and the scene description.
+    # "off": the check does not run and the scorecard says so. Only the models the chosen method
+    # needs are loaded. "image" is the default because it was the only method that, on VERITE
+    # pairs no earlier evaluation had touched, flagged few truthful captions (3 of 48) while
+    # catching images used out of context (26 of 69).
+    caption_match_method: Literal["image", "meaning", "overlap", "off"] = "image"
 
     # --- Local LLM reasoner (Ollama) ---
     ollama_host: str = "http://localhost:11434"

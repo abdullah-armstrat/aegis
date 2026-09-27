@@ -9,6 +9,8 @@ import pytest
 
 from app.config import get_settings
 from app.fusion.rules import (
+    CAPTION_CHECK_OFF_REASON,
+    CAPTION_IMAGE_ONLY_THRESHOLD,
     CAPTION_IMAGE_SIMILARITY_THRESHOLD,
     CAPTION_SCENE_OVERLAP_THRESHOLD,
     CAPTION_TEXT_SIMILARITY_THRESHOLD,
@@ -299,6 +301,61 @@ def test_overlap_method_ignores_the_meaning_scores():
                  scene_descriptions=[SceneDescription(text="a bowl of soup on a table")])
     assert get_settings().caption_match_method == "overlap"
     assert caption_scene_mismatch_rule(b).status == FlagStatus.CLEAR
+
+
+# --- caption <-> picture, picture similarity only ---
+
+def _use_method(monkeypatch, method: str) -> None:
+    get_settings.cache_clear()
+    monkeypatch.setenv("AEGIS_CAPTION_MATCH_METHOD", method)
+    get_settings.cache_clear()
+
+
+def _image_scored(image: float | None, **kwargs) -> EvidenceBundle:
+    kwargs.setdefault("caption", "Protesters fill the main square")
+    return _bundle(caption_match=CaptionMatch(image_similarity=image), **kwargs)
+
+
+def test_image_method_fires_below_its_threshold(monkeypatch):
+    _use_method(monkeypatch, "image")
+    flag = caption_scene_mismatch_rule(_image_scored(CAPTION_IMAGE_ONLY_THRESHOLD - 0.02))
+    assert flag.status == FlagStatus.FIRED
+    assert "weak match" in flag.evidence
+    assert "different kind of scene" in flag.plain_explanation
+    assert "cannot catch a wrong name, place or date" in flag.plain_explanation
+    get_settings.cache_clear()
+
+
+def test_image_method_clear_above_its_threshold_and_needs_no_scene(monkeypatch):
+    """The picture score alone decides: no scene description is needed, none is read."""
+    _use_method(monkeypatch, "image")
+    flag = caption_scene_mismatch_rule(_image_scored(CAPTION_IMAGE_ONLY_THRESHOLD + 0.02))
+    assert flag.status == FlagStatus.CLEAR
+    assert "reasonable match" in flag.evidence
+    assert "cannot catch a wrong name, place or date" in flag.plain_explanation
+    get_settings.cache_clear()
+
+
+def test_image_method_not_assessed_without_a_picture_score(monkeypatch):
+    _use_method(monkeypatch, "image")
+    b = _image_scored(None)
+    b.caption_match.detail = "Caption-match models could not run: CLIP ViT-B/32 weights are not in the cache"
+    flag = caption_scene_mismatch_rule(b)
+    assert flag.status == FlagStatus.NOT_ASSESSED
+    assert "weights are not in" in flag.evidence
+    get_settings.cache_clear()
+
+
+def test_switched_off_check_is_not_assessed_and_says_why(monkeypatch):
+    """Off never means clear: the scorecard shows the check and the reason it did not run."""
+    _use_method(monkeypatch, "off")
+    b = _scored(LOW_IMAGE, LOW_TEXT)
+    flag = caption_scene_mismatch_rule(b)
+    assert flag.type == FlagType.CAPTION_CONTENT_MISMATCH
+    assert flag.status == FlagStatus.NOT_ASSESSED
+    assert flag.evidence == CAPTION_CHECK_OFF_REASON
+    assert len(run_rules(b)) == 3
+    get_settings.cache_clear()
 
 
 # --- the worked mismatch example end-to-end through the rules ---

@@ -5,8 +5,21 @@ These tests certify the harness end-to-end *without relying on reading its print
 not transcribed from a screen). They assert: the manifest is well-formed; every flag's
 confusion counts sum to its label total (nothing dropped); the EXACT rules-only confusion
 matrix; and individual deterministic outcomes.
+
+The caption-vs-picture check is pinned once per method (``caption_match_method``):
+``test_rules_only_confusion_is_exactly_as_expected`` pins word overlap, and
+``test_caption_check_pinned_per_method`` pins the others. Every test image is the same blank
+picture, so for the methods that compare by meaning these cases say nothing about the picture:
+  * "meaning": the blank picture scores low against every caption (0.18-0.20), so only the text
+    path, the caption against the injected scene description, decides the result.
+  * "image": there is no text path, and the blank picture scores under the threshold for every
+    caption, so the check fires on all eight captioned cases. The pin holds the wiring steady;
+    it is not a measure of accuracy, which comes from the VERITE evaluations.
 """
 
+import pytest
+
+from app.config import get_settings
 from tests.eval.run_eval import _load_examples, _predict, evaluate
 
 
@@ -38,9 +51,10 @@ def test_report_counts_are_internally_consistent():
         )
 
 
-def test_rules_only_confusion_is_exactly_as_expected():
-    """Pin the EXACT rules-only confusion matrix. These values are execution-verified: if the
-    rules or manifest change, this fails loudly and the expected values must be re-derived.
+def test_rules_only_confusion_is_exactly_as_expected(monkeypatch):
+    """Pin the EXACT rules-only confusion matrix, with the caption check on word overlap. These
+    values are execution-verified: if the rules or manifest change, this fails loudly and the
+    expected values must be re-derived.
 
     Hand derivation on the 19-example set (rules-only, with the marker-based emotional-framing rule):
       emotional_framing:  em01/em03/combo01 fire->fired; em02/hard_em01/hard_em02
@@ -53,6 +67,9 @@ def test_rules_only_confusion_is_exactly_as_expected():
                           kc01/kc02 clear->clear; hard_kc01/02/03 clear->FIRED (synonyms)
                           => tp=3 fp=3 fn=0 tn=2 na=0
     """
+    get_settings.cache_clear()
+    monkeypatch.setenv("AEGIS_CAPTION_MATCH_METHOD", "overlap")
+    get_settings.cache_clear()
     report, _ = evaluate(use_llm=False)
 
     def conf(flag):
@@ -120,3 +137,37 @@ def test_regression_lookups_are_injected_not_hashed():
     assert legacy_lookup("consistent_sunset.jpg") == ([], FlagStatus.CLEAR)
     assert legacy_lookup("studio_cat.jpg") == ([], FlagStatus.CLEAR)
     assert legacy_lookup("unknown_to_cache.png") == ([], FlagStatus.NOT_ASSESSED)
+
+
+# (caption_content_mismatch, overall) as (tp, fp, fn, tn, not_assessed), measured from
+# run_eval.py --config rules-only with the captioner off, as in the fast suite. Emotional framing
+# (3, 0, 0, 3, 1) and recycled context (3, 0, 0, 2, 1) do not depend on the method.
+CAPTION_PINS = {
+    "off": ((0, 0, 0, 0, 8), (6, 0, 0, 5, 10)),
+    "image": ((3, 5, 0, 0, 0), (9, 5, 0, 5, 2)),
+    "meaning": ((0, 1, 3, 4, 0), (6, 1, 3, 9, 2)),
+}
+
+
+@pytest.mark.parametrize("method", [
+    "off",
+    pytest.param("image", marks=pytest.mark.slow),
+    pytest.param("meaning", marks=pytest.mark.slow),
+])
+def test_caption_check_pinned_per_method(monkeypatch, method):
+    """See the module docstring: on these blank test images the meaning-based methods exercise
+    only their text path ("meaning") or fire on every caption ("image")."""
+    get_settings.cache_clear()
+    monkeypatch.setenv("AEGIS_CAPTION_MATCH_METHOD", method)
+    get_settings.cache_clear()
+    report, _ = evaluate(use_llm=False)
+
+    def conf(m):
+        return (m.confusion.tp, m.confusion.fp, m.confusion.fn, m.confusion.tn, m.confusion.not_assessed)
+
+    caption, overall = CAPTION_PINS[method]
+    assert conf(report.per_flag["caption_content_mismatch"]) == caption
+    assert conf(report.per_flag["emotional_framing"]) == (3, 0, 0, 3, 1)
+    assert conf(report.per_flag["recycled_context"]) == (3, 0, 0, 2, 1)
+    assert conf(report.overall) == overall
+    get_settings.cache_clear()

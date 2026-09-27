@@ -20,6 +20,11 @@ Steps, each cached so the expensive ones run once:
             pairs and, within that, catches the most out-of-context pairs; the candidate catching
             the most is chosen, ties by time then memory. Held-out labels are not read.
   timing    Time per image of the check alone and of the whole pipeline, on this machine.
+  fit       All 300 sampled pairs, used only for fitting: the picture-only threshold, flagging at
+            most 10% of the truthful pairs.
+  confirm   The single run on the fresh set (every VERITE pair whose article is not in the sample;
+            features computed with --set fresh): the picture-only rule, the meaning rule and word
+            overlap, scored through the app's own rule code, and the default chosen from them.
   evaluate  The single held-out run: for the chosen rule, word overlap, the LLM and always-fire,
             the share of truthful pairs flagged and recall on out-of-context and miscaptioned
             pairs, with Wilson 95% intervals; exact McNemar tests against word overlap and the
@@ -52,6 +57,7 @@ if str(_BACKEND) not in sys.path:
 
 ROOT = _BACKEND.parent
 SAMPLE = ROOT / "data" / "labels" / "C_verite_sample.csv"
+FRESH = ROOT / "data" / "labels" / "C_verite_fresh.csv"
 SPLIT = ROOT / "data" / "labels" / "C_verite_split.csv"
 VERITE = ROOT / "data" / "verite"
 CACHE = VERITE / "features"
@@ -61,22 +67,28 @@ CLIP_ARCHES = {"ViT-B/32": "vitb32", "RN50": "rn50"}
 
 
 # ------------------------------------------------------------------------------ data
-def load_pairs() -> list[dict]:
-    """The 300 sampled pairs, joined with their caption and local image file."""
+def load_pairs(pair_set: str = "sample") -> list[dict]:
+    """The 300 sampled pairs, or the fresh set (every pair whose article is not in the sample),
+    joined with their caption and local image file."""
     with open(VERITE / "VERITE.csv", encoding="utf-8", newline="") as fh:
         captions = {int(r[""]): r["caption"] for r in csv.DictReader(fh)}
     files = {p.stem: p for p in (VERITE / "images").iterdir()}
-    with open(SAMPLE, encoding="utf-8", newline="") as fh:
+    with open(SAMPLE if pair_set == "sample" else FRESH, encoding="utf-8", newline="") as fh:
         rows = list(csv.DictReader(fh))
     split = {}
-    if SPLIT.exists():
+    if pair_set == "sample" and SPLIT.exists():
         with open(SPLIT, encoding="utf-8", newline="") as fh:
             split = {int(r["verite_row"]): r["split"] for r in csv.DictReader(fh)}
     return [{
         "row": int(r["verite_row"]), "article": int(r["article_id"]), "label": r["label"],
         "image": r["image"], "file": files[r["image"]], "caption": captions[int(r["verite_row"])],
-        "y": int(r["label"] in MISMATCH), "split": split.get(int(r["verite_row"])),
+        "y": int(r["label"] in MISMATCH), "split": split.get(int(r["verite_row"]), pair_set),
     } for r in rows]
+
+
+def cached(name: str, pair_set: str = "sample") -> Path:
+    """A feature cache file; the fresh set's files carry a prefix so the two sets never mix."""
+    return CACHE / (name if pair_set == "sample" else f"{pair_set}_{name}")
 
 
 def key(text: str) -> str:
@@ -118,7 +130,7 @@ def do_split() -> None:
 
 
 # ------------------------------------------------------------------------------ features
-def phase_blip_ocr(pairs) -> None:
+def phase_blip_ocr(pairs, pair_set: str = "sample") -> None:
     from app.extractors.captioner import describe_scene
     from app.extractors.ocr import extract_on_screen_text
 
@@ -132,10 +144,10 @@ def phase_blip_ocr(pairs) -> None:
                       "t_blip": t_blip, "t_ocr": t_ocr}
         if n % 25 == 0:
             print(f"  {n}/{len(images)} images")
-    (CACHE / "blip_ocr.json").write_text(json.dumps(out, indent=1), encoding="utf-8")
+    cached("blip_ocr.json", pair_set).write_text(json.dumps(out, indent=1), encoding="utf-8")
 
 
-def phase_clip(pairs, arch: str) -> None:
+def phase_clip(pairs, arch: str, pair_set: str = "sample") -> None:
     """CLIP vectors for every image, caption and scene text, through the app's own functions."""
     from PIL import Image
 
@@ -146,7 +158,7 @@ def phase_clip(pairs, arch: str) -> None:
         clip_token_count,
     )
 
-    feats = json.loads((CACHE / "blip_ocr.json").read_text(encoding="utf-8"))
+    feats = json.loads(cached("blip_ocr.json", pair_set).read_text(encoding="utf-8"))
     limit = clip_context_length(arch)
 
     def encode_text(texts: list[str]) -> tuple[np.ndarray, list[float]]:
@@ -171,7 +183,7 @@ def phase_clip(pairs, arch: str) -> None:
     scenes = [scene_text(feats[i]) for i, _ in images]
     scene_vecs, scene_times = encode_text(scenes)
     tag = CLIP_ARCHES[arch]
-    np.savez(CACHE / f"clip_{tag}.npz", img=np.array(img_vecs), cap=cap_vecs, scene=scene_vecs)
+    np.savez(cached(f"clip_{tag}.npz", pair_set), img=np.array(img_vecs), cap=cap_vecs, scene=scene_vecs)
     meta = {"arch": arch, "images": [i for i, _ in images], "captions": [key(c) for c in captions],
             "t_image": img_times, "t_caption": cap_times, "t_scene": scene_times,
             "context_length": limit,
@@ -179,16 +191,16 @@ def phase_clip(pairs, arch: str) -> None:
             "pairs_with_cut_caption": sum(clip_token_count(p["caption"]) > limit for p in pairs),
             "scene_texts_cut": sum(clip_token_count(t) > limit for t in scenes if t),
             "scene_texts_empty": sum(not t for t in scenes), "scene_texts_total": len(scenes)}
-    (CACHE / f"clip_{tag}.json").write_text(json.dumps(meta, indent=1), encoding="utf-8")
+    cached(f"clip_{tag}.json", pair_set).write_text(json.dumps(meta, indent=1), encoding="utf-8")
     print(f"  {arch}: captions cut {meta['captions_cut']}/{meta['captions_total']} "
           f"(pairs {meta['pairs_with_cut_caption']}/{len(pairs)}); scene texts cut "
           f"{meta['scene_texts_cut']}/{meta['scene_texts_total']}, empty {meta['scene_texts_empty']}")
 
 
-def phase_spacy(pairs) -> None:
+def phase_spacy(pairs, pair_set: str = "sample") -> None:
     from app.extractors.caption_match import _spacy, spacy_similarity
 
-    feats = json.loads((CACHE / "blip_ocr.json").read_text(encoding="utf-8"))
+    feats = json.loads(cached("blip_ocr.json", pair_set).read_text(encoding="utf-8"))
     _spacy()  # load outside the timed calls
     out = {}
     for p in pairs:
@@ -196,7 +208,7 @@ def phase_spacy(pairs) -> None:
         s = time.perf_counter()
         sim = spacy_similarity(p["caption"], seen) if seen else None
         out[str(p["row"])] = {"sim": float("nan") if sim is None else sim, "t": time.perf_counter() - s}
-    (CACHE / "spacy.json").write_text(json.dumps(out, indent=1), encoding="utf-8")
+    cached("spacy.json", pair_set).write_text(json.dumps(out, indent=1), encoding="utf-8")
     print(f"  spaCy: {sum(math.isnan(v['sim']) for v in out.values())} pairs without a similarity")
 
 
@@ -247,14 +259,15 @@ MODEL_OF = {"img:ViT-B/32": "clip-vit-b-32", "img:RN50": "clip-rn50", "txt:CLIP 
             "txt:CLIP RN50": "clip-rn50", "txt:spaCy": "spacy-md"}
 
 
-def load_scores(pairs) -> tuple[dict, dict, dict]:
+def load_scores(pairs, pair_set: str = "sample", arches=tuple(CLIP_ARCHES)) -> tuple[dict, dict, dict]:
     """Every candidate score per pair (keyed by VERITE row), mean time per part, CLIP metadata."""
-    spacy_sim = json.loads((CACHE / "spacy.json").read_text(encoding="utf-8"))
+    spacy_sim = json.loads(cached("spacy.json", pair_set).read_text(encoding="utf-8"))
     scores, meta = {"txt:spaCy": {int(k): v["sim"] for k, v in spacy_sim.items()}}, {}
     part_time = {"spacy": float(np.mean([v["t"] for v in spacy_sim.values()]))}
-    for arch, tag in CLIP_ARCHES.items():
-        z = np.load(CACHE / f"clip_{tag}.npz")
-        m = json.loads((CACHE / f"clip_{tag}.json").read_text(encoding="utf-8"))
+    for arch in arches:
+        tag = CLIP_ARCHES[arch]
+        z = np.load(cached(f"clip_{tag}.npz", pair_set))
+        m = json.loads(cached(f"clip_{tag}.json", pair_set).read_text(encoding="utf-8"))
         ii = {k: i for i, k in enumerate(m["images"])}
         ci = {k: i for i, k in enumerate(m["captions"])}
         scores[f"img:{arch}"] = {p["row"]: float(z["img"][ii[p["image"]]] @ z["cap"][ci[key(p["caption"])]])
@@ -622,26 +635,171 @@ def do_timing(pairs, n_images: int, out_json: str) -> None:
     print(json.dumps(out, indent=2))
 
 
+# ------------------------------------------------------------------------------ fresh-set test
+FRESH_TRUTHFUL_CAP = 0.20  # a rule qualifies as the default only if it flags at most this share
+
+
+def fit_image_only(sample, scores) -> float:
+    """Image-only threshold on all sampled pairs, by the same rule as the held-out comparison:
+    at most 10% of truthful pairs flagged, then the most out-of-context pairs caught."""
+    return fit_capped("image alone", ["img:ViT-B/32"], sample, scores)[0]
+
+
+def do_fit() -> None:
+    """Fit the image-only threshold on the 300 sampled pairs. Reads nothing from the fresh set."""
+    sample = load_pairs("sample")
+    scores, _, _ = load_scores(sample, "sample")
+    th = fit_image_only(sample, scores)
+    c = counts(predict("image alone", ["img:ViT-B/32"], [th], sample, scores), sample)
+    print(f"image only, fitted on {len(sample)} sampled pairs: fire when CLIP ViT-B/32 similarity < {th!r}")
+    print("  on those pairs: " + ", ".join(f"{k} {v['k']}/{v['n']}" for k, v in c.items()))
+
+
+def do_confirm(out_json: str) -> None:
+    """The single fresh-set run: each rule as the app applies it, on pairs no evaluation touched."""
+    import os
+
+    from app.config import get_settings
+    from app.fusion import rules
+    from app.models import CaptionMatch, EvidenceBundle, FlagStatus, Meta, Modality, SceneDescription
+
+    sample = load_pairs("sample")
+    sample_scores, _, _ = load_scores(sample, "sample")
+    fitted = fit_image_only(sample, sample_scores)
+    fresh = load_pairs("fresh")
+    feats = json.loads(cached("blip_ocr.json", "fresh").read_text(encoding="utf-8"))
+    scores, part_time, clip_meta = load_scores(fresh, "fresh", arches=("ViT-B/32",))
+    # The app stores the threshold rounded; it must decide exactly as the fitted one does.
+    stored = rules.CAPTION_IMAGE_ONLY_THRESHOLD
+    if not (predict("image alone", ["img:ViT-B/32"], [fitted], sample, sample_scores)
+            == predict("image alone", ["img:ViT-B/32"], [stored], sample, sample_scores)).all():
+        raise SystemExit("the app's stored image-only threshold decides differently on the sample")
+
+    def bundle(p, method: str) -> EvidenceBundle:
+        f = feats[p["image"]]
+        text = scores["txt:spaCy"][p["row"]]
+        match = None
+        if method == "image":
+            match = CaptionMatch(image_similarity=scores["img:ViT-B/32"][p["row"]])
+        elif method == "meaning":
+            match = CaptionMatch(image_similarity=scores["img:ViT-B/32"][p["row"]],
+                                 text_similarity=None if math.isnan(text) else text)
+        return EvidenceBundle(caption=p["caption"],
+                              scene_descriptions=[SceneDescription(text=f["scene"])] if f["scene"] else [],
+                              on_screen_text=f["ocr"], caption_match=match, meta=Meta(modality=Modality.IMAGE))
+
+    methods = {"image only": "image", "meaning": "meaning", "word overlap": "overlap"}
+    fired, assessed = {}, {}
+    for name, method in methods.items():
+        os.environ["AEGIS_CAPTION_MATCH_METHOD"] = method
+        get_settings.cache_clear()
+        status = [rules.caption_scene_mismatch_rule(bundle(p, method)).status for p in fresh]
+        fired[name] = np.array([s == FlagStatus.FIRED for s in status])
+        assessed[name] = np.array([s != FlagStatus.NOT_ASSESSED for s in status])
+    get_settings.cache_clear()
+    exact = predict("image alone", ["img:ViT-B/32"], [fitted], fresh, scores)
+    if not (exact == fired["image only"]).all():
+        raise SystemExit("the app's stored image-only threshold decides differently from the fitted one")
+
+    label = np.array([p["label"] for p in fresh])
+    y = np.array([p["y"] for p in fresh], bool)
+    per_label = {lab: int((label == lab).sum()) for lab in ("true", "miscaptioned", "out-of-context")}
+    res = {"fresh_pairs": len(fresh), "per_label": per_label, "articles": len({p["article"] for p in fresh}),
+           "image_only_threshold": fitted, "stored_threshold": rules.CAPTION_IMAGE_ONLY_THRESHOLD,
+           "meaning_thresholds": [rules.CAPTION_IMAGE_SIMILARITY_THRESHOLD, rules.CAPTION_TEXT_SIMILARITY_THRESHOLD],
+           "overlap_threshold": rules.CAPTION_SCENE_OVERLAP_THRESHOLD, "rules": {}}
+    for name in methods:
+        res["rules"][name] = {**counts(fired[name], fresh), "not_assessed": int((~assessed[name]).sum())}
+
+    res["auc_image_score"] = {}
+    for contrast, lab in (("true vs out-of-context", "out-of-context"), ("true vs miscaptioned", "miscaptioned")):
+        sub = [p for p in fresh if p["label"] in ("true", lab)]
+
+        def stat(ps):
+            ys = [p["y"] for p in ps]
+            return auc(ys, [scores["img:ViT-B/32"][p["row"]] for p in ps]) if 0 < sum(ys) < len(ys) else None
+
+        lo, hi, skipped = cluster_bootstrap(stat, sub)
+        res["auc_image_score"][contrast] = {"auc": stat(sub), "ci": (lo, hi), "n": len(sub), "draws_skipped": skipped}
+
+    claim = label != "miscaptioned"
+    ok = claim & assessed["image only"] & assessed["meaning"]
+    res["mcnemar_image_only_vs_meaning"] = {
+        **mcnemar_exact((fired["image only"] == y)[ok], (fired["meaning"] == y)[ok]),
+        "pairs": int(ok.sum()), "excluded_not_assessed": int((claim & ~ok).sum()),
+        "note": "only_new_correct = image only right and meaning wrong"}
+
+    # Default, as pre-registered: qualify at <= 20% of truthful fresh pairs flagged; the largest
+    # gap between the share of out-of-context caught and the share of truthful flagged wins; ties
+    # to fewer truthful flagged, then less added time per image.
+    added_ms = {"word overlap": 0.0,
+                "image only": 1000 * (part_time["ViT-B/32:image"] + part_time["ViT-B/32:caption"]),
+                "meaning": 1000 * (part_time["ViT-B/32:image"] + part_time["ViT-B/32:caption"] + part_time["spacy"])}
+    table = []
+    for name in methods:
+        r = res["rules"][name]
+        table.append({"rule": name, "truthful_flagged": r["fires_on_truthful"]["rate"],
+                      "ooc_caught": r["recall_out_of_context"]["rate"],
+                      "gap": r["recall_out_of_context"]["rate"] - r["fires_on_truthful"]["rate"],
+                      "qualifies": r["fires_on_truthful"]["rate"] <= FRESH_TRUTHFUL_CAP,
+                      "added_ms_per_image": added_ms[name]})
+    ranked = sorted((t for t in table if t["qualifies"]),
+                    key=lambda t: (-t["gap"], t["truthful_flagged"], t["added_ms_per_image"]))
+    res["default_decision"] = {"table": table, "default": ranked[0]["rule"] if ranked else "off"}
+
+    Path(out_json).parent.mkdir(parents=True, exist_ok=True)
+    Path(out_json).write_text(json.dumps(res, indent=2, default=float), encoding="utf-8")
+
+    def fmt(c):
+        return f"{c['k']:>2}/{c['n']:<3} {c['rate']:.3f} ({c['ci'][0]:.3f}-{c['ci'][1]:.3f})"
+
+    print(f"FRESH SET: {len(fresh)} pairs {per_label}, {res['articles']} articles")
+    print(f"image only fitted on the sample: < {fitted:.4f} (stored {rules.CAPTION_IMAGE_ONLY_THRESHOLD})")
+    print(f"{'rule':<13} {'truthful flagged':<27} {'out-of-context caught':<27} {'miscaptioned caught':<27} n/a")
+    for name, r in res["rules"].items():
+        print(f"{name:<13} {fmt(r['fires_on_truthful']):<27} {fmt(r['recall_out_of_context']):<27} "
+              f"{fmt(r['recall_miscaptioned']):<27} {r['not_assessed']}")
+    for c, v in res["auc_image_score"].items():
+        print(f"image score AUC, {c}: {v['auc']:.3f} ({v['ci'][0]:.3f}-{v['ci'][1]:.3f}), n={v['n']}")
+    m = res["mcnemar_image_only_vs_meaning"]
+    print(f"McNemar image only vs meaning, truthful + out-of-context: image only right {m['only_new_correct']}, "
+          f"meaning right {m['only_other_correct']}, p = {m['p_value']:.4f} ({m['pairs']} pairs)")
+    for t in table:
+        print(f"  {t['rule']:<13} truthful {t['truthful_flagged']:.3f}  OOC {t['ooc_caught']:.3f}  "
+              f"gap {t['gap']:+.3f}  qualifies {t['qualifies']}")
+    print(f"default: {res['default_decision']['default']}")
+    print(f"wrote {out_json}")
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("step", choices=["split", "features", "llm", "calibrate", "evaluate", "timing"])
+    parser.add_argument("step", choices=["split", "features", "llm", "calibrate", "evaluate", "timing",
+                                         "fit", "confirm"])
     parser.add_argument("--phase", default="")
+    parser.add_argument("--set", dest="pair_set", choices=["sample", "fresh"], default="sample",
+                        help="features: which pairs to compute them for")
     parser.add_argument("--images", type=int, default=31, help="timing: images to time (the first loads models)")
     parser.add_argument("--json", default=str(ROOT / "results" / "wp2_caption_match.json"))
     args = parser.parse_args()
     CACHE.mkdir(parents=True, exist_ok=True)
     if args.step == "split":
         return do_split()
-    pairs = load_pairs()
+    if args.step == "fit":
+        return do_fit()
+    if args.step == "confirm":
+        return do_confirm(str(Path(args.json).with_name("wp2_fresh_confirmation.json")))
+    pairs = load_pairs(args.pair_set)
     if args.step == "features":
         if args.phase == "blip_ocr":
-            phase_blip_ocr(pairs)
+            phase_blip_ocr(pairs, args.pair_set)
         elif args.phase.startswith("clip:"):
-            phase_clip(pairs, args.phase[5:])
+            phase_clip(pairs, args.phase[5:], args.pair_set)
         elif args.phase == "spacy":
-            phase_spacy(pairs)
+            phase_spacy(pairs, args.pair_set)
         else:
             raise SystemExit("--phase must be blip_ocr, clip:ViT-B/32, clip:RN50 or spacy")
+    elif args.pair_set != "sample":
+        raise SystemExit("only the features step runs on the fresh set; the fresh test is the confirm step")
     elif args.step == "llm":
         do_llm(pairs)
     elif args.step == "calibrate":
