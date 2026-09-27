@@ -1,0 +1,96 @@
+{
+ "requested_at": "2026-09-27T16:56:32+00:00",
+ "vision": {
+  "webDetection": {
+   "bestGuessLabels": [
+    {
+     "label": "fun"
+    }
+   ],
+   "visuallySimilarImages": [
+    {
+     "url": "https://media.licdn.com/dms/image/v2/D4D22AQFt_-LJdPmGJg/feedshare-shrink_800/B4DZ7_juB5HQAc-/0/1782404014814?e=2147483647&v=beta&t=jsS8mbHz7pCO0h9Jfn0qEm_ArSs5qZomdyF4bhzoGeA"
+    },
+    {
+     "url": "https://www.tiktok.com/api/img/?itemId=7665674713762401557&location=0&aid=1988"
+    },
+    {
+     "url": "https://lookaside.instagram.com/seo/google_widget/crawler/?media_id=3978865328681759508"
+    },
+    {
+     "url": "https://media.licdn.com/dms/image/v2/C5612AQFmPS_QUmotwA/article-cover_image-shrink_720_1280/article-cover_image-shrink_720_1280/0/1520106792955?e=2147483647&v=beta&t=4bC825CMK_BHotHEAbnZFO36BFRL_DHC_b1lcAQwX5o"
+    },
+    {
+     "url": "https://p16-common-sign.tiktokcdn-us.com/tos-alisg-p-0037/oYoIDfmaEE8UQ5WT7IqgFBnhQRRVAZSK0BTe87~tplv-tiktokx-origin.image?dr=9636&x-expires=1789682400&x-signature=bl%2Fy2v1xxIJoxYu%2FIIB8hg%2BBORk%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=55bbe6a9&idc=useast8"
+    },
+    {
+     "url": "https://imagenes.elpais.com/resizer/v2/L3IBRQAE7JPWZOALUZM6HKH6TQ.jpg?auth=3215eb29757eb60538bf195dd4e194a267815023c9bdc8efae2095034990efb1&width=414"
+    },
+    {
+     "url": "https://i0.wp.com/fijiaquatics.com/wp-content/uploads/2024/06/received_4362026260089575515432248225260706.jpeg?resize=576%2C1024&ssl=1"
+    },
+    {
+     "url": "https://static01.nyt.com/images/2021/08/24/us/politics/00dc-scotus-immig/00dc-scotus-immig-facebookJumbo-v3.jpg?year=2021&h=550&w=1050&s=f9e3ee71843a42a6e3d3b3c2ec5d7cdf36b85bcd7efca21218357503eca7bfa5&k=ZQJBKqZ0VN"
+    },
+    {
+     "url": "https://cronica.uno/wp-content/uploads/2026/06/Rescate-en-Los-Cocos.png"
+    },
+    {
+     "url": "https://lookaside.instagram.com/seo/google_widget/crawler/?media_id=3924952453892315654"
+    },
+    {
+     "url": "https://umisakura.com/img/backward/117/20160613_1677449.jpg"
+    },
+    {
+     "url": "https://media.defense.gov/2025/Jan/09/2003626190/2000/2000/0/250107-F-XK411-1376.JPG"
+    },
+    {
+     "url": "https://www.aljazeera.net/wp-content/uploads/2025/06/7-1750533012.jpg?resize=1800%2C1279"
+    },
+    {
+     "url": "https://escuelanaval.cl/wp-content/uploads/2026/02/GMA_8702.jpg"
+    },
+    {
+     "url": "https://nextcity.org/images/made/CB_HugsNotWalls12_920_613_80.jpeg"
+    },
+    {
+     "url": "https://www.kontextwochenzeitung.de/fileadmin/_processed_/e/4/csm_Deponie_IMG_2639_0e889d178c.jpg"
+    },
+    {
+     "url": "https://cdn.prod.website-files.com/60216dee569bf3d0d58fa1dd/6125ad6693fe65ed5633d1ae__MG_7588.jpg"
+    },
+    {
+     "url": "https://static.wixstatic.com/media/ba4a55_3316185cf15847099e9e0b439b373f37~mv2.jpeg/v1/fill/w_320,h_320,q_90,enc_avif,quality_auto/ba4a55_3316185cf15847099e9e0b439b373f37~mv2.jpeg"
+    },
+    {
+     "url": "https://lookaside.instagram.com/seo/google_widget/crawler/?media_id=3973826529027531706"
+    },
+    {
+     "url": "https://lookaside.instagram.com/seo/google_widget/crawler/?media_id=3978865340006460169"
+    }
+   ],
+   "webEntities": [
+    {
+     "description": "light-hearted",
+     "entityId": "/g/11t7gznd8d",
+     "score": 0.431
+    },
+    {
+     "description": "Barechestedness",
+     "entityId": "/m/0dm6dl",
+     "score": 0.31563038
+    },
+    {
+     "description": "Leisure",
+     "entityId": "/m/04g3r",
+     "score": 0.30157086
+    },
+    {
+     "description": "Sitting",
+     "entityId": "/m/015c4z",
+     "score": 0.30034652
+    }
+   ]
+  }
+ }
+}

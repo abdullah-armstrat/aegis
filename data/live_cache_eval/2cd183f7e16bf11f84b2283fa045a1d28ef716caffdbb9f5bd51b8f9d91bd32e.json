@@ -1,0 +1,95 @@
+{
+ "requested_at": "2026-09-27T16:43:18+00:00",
+ "vision": {
+  "webDetection": {
+   "bestGuessLabels": [
+    {
+     "label": "rainbow"
+    }
+   ],
+   "visuallySimilarImages": [
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=1658039502991028"
+    },
+    {
+     "url": "https://images.sanoma-sndp.fi/1cf2746ec9f7e0d2c914bcb13b36fe3a/normal/468.jpg"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=1637406564414156"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=1506048068231178"
+    },
+    {
+     "url": "https://sirta.ipsl.fr/wp-content/uploads/2022/03/View-from-Palaiseau-observatory-building-on-instruments.jpg"
+    },
+    {
+     "url": "https://img.zeit.de/gesellschaft/zeitgeschehen/2018-06/ostdeutschland-thema/wide__1300x731"
+    },
+    {
+     "url": "https://guide.npust.edu.tw/wp-content/uploads/2023/01/img011.jpg"
+    },
+    {
+     "url": "https://www.kenrockwell.com/nikon/images1/13mm/examples/rainbow/D3R_2362-768.jpg"
+    },
+    {
+     "url": "https://cloudfront-us-east-1.images.arcpublishing.com/bellmediainc/HWF5UC5HVVCQBNDT4VPNSSEBUQ.jpg"
+    },
+    {
+     "url": "https://media.licdn.com/dms/image/v2/D5622AQGVX1LPcPnVNQ/feedshare-shrink_800/B56aC4VwzZG0Ac-/0/1789799108066?e=2147483647&v=beta&t=fvjG_xYC4tYFbRnReZ8dIdK5OvE7pSzF8neJyGXy2CQ"
+    },
+    {
+     "url": "https://www.webexhibits.org/causesofcolor/images/content/danbushrainbowtreeZ.jpg"
+    },
+    {
+     "url": "https://www.news.cn/photo/20260915/14bb7adeb68c455294caf6cbf936f46c/2026091514bb7adeb68c455294caf6cbf936f46c_20260915705215fe480b40d0845d659fe36f2a9e.jpg"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=1483820930451357"
+    },
+    {
+     "url": "https://www.tarabrach.com/wp-content/uploads/2024/08/Tara-Brach-Rainbow-e1722999881764.jpg"
+    },
+    {
+     "url": "https://www.ceh.ac.uk/sites/default/files/styles/tile_listing/public/2023-07/northey_rainbow.jpg?itok=U-CnVBP7"
+    },
+    {
+     "url": "https://www.tiktok.com/api/img/?itemId=7630640756151454997&location=0&aid=1988"
+    },
+    {
+     "url": "https://purple-cdn.web-apps-prod.wo-cloud.com/purple/0f7a645f-e3c1-4a9c-a6dd-ccfa5dff68a7/ccaeda65-166e-49c6-bbcd-ece973f0339c/651ee0e2-9a98-4efd-a8b2-81b83fc937bd/thumbnails/7df1232e-84a7-4f22-90c4-9c8e82ecc15e.jpg?fit=600%2C300"
+    },
+    {
+     "url": "https://media.licdn.com/dms/image/v2/D4E12AQGHtyRIDKes_A/article-cover_image-shrink_720_1280/B4EZ0PnosmG8AM-/0/1774083542345?e=2147483647&v=beta&t=ftoYmql2ZMSbSNU0XCBqmHBOzV694dg3s7jeCCfXr3Y"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=122218935446577791"
+    },
+    {
+     "url": "https://www.serengeti.com/assets/img/rainbow-serengeti-national-park.jpg"
+    }
+   ],
+   "webEntities": [
+    {
+     "description": "Rainbow",
+     "entityId": "/g/11b7ckp4fb",
+     "score": 0.3198
+    },
+    {
+     "entityId": "/t/2fc8p8n6mc1zv",
+     "score": 0.3198
+    },
+    {
+     "description": "Sunlight",
+     "entityId": "/m/06z0n",
+     "score": 0.29305002
+    },
+    {
+     "description": "Rainbow Shops",
+     "entityId": "/m/0922bl",
+     "score": 0.279
+    }
+   ]
+  }
+ }
+}

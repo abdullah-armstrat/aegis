@@ -1,0 +1,299 @@
+{
+ "dated_at": "2026-09-27T17:15:50+00:00",
+ "page_dates": {
+  "https://www.malumatfurus.org/topraga-gomulerek-taslanan/": {
+   "date": null,
+   "source": null
+  },
+  "https://www.snopes.com/author/snopes/?pagenum=32": {
+   "date": null,
+   "source": null
+  },
+  "https://www.snopes.com/fact-check/buried-woman-stoned-photo/": {
+   "date": "2018-08-09",
+   "source": "htmldate"
+  },
+  "https://www.snopes.com/latest/?pagenum=904": {
+   "date": null,
+   "source": null
+  },
+  "https://www.snopes.com/latest/?pagenum=909": {
+   "date": null,
+   "source": null
+  },
+  "https://www.thejournal.ie/factcheck-debunked-iran-stoning-woman-execution-buried-colombia-protest-photo-6995688-Mar2026/": {
+   "date": "2026-03-26",
+   "source": "htmldate"
+  }
+ },
+ "requested_at": "2026-09-27T16:48:36+00:00",
+ "vision": {
+  "webDetection": {
+   "bestGuessLabels": [
+    {
+     "label": "iran kadin taslama",
+     "languageCode": "tr"
+    }
+   ],
+   "fullMatchingImages": [
+    {
+     "url": "https://www.malumatfurus.org/wp-content/uploads/2024/03/boynuna-kadar-topraga-gomulen.jpg"
+    },
+    {
+     "url": "https://mediaproxy.snopes.com/width/1200/https://media.snopes.com/2018/08/stoning.jpg"
+    },
+    {
+     "url": "https://mediaproxy.snopes.com/width/600/https://media.snopes.com/2018/08/stoning.jpg"
+    },
+    {
+     "url": "https://www.malumatfurus.org/wp-content/uploads/2024/03/boynuna-kadar-topraga-gomulen-500x338.jpg"
+    }
+   ],
+   "pagesWithMatchingImages": [
+    {
+     "pageTitle": "Debunked: Photo of woman buried in the ground does not show her ...",
+     "partialMatchingImages": [
+      {
+       "url": "https://img2.thejournal.ie/article/6995688/river?version=6995698&width=360"
+      },
+      {
+       "url": "https://img2.thejournal.ie/article/6995688/river/?height=400&version=6995698"
+      }
+     ],
+     "url": "https://www.thejournal.ie/factcheck-debunked-iran-stoning-woman-execution-buried-colombia-protest-photo-6995688-Mar2026/"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://mediaproxy.snopes.com/width/600/https://media.snopes.com/2018/08/stoning.jpg"
+      }
+     ],
+     "pageTitle": "What's New | Page 909 | Snopes.com",
+     "url": "https://www.snopes.com/latest/?pagenum=909"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://mediaproxy.snopes.com/width/1200/https://media.snopes.com/2018/08/stoning.jpg"
+      }
+     ],
+     "pageTitle": "Does This Photograph Show a Woman About to Be Stoned to Death ...",
+     "url": "https://www.snopes.com/fact-check/buried-woman-stoned-photo/"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://mediaproxy.snopes.com/width/600/https://media.snopes.com/2018/08/stoning.jpg"
+      }
+     ],
+     "pageTitle": "David Mikkelson, Author at Snopes.com Page 32",
+     "url": "https://www.snopes.com/author/snopes/?pagenum=32"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://mediaproxy.snopes.com/width/600/https://media.snopes.com/2018/08/stoning.jpg"
+      }
+     ],
+     "pageTitle": "What's New | Page 904 - Snopes.com",
+     "url": "https://www.snopes.com/latest/?pagenum=904"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://www.malumatfurus.org/wp-content/uploads/2024/03/boynuna-kadar-topraga-gomulen.jpg"
+      }
+     ],
+     "pageTitle": "\u015eeriata G\u00f6re Topra\u011fa G\u00f6m\u00fclerek Ta\u015flan\u0131p \u00d6ld\u00fcr\u00fclen \u0130ranl\u0131 Kad\u0131na ...",
+     "url": "https://www.malumatfurus.org/topraga-gomulerek-taslanan/"
+    },
+    {
+     "pageTitle": "\u0130ran: Evin hapishanesindeki kad\u0131nlar ya\u015fad\u0131klar\u0131n\u0131 anlat\u0131yor - YouTube",
+     "url": "https://www.youtube.com/watch?v=0WdCwYmuSeE"
+    },
+    {
+     "pageTitle": "The women of Iran, fighting against US imperialism ... - YouTube",
+     "url": "https://www.youtube.com/watch?v=aDCROz93FGM"
+    },
+    {
+     "pageTitle": "\u0130ranl\u0131 kad\u0131n: \u201cCan\u0131n kar\u015f\u0131l\u0131\u011f\u0131nda \u0130ran kalk\u0131nacak deseler, kabul ...",
+     "url": "https://www.instagram.com/reel/DWoPKWUiGhw/"
+    },
+    {
+     "pageTitle": "Historic moments in Tehran! Iranian women parade with anti-aircraft ...",
+     "url": "https://www.youtube.com/watch?v=y04cyYdbTl4"
+    },
+    {
+     "pageTitle": "Kad\u0131n Meclisimiz, idam cezas\u0131 verilen Pex\u015fan Ez\u00eez\u00ee i\u00e7in \u0130ran ...",
+     "url": "https://www.youtube.com/watch?v=CgDiBFHN2zI"
+    },
+    {
+     "pageTitle": "\u0130ran \u0130slam Devrimi'nin ard\u0131ndan kad\u0131nlar\u0131n kamusal ... - Instagram",
+     "url": "https://www.instagram.com/reel/DVWy7PuAJnT/?hl=en"
+    },
+    {
+     "pageTitle": "\u0130ran'da bug\u00fcn idam edilecek. 26 ya\u015f\u0131ndaki \u0130rfan Sultani, 8 Ocak'ta ...",
+     "url": "https://www.instagram.com/reel/DTf70JeDCkH/?hl=en"
+    },
+    {
+     "pageTitle": "\u015eeriatla y\u00f6netilen \u0130ran'da kad\u0131n olmak. #iran - Instagram",
+     "url": "https://www.instagram.com/reel/DTXXIjGCHAC/?hl=en"
+    },
+    {
+     "pageTitle": "\u0130ran'da ba\u015f\u00f6rt\u00fcs\u00fc zorunlulu\u011funun ask\u0131ya al\u0131nmas\u0131n\u0131n ard\u0131ndan ...",
+     "url": "https://www.facebook.com/TheNewYoungTurks/videos/iranda-ba%C5%9F%C3%B6rt%C3%BCs%C3%BC-zorunlulu%C4%9Funun-ask%C4%B1ya-al%C4%B1nmas%C4%B1n%C4%B1n-ard%C4%B1ndan-ba%C5%9Fkent-tahranda-kad/1592754145224240/"
+    },
+    {
+     "pageTitle": "\u0130ran'da \u0130\u00e7 \u00c7ama\u015f\u0131rl\u0131 Eylem! O Protestonun Asl\u0131 Ne? | CNN T\u00dcRK",
+     "url": "https://www.facebook.com/cnnturk/videos/iranda-i%C3%A7-%C3%A7ama%C5%9F%C4%B1rl%C4%B1-eylem-o-protestonun-asl%C4%B1-ne/1205185957242102/"
+    },
+    {
+     "pageTitle": "\u0130ran'da Kad\u0131n Devrimi Meclisi kuruldu - Mezopotamya Ajans\u0131",
+     "url": "https://mezopotamyaajansi43.com/KADIN/content/view/320974"
+    },
+    {
+     "pageTitle": "\u0130ranl\u0131 Kad\u0131nlar Reisi'nin \u00d6l\u00fcm\u00fcn\u00fc Co\u015fkuyla Kutlad\u0131! Dans Edip ...",
+     "url": "https://www.facebook.com/sozcutelevizyonu/videos/iranl%C4%B1-kad%C4%B1nlar-reisinin-%C3%B6l%C3%BCm%C3%BCn%C3%BC-co%C5%9Fkuyla-kutlad%C4%B1-dans-edip-lokma-d%C3%B6kt%C3%BCler/265125236626470/"
+    },
+    {
+     "pageTitle": "\u0130ran'da \u00e7arp\u0131c\u0131 geli\u015fme, polis a\u00e7\u0131klama yapt\u0131: \u0130slami k\u0131yafet ...",
+     "url": "https://www.facebook.com/cnnturk/videos/1979-y%C4%B1l%C4%B1ndaki-islam-devriminden-bu-yana-uygulan%C4%B1yordu/10159997661550106/"
+    },
+    {
+     "pageTitle": "\u0130ran'da \u00e7arp\u0131c\u0131 geli\u015fme: \u0130slami k\u0131yafet kurallar\u0131na uymayan kad\u0131nlar ...",
+     "url": "https://www.cnnturk.com/video/dunya/iranda-carpici-gelisme-islami-kiyafet-kurallarina-uymayan-kadinlar-artik-tutuklanmayacak-717760"
+    }
+   ],
+   "partialMatchingImages": [
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=443833889555124"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=1036441317868174"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=122123879031365268"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=1042454228620788"
+    },
+    {
+     "url": "https://img2.thejournal.ie/article/6995688/river/?height=400&version=6995698"
+    },
+    {
+     "url": "https://www.altnews.in/wp-content/uploads/2018/06/iranian-1024x536.jpeg"
+    },
+    {
+     "url": "https://img2.thejournal.ie/article/6995688/river?version=6995698&width=360"
+    }
+   ],
+   "visuallySimilarImages": [
+    {
+     "url": "https://media.licdn.com/dms/image/v2/C4E12AQG4MwdLgZ3omg/article-cover_image-shrink_720_1280/article-cover_image-shrink_720_1280/0/1520150410169?e=2147483647&v=beta&t=CwfNx_yZTEEtCqH0DGIxItlJj5e43Ls2BygZ88FRS5k"
+    },
+    {
+     "url": "https://www.nepalseeds.org/wp-content/uploads/2019/07/BiogasHome.jpg"
+    },
+    {
+     "url": "https://www.iccaconsortium.org/wp-content/uploads/2014/12/Kawawana-17.jpg"
+    },
+    {
+     "url": "https://unu.edu/sites/default/files/styles/content_width/public/2026-05/pr-banner-2-flickr.png?itok=osadP78L"
+    },
+    {
+     "url": "https://www.fao.org/media/images/faoinyemenlibraries/default-album/fao-yemen-6-193a4412.jpg?sfvrsn=5a3df28c_1"
+    },
+    {
+     "url": "https://img.rtve.es/imagenes/en-tierras-lejanas/01780481026574.jpg"
+    },
+    {
+     "url": "https://sinav30.conagua.gob.mx:8080/UsosAgua/images/Domestico.jpg"
+    },
+    {
+     "url": "https://www.icrc.org/sites/default/files/styles/mobile_square_1/public/2026-07/Tigray-seed---fertilizer-distribution--2-.jpg.webp?h=8abcec71&itok=3BawSe-R"
+    },
+    {
+     "url": "http://womensmediacenter.com/assets/site/main/Screenshot-2024-03-14-at-13.00.31.png"
+    },
+    {
+     "url": "https://www.undp.org/sites/g/files/zskgke326/files/styles/image_reveal_card_453_x_490_/public/2024-04/dsc06698-1_copie.jpg?h=7e8c7c08&itok=JFpSId7s"
+    },
+    {
+     "url": "https://mptf.undp.org/sites/default/files/2025-08/sri_lanka_sdg_news_pic_29_apr_2025.jpeg"
+    },
+    {
+     "url": "https://media.licdn.com/dms/image/v2/D4D05AQHMuQqAkOJkPw/videocover-high/B4DaCqZwlUGkBM-/0/1789565277069?e=2147483647&v=beta&t=TpEVUpnvMEOfNt6oeHZgjGBBjzOyEv9h_c9InmxR0t0"
+    },
+    {
+     "url": "https://media.licdn.com/dms/image/v2/D4D22AQE4p6_1QAMifw/feedshare-image-high-res/B4DZwWLTYXHgAU-/0/1769898587890?e=2147483647&v=beta&t=84xMKNP10Cve3eKknDby1akvBbbnuKDsE8T9XD3-I5I"
+    },
+    {
+     "url": "https://www.hrw.org/sites/default/files/styles/image_gallery/public/media_2021/05/202105crd_ghana_childlabor_3.jpg?itok=g0haU0AB"
+    },
+    {
+     "url": "https://www.charitywater.org/vite/assets/kids_devison-BiVeRaNb.jpg"
+    },
+    {
+     "url": "https://www.hrw.org/sites/default/files/styles/embed_xxl/public/multimedia_images_2019/201904eme_yemen_landmines1_0.jpg?itok=0kz2zbef"
+    },
+    {
+     "url": "x-raw-image:///c62e4a335b7cbe60a164cac76112ff4953d6911c15ea24d57e7d47a5d7e811e6"
+    },
+    {
+     "url": "https://imagenes.elpais.com/resizer/v2/YKHHQ6M2PNPGNKZDXXJBZAX7YM.jpg?auth=c7c727b20a26c934c115931eef017e22031e0d9dd1396a6d54fd560194f14207&width=414&height=311&smart=true"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=1129593982548926"
+    },
+    {
+     "url": "https://www.jica.go.jp/english/information/topics/2023/__icsFiles/afieldfile/2024/03/04/madagascar_photo_5_s.jpg"
+    }
+   ],
+   "webEntities": [
+    {
+     "description": "Pakhshan Azizi",
+     "entityId": "/g/11y76q_z7l",
+     "score": 8.410501
+    },
+    {
+     "description": "Iran",
+     "entityId": "/m/03shp",
+     "score": 1.39965
+    },
+    {
+     "entityId": "/t/24mypdx4svpvn",
+     "score": 0.7386
+    },
+    {
+     "entityId": "/t/24cbn2zmlzd0f",
+     "score": 0.7175
+    },
+    {
+     "description": "Women's rights",
+     "entityId": "/m/012h0y",
+     "score": 0.6826
+    },
+    {
+     "description": "women's rights in Iran",
+     "entityId": "/g/11fn654mlp",
+     "score": 0.4729
+    },
+    {
+     "description": "women in Iran",
+     "entityId": "/m/0117tqhx",
+     "score": 0.4702
+    },
+    {
+     "description": "Stoning",
+     "entityId": "/m/011z9q",
+     "score": 0.4189
+    },
+    {
+     "description": "Iranian peoples",
+     "entityId": "/m/04nrnz",
+     "score": 0.296
+    }
+   ]
+  }
+ }
+}

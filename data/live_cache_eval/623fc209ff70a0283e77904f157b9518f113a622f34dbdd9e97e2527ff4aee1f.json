@@ -1,0 +1,461 @@
+{
+ "dated_at": "2026-09-27T17:21:11+00:00",
+ "page_dates": {
+  "https://de.wikipedia.org/wiki/Ada_Wright": {
+   "date": "2018-01-18",
+   "source": "htmldate"
+  },
+  "https://ecpublishing.co.uk/collections/history/products/the-suffragettes-terrorists-or-freedom-fighters": {
+   "date": "2019-10-24",
+   "source": "htmldate"
+  },
+  "https://en.wikipedia.org/wiki/Black_Friday_(1910)": {
+   "date": "2006-05-10",
+   "source": "htmldate"
+  },
+  "https://factcheck.afp.com/facebook-post-encourages-women-vote-miscaptioned-photo": {
+   "date": "2019-11-12",
+   "source": "wayback"
+  },
+  "https://sussexbylines.co.uk/politics/democracy/mary-clarke-the-first-suffragette-to-die-for-the-cause/": {
+   "date": "2024-01-16",
+   "source": "htmldate"
+  },
+  "https://womanandhersphere.com/2013/03/22/suffrage-stories-from-frederick-street-to-winson-green-the-birmingham-womens-suffrage-campaign/": {
+   "date": null,
+   "source": null
+  },
+  "https://www.facebook.com/AmnestyUK/posts/did-you-know-the-original-black-friday-was-a-protest-for-womens-right-to-votetom/756082696565709/": {
+   "date": null,
+   "source": null
+  },
+  "https://www.facebook.com/SANewsChannelSikkim/posts/sa-news-sikkim-black-friday-womens-suffrage-movementon-18-november-1910-in-their/122216463236148572/": {
+   "date": null,
+   "source": null
+  },
+  "https://www.facebook.com/lucy.worsley/posts/annie-kenney-lost-a-finger-in-a-cotton-mill-before-she-turned-twenty-her-file-fr/1546092363554051/": {
+   "date": null,
+   "source": null
+  },
+  "https://www.pinterest.com/sactobmk/suffragette-costume/": {
+   "date": "2018-10-31",
+   "source": "htmldate"
+  }
+ },
+ "requested_at": "2026-09-27T16:53:41+00:00",
+ "vision": {
+  "webDetection": {
+   "bestGuessLabels": [
+    {
+     "label": "suffragettes casser vitres",
+     "languageCode": "en"
+    }
+   ],
+   "fullMatchingImages": [
+    {
+     "url": "http://www.volgafoto.ru/files/pages/12750/17170498320_30_May_2024_i12750_mejdunarodnyi_den_feminizma.jpg"
+    },
+    {
+     "url": "https://mixnews.lv/wp-content/uploads/2025/05/15/1747285814-mixnews-d439f651de5c0764e93033875e41a1a3.jpg"
+    },
+    {
+     "url": "https://pbs.twimg.com/media/CjJzqd_WsAAZpT_?format=webp&name=medium"
+    },
+    {
+     "url": "https://m.blog.hu/ri/ritkanlathatotortenelem/image/Napi/79/1872.%20Susan%20B%20Anthony%20amerikai%20feminista%20aktivist%C3%A1t%20b%C3%A1ntalmazz%C3%A1k%20feld%C3%BCh%C3%B6d%C3%B6tt%20f%C3%A9rfiak,%20mert%20megpr%C3%B3b%C3%A1lt%20szavazni..jpg"
+    },
+    {
+     "url": "https://i.pinimg.com/474x/d5/64/12/d56412de449ba9e03ab3e0f54c7b2b52.jpg"
+    },
+    {
+     "url": "https://assets.sutori.com/user-uploads/image/5b2fb864-19fd-4d62-a68f-4e2f4cb77e70/d0eb15e7dd8c4fbaa60a46ac186ff650.jpeg"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=203580403384201"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=123638286848906"
+    },
+    {
+     "url": "https://sussexbylines.co.uk/wp-content/uploads/2024/01/Black_Friday_London_18_November_1910_suffragette_attacked-Victor-Console-Wikimedia-Commons.jpg"
+    },
+    {
+     "url": "https://miro.medium.com/v2/resize:fit:996/0*VmRFzx-o9DrNl9gH.jpg"
+    },
+    {
+     "url": "https://manastabalblog.wordpress.com/wp-content/uploads/2018/09/ada-wright-on-black-friday.jpg?w=584"
+    },
+    {
+     "url": "https://anotherhistoryofchattanoogablog.wordpress.com/wp-content/uploads/2016/05/suffragettes.jpg?w=640"
+    },
+    {
+     "url": "https://www.metrowestdailynews.com/gcdn/authoring/2010/08/22/NMWD/ghows-WL-ca7fb4b2-b980-486b-a0e0-ffd8bd0ecf50-7a6767aa.jpeg"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=492958219542958"
+    },
+    {
+     "url": "https://i.pinimg.com/550x/f9/eb/10/f9eb1037b59b331697b3be61ca90ca61.jpg"
+    },
+    {
+     "url": "https://www.metrowestdailynews.com/gcdn/authoring/2010/08/22/NMWD/ghows-WL-ca7fb4b2-b980-486b-a0e0-ffd8bd0ecf50-7a6767aa.jpeg?width=1200&disable=upscale&format=pjpg&auto=webp"
+    },
+    {
+     "url": "https://womanandhersphere.com/wp-content/uploads/2013/03/black-friday.jpg?w=584"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=1712369540890078"
+    },
+    {
+     "url": "http://www.5harfliler.com/wp-content/uploads/2015/06/ada-wrgiht.jpg"
+    },
+    {
+     "url": "https://cdn.quotesgram.com/img/50/94/494866293-tumblr_md2ynnY1Dw1r7dgeuo1_500.jpg"
+    }
+   ],
+   "pagesWithMatchingImages": [
+    {
+     "pageTitle": "The Dearsley Window - YouTube",
+     "url": "https://www.youtube.com/watch?v=FE5Zf3vgo68"
+    },
+    {
+     "pageTitle": "Why Were The Suffragettes So Extreme? - YouTube",
+     "url": "https://www.youtube.com/watch?v=Zd3vWoSZjFE"
+    },
+    {
+     "pageTitle": "'Suffragette' | Anatomy of a Scene w/ Director Sarah Gavron - YouTube",
+     "url": "https://www.youtube.com/watch?v=GZwvnTb5pQY"
+    },
+    {
+     "pageTitle": "Make More Noise! Suffragettes in Silent Film - extract | BFI - YouTube",
+     "url": "https://www.youtube.com/watch?v=MUjuUrLuv7k"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://womanandhersphere.com/wp-content/uploads/2013/03/black-friday.jpg"
+      },
+      {
+       "url": "https://womanandhersphere.com/wp-content/uploads/2013/03/black-friday.jpg?w=584"
+      }
+     ],
+     "pageTitle": "Suffrage Stories: 'From Frederick Street to Winson Green'",
+     "url": "https://womanandhersphere.com/2013/03/22/suffrage-stories-from-frederick-street-to-winson-green-the-birmingham-womens-suffrage-campaign/"
+    },
+    {
+     "pageTitle": "The Suffragettes - Terrorists or Freedom Fighters? - EC Publishing",
+     "partialMatchingImages": [
+      {
+       "url": "https://ecpublishing.co.uk/cdn/shop/products/sources-preview-2_compact.png?v=1571932536"
+      }
+     ],
+     "url": "https://ecpublishing.co.uk/collections/history/products/the-suffragettes-terrorists-or-freedom-fighters"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://i.pinimg.com/236x/91/a7/a8/91a7a807ac626968713ea469bcac202b.jpg"
+      }
+     ],
+     "pageTitle": "29 Suffragette Costume ideas - Pinterest",
+     "url": "https://www.pinterest.com/sactobmk/suffragette-costume/"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=6976206212423291"
+      }
+     ],
+     "pageTitle": "DID YOU KNOW: the original Black Friday was a protest for women's ...",
+     "url": "https://www.facebook.com/AmnestyUK/posts/did-you-know-the-original-black-friday-was-a-protest-for-womens-right-to-votetom/756082696565709/"
+    },
+    {
+     "pageTitle": "Facebook post encourages women to vote with miscaptioned photo",
+     "partialMatchingImages": [
+      {
+       "url": "https://factcheck.afp.com/sites/default/files/styles/og_image/public/medias/factchecking/canada/factcheck-visual_1_8.png?itok=7-uiIE1m"
+      }
+     ],
+     "url": "https://factcheck.afp.com/facebook-post-encourages-women-vote-miscaptioned-photo"
+    },
+    {
+     "pageTitle": "Black Friday (1910) - Wikipedia",
+     "partialMatchingImages": [
+      {
+       "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/86/The_Daily_Mirror%2C_19_November_1910%2C_front_page_%28cleaned%29.png/330px-The_Daily_Mirror%2C_19_November_1910%2C_front_page_%28cleaned%29.png?utm_source=en.wikipedia.org&utm_campaign=parser&utm_content=thumbnail"
+      },
+      {
+       "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/86/The_Daily_Mirror%2C_19_November_1910%2C_front_page_%28cleaned%29.png/960px-The_Daily_Mirror%2C_19_November_1910%2C_front_page_%28cleaned%29.png?utm_source=en.wikipedia.org&utm_campaign=index&utm_content=thumbnail"
+      }
+     ],
+     "url": "https://en.wikipedia.org/wiki/Black_Friday_(1910)"
+    },
+    {
+     "pageTitle": "BBC Archive: Suffragette Winifred Mayo recalls smashing windows",
+     "url": "https://www.bbc.co.uk/videos/c51e7vr22yzo"
+    },
+    {
+     "pageTitle": "Did you know there were suffragettes as early as the 1850s? This ...",
+     "url": "https://www.instagram.com/reel/DYI21t-sQQh/"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://sussexbylines.co.uk/wp-content/uploads/2024/01/Black_Friday_London_18_November_1910_suffragette_attacked-Victor-Console-Wikimedia-Commons.jpg"
+      }
+     ],
+     "pageTitle": "Mary Clarke: the first suffragette to die for the cause - Sussex Bylines",
+     "url": "https://sussexbylines.co.uk/politics/democracy/mary-clarke-the-first-suffragette-to-die-for-the-cause/"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=6976206212423291"
+      }
+     ],
+     "pageTitle": "Black Friday (Women's Suffrage Movement) On 18 November 1910 ...",
+     "url": "https://www.facebook.com/SANewsChannelSikkim/posts/sa-news-sikkim-black-friday-womens-suffrage-movementon-18-november-1910-in-their/122216463236148572/"
+    },
+    {
+     "pageTitle": "Ada Wright - Wikipedia",
+     "partialMatchingImages": [
+      {
+       "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/86/The_Daily_Mirror%2C_19_November_1910%2C_front_page_%28cleaned%29.png/250px-The_Daily_Mirror%2C_19_November_1910%2C_front_page_%28cleaned%29.png?utm_source=de.wikipedia.org&utm_campaign=parser&utm_content=thumbnail"
+      }
+     ],
+     "url": "https://de.wikipedia.org/wiki/Ada_Wright"
+    },
+    {
+     "pageTitle": "Annie Kenney lost a finger in a cotton mill before she turned twenty ...",
+     "partialMatchingImages": [
+      {
+       "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=10209777132384171"
+      }
+     ],
+     "url": "https://www.facebook.com/lucy.worsley/posts/annie-kenney-lost-a-finger-in-a-cotton-mill-before-she-turned-twenty-her-file-fr/1546092363554051/"
+    },
+    {
+     "pageTitle": "Glass-Smashing for Votes Suffragettes as Window-Breakers 1912",
+     "url": "https://www.1st-art-gallery.com/After-Lunt-Wilmot/Glass-Smashing-For-Votes-Suffragettes-As-Window-Breakers-1912.html"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://womanandhersphere.com/wp-content/uploads/2013/03/black-friday.jpg?w=584"
+      }
+     ],
+     "pageTitle": "Birmingham history \u2013 Woman and her Sphere",
+     "url": "https://womanandhersphere.com/tag/birmingham-history/"
+    },
+    {
+     "pageTitle": "The Suffragettes - Terrorists or Freedom Fighters? - EC Publishing",
+     "partialMatchingImages": [
+      {
+       "url": "https://ecpublishing.co.uk/cdn/shop/products/sources-preview-2_compact.png?v=1571932536"
+      }
+     ],
+     "url": "https://ecpublishing.co.uk/products/the-suffragettes-terrorists-or-freedom-fighters"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://miro.medium.com/v2/resize:fit:996/0*VmRFzx-o9DrNl9gH.jpg"
+      }
+     ],
+     "pageTitle": "Fighting For Their Rights: The Suffragette Bodyguards - Medium",
+     "url": "https://medium.com/@theartfulhistorian/fighting-for-their-rights-the-suffragette-bodyguard-cfa837c31ca6"
+    }
+   ],
+   "partialMatchingImages": [
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=1710494665768286"
+    },
+    {
+     "url": "https://img-s3.onedio.com/id-65ec2512ce3f2056a0156415/rev-0/w-600/h-680/f-jpg/s-99788b6be0ed89b305c3991bbc8a51b765a4da79.jpg"
+    },
+    {
+     "url": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEglnlPL31XnyEUUxoD3xV77qOfMt360XeQegf-Nw-Tz07_5tvZBb0NxvlXaj6EEjDJoLE6OD2SRqKoi0XT0-UWnDC_8GGLVeCubLKnxmG-UcuSpahiXa3ZAsury8y3qLnkUiiomOfaSdwI/s640/BqJE7N2CcAM0zv2.jpg"
+    },
+    {
+     "url": "https://f9.pmo.ee/6R9LnlvpIAmeP_8imdmmabm6boo=/650x650/smart/nginx/o/2013/09/04/2024621t1h2c47.jpg"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=10209777132384171"
+    },
+    {
+     "url": "https://i0.wp.com/vitaminevaganti.com/wp-content/uploads/2022/11/ada-wright-nella-copertina-del-the-daily-mirror-19-novembre-1910-edited.png?resize=321%2C491&ssl=1"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=10227477488313231"
+    },
+    {
+     "url": "https://lookaside.instagram.com/seo/google_widget/crawler/?media_id=3981500989562038246"
+    },
+    {
+     "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/86/The_Daily_Mirror%2C_19_November_1910%2C_front_page_%28cleaned%29.png/250px-The_Daily_Mirror%2C_19_November_1910%2C_front_page_%28cleaned%29.png?utm_source=de.wikipedia.org&utm_campaign=parser&utm_content=thumbnail"
+    },
+    {
+     "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/86/The_Daily_Mirror%2C_19_November_1910%2C_front_page_%28cleaned%29.png/960px-The_Daily_Mirror%2C_19_November_1910%2C_front_page_%28cleaned%29.png?utm_source=en.wikipedia.org&utm_campaign=index&utm_content=thumbnail"
+    },
+    {
+     "url": "https://i0.wp.com/ingliando.net/wp-content/uploads/2025/10/black-friday.jpg?resize=218%2C284&ssl=1"
+    },
+    {
+     "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/86/The_Daily_Mirror%2C_19_November_1910%2C_front_page_%28cleaned%29.png/330px-The_Daily_Mirror%2C_19_November_1910%2C_front_page_%28cleaned%29.png?utm_source=en.wikipedia.org&utm_campaign=parser&utm_content=thumbnail"
+    },
+    {
+     "url": "https://gbaike-image.cdn.bcebos.com/c8ea15ce36d3d53969024b8a3087e950352ab0b8/c8ea15ce36d3d53969024b8a3087e950352ab0b8_url?x-bce-process=image/format,f_auto/resize,m_lfit,h_1024,limit_1"
+    },
+    {
+     "url": "https://i0.wp.com/vitaminevaganti.com/wp-content/uploads/2022/11/black-friday-copertina.jpeg?fit=599%2C300&ssl=1"
+    },
+    {
+     "url": "https://cache.getarchive.net/Prod/thumb/cdn2/L3Bob3RvLzE5MTAvMTEvMTgvYmxhY2stZnJpZGF5LWF0dGFja2VkLXN1ZmZyYWdldHRlLW9uLXRoZS1ncm91bmQtZDJhZmFjLTY0MC5qcGc%3D/512/641/webp"
+    },
+    {
+     "url": "https://lookaside.instagram.com/seo/google_widget/crawler/?media_id=3989510009691938702"
+    },
+    {
+     "url": "https://fs04.vseosvita.ua/0402n6v8-6e50/008-150x0.jpg?t=0ef76e133fa1a7f7abe6a5bb426e4828"
+    },
+    {
+     "url": "https://factcheck.afp.com/sites/default/files/styles/og_image/public/medias/factchecking/canada/factcheck-visual_1_8.png?itok=7-uiIE1m"
+    },
+    {
+     "url": "https://bluewin-prod-sc-images.imgix.net/2025/11/17/34faa778-20ee-400b-a170-b5c88a237779.png?rect=0%2C479%2C1280%2C720&w=1920&auto=format&s=b5c818f132692361f7d25327c26c1e3b"
+    },
+    {
+     "url": "https://static.wixstatic.com/media/2cdd65_aa2baa07874b49a29ac112ef30145b9d~mv2.jpg/v1/crop/x_0,y_23,w_533,h_488/fill/w_280,h_256,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/20251222150854_edited_edited.jpg"
+    }
+   ],
+   "visuallySimilarImages": [
+    {
+     "url": "https://encyclopedia.ushmm.org/images/large/5eface00-fbda-4b3f-b99e-0699de1c5f10.jpeg"
+    },
+    {
+     "url": "https://encyclopedia.ushmm.org/images/large/cc94f2df-ce1a-4c94-bf67-f7ef5056adb5.jpeg"
+    },
+    {
+     "url": "https://assets.yadvashem.org/image/upload/s--HzWHpIA2--/f_auto,q_auto/v1/yadvashem_site/drupal10/2025-03/268_10_0?_a=BAAAV6E0&itok=z8WEP0ut"
+    },
+    {
+     "url": "https://www.un.org/sites/un2.un.org/files/2025/01/int-day-commemoration-in-memory-victims-holocaust-2025.jpg"
+    },
+    {
+     "url": "https://www.ushmm.org/adaptivemedia/rendition?id=fc53551f8befafa715fccb3e7796dbe244507b22&op=webp&wd=2128"
+    },
+    {
+     "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d7/Patrol_of_the_February_revolution.jpg/960px-Patrol_of_the_February_revolution.jpg?utm_source=ro.wikipedia.org&utm_campaign=parser&utm_content=thumbnail"
+    },
+    {
+     "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/17/Stroop_Report_-_Warsaw_Ghetto_Uprising_BW.jpg/1280px-Stroop_Report_-_Warsaw_Ghetto_Uprising_BW.jpg?utm_source=en.wikipedia.org&utm_campaign=index&utm_content=thumbnail"
+    },
+    {
+     "url": "https://assets.yadvashem.org/image/upload/s--MZYjR7_u--/t_crop_drupal_3_2/v1/yadvashem_site/drupal10/2025-03/06?_a=BAAAV6E0&itok=43M0oMK8"
+    },
+    {
+     "url": "https://dl6pgk4f88hky.cloudfront.net/2026/09/23/bettman-1-464x348.jpeg"
+    },
+    {
+     "url": "https://www.radiofrance.fr/pikapi/images/19f51782-e874-4f9c-8de7-f6d371c6f0ad/2048"
+    },
+    {
+     "url": "https://www.annefrank.org/media/filer_public_thumbnails/filer_public/d1/14/d1145da8-3ceb-4422-8054-0414a1afe77e/zoom_video_header_still_-_landingspagina_tijdlijn.jpg__1280x1280_q85_subsampling-2.jpg"
+    },
+    {
+     "url": "https://arolsen-archives.org/content/uploads/sites/5/2-ns-raum-germania-himmler-02-edited-1-500x600.jpg"
+    },
+    {
+     "url": "https://upload.wikimedia.org/wikipedia/commons/b/b4/Gestapomen_following_the_white_buses.jpg?utm_source=th.wikipedia.org&utm_campaign=index&utm_content=original"
+    },
+    {
+     "url": "https://canadianlabour.ca/wp-content/uploads/2019/03/Aug-1-400x261.jpg"
+    },
+    {
+     "url": "https://lookaside.instagram.com/seo/google_widget/crawler/?media_id=2822055278116130147"
+    },
+    {
+     "url": "https://www.uottawa.ca/faculty-arts/sites/g/files/bhrskd366/files/styles/max_width_l_1470px/public/2026-09/shtetl2.jpg?itok=0vkAZMzp"
+    },
+    {
+     "url": "https://www.lvivcenter.org/wp-content/uploads/2020/05/UMA-800x489.jpg"
+    },
+    {
+     "url": "https://i.ytimg.com/vi/Fci-PZFFzgg/hqdefault.jpg"
+    },
+    {
+     "url": "https://gcp-na-images.contentstack.com/v3/assets/bltea6093859af6183b/blt9074f39b22de7275/698a48e2b3fce3fca20cbc3a/warsaw-historic-antisemitism.jpeg?branch=production"
+    },
+    {
+     "url": "https://media.cnn.com/api/v1/images/stellar/prod/gettyimages-502828125.jpg?c=original&q=w_860,c_fill"
+    }
+   ],
+   "webEntities": [
+    {
+     "description": "Suffragette",
+     "entityId": "/m/0_v3b78",
+     "score": 1.06845
+    },
+    {
+     "description": "Black Friday",
+     "entityId": "/m/0d25mj",
+     "score": 0.9999
+    },
+    {
+     "description": "Ada Wright",
+     "entityId": "/g/11hbpdp6vx",
+     "score": 0.88769996
+    },
+    {
+     "description": "Suffragette",
+     "entityId": "/m/0fgd8",
+     "score": 0.7433
+    },
+    {
+     "description": "Women's suffrage",
+     "entityId": "/m/017rqm",
+     "score": 0.7109
+    },
+    {
+     "description": "Suffrage",
+     "entityId": "/m/0j7l9",
+     "score": 0.4914
+    },
+    {
+     "description": "Women's Social and Political Union",
+     "entityId": "/m/02rx9l",
+     "score": 0.4517
+    },
+    {
+     "entityId": "/t/24mypdx4svpvn",
+     "score": 0.4384
+    },
+    {
+     "description": "Women's suffrage in the United Kingdom",
+     "entityId": "/m/0117y2y5",
+     "score": 0.3328
+    },
+    {
+     "description": "Sylvia Pankhurst",
+     "entityId": "/m/01j79_",
+     "score": 0.071609996
+    },
+    {
+     "description": "Sarah Gavron",
+     "entityId": "/m/054d7y0",
+     "score": 0.070860006
+    },
+    {
+     "description": "Annie Kenney",
+     "entityId": "/m/08y3lr",
+     "score": 0.057855
+    },
+    {
+     "description": "Susan B. Anthony",
+     "entityId": "/m/06yw_",
+     "score": 0.050594997
+    }
+   ]
+  }
+ }
+}

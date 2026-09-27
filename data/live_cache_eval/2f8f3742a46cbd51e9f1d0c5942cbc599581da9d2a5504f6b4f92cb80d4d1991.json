@@ -1,0 +1,78 @@
+{
+ "requested_at": "2026-09-27T16:46:07+00:00",
+ "vision": {
+  "webDetection": {
+   "bestGuessLabels": [
+    {
+     "label": "tree"
+    }
+   ],
+   "visuallySimilarImages": [
+    {
+     "url": "https://d9-wret.s3.us-west-2.amazonaws.com/assets/palladium/production/s3fs-public/media/images/Goose%20Creek_1_MelindaMartinez_0.JPG"
+    },
+    {
+     "url": "https://img.furusato-tax.jp/img/x/gcf/project/form/details/20260703/gpfd_867b20f58870177b430d3082e3f96a3647a182bf.jpg"
+    },
+    {
+     "url": "https://avatars.mds.yandex.net/get-altay/16158716/2a0000019958e3afda82dcea14c7f44e29e9/L_height"
+    },
+    {
+     "url": "https://extension.usu.edu/planthealth/ipm/images/tree-shrub-diseases.jpg"
+    },
+    {
+     "url": "https://www.gcparkstrails.com/wp-content/uploads/2026/09/IMG_2225.jpg"
+    },
+    {
+     "url": "https://ars.els-cdn.com/content/image/1-s2.0-S235198942500589X-gr4.jpg"
+    },
+    {
+     "url": "https://www.ffpri.go.jp/touiku/en/aboutus/images/image4.jpeg"
+    },
+    {
+     "url": "https://www.truelithuania.com/Nuotraukos/NeringaCormorants.JPG"
+    },
+    {
+     "url": "https://lookaside.instagram.com/seo/google_widget/crawler/?media_id=3877898710890117759"
+    },
+    {
+     "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e7/K%C5%99ivokl%C3%A1tsko_-_PR_Jouglovka.JPG/250px-K%C5%99ivokl%C3%A1tsko_-_PR_Jouglovka.JPG?utm_source=cs.wikipedia.org&utm_campaign=parser&utm_content=thumbnail"
+    },
+    {
+     "url": "https://preview.redd.it/today-9-5-is-international-vulture-appreciation-day-v0-28d0td8xfpnh1.png?width=480&format=png&auto=webp&s=b0acde08b2eb78df56cb6992bdc6b078f7651693"
+    },
+    {
+     "url": "https://upload.wikimedia.org/wikipedia/commons/f/f2/Catalonia-Pi_de_les_tres_branques.jpg?utm_source=fr.wikipedia.org&utm_campaign=index&utm_content=original"
+    },
+    {
+     "url": "http://www.unevenearth.org/wp-content/uploads/2017/05/DSCF6015.jpg"
+    },
+    {
+     "url": "https://i.redd.it/crepe-myrtles-pruning-v0-o6g61br6emph1.jpg?width=3024&format=pjpg&auto=webp&s=43524c53a6b8615208280cd9b8c55106b1b097bb"
+    },
+    {
+     "url": "https://www.unescap.org/sites/default/d8files/inline-images/iStock-492003846-800pixels.jpg"
+    },
+    {
+     "url": "https://www.nrc.govt.nz/media/2ctmnmmu/tree-death-s-500.jpg"
+    },
+    {
+     "url": "https://szentendre.hu/wp-content/uploads/2025/11/1000002204-1-scaled.jpg"
+    },
+    {
+     "url": "https://gw.hacdn.io/media/images/IMG_1236.2e16d0ba.fill-1200x630.jpg"
+    },
+    {
+     "url": "https://i.guim.co.uk/img/media/0a98faee7775142c3f6986e3c98a026c12d0f871/0_133_4000_2400/master/4000.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=9f1a537b87c7bb2843c5a6357b08f763"
+    }
+   ],
+   "webEntities": [
+    {
+     "description": "Tree",
+     "entityId": "/m/07j7r",
+     "score": 0.3366747
+    }
+   ]
+  }
+ }
+}

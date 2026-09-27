@@ -1,0 +1,91 @@
+{
+ "requested_at": "2026-09-27T16:46:13+00:00",
+ "vision": {
+  "webDetection": {
+   "bestGuessLabels": [
+    {
+     "label": "sand"
+    }
+   ],
+   "visuallySimilarImages": [
+    {
+     "url": "https://media.licdn.com/dms/image/v2/C4D1BAQGCljQjRwPiFw/company-background_10000/company-background_10000/0/1583712625574/novethos_financial_partners_gmbh_cover?e=2147483647&v=beta&t=N_OEghH_1fjm-S81HwPHVWUbRdafIrv0f8P2buFOzu4"
+    },
+    {
+     "url": "https://www.esa.int/var/esa/storage/images/esa_multimedia/images/2020/04/namib_desert/21977444-1-eng-GB/Namib_Desert_card_full.jpg"
+    },
+    {
+     "url": "https://pbs.twimg.com/media/FHKNKa5XEAMD_09?format=webp&name=large"
+    },
+    {
+     "url": "https://visitgdansk.com/res/966990/967090/Mewie%20%C5%81acha%202.jpeg?size=616x447&crop"
+    },
+    {
+     "url": "https://www.rymdstyrelsen.se/globalassets/images/sahara_desert_algeria.jpg?width=454&rmode=crop&height=303&quality=80"
+    },
+    {
+     "url": "https://images.utopia.de/0wgGEh8AJgvwx_btKn1uFD7AYbv2eQroT0QE3PYh_60/rt:fill/w:960/h:960/g:ce/plain/2026/09/australien-pilbara-us-ben-carless-210926-1920x1209-1.jpg"
+    },
+    {
+     "url": "https://www.wottonkearney.com/wp-content/uploads/2026/07/Life-Sciences.png"
+    },
+    {
+     "url": "https://www.allens.com.au/contentassets/013b309682d04379b4be9841dcb8c439/tile426_red-earth-curve-water_as_437817430.jpg"
+    },
+    {
+     "url": "https://es.gizmodo.com/app/uploads/2026/09/pilbara-1024x683.jpg"
+    },
+    {
+     "url": "https://customsurgical.co/static/8642f69cd5d7efb198cdb61f08633c23/e08cd/1.png"
+    },
+    {
+     "url": "https://www.nps.gov/common/uploads/grid_builder/yell/crop16_9/45E123E7-1DD8-B71B-0B5005C79C764344.jpg?width=640&quality=80&mode=crop&format=webp"
+    },
+    {
+     "url": "https://www.uam.es/ciencias/media/img/1606973242122/cabecera-islandia-853x480.jpg"
+    },
+    {
+     "url": "https://upload.wikimedia.org/wikipedia/commons/f/fd/Dead_Sea_salt_formation_%28Aerial_view%2C_2007%29.jpg?utm_source=fa.wikipedia.org&utm_campaign=index&utm_content=original"
+    },
+    {
+     "url": "https://media.licdn.com/dms/image/sync/v2/D4D27AQFEizNQ_EvTbQ/articleshare-shrink_800/B4DaAt9rTAJ0AY-/0/1787477538669?e=2147483647&v=beta&t=MEV3eVNKpxxyyIBY3-thsoif593cHRfakpsoau0isgU"
+    },
+    {
+     "url": "https://meteofrance.com/sites/default/files/images/articles/ressource-eau-changement-climatique.jpg"
+    },
+    {
+     "url": "https://assets.science.nasa.gov/content/dam/science/esd/eo/images/iotd/2026/eyeing-the-richat-structure/richatstructure_oli_20260306_lrg.jpg"
+    },
+    {
+     "url": "https://thepenngazette.com/wp-content/uploads/2021/09/VENT-CUT-2014-500x500.jpg"
+    },
+    {
+     "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Rupes_Tenuis_perspective_view_ESA240369.jpg/1280px-Rupes_Tenuis_perspective_view_ESA240369.jpg?utm_source=en.wikipedia.org&utm_campaign=index&utm_content=thumbnail"
+    },
+    {
+     "url": "https://www.allintoendgbv.com/_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2F09mo39s7%2Fproduction%2Fc1f7499822fbed85c5bc8de0297bb7e2deb49fd5-2160x2741.png%3Fw%3D2400%26fm%3Dwebp%26q%3D85%26auto%3Dformat&w=3840&q=85"
+    },
+    {
+     "url": "https://www.geographie.uni-wuerzburg.de/fileadmin/_processed_/1/0/csm_t066_541x230_68dadd4cc2.jpg"
+    }
+   ],
+   "webEntities": [
+    {
+     "description": "Photography",
+     "entityId": "/m/05wkw",
+     "score": 0.4068
+    },
+    {
+     "description": "Aerial photography",
+     "entityId": "/m/01w5c_",
+     "score": 0.3986581
+    },
+    {
+     "description": "Sand",
+     "entityId": "/m/099fz",
+     "score": 0.314402
+    }
+   ]
+  }
+ }
+}

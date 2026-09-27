@@ -1,0 +1,368 @@
+{
+ "dated_at": "2026-09-27T17:11:22+00:00",
+ "page_dates": {
+  "https://agenciamarcospontes.com.br/destino/visita-guiada-ao-kennedy-space-center-nasa-2/": {
+   "date": "2018-11-26",
+   "source": "htmldate"
+  },
+  "https://cocoabeachinsider.com/2020/05/17/best-places-to-view-a-launch/": {
+   "date": "2020-05-17",
+   "source": "htmldate"
+  },
+  "https://commons.wikimedia.org/wiki/File:KSC_LC39_Vehicle_Assembly_Building_and_Launch_Control_Center_(KSC-2014-1968).jpg": {
+   "date": "2025-08-20",
+   "source": "wayback"
+  },
+  "https://defence24.com/poland-will-not-acquire-the-caracal-helicopters": {
+   "date": "2016-10-05",
+   "source": "htmldate"
+  },
+  "https://space24.pl/poprawki-kongresu-do-budzetu-nasa-srodki-na-misje-ksiezycowe-i-planetarne": {
+   "date": "2016-05-28",
+   "source": "htmldate"
+  },
+  "https://www.facebook.com/groups/elimu.ya.sayansi.ya.aanga.na.teknolojia/posts/282172793319486/": {
+   "date": null,
+   "source": null
+  },
+  "https://www.liligo.es/magazine-viajes/no-es-pais-para-viejos-10-planes-para-descubrir-el-sur-de-ee-uu-77035.html": {
+   "date": "2019-07-16",
+   "source": "wayback"
+  },
+  "https://www.spaceappssydney.org/2018": {
+   "date": "2019-10-18",
+   "source": "wayback"
+  },
+  "https://zh.wikipedia.org/zh-cn/%E8%88%AA%E5%A4%A9%E5%99%A8%E8%A3%9D%E9%85%8D%E5%A4%A7%E6%A8%93": {
+   "date": "2013-11-05",
+   "source": "htmldate"
+  },
+  "https://zh.wikipedia.org/zh-tw/%E8%88%AA%E5%A4%A9%E5%99%A8%E8%A3%9D%E9%85%8D%E5%A4%A7%E6%A8%93": {
+   "date": "2013-11-05",
+   "source": "htmldate"
+  }
+ },
+ "requested_at": "2026-09-27T16:42:57+00:00",
+ "vision": {
+  "webDetection": {
+   "bestGuessLabels": [
+    {
+     "label": "pode visitar a nasa",
+     "languageCode": "pt"
+    }
+   ],
+   "fullMatchingImages": [
+    {
+     "url": "https://images.squarespace-cdn.com/content/v1/56beda9601dbaed289db4f1d/1551842719723-K0H9T1S092H0UZXSS619/original.jpeg?format=2500w"
+    },
+    {
+     "url": "https://mokhafaf.com/image-preview/aHR0cHM6Ly93d3cubW9raGFmYWYuY29tL3VwbG9hZHMvaW1hZ2VzL2tzYy0yMDExLmpwZw==?amp=1"
+    },
+    {
+     "url": "https://img.aydinlik.com.tr/rcman/Cw800h533q95gc/storage/files/images/2024/02/27/7-rglx.jpg"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=3252273028124019"
+    },
+    {
+     "url": "https://agenciamarcospontes.com.br/wp-content/uploads/2018/03/visita-nasa02.jpg"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=2921033768131391"
+    },
+    {
+     "url": "https://www.liligo.es/magazine-viajes/wp-content/uploads/sites/43/2016/09/South_NASA-660x441.jpg"
+    },
+    {
+     "url": "https://cdn.defence24.pl/2017/12/01/580xpx/cu1Y0ZqpGudxPNaJHAK6nEQySMett737MRgOyRrl.v6wj.jpg"
+    },
+    {
+     "url": "https://mblogthumb-phinf.pstatic.net/20131226_155/23hyunsj_1388056235630x0Q1w_JPEG/ke04.jpg?type=w420"
+    },
+    {
+     "url": "https://mokhafaf.com/uploads/images/ksc-2011.jpg"
+    }
+   ],
+   "pagesWithMatchingImages": [
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://images.squarespace-cdn.com/content/v1/56beda9601dbaed289db4f1d/1551842719723-K0H9T1S092H0UZXSS619/original.jpeg?format=2500w"
+      }
+     ],
+     "pageTitle": "2018 \u2014 NASA Space Apps Sydney",
+     "url": "https://www.spaceappssydney.org/2018"
+    },
+    {
+     "pageTitle": "File:KSC LC39 Vehicle Assembly Building and Launch Control ...",
+     "partialMatchingImages": [
+      {
+       "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fb/KSC_LC39_Vehicle_Assembly_Building_and_Launch_Control_Center_%28KSC-2014-1968%29.jpg/1280px-KSC_LC39_Vehicle_Assembly_Building_and_Launch_Control_Center_%28KSC-2014-1968%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=thumbnail"
+      }
+     ],
+     "url": "https://commons.wikimedia.org/wiki/File:KSC_LC39_Vehicle_Assembly_Building_and_Launch_Control_Center_(KSC-2014-1968).jpg"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://cdn.defence24.pl/2017/12/01/580xpx/cu1Y0ZqpGudxPNaJHAK6nEQySMett737MRgOyRrl.v6wj.jpg"
+      }
+     ],
+     "pageTitle": "Poland Will not Acquire the Caracal Helicopters - Defence24.com",
+     "url": "https://defence24.com/poland-will-not-acquire-the-caracal-helicopters"
+    },
+    {
+     "pageTitle": "Best Places To View A Launch - Cocoa Beach Insider",
+     "partialMatchingImages": [
+      {
+       "url": "https://i0.wp.com/cocoabeachinsider.com/wp-content/uploads/2020/05/20180415_095627-1.jpg?w=237&h=178&ssl=1"
+      }
+     ],
+     "url": "https://cocoabeachinsider.com/2020/05/17/best-places-to-view-a-launch/"
+    },
+    {
+     "pageTitle": "PARTIU VISITAR A NASA DE HOUSTON !!!!! | JOHNSON ... - YouTube",
+     "url": "https://www.youtube.com/watch?v=v5h4jIO_g1g"
+    },
+    {
+     "pageTitle": "a complete guide and tips for visiting NASA in Orlando. - YouTube",
+     "url": "https://www.youtube.com/watch?v=OcdRN5CYoNI"
+    },
+    {
+     "pageTitle": "5 COISAS IMPERD\u00cdVEIS PRA QUEM VISITA A NASA \u203c\ufe0fAntes de ...",
+     "url": "https://www.instagram.com/reel/DSQMe0vCRDC/?hl=en"
+    },
+    {
+     "pageTitle": "Vale a pena visitar a NASA na Fl\u00f3rida? (Kennedy Space Center)",
+     "url": "https://www.youtube.com/watch?v=oKsBhHn1ISI"
+    },
+    {
+     "pageTitle": "J\u00e1 imaginou visitar a sede da NASA no Cabo Canaveral ... - YouTube",
+     "url": "https://www.youtube.com/shorts/uDJwY9qZUdk"
+    },
+    {
+     "pageTitle": "Sab\u00edas que hay un lugar donde pod\u00e9s ingresar a interactuar con las ...",
+     "url": "https://www.instagram.com/reel/DPKmz0iDIRn/?hl=en"
+    },
+    {
+     "pageTitle": "\u00bfSab\u00edas que puedes visitar la NASA y entrar en sus instalaciones ...",
+     "url": "https://www.facebook.com/CastrotourSA/videos/-sab%C3%ADas-que-puedes-visitar-la-nasa-y-entrar-en-sus-instalaciones-s%C3%AD-en-el-kenned/714529814437327/"
+    },
+    {
+     "pageTitle": "Viajamos en familia al SPACE CENTER HOUSTON, el museo de la ...",
+     "url": "https://www.instagram.com/reel/DKS-GEXpAMy/?hl=en"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://agenciamarcospontes.com.br/wp-content/uploads/2018/03/visita-nasa02.jpg"
+      }
+     ],
+     "pageTitle": "Visita guiada ao Kennedy Space Center - NASA",
+     "url": "https://agenciamarcospontes.com.br/destino/visita-guiada-ao-kennedy-space-center-nasa-2/"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://www.liligo.es/magazine-viajes/wp-content/uploads/sites/43/2016/09/South_NASA-660x441.jpg"
+      }
+     ],
+     "pageTitle": "No es pa\u00eds para viejos: 10 planes que te descubrir\u00e1n el Sur de EE.UU.",
+     "url": "https://www.liligo.es/magazine-viajes/no-es-pais-para-viejos-10-planes-para-descubrir-el-sur-de-ee-uu-77035.html"
+    },
+    {
+     "pageTitle": "NASA space center - O que saber antes de ir (ATUALIZADO 2026)",
+     "url": "https://www.tripadvisor.pt/Attraction_Review-g56003-d34419647-Reviews-NASA_space_center-Houston_Texas.html"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://cdn.defence24.pl/2017/12/01/580xpx/cu1Y0ZqpGudxPNaJHAK6nEQySMett737MRgOyRrl.v6wj.jpg"
+      }
+     ],
+     "pageTitle": "Poprawki Kongresu do bud\u017cetu NASA. \u015arodki na misje ksi\u0119\u017cycowe i ...",
+     "url": "https://space24.pl/poprawki-kongresu-do-budzetu-nasa-srodki-na-misje-ksiezycowe-i-planetarne"
+    },
+    {
+     "pageTitle": "Can You Visit Nasa As A Tourist - Instagram",
+     "url": "https://www.instagram.com/popular/can-you-visit-nasa-as-a-tourist/"
+    },
+    {
+     "pageTitle": "\u822a\u5929\u5668\u88c5\u914d\u5927\u697c - \u7ef4\u57fa\u767e\u79d1",
+     "partialMatchingImages": [
+      {
+       "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fb/KSC_LC39_Vehicle_Assembly_Building_and_Launch_Control_Center_%28KSC-2014-1968%29.jpg/1280px-KSC_LC39_Vehicle_Assembly_Building_and_Launch_Control_Center_%28KSC-2014-1968%29.jpg?utm_source=zh.wikipedia.org&utm_campaign=index&utm_content=thumbnail"
+      }
+     ],
+     "url": "https://zh.wikipedia.org/zh-cn/%E8%88%AA%E5%A4%A9%E5%99%A8%E8%A3%9D%E9%85%8D%E5%A4%A7%E6%A8%93"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=2921033768131391"
+      }
+     ],
+     "pageTitle": "Hili ni jengo la NASA shirika la utafiti la anga la Marekani. Jengo hiI ...",
+     "url": "https://www.facebook.com/groups/elimu.ya.sayansi.ya.aanga.na.teknolojia/posts/282172793319486/"
+    },
+    {
+     "pageTitle": "\u98db\u884c\u5668\u88dd\u914d\u5927\u6a13- \u7dad\u57fa\u767e\u79d1\uff0c\u81ea\u7531\u7684\u767e\u79d1\u5168\u66f8",
+     "partialMatchingImages": [
+      {
+       "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fb/KSC_LC39_Vehicle_Assembly_Building_and_Launch_Control_Center_%28KSC-2014-1968%29.jpg/1280px-KSC_LC39_Vehicle_Assembly_Building_and_Launch_Control_Center_%28KSC-2014-1968%29.jpg?utm_source=zh.wikipedia.org&utm_campaign=index&utm_content=thumbnail"
+      }
+     ],
+     "url": "https://zh.wikipedia.org/zh-tw/%E8%88%AA%E5%A4%A9%E5%99%A8%E8%A3%9D%E9%85%8D%E5%A4%A7%E6%A8%93"
+    }
+   ],
+   "partialMatchingImages": [
+    {
+     "url": "https://nova24.uz/wp-content/uploads/2025/05/scale_1200-150x150.jpg"
+    },
+    {
+     "url": "https://i0.wp.com/cocoabeachinsider.com/wp-content/uploads/2020/05/20180415_095627-1.jpg?w=237&h=178&ssl=1"
+    },
+    {
+     "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fb/KSC_LC39_Vehicle_Assembly_Building_and_Launch_Control_Center_%28KSC-2014-1968%29.jpg/1280px-KSC_LC39_Vehicle_Assembly_Building_and_Launch_Control_Center_%28KSC-2014-1968%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=thumbnail"
+    }
+   ],
+   "visuallySimilarImages": [
+    {
+     "url": "https://www.popsci.com/wp-content/uploads/2019/03/18/FEYWSKKWB7QTYMEQ4SEELPN5PA.jpg?quality=85&w=768"
+    },
+    {
+     "url": "https://lookaside.instagram.com/seo/google_widget/crawler/?media_id=3983952374195669690"
+    },
+    {
+     "url": "https://s2.dmcdn.net/v/eywbQ1gjiTOygufG1/x1080"
+    },
+    {
+     "url": "https://lookaside.instagram.com/seo/google_widget/crawler/?media_id=3973030909921812874"
+    },
+    {
+     "url": "https://stories.nd.edu/stories/fighting-to-cure-brain-cancer/images/photo-kennedy_space_center-800.webp"
+    },
+    {
+     "url": "https://kwizly.com/storage/images/image_quizzes/pDNA9E3J5ySURfKg7zF3xueHNtA0eBlY963vFlCe.jpg"
+    },
+    {
+     "url": "https://image.forskning.no/?imageId=2559920&width=1200"
+    },
+    {
+     "url": "https://cdn.iz.ru/sites/default/files/news-2026-08/TASS_95110112.jpg"
+    },
+    {
+     "url": "https://media.cnn.com/api/v1/images/stellar/prod/220317160941-02-artemis-rollout-0317.jpg?c=original"
+    },
+    {
+     "url": "https://cdn.mos.cms.futurecdn.net/v2/t:0,l:0,cw:6000,ch:3375,q:80,w:2560/t5oQgWzjegmzua6vrMeVt3.jpg"
+    },
+    {
+     "url": "https://cdn.mos.cms.futurecdn.net/v2/t:0,l:750,cw:4500,ch:3375,q:80,w:2560/t5oQgWzjegmzua6vrMeVt3.jpg"
+    },
+    {
+     "url": "https://lookaside.instagram.com/seo/google_widget/crawler/?media_id=3926681258835527101"
+    },
+    {
+     "url": "https://www.usatoday.com/gcdn/authoring/authoring-images/2026/04/28/PBRE/89837297007-crb-042826-artemis-9.jpg?width=1200&disable=upscale&format=pjpg&auto=webp"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=2216363522463875&get_thumbnail=1"
+    },
+    {
+     "url": "https://media-cldnry.s-nbcnews.com/image/upload/t_nbcnews-fp-1024-512,f_auto,q_auto:best/mpx/2704722219/2026_08/1787969313091_now_staytuned_jared_isaacman_nasa_260828_S3_1920x1080-thsqia.jpg"
+    },
+    {
+     "url": "https://i0.wp.com/spacenews.com/wp-content/uploads/2026/05/Z63_7070.jpg?resize=800%2C600&ssl=1"
+    },
+    {
+     "url": "https://cdn.mos.cms.futurecdn.net/nc6fyeeLQc5gLuXeiSAPML.jpeg"
+    },
+    {
+     "url": "https://images-assets.nasa.gov/image/KSC-20260428-PH-GEB02_0010/KSC-20260428-PH-GEB02_0010~large.jpg?w=900&h=900&fit=clip&crop=faces%2Cfocalpoint"
+    },
+    {
+     "url": "https://www.tiktok.com/api/img/?itemId=7506280897533168942&location=3&aid=1988&index=5"
+    },
+    {
+     "url": "https://www.tiktok.com/api/img/?itemId=7642775426816953613&location=3&aid=1988&index=3"
+    }
+   ],
+   "webEntities": [
+    {
+     "description": "Launch Control Center - Kennedy Space Center",
+     "entityId": "/m/0bbg74",
+     "score": 1.1629201
+    },
+    {
+     "description": "Vehicle Assembly Building",
+     "entityId": "/m/01nnvg",
+     "score": 1.07385
+    },
+    {
+     "description": "NASA Johnson Space Center",
+     "entityId": "/m/0182y2",
+     "score": 1.0512
+    },
+    {
+     "description": "Space Center Houston",
+     "entityId": "/m/0fy56_",
+     "score": 1.0315499
+    },
+    {
+     "description": "Kennedy Space Center Visitor Complex",
+     "entityId": "/m/064nlqv",
+     "score": 0.9353851
+    },
+    {
+     "description": "Kennedy Space Center Launch Complex 39",
+     "entityId": "/m/062vvj",
+     "score": 0.84255
+    },
+    {
+     "entityId": "/t/27fm6507ml2hx",
+     "score": 0.7159
+    },
+    {
+     "entityId": "/t/2773mmnzkp0fr",
+     "score": 0.7141
+    },
+    {
+     "description": "NASA",
+     "entityId": "/m/05f4p",
+     "score": 0.7141
+    },
+    {
+     "description": "KSC",
+     "entityId": "/g/11c1wk7g7m",
+     "score": 0.6474
+    },
+    {
+     "description": "Rocket",
+     "entityId": "/m/09rvcxw",
+     "score": 0.517
+    },
+    {
+     "description": "Nasa",
+     "entityId": "/g/11bc64xk10",
+     "score": 0.5005
+    },
+    {
+     "description": "Space Shuttle",
+     "entityId": "/m/0v0hpxr",
+     "score": 0.4791
+    },
+    {
+     "description": "NASA Social",
+     "entityId": "/m/0gmdtn2",
+     "score": 0.4651
+    },
+    {
+     "description": "John F. Kennedy Space Center",
+     "entityId": "/m/045z8",
+     "score": 0.042708002
+    }
+   ]
+  }
+ }
+}

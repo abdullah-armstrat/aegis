@@ -1,0 +1,86 @@
+{
+ "requested_at": "2026-09-27T16:46:43+00:00",
+ "vision": {
+  "webDetection": {
+   "bestGuessLabels": [
+    {
+     "label": "aerial photography"
+    }
+   ],
+   "visuallySimilarImages": [
+    {
+     "url": "https://cdn10.picryl.com/photo/2012/12/31/ast-30-2601-apollo-soyuz-test-project-apollo-soyuz-test-project-washington-ed70f7-1024.jpg"
+    },
+    {
+     "url": "https://cdn.mos.cms.futurecdn.net/aUyxN9QUYXfh4xN3HiFah3.jpg"
+    },
+    {
+     "url": "https://www.bnkomi.ru/content/news/images/183805/AEN0CSWdgcD2nQq15K7vKBvry7PHalKlwCS66gYQgNssme4sm9LT39iA4zvRxv39q5qEBbzMoDsMMEfMwz1Ji3SN.jpg"
+    },
+    {
+     "url": "https://www.desmoinesregister.com/gcdn/authoring/authoring-images/2024/09/27/PDEM/75411939007-iss-067-e-137212.jpg?crop=3712,3711,x1392,y0"
+    },
+    {
+     "url": "x-raw-image:///e449459cae1772baa518fbf24023b6af69382f3cbd7d50d03a287c7b6a82ee3e"
+    },
+    {
+     "url": "x-raw-image:///0a3e0d26a9cf1840f2e71729aa56314efc7875eabfef98b00ff3fb65305c21bf"
+    },
+    {
+     "url": "https://cdn2.picryl.com/photo/2010/08/16/earth-observations-taken-from-mir-during-linengers-nasamir-23-mission-72471b-1024.jpg"
+    },
+    {
+     "url": "https://eol.jsc.nasa.gov/DatabaseImages/ESC/large/ISS012/ISS012-E-11779.JPG"
+    },
+    {
+     "url": "http://blog.gezgin.gov.tr/wp-content/uploads/2015/02/1.jpg?w=660"
+    },
+    {
+     "url": "https://www.parstimes.com/spaceimages/tehran_dark.jpg"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=6069861549737371"
+    },
+    {
+     "url": "x-raw-image:///2fdc78d4480a0762a4eddde78c43a2f30ec6d2c7dfadb12df66ff896138a067e"
+    },
+    {
+     "url": "https://upload.wikimedia.org/wikipedia/commons/4/45/Chernobyl_from_MIR.jpg?utm_source=pt.wikipedia.org&utm_campaign=index&utm_content=original"
+    },
+    {
+     "url": "https://eol.jsc.nasa.gov/DatabaseImages/ESC/large/ISS063/ISS063-E-60817.JPG"
+    },
+    {
+     "url": "https://cdn10.picryl.com/photo/2011/07/21/s89e5041-sts-089-earth-observations-taken-by-earthkam-64f377-640.jpg"
+    },
+    {
+     "url": "https://www.focus.it/site_stored/imgs/0003/001/05-pirenei.jpg"
+    },
+    {
+     "url": "https://www.photolibrary.jp/mhd6/img694/s-20190513232904253163.jpg"
+    },
+    {
+     "url": "https://katu.com/resources/media2/1x1/2162/1440/803x0/90/b2db60e8-b565-4e8a-a4c7-7e9e5f008c1e-NASAsatelliteimageshowswildfiresmokedriftingwestoverOregonandSouthwestWashingtononAugust42026NASAWorldview.jpeg"
+    },
+    {
+     "url": "https://www.reuters.com/resizer/v2/H5NW3AEHQ5LI7E23VMFNOKBWDQ.jpg?auth=8a3fc6babdc2a2302237a7e0586e59eed7f1b266121306224aea0bae028ea7e9&height=1200&width=1200&quality=80&smart=true"
+    },
+    {
+     "url": "https://eol.jsc.nasa.gov/DatabaseImages/ESC/small/ISS038/ISS038-E-5263.JPG"
+    }
+   ],
+   "webEntities": [
+    {
+     "description": "Photography",
+     "entityId": "/m/05wkw",
+     "score": 0.4042
+    },
+    {
+     "description": "Aerial photography",
+     "entityId": "/m/01w5c_",
+     "score": 0.3769297
+    }
+   ]
+  }
+ }
+}

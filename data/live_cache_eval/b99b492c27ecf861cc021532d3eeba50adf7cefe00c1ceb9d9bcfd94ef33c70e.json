@@ -1,0 +1,111 @@
+{
+ "requested_at": "2026-09-27T16:45:40+00:00",
+ "vision": {
+  "webDetection": {
+   "bestGuessLabels": [
+    {
+     "label": "scrub jay"
+    }
+   ],
+   "visuallySimilarImages": [
+    {
+     "url": "https://myfwc.com/media/8552/39845859222_94a55403bf_k.jpg?rxy=0.4826086956521739,0.26143790849673204&width=555&height=555&v=1d400e072dc46e0&format=jpg&quality=80"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=1418996827001451"
+    },
+    {
+     "url": "https://cdn.prod.website-files.com/64df6dd37ac6a0dbb9d03cb3/6572fc312c6bef31db7105d7_Ecorreserva-Apiay-Aves-Instituto-Humboldt.jpg"
+    },
+    {
+     "url": "https://live.staticflickr.com/65535/55518046710_716e89658f_w.jpg"
+    },
+    {
+     "url": "https://cdn.download.ams.birds.cornell.edu/api/v2/asset/665411541/480"
+    },
+    {
+     "url": "https://cdn.download.ams.birds.cornell.edu/api/v2/asset/636027845/1200"
+    },
+    {
+     "url": "https://tandemglobal.org/wp-content/uploads/2022/01/bluebird-g759a54811_1920-845x684.jpg"
+    },
+    {
+     "url": "https://www.tiktok.com/api/img/?itemId=7531048764551761170&location=0&aid=1988"
+    },
+    {
+     "url": "https://www.birdcount.org/wp-content/uploads/2026/03/Long-tailed-Silky-flycatcher_Costa-Rica_Tom-Younkin_ML650910187-edited.png"
+    },
+    {
+     "url": "https://bunny-wp-pullzone-ycwxiuzyik.b-cdn.net/wp-content/uploads/2022/10/wsja-shawn-cooper-533-500x500.jpg"
+    },
+    {
+     "url": "https://www.iisc.ac.in/wp-content/uploads/2019/05/Flora-21-1024x576.jpg"
+    },
+    {
+     "url": "https://www.naturalist.co.uk/images/categories/category_bird_watching1.jpg"
+    },
+    {
+     "url": "https://milieu-centraal.stream.prepr.io/12rgm07kwzbo/w_2800/bigstock-blue-tit-cyanistes-caeruleus-324446410.jpg"
+    },
+    {
+     "url": "https://www.vogelwarte.ch/wp-content/uploads/2026/03/4580_1.jpg"
+    },
+    {
+     "url": "https://mjv.nyc3.cdn.digitaloceanspaces.com/journey/images/transforms/_card/1412434235.800.jpg"
+    },
+    {
+     "url": "https://assets.simpleviewinc.com/simpleview/image/upload/c_fill,g_xy_center,h_380,q_60,w_600,x_3358,y_1246/v1/clients/texas/Green_Jay_5222_0a209910-02bf-40c8-8a36-c3bd08e881f6.jpg"
+    },
+    {
+     "url": "https://cdn.sanity.io/images/ipox1240/live/ae7b33c061977481f35400873e9da45e7596c1f0-1050x768.webp"
+    },
+    {
+     "url": "https://www.sandag.org/-/media/SANDAG/CTA/projects-and-programs/environment/environment-tile.jpg"
+    },
+    {
+     "url": "https://www.dof.dk/images/projekter/Fugle_i_Ny_Natur/R%C3%B8dstjert_FugleiNyNatur.jpg"
+    },
+    {
+     "url": "https://trcaca.s3.ca-central-1.amazonaws.com/app/uploads/2016/02/17184912/hero-bluejay2.jpg"
+    }
+   ],
+   "webEntities": [
+    {
+     "description": "Mountain bluebird",
+     "entityId": "/m/01z9r_",
+     "score": 0.9038036
+    },
+    {
+     "description": "California scrub jay",
+     "entityId": "/m/04_mq_",
+     "score": 0.6317233
+    },
+    {
+     "description": "Old world flycatchers",
+     "entityId": "/m/01gxtf",
+     "score": 0.48391992
+    },
+    {
+     "description": "Mountain",
+     "entityId": "/m/09d_r",
+     "score": 0.4039
+    },
+    {
+     "description": "Twig'm",
+     "entityId": "/g/11wjq61n3x",
+     "score": 0.3006
+    },
+    {
+     "description": "Bluebirds",
+     "entityId": "/m/01kpg0",
+     "score": 0.09480001
+    },
+    {
+     "description": "Aphelocoma",
+     "entityId": "/m/01fc1j",
+     "score": 0.09375
+    }
+   ]
+  }
+ }
+}

@@ -1,0 +1,289 @@
+{
+ "dated_at": "2026-09-27T17:22:30+00:00",
+ "page_dates": {
+  "https://www.snopes.com/fact-check/border-patrol-rock-injury/": {
+   "date": "2018-11-29",
+   "source": "htmldate"
+  },
+  "https://www.snopes.com/latest/?pagenum=890": {
+   "date": null,
+   "source": null
+  },
+  "https://www.snopes.com/latest/?pagenum=894": {
+   "date": null,
+   "source": null
+  },
+  "https://www.snopes.com/latest/?pagenum=896": {
+   "date": null,
+   "source": null
+  },
+  "https://www.washingtonexaminer.com/author/holmes-lybrand/": {
+   "date": null,
+   "source": null
+  },
+  "https://www.washingtonexaminer.com/tag/tws-fact-check/": {
+   "date": null,
+   "source": null
+  }
+ },
+ "requested_at": "2026-09-27T16:54:52+00:00",
+ "vision": {
+  "webDetection": {
+   "bestGuessLabels": [
+    {
+     "label": "head injury from rock",
+     "languageCode": "en"
+    }
+   ],
+   "fullMatchingImages": [
+    {
+     "url": "https://mediaproxy.snopes.com/width/1200/https://media.snopes.com/2018/11/rockthrow.jpg"
+    },
+    {
+     "url": "https://mediaproxy.snopes.com/width/600/https://media.snopes.com/2018/11/rockthrow.jpg"
+    },
+    {
+     "url": "https://www.washingtonexaminer.com/wp-content/uploads/2023/12/screen-shot-2018-11-27-at-2.02.41%20PM.png"
+    }
+   ],
+   "pagesWithMatchingImages": [
+    {
+     "pageTitle": "Man suffers head injury when rock crashes through windshield",
+     "url": "https://www.youtube.com/watch?v=_0N7cB9H4pI"
+    },
+    {
+     "pageTitle": "Kellyville Girl Injured After Rock Thrown From Tulsa Overpass Hits ...",
+     "url": "https://www.youtube.com/watch?v=Y_BiW0gWlvw"
+    },
+    {
+     "pageTitle": "Hiker critically-injured after volleyball-sized rock hits head - YouTube",
+     "url": "https://www.youtube.com/watch?v=dmhp1yiRGRg"
+    },
+    {
+     "pageTitle": "Utah woman recovering after rock falls on head - YouTube",
+     "url": "https://www.youtube.com/watch?v=8FM5CG4RSR4"
+    },
+    {
+     "pageTitle": "Belayer Gets Hit in Head With Rock, Reaction is Priceless",
+     "url": "https://gripped.com/video/belayer-gets-hit-in-head-with-rock-reaction-is-priceless/"
+    },
+    {
+     "pageTitle": "Head injuries and when to worry. #concussion #CTE #brainrest ...",
+     "url": "https://www.facebook.com/DrMallikaMarshall/videos/head-injuries-and-when-to-worry-concussion-cte-brainrest-braininjury-headtrauma-/2119690772196244/"
+    },
+    {
+     "pageTitle": "Signs of Traumatic Brian Injury - Facebook",
+     "url": "https://www.facebook.com/orlandohealth/videos/signs-of-traumatic-brian-injury-/876101398783187/"
+    },
+    {
+     "pageTitle": "Heavy metal headbanging can damage brain - 100 wpm",
+     "url": "https://breakingnewsenglish.com/1407/140708-headbanging-100_1.htm"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://mediaproxy.snopes.com/width/1200/https://media.snopes.com/2018/11/rockthrow.jpg"
+      }
+     ],
+     "pageTitle": "Does This Photograph Show a Border Patrol Agent Injured by a ...",
+     "url": "https://www.snopes.com/fact-check/border-patrol-rock-injury/"
+    },
+    {
+     "pageTitle": "I underwent an incident where a hard medium sized smooth",
+     "url": "https://www.justanswer.co.uk/medical/p1y4c-underwent-incident-hard-medium-sized-smooth.html"
+    },
+    {
+     "pageTitle": "Ever hit your head and felt \u201coff\u201d after? That could be a concussion ...",
+     "url": "https://www.facebook.com/wakemedchildrens/videos/ever-hit-your-head-and-felt-off-after-that-could-be-a-concussion-a-brain-injury-/24704248829187060/"
+    },
+    {
+     "pageTitle": "Heavy metal headbanging can lead to brain injuries | Lifestyle",
+     "url": "https://www.smdailyjournal.com/lifestyle/heavy-metal-headbanging-can-lead-to-brain-injuries/article_d88c1ec0-d98d-54b4-bb6e-bc1793a2fe57.html"
+    },
+    {
+     "pageTitle": "Study: Headbanging Can Cause Brain Injury - Metalpaths.com",
+     "url": "https://www.metalpaths.com/news/2014/07/04/study-headbanging-can-cause-brain-injury/"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://mediaproxy.snopes.com/width/600/https://media.snopes.com/2018/11/rockthrow.jpg"
+      }
+     ],
+     "pageTitle": "What's New | Page 896 - Snopes.com",
+     "url": "https://www.snopes.com/latest/?pagenum=896"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://mediaproxy.snopes.com/width/600/https://media.snopes.com/2018/11/rockthrow.jpg"
+      }
+     ],
+     "pageTitle": "What's New | Page 894 | Snopes.com",
+     "url": "https://www.snopes.com/latest/?pagenum=894"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://mediaproxy.snopes.com/width/600/https://media.snopes.com/2018/11/rockthrow.jpg"
+      }
+     ],
+     "pageTitle": "What's New | Page 890 - Snopes.com",
+     "url": "https://www.snopes.com/latest/?pagenum=890"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://www.washingtonexaminer.com/wp-content/uploads/2023/12/screen-shot-2018-11-27-at-2.02.41%20PM.png"
+      }
+     ],
+     "pageTitle": "Tag: TWS Fact Check - Washington Examiner",
+     "url": "https://www.washingtonexaminer.com/tag/tws-fact-check/"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://www.washingtonexaminer.com/wp-content/uploads/2023/12/screen-shot-2018-11-27-at-2.02.41%20PM.png"
+      }
+     ],
+     "pageTitle": "Holmes Lybrand - Washington Examiner",
+     "url": "https://www.washingtonexaminer.com/author/holmes-lybrand/"
+    }
+   ],
+   "visuallySimilarImages": [
+    {
+     "url": "https://m.media-amazon.com/images/M/MV5BMGVhMDE0ZGQtYzU5ZC00ZWQzLWJiNDAtYjJkMDY2YzFkZGY0XkEyXkFqcGdeQXRyYW5zY29kZS13b3JrZmxvdw@@._V1_QL75_UX500_CR0,303,500,281_.jpg"
+    },
+    {
+     "url": "https://static.standard.co.uk/s3fs-public/thumbnails/image/2017/11/01/21/untitled-1.gif?crop=8:5,smart&quality=75&auto=webp&width=640"
+    },
+    {
+     "url": "https://www.researchgate.net/profile/Kenneth-Iserson/publication/274397043/figure/fig3/AS:11431282006444670@1773814481058/Child-in-the-operating-room_Q320.jpg"
+    },
+    {
+     "url": "https://khpg.org/files/img/1608826301.jpg"
+    },
+    {
+     "url": "x-raw-image:///f0371c7e677e1419f97ab5fd0933b18bc8f6aed145103420be6d22c29bd2c931"
+    },
+    {
+     "url": "https://s.yimg.com/lo/mysterio/api/5406cd38b78b8a84a7bed03786fe6fc55531dba672cba36d47d75e222e1f1330/lightyear_networkapi/smartcrop_w896_h504_faces%3Bquality_95/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_independent_577%2F2777db424035818a511fe70fcc290a43.png"
+    },
+    {
+     "url": "https://static.independent.co.uk/s3fs-public/thumbnails/image/2010/05/04/11/365945.jpg?width=1200"
+    },
+    {
+     "url": "https://d.medicaldaily.com/en/full/350338/sarah-cole.jpg?w=466&h=311&f=bf89068bc232f474c38a54668ca0e471"
+    },
+    {
+     "url": "https://media.springernature.com/lw685/springer-static/image/chp%3A10.1007%2F978-1-60761-181-3_13/MediaObjects/978-1-60761-181-3_13_Fig3_HTML.jpg"
+    },
+    {
+     "url": "https://media.licdn.com/dms/image/v2/D5622AQFwAq6_jU31MQ/feedshare-shrink_800/B56Zm6ZvlDJ0Ag-/0/1759768940317?e=2147483647&v=beta&t=RVzHAYLC3_OQSeYRXH7SOmpNMACNO46LOSlZjCyBJVo"
+    },
+    {
+     "url": "https://www.vice.com/wp-content/uploads/sites/2/2022/08/1660557725070-aj-hate-crime-lgbtq.jpeg"
+    },
+    {
+     "url": "https://media.springernature.com/lw685/springer-static/image/chp%3A10.1007%2F978-1-4471-2855-7_15/MediaObjects/302082_1_En_15_Fig1_HTML.jpg"
+    },
+    {
+     "url": "https://ars.els-cdn.com/content/image/1-s2.0-S0266435605002366-gr3.jpg"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=664031259691580"
+    },
+    {
+     "url": "https://ars.els-cdn.com/content/image/3-s2.0-B9780323497558000281-f001020-004d-9780323497558.jpg"
+    },
+    {
+     "url": "https://lookaside.instagram.com/seo/google_widget/crawler/?media_id=2588057576348640561"
+    },
+    {
+     "url": "https://conteudo.imguol.com.br/c/noticias/0e/2024/09/25/caique-marcatti-e-o-jornalista-valdir-pimenta-a-policia-investiga-se-o-candidato-a-prefeito-lucas-sanches-pl-mandou-espancar-a-dupla-ele-nega-1727290827794_v2_450x450.jpg"
+    },
+    {
+     "url": "x-raw-image:///3015455f2b6e5603b531b5f53adf5be1375d597afbfc522465515bd6d2a0c5c5"
+    },
+    {
+     "url": "https://www.frontiersin.org/files/Articles/1532133/xml-images/froh-06-1532133-g005.webp"
+    },
+    {
+     "url": "https://www.researchgate.net/publication/378311674/figure/fig3/AS:11431281224675273@1708391441569/Paramedial-forehead-flap-raised-with-a-1-mm-strip-of-anterior-hairline_Q320.jpg"
+    }
+   ],
+   "webEntities": [
+    {
+     "description": "Brain injury",
+     "entityId": "/m/01sbk1",
+     "score": 0.7233
+    },
+    {
+     "description": "Concussion",
+     "entityId": "/m/023ndx",
+     "score": 0.7173
+    },
+    {
+     "description": "Head injury",
+     "entityId": "/g/122fj542",
+     "score": 0.7134
+    },
+    {
+     "description": "Brain",
+     "entityId": "/m/017cc",
+     "score": 0.7092
+    },
+    {
+     "description": "Traumatic brain injury",
+     "entityId": "/m/0428cn",
+     "score": 0.6897
+    },
+    {
+     "description": "Head",
+     "entityId": "/m/04hgtk",
+     "score": 0.6732
+    },
+    {
+     "description": "Neurosurgery",
+     "entityId": "/m/05h54",
+     "score": 0.5694
+    },
+    {
+     "description": "Acquired brain injury",
+     "entityId": "/m/07qzpr",
+     "score": 0.5551
+    },
+    {
+     "description": "Chronic traumatic encephalopathy",
+     "entityId": "/m/0crfpw5",
+     "score": 0.5312
+    },
+    {
+     "description": "Injury",
+     "entityId": "/g/11vdwfgx4q",
+     "score": 0.5288
+    },
+    {
+     "description": "Surgery",
+     "entityId": "/m/0cd25",
+     "score": 0.4561
+    },
+    {
+     "description": "Unconsciousness",
+     "entityId": "/m/04kfhc9",
+     "score": 0.3989
+    },
+    {
+     "description": "Chief of Neurosurgery",
+     "entityId": "/m/05b8s1l",
+     "score": 0.363
+    },
+    {
+     "description": "Falling",
+     "entityId": "/m/04f32c6",
+     "score": 0.3568
+    }
+   ]
+  }
+ }
+}

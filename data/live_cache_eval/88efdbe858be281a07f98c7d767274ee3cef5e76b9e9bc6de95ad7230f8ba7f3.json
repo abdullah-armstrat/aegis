@@ -1,0 +1,276 @@
+{
+ "dated_at": "2026-09-27T17:25:31+00:00",
+ "page_dates": {
+  "https://africacheck.org/fact-checks/meta-programme-fact-checks/yes-pro-police-demonstrators-us-wore-i-can-breathe-t-shirts": {
+   "date": null,
+   "source": null
+  },
+  "https://www.instagram.com/p/DdtuILBRhH_/": {
+   "date": null,
+   "source": null
+  },
+  "https://www.refinery29.com/en-us/2014/12/79850/i-can-breathe-shirts-eric-garner": {
+   "date": "2014-12-20",
+   "source": "htmldate"
+  },
+  "https://www.snopes.com/fact-check/i-can-breathe-shirts/": {
+   "date": "2020-06-01",
+   "source": "htmldate"
+  }
+ },
+ "requested_at": "2026-09-27T16:59:03+00:00",
+ "vision": {
+  "webDetection": {
+   "bestGuessLabels": [
+    {
+     "label": "eric garner i can breathe",
+     "languageCode": "en"
+    }
+   ],
+   "fullMatchingImages": [
+    {
+     "url": "https://mediaproxy.snopes.com/width/1200/height/675/https://media.snopes.com/2020/06/Screen-Shot-2020-06-01-at-10.35.10-AM-2-1.png"
+    },
+    {
+     "url": "https://s2.r29static.com/bin/public/746/x/1346558/image.jpg"
+    }
+   ],
+   "pagesWithMatchingImages": [
+    {
+     "pageTitle": "'I can't breathe': Eric Garner put in chokehold by NYPD officer \u2013 video",
+     "url": "https://www.theguardian.com/us-news/video/2014/dec/04/i-cant-breathe-eric-garner-chokehold-death-video"
+    },
+    {
+     "pageTitle": "' I CAN'T BREATHE' - Eric Garner \u2022 \u2022It's been 10 years ... - Instagram",
+     "url": "https://www.instagram.com/reel/C9ij0m1xTkg/?hl=en"
+    },
+    {
+     "pageTitle": "Behind The Eric Garner Video Of A Deadly Confrontation With Police",
+     "url": "https://www.youtube.com/watch?v=N__5p_dNW3U"
+    },
+    {
+     "pageTitle": "\"I can't breathe\" goes nationwide in Eric Garner protests - YouTube",
+     "url": "https://www.youtube.com/watch?v=zYcMSmfodag"
+    },
+    {
+     "pageTitle": "Marking 10 years since Eric Garner's death - Facebook",
+     "url": "https://www.facebook.com/ABC7NY/videos/marking-10-years-since-eric-garners-death/457783387033357/"
+    },
+    {
+     "pageTitle": "\u201cI Can't Breathe\u201d: NYC March over Chokehold Death of Eric Garner ...",
+     "url": "https://www.democracynow.org/2014/8/25/i_can_t_breathe_nyc_march"
+    },
+    {
+     "pageTitle": "'I can't breathe': Eric Garner remembered on 10th anniversary of his ...",
+     "url": "https://www.youtube.com/watch?v=O9KUZZeiIzg"
+    },
+    {
+     "pageTitle": "'I can't breathe': Eric Garner remembered on the 10th anniversary of ...",
+     "url": "https://www.youtube.com/watch?v=tGgqcpXub_s"
+    },
+    {
+     "pageTitle": "Judge says police officer who put Eric Garner in chokehold should ...",
+     "url": "https://www.cbsnews.com/video/judge-says-police-officer-who-put-eric-garner-in-chokehold-should-be-fired/"
+    },
+    {
+     "pageTitle": "Today, July 17, we remember Eric Garner, a Black man killed on this ...",
+     "url": "https://www.instagram.com/reel/DMOIDiEvkRK/?hl=en"
+    },
+    {
+     "pageTitle": "Today, July 17, we remember Eric Garner, a Black man killed on this ...",
+     "url": "https://www.facebook.com/realsharpton/videos/today-july-17-we-remember-eric-garner-a-black-man-killed-on-this-day-in-2014-wit/743788354716771/"
+    },
+    {
+     "pageTitle": "Today, July 17, we remember Eric Garner, a Black man killed on this ...",
+     "url": "https://www.facebook.com/nationalactionnetwork/videos/today-july-17-we-remember-eric-garner-a-black-man-killed-on-this-day-in-2014-wit/732672886359274/"
+    },
+    {
+     "pageTitle": "12/5: I can't breathe\" goes nationwide in Eric Garner protests",
+     "url": "https://www.cbsnews.com/video/125-i-cant-breathe-goes-nationwide-in-eric-garner-protests-heart-transplant-recipients-celebrate-their-love/"
+    },
+    {
+     "pageTitle": "H.E.R. Questions Indifference To Black Agony On 'I Can't Breathe'",
+     "url": "https://www.npr.org/sections/we-insist-a-timeline-of-protest-music-in-2020/2020/09/02/903233585/h-e-r-questions-indifference-to-black-agony-on-i-can-t-breathe"
+    },
+    {
+     "pageTitle": "\"I Can't Breathe\" (For Eric Garner) - Ken Newman - Shazam",
+     "url": "https://www.shazam.com/song/1611816811/i-cant-breathe-acoustic"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://mediaproxy.snopes.com/width/1200/height/675/https://media.snopes.com/2020/06/Screen-Shot-2020-06-01-at-10.35.10-AM-2-1.png"
+      }
+     ],
+     "pageTitle": "Did Members of the NYPD Wear 'I Can Breathe' Shirts in 2020 Protest?",
+     "url": "https://www.snopes.com/fact-check/i-can-breathe-shirts/"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://s2.r29static.com/bin/public/746/x/1346558/image.jpg"
+      }
+     ],
+     "pageTitle": "I Can Breathe Shirts - NYPD Police Protest Eric Garner - Refinery29",
+     "url": "https://www.refinery29.com/en-us/2014/12/79850/i-can-breathe-shirts-eric-garner"
+    },
+    {
+     "pageTitle": "Yes, pro-police demonstrators in US wore 'I can breathe' T-shirts in ...",
+     "partialMatchingImages": [
+      {
+       "url": "https://africacheck.org/sites/default/files/styles/hero_lg/public/2020/05/nypd_correct.png?h=2240b8e9&itok=q9gma5rM"
+      }
+     ],
+     "url": "https://africacheck.org/fact-checks/meta-programme-fact-checks/yes-pro-police-demonstrators-us-wore-i-can-breathe-t-shirts"
+    },
+    {
+     "pageTitle": "The Death Of Eric Garner - TMZ",
+     "url": "https://www.tmz.com/watch/052720-eric-garner-4791581-0-e3bnntm5/"
+    },
+    {
+     "pageTitle": "Oh, interesting, that's what I thought That's probably why \"mayor\" is ...",
+     "partialMatchingImages": [
+      {
+       "url": "https://lookaside.instagram.com/seo/google_widget/crawler/?media_id=3993747752684587264"
+      }
+     ],
+     "url": "https://www.instagram.com/p/DdtuILBRhH_/"
+    }
+   ],
+   "partialMatchingImages": [
+    {
+     "url": "https://pbs.twimg.com/media/EZcHkNWWoAcwRV2?format=webp&name=large"
+    },
+    {
+     "url": "https://lookaside.instagram.com/seo/google_widget/crawler/?media_id=3993747752684587264"
+    },
+    {
+     "url": "https://africacheck.org/sites/default/files/styles/hero_lg/public/2020/05/nypd_correct.png?h=2240b8e9&itok=q9gma5rM"
+    }
+   ],
+   "visuallySimilarImages": [
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=2637130189938349"
+    },
+    {
+     "url": "https://preview.redd.it/combined-maturity-of-a-12-year-old-v0-0m6cw5lszfrh1.jpeg?width=1080&crop=smart&auto=webp&s=b9384484a024d6f840ef7d478e3a2779f480e3ac"
+    },
+    {
+     "url": "https://morgenmills.com/wp-content/uploads/2024/06/jamie-jackman-1.jpg"
+    },
+    {
+     "url": "https://media.springernature.com/lw685/springer-static/image/chp%3A10.1007%2F978-3-031-41320-9_4/MediaObjects/472650_1_En_4_Fig1_HTML.jpg"
+    },
+    {
+     "url": "https://www.mantripping.com/images/stories/san-antonio-mancation/4-guys-in-a-truck.jpg"
+    },
+    {
+     "url": "https://lookaside.instagram.com/seo/google_widget/crawler/?media_id=3969514759240730244"
+    },
+    {
+     "url": "https://media.licdn.com/dms/image/v2/D4D22AQGFMskabLe3JA/feedshare-shrink_1280/B4DZh7PIPWGQAo-/0/1754414221628?e=2147483647&v=beta&t=cEnsTRCXVDWojDDsov4mbXdhTdfGrTYn6wLTgrt_BGM"
+    },
+    {
+     "url": "https://www.lebensmittelzeitung.net/gallery/media/1185/23462-detail.jpeg"
+    },
+    {
+     "url": "https://media.licdn.com/dms/image/v2/D4E22AQEzUPEWc0-1Iw/feedshare-shrink_480/B4EaB8Va0lK0Ak-/0/1788792385263?e=2147483647&v=beta&t=KrNXiggjW5MhEZZBQ7rMFoCLo1wI7aLlOXMmH7KsHj0"
+    },
+    {
+     "url": "https://images.kinorium.com/movie/shot/2332782/h280_40832534.jpg"
+    },
+    {
+     "url": "https://media.licdn.com/dms/image/v2/D5610AQFuRKWWaR_hmw/videocover-high/B56aAU9TMhHcAo-/0/1787058013190?e=2147483647&v=beta&t=iuf51wexoFQZbChOABKW0lShGqh1xYvjyN7MH9AcgeI"
+    },
+    {
+     "url": "https://dnm.nflximg.net/api/v6/BvVbc2Wxr2w6QuoANoSpJKEIWjQ/AAAAQYJB_2hoNbg-XPzN_bk1y0Hq9cEvCBwOfqU0ynGNWzo62WAx6vBpzM8rVcH6VUtDubR4VPlyzFgcEPVBgLncuMIm2VPi4BmCX0nK5oDTaVBYrusuWEi6ZW1v58eE19KY25zLQiDcUnwiXtdFgTvpghzq23o.jpg?r=ae7"
+    },
+    {
+     "url": "https://hips.hearstapps.com/mtg-prod/65ce8833561b02000863cf3f/028-roadkill-budget-built-beater-car-drag-race.jpg"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=1805070720687378&get_thumbnail=1"
+    },
+    {
+     "url": "https://i0.wp.com/cooperstownersincanada.com/wp-content/uploads/2012/06/tom-and-karen-goffena-with_400x431.jpg?resize=530%2C425"
+    },
+    {
+     "url": "https://lookaside.instagram.com/seo/google_widget/crawler/?media_id=3840606089604423360"
+    },
+    {
+     "url": "https://wwfs.org/wp-content/uploads/2022/12/MIF_Jack_Williams_a.jpg"
+    },
+    {
+     "url": "https://cdn.knd.ro/media/521/2861/1755/20441583/1/673db2182cd05-stefan-brehuescu-1.jpg"
+    },
+    {
+     "url": "https://m.media-amazon.com/images/M/MV5BNjEwMTc1ZTQtMDEyNC00MmFlLWFmNzktYjUzMTNmZTM1Y2Y1XkEyXkFqcGc@._V1_QL75_UX500_CR0,13,500,281_.jpg"
+    },
+    {
+     "url": "https://etvnews.com/wp-content/uploads/2015/06/pendleton1.jpg"
+    }
+   ],
+   "webEntities": [
+    {
+     "description": "Daniel Pantaleo",
+     "entityId": "/g/11h55y8ggr",
+     "score": 9.453
+    },
+    {
+     "description": "Eric Adams",
+     "entityId": "/m/02r1npw",
+     "score": 4.8225
+    },
+    {
+     "description": "Killing of Eric Garner",
+     "entityId": "/m/011q9lf3",
+     "score": 1.1034
+    },
+    {
+     "description": "New York City Police Department",
+     "entityId": "/m/01lvn4",
+     "score": 0.7109
+    },
+    {
+     "entityId": "/t/2b5cz1r7s4crc",
+     "score": 0.7109
+    },
+    {
+     "description": "I can't breathe",
+     "entityId": "/g/11fwc22qhd",
+     "score": 0.6637
+    },
+    {
+     "description": "Police brutality",
+     "entityId": "/m/016497",
+     "score": 0.5043
+    },
+    {
+     "description": "Death",
+     "entityId": "/m/0294j",
+     "score": 0.3404
+    },
+    {
+     "description": "Grand jury",
+     "entityId": "/m/03b9f",
+     "score": 0.3277
+    },
+    {
+     "description": "New York City Police Department",
+     "entityId": "/g/11b827nhfz",
+     "score": 0.2559
+    },
+    {
+     "description": "George Floyd",
+     "entityId": "/m/02qxc9m",
+     "score": 0.04428
+    },
+    {
+     "description": "Gwen Carr",
+     "entityId": "/g/11gg9jmdpg",
+     "score": 0.04194
+    }
+   ]
+  }
+ }
+}

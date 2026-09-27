@@ -1,0 +1,106 @@
+{
+ "requested_at": "2026-09-27T16:44:19+00:00",
+ "vision": {
+  "webDetection": {
+   "bestGuessLabels": [
+    {
+     "label": "track"
+    }
+   ],
+   "visuallySimilarImages": [
+    {
+     "url": "https://www.hellenictrain.gr/wp-content/uploads/2026/05/223_Ath-Thess_drone-1-800x533-resized-q82.jpg"
+    },
+    {
+     "url": "https://cdn.prod.www.spiegel.de/images/1cce9bca-b301-4a3d-b138-a286ad47a92a_w520_r1.3344008540165466_fpx50.2_fpy52.98.jpg"
+    },
+    {
+     "url": "https://www.esa.int/var/esa/storage/images/esa_multimedia/images/2024/12/work_is_conducted_at_the_site_of_the_cheltenham_gas_leak_in_2023/26481304-1-eng-GB/Work_is_conducted_at_the_site_of_the_Cheltenham_gas_leak_in_2023_article.jpg"
+    },
+    {
+     "url": "https://www.landesholding-burgenland.at/fileadmin-landesholding/_processed_/6/1/csm_NSB_2020_Sommer_4fe910d22e.jpg"
+    },
+    {
+     "url": "https://silnice-zeleznice.cz/images/Nzk5NngweDA=/metroprojekt06.jpg"
+    },
+    {
+     "url": "https://www.kverulant.org/wp-content/uploads/2025/11/Fotka-od-Jolanta-Dyr-z-Pixabay-142.jpg"
+    },
+    {
+     "url": "https://www.pwc.com/us/en/july-launch/gettyimages-2187809071_720x720.png"
+    },
+    {
+     "url": "https://images.vrt.be/orig/2026/08/06/cfe923c9-1bed-4056-b675-5e381fd27022.jpg"
+    },
+    {
+     "url": "https://arolsen-archives.org/content/uploads/auschwitz-birkenau-scaled-1-1-546x409.jpg"
+    },
+    {
+     "url": "https://media.licdn.com/dms/image/v2/D4E22AQGduEhgCfjWxw/feedshare-shrink_800/B4EZ2_yRZEJMAc-/0/1777039120170?e=2147483647&v=beta&t=Ta6Dyw2jSAg2boUB-nyIpefy3fKwF0Ty61pgNZFObTg"
+    },
+    {
+     "url": "https://lookaside.instagram.com/seo/google_widget/crawler/?media_id=3975966341201566406"
+    },
+    {
+     "url": "https://%D0%BD%D0%B0%D1%88.%D0%B4%D0%BE%D0%BC.%D1%80%D1%84/api/ext/file/70726F6A6465636C2E646F63732E697A643AFBB764AF378A44ECB6EAF72F6DF6F2D8?type=png"
+    },
+    {
+     "url": "https://cloudfront.traillink.com/photos/sunflower-santa-fe-trail_102530_sc.jpg"
+    },
+    {
+     "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5c/Na_%C5%A0acht%C3%A1ch_2016-09-25_1.jpg/1280px-Na_%C5%A0acht%C3%A1ch_2016-09-25_1.jpg?utm_source=cs.wikipedia.org&utm_campaign=index&utm_content=thumbnail"
+    },
+    {
+     "url": "https://upload.wikimedia.org/wikipedia/he/b/bc/IL_Eastern_Railway_Loco_615.jpg?utm_source=he.wikipedia.org&utm_campaign=index&utm_content=original"
+    },
+    {
+     "url": "https://www.ledcor.com/content/ledcor/en/our-projects/project-gallery/energy/_jcr_content/root/container/tabs/item_1678223621162/list.coreimg.jpeg/content/ledcor/en/our-projects/project-gallery/energy/oil-gas/kearl-oil-sands/_jcr_content/_cq_featuredimage/1729532028489.jpeg"
+    },
+    {
+     "url": "https://www.dbinfrago.com/resource/image/10907762/1:1/452/452/b7a7d6ae2a77c33f5fda19dad8bfbf5b/2E2CBB1946BD351F45FDF689E64ADC72/gruene_funktionen_zulaufregelung.jpg"
+    },
+    {
+     "url": "https://assets.crikey.com.au/wp-content/uploads/sites/3/2026/05/GrainCorp-grain-train-on-Narrabri-to-North-Star-line.jpg?quality=70&w=1024"
+    },
+    {
+     "url": "https://www.tiktok.com/api/img/?itemId=7663761022599040277&location=0&aid=1988"
+    },
+    {
+     "url": "https://www.ship.edu/globalassets/clus/railline.jpg"
+    }
+   ],
+   "webEntities": [
+    {
+     "description": "Train",
+     "entityId": "/m/07jdr",
+     "score": 0.8610661
+    },
+    {
+     "description": "Rail transport",
+     "entityId": "/m/06d_3",
+     "score": 0.74350625
+    },
+    {
+     "description": "Locomotive",
+     "entityId": "/m/04h5c",
+     "score": 0.45757282
+    },
+    {
+     "description": "Railroad car",
+     "entityId": "/m/01g50p",
+     "score": 0.41125286
+    },
+    {
+     "description": "M Train (Queens Blvd Local/6 Av Local)",
+     "entityId": "/m/0570zf",
+     "score": 0.363
+    },
+    {
+     "description": "Grass",
+     "entityId": "/m/08t9c_",
+     "score": 0.29125562
+    }
+   ]
+  }
+ }
+}

@@ -1,0 +1,218 @@
+{
+ "dated_at": "2026-09-27T17:14:19+00:00",
+ "page_dates": {
+  "https://www.nasa.gov/gallery/sts-59/": {
+   "date": "2023-04-10",
+   "source": "htmldate"
+  },
+  "https://www.nasa.gov/mission/sts-59/": {
+   "date": "2023-08-16",
+   "source": "htmldate"
+  }
+ },
+ "requested_at": "2026-09-27T16:47:07+00:00",
+ "vision": {
+  "webDetection": {
+   "bestGuessLabels": [
+    {
+     "label": "still life photography"
+    }
+   ],
+   "fullMatchingImages": [
+    {
+     "url": "https://images-assets.nasa.gov/image/sts059-219-065/sts059-219-065~large.jpg?w=1908&h=1920&fit=clip&crop=faces%2Cfocalpoint"
+    }
+   ],
+   "pagesWithMatchingImages": [
+    {
+     "pageTitle": "Shooting Still Life Photography for Beginners! - YouTube",
+     "url": "https://www.youtube.com/watch?v=tgymaO3ZEXc"
+    },
+    {
+     "pageTitle": "Mastering 17th-Century Lighting and Composition in Still life ...",
+     "url": "https://www.youtube.com/watch?v=33I1VdRAfJs"
+    },
+    {
+     "pageTitle": "Still Life Photography Tips: Shoot Like a PRO - YouTube",
+     "url": "https://www.youtube.com/watch?v=_8U0NZ_dz-8"
+    },
+    {
+     "pageTitle": "Still Life Photography: Using What You Have! - YouTube",
+     "url": "https://www.youtube.com/watch?v=7syX24zb3_o"
+    },
+    {
+     "pageTitle": "Still life photography - Instagram",
+     "url": "https://www.instagram.com/p/C5Y14dIJiAU/"
+    },
+    {
+     "pageTitle": "Still life Photography - Instagram",
+     "url": "https://www.instagram.com/p/B3twtyfpMUu/"
+    },
+    {
+     "pageTitle": "Still life photography | Engagements - Pinterest",
+     "url": "https://www.pinterest.com/pin/still-life-photography--523543525424534777/"
+    },
+    {
+     "pageTitle": "Still Life Pics - Instagram",
+     "url": "https://www.instagram.com/popular/still-life-pics/"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://images-assets.nasa.gov/image/sts059-219-065/sts059-219-065~large.jpg?w=1908&h=1920&fit=clip&crop=faces%2Cfocalpoint"
+      }
+     ],
+     "pageTitle": "STS-59 - NASA",
+     "url": "https://www.nasa.gov/gallery/sts-59/"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://images-assets.nasa.gov/image/sts059-219-065/sts059-219-065~large.jpg?w=1908&h=1920&fit=clip&crop=faces%2Cfocalpoint"
+      }
+     ],
+     "pageTitle": "STS-59 - NASA",
+     "url": "https://www.nasa.gov/mission/sts-59/"
+    }
+   ],
+   "visuallySimilarImages": [
+    {
+     "url": "https://images-assets.nasa.gov/image/sts059-219-065/sts059-219-065~large.jpg?w=1908&h=1920&fit=clip&crop=faces%2Cfocalpoint"
+    },
+    {
+     "url": "https://i.pinimg.com/736x/1b/01/cc/1b01ccb984401c8adc55787cab784364.jpg"
+    },
+    {
+     "url": "https://img2.yna.co.kr/etc/inner/KR/2025/05/02/AKR20250502175900530_01_i_P4.jpg"
+    },
+    {
+     "url": "https://upload.wikimedia.org/wikipedia/commons/6/6f/L%C3%BCderitz_ISS011-E-9513.jpg"
+    },
+    {
+     "url": "https://media.tenor.com/nefoLs6IzgoAAAAe/world-of-airport-world-of-airports.png"
+    },
+    {
+     "url": "https://static.vecteezy.com/system/resources/previews/027/096/509/non_2x/the-water-games-of-a-fountain-free-photo.jpg"
+    },
+    {
+     "url": "https://www.catorce6.com/images/noticias/breves/patagonia.jpg"
+    },
+    {
+     "url": "https://img.sbs.co.kr/newimg/news/20221113/201720035_1280.jpg"
+    },
+    {
+     "url": "https://st4.depositphotos.com/5542528/38475/i/450/depositphotos_384752984-stock-photo-chile-its-neighborhood-distant-oblique.jpg"
+    },
+    {
+     "url": "https://www.tiktok.com/api/img/?itemId=7651429268379012374&location=3&aid=1988&index=5"
+    },
+    {
+     "url": "https://st4.depositphotos.com/5542528/38466/i/450/depositphotos_384662032-stock-photo-precipitation-driest-quarter-argentina-area.jpg"
+    },
+    {
+     "url": "https://seafood.media/attach_fck/Screenshot%202023-02-24%2015_58_58(1).png"
+    },
+    {
+     "url": "https://i.redd.it/cold-war-soviet-navigation-communications-network-novaya-v0-fgdnd5l978oh1.png?width=675&format=png&auto=webp&s=659d776ea296275d81f0b6440372d07d037c6f29"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=122271592070007634"
+    },
+    {
+     "url": "https://lookaside.instagram.com/seo/google_widget/crawler/?media_id=3965622858595250505"
+    },
+    {
+     "url": "x-raw-image:///77103b90b4917345a97358ac45aa40c451ad873bff13d5e721167775bd5fed73"
+    },
+    {
+     "url": "https://www.tiktok.com/api/img/?itemId=7354065615105183019&location=0&aid=1988"
+    },
+    {
+     "url": "https://www.shutterstock.com/shutterstock/videos/3560308341/thumb/1.jpg?ip=x480"
+    },
+    {
+     "url": "https://www.tiktok.com/api/img/?itemId=7631249401238818070&location=0&aid=1988"
+    },
+    {
+     "url": "https://distancia.1km.net/images/pic.php?lat1=-54.8&long1=-68.3&lat2=-32.94682&long2=-60.63932&dist=2502.7&name1=Ushuaia&name2=Rosario"
+    }
+   ],
+   "webEntities": [
+    {
+     "description": "Still life photography",
+     "entityId": "/m/027_ny3",
+     "score": 0.8896111
+    },
+    {
+     "description": "Photography",
+     "entityId": "/m/05wkw",
+     "score": 0.7342
+    },
+    {
+     "description": "Still life",
+     "entityId": "/m/01spzs",
+     "score": 0.6042
+    },
+    {
+     "description": "Image",
+     "entityId": "/m/0jg24",
+     "score": 0.5846
+    },
+    {
+     "description": "Photograph",
+     "entityId": "/m/068jd",
+     "score": 0.5806
+    },
+    {
+     "description": "Lifestyle photography",
+     "entityId": "/m/04f05yf",
+     "score": 0.5224
+    },
+    {
+     "description": "Composition",
+     "entityId": "/m/05zr3q",
+     "score": 0.5009
+    },
+    {
+     "description": "create",
+     "entityId": "/g/11qg_c03j7",
+     "score": 0.4121
+    },
+    {
+     "description": "Camera",
+     "entityId": "/m/0dv5r",
+     "score": 0.3998
+    },
+    {
+     "description": "Nikon D850",
+     "entityId": "/g/11d_vq956r",
+     "score": 0.3438
+    },
+    {
+     "description": "other",
+     "entityId": "/g/11qh5bk72c",
+     "score": 0.2687
+    },
+    {
+     "entityId": "/m/0svml3_",
+     "score": 0.2421
+    },
+    {
+     "description": "YouTube",
+     "entityId": "/m/09jcvs",
+     "score": 0.2421
+    },
+    {
+     "description": "Light",
+     "entityId": "/m/04k84",
+     "score": 0.235
+    },
+    {
+     "description": "2024",
+     "entityId": "/g/11b77dhw02",
+     "score": 0.2263
+    }
+   ]
+  }
+ }
+}

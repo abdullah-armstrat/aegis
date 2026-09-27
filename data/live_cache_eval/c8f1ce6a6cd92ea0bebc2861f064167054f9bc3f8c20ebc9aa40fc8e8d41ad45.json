@@ -1,0 +1,373 @@
+{
+ "dated_at": "2026-09-27T17:23:36+00:00",
+ "page_dates": {
+  "https://www.facebook.com/FullFact.org/posts/we-factchecked-claims-a-viral-image-shows-women-of-the-red-cross-disembarking-du/10157407127709747/": {
+   "date": null,
+   "source": null
+  },
+  "https://www.facebook.com/gsksmo/posts/on-this-the-75th-anniversary-of-the-invasion-of-normandy-nurses-of-the-american-/3278922535466803/": {
+   "date": null,
+   "source": null
+  },
+  "https://www.snopes.com/fact-check/red-cross-nurse-normandy-beach/": {
+   "date": "2015-11-12",
+   "source": "htmldate"
+  },
+  "https://www.snopes.com/news/2023/06/04/dday-fact-checks/": {
+   "date": "2023-06-04",
+   "source": "htmldate"
+  },
+  "https://www.snopes.com/news/2024/06/06/d-day-80th-anniversary/": {
+   "date": "2024-06-06",
+   "source": "htmldate"
+  },
+  "https://www.snopes.com/news/2025/06/06/remembering-d-day-81st-anniversary/": {
+   "date": "2025-06-06",
+   "source": "htmldate"
+  }
+ },
+ "requested_at": "2026-09-27T16:56:26+00:00",
+ "vision": {
+  "webDetection": {
+   "bestGuessLabels": [
+    {
+     "label": "1945 d day",
+     "languageCode": "en"
+    }
+   ],
+   "fullMatchingImages": [
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=10156974316912535"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=1299186580234816"
+    },
+    {
+     "url": "https://mediaproxy.snopes.com/width/1200/https://media.snopes.com/2015/11/women-at-normandy.jpg"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=491655006725510"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=10158400018918568"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=3278918935467163"
+    },
+    {
+     "url": "https://media.gazetatema.net/gazetatema.net/media3/-0-500-1676551267xwhatsapp-image-2023-02-16-at-132857-1-585.jpeg"
+    },
+    {
+     "url": "http://www.senaa.org/Veterans/RedCrossBeachLanding.jpg"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=908086572641479"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=10233334743533482"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=1153049588193754"
+    },
+    {
+     "url": "https://i.pinimg.com/736x/8d/63/60/8d6360f15a7840b5a9dda3347a83ea33.jpg"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=636000175222665"
+    },
+    {
+     "url": "https://kulturologia.ru/files/u23691/236912286.jpg"
+    },
+    {
+     "url": "https://cdnimpuls.com/dritare.net/media3/-640-0-674e189369489.jpeg"
+    },
+    {
+     "url": "https://media.gazetatema.net/gazetatema.net/media3/-640-0-1676551267xwhatsapp-image-2023-02-16-at-132857-1-585.jpeg"
+    },
+    {
+     "url": "https://mediaproxy.snopes.com/width/600/https://media.snopes.com/2015/11/women-at-normandy.jpg"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=1469707273105958"
+    },
+    {
+     "url": "https://i.pinimg.com/originals/5a/3e/1b/5a3e1b0603aafd4336e357a8c39c7427.jpg"
+    },
+    {
+     "url": "https://pacificparatrooper.wordpress.com/wp-content/uploads/2014/06/10255001_10152135698586752_7034478206548702838_n.jpg"
+    }
+   ],
+   "pagesWithMatchingImages": [
+    {
+     "pageTitle": "D-Day Minus One (1945) - YouTube",
+     "url": "https://www.youtube.com/watch?v=C9lGpxkyGPQ"
+    },
+    {
+     "pageTitle": "Donald L. Miller: D-Days in the Pacific | Pritzker Military Museum ...",
+     "url": "https://www.pritzkermilitary.org/whats_on/pritzker-military-presents/donald-l-miller-d-days-pacific"
+    },
+    {
+     "pageTitle": "D-Day Overview, Date & Map - Lesson - Study.com",
+     "url": "https://study.com/academy/lesson/the-d-day-invasion-the-beginning-of-the-end-of-nazi-germany.html"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=3278918935467163"
+      },
+      {
+       "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=1469707273105958"
+      }
+     ],
+     "pageTitle": "American Red Cross nurses' sacrifices on D-Day - Facebook",
+     "url": "https://www.facebook.com/gsksmo/posts/on-this-the-75th-anniversary-of-the-invasion-of-normandy-nurses-of-the-american-/3278922535466803/"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://mediaproxy.snopes.com/width/600/https://media.snopes.com/2015/11/women-at-normandy.jpg"
+      },
+      {
+       "url": "https://mediaproxy.snopes.com/width/1200/https://media.snopes.com/2015/11/women-at-normandy.jpg"
+      }
+     ],
+     "pageTitle": "Are These Red Cross Nurses on the Beaches of Normandy on D-Day?",
+     "url": "https://www.snopes.com/fact-check/red-cross-nurse-normandy-beach/"
+    },
+    {
+     "pageTitle": "On June 6, 1944, the course of history changed forever. D-Day ...",
+     "url": "https://www.instagram.com/reel/DZPmIi5iFW1/?hl=en"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://mediaproxy.snopes.com/width/600/https://media.snopes.com/2015/11/women-at-normandy.jpg"
+      }
+     ],
+     "pageTitle": "This Day in History: Fact-Checking D-Day Rumors on Its 80th ...",
+     "url": "https://www.snopes.com/news/2024/06/06/d-day-80th-anniversary/"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://mediaproxy.snopes.com/width/600/https://media.snopes.com/2015/11/women-at-normandy.jpg"
+      }
+     ],
+     "pageTitle": "10 D-Day rumors we've fact-checked to mark 81st anniversary",
+     "url": "https://www.snopes.com/news/2025/06/06/remembering-d-day-81st-anniversary/"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://mediaproxy.snopes.com/width/600/https://media.snopes.com/2015/11/women-at-normandy.jpg"
+      },
+      {
+       "url": "https://mediaproxy.snopes.com/width/1200/https://media.snopes.com/2015/11/women-at-normandy.jpg"
+      }
+     ],
+     "pageTitle": "D-Day 79th Anniversary: 10 Viral Rumors About the Historic Day",
+     "url": "https://www.snopes.com/news/2023/06/04/dday-fact-checks/"
+    },
+    {
+     "pageTitle": "D-Day was the name given to the June 6, 1944, invasion ... - Facebook",
+     "url": "https://www.facebook.com/veteranwithasign/videos/d-day-was-the-name-given-to-the-june-6-1944-invasion-of-the-beaches-at-normandy-/592485126742455/"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=10156974316912535"
+      },
+      {
+       "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=10158400018918568"
+      }
+     ],
+     "pageTitle": "We factchecked claims a viral image shows women of the Red ...",
+     "url": "https://www.facebook.com/FullFact.org/posts/we-factchecked-claims-a-viral-image-shows-women-of-the-red-cross-disembarking-du/10157407127709747/"
+    },
+    {
+     "pageTitle": "Remembering D-Day: 80 Years Later - YouTube",
+     "url": "https://www.youtube.com/watch?v=9mB6kQhY3f4"
+    },
+    {
+     "pageTitle": "D-day: What you need to know. The start of the allied liberation of ...",
+     "url": "https://www.instagram.com/reel/DZPbvIesFWG/?hl=en"
+    },
+    {
+     "pageTitle": "Everything You Need To Know About D-Day - YouTube",
+     "url": "https://www.youtube.com/watch?v=TMw61C8Reds"
+    },
+    {
+     "pageTitle": "Remembering D-Day: Key facts, figures about the World War II ...",
+     "url": "https://apnews.com/article/d-day-invasion-normandy-france-nazis-07094640dd7bb938a23e144cc23f348c"
+    },
+    {
+     "pageTitle": "Behind the D-day story - Socialist Worker",
+     "url": "https://socialistworker.co.uk/in-depth/behind-the-d-day-story/"
+    },
+    {
+     "pageTitle": "Things They DON'T Teach You About D-DAY - YouTube",
+     "url": "https://www.youtube.com/watch?v=9kqzmY8Uhgc"
+    },
+    {
+     "pageTitle": "Video - Social 9x16: This Day in Army History: D-Day - DVIDS",
+     "url": "https://www.dvidshub.net/video/972305/social-9x16-day-army-history-d-day"
+    },
+    {
+     "pageTitle": "D-Day refers to the Normandy landings were the landing operations ...",
+     "url": "https://www.instagram.com/reel/CzTfI-bOg0R/?hl=en"
+    },
+    {
+     "pageTitle": "D-Day - History.com",
+     "url": "https://www.history.com/videos/d-day"
+    }
+   ],
+   "partialMatchingImages": [
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=10221204775408646"
+    },
+    {
+     "url": "https://redcrossoklahoma.wordpress.com/wp-content/uploads/2021/11/red-red-landings.jpg?w=300"
+    },
+    {
+     "url": "https://static.vocento.com/xlsemanal/wp-content/uploads/sites/5/2022/05/cruz-roja-henry-dunant-fundador-aniversario-historia.jpg"
+    },
+    {
+     "url": "https://i.ytimg.com/vi/iBUBm2QSrA8/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLCh_5mb8fQDMfrc8j6h26yca2Rgow"
+    },
+    {
+     "url": "https://lookaside.instagram.com/seo/google_widget/crawler/?media_id=3946929223381581135"
+    },
+    {
+     "url": "https://lookaside.instagram.com/seo/google_widget/crawler/?media_id=3947192546071359492"
+    }
+   ],
+   "visuallySimilarImages": [
+    {
+     "url": "https://dam.media.un.org/AssetLink/p50e34436xwafic72o55h3s1xf0rp88c"
+    },
+    {
+     "url": "https://lookaside.instagram.com/seo/google_widget/crawler/?media_id=3924606228214934655"
+    },
+    {
+     "url": "https://www.nps.gov/common/uploads/grid_builder/mapr/crop16_9/3B9146C7-FAA2-DAD5-4BBC77ABF6B67816.jpg?width=640&quality=90&mode=crop"
+    },
+    {
+     "url": "https://nzhistory.govt.nz/sites/default/files/images/historical-silences-classroom-1.jpg"
+    },
+    {
+     "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/38/Koningin_geeft_vaandel_aan_Luchtmacht%2C_overhandiging_van_vaandel%2C_Bestanddeelnr_917-7922.jpg/250px-Koningin_geeft_vaandel_aan_Luchtmacht%2C_overhandiging_van_vaandel%2C_Bestanddeelnr_917-7922.jpg?utm_source=nl.wikipedia.org&utm_campaign=parser&utm_content=thumbnail"
+    },
+    {
+     "url": "https://media.cnn.com/api/v1/images/stellar/prod/03-gettyimages-143160898.jpg?q=w_1576,c_fill"
+    },
+    {
+     "url": "https://media.licdn.com/dms/image/v2/C5612AQEfL_0wkBBpJA/article-cover_image-shrink_600_2000/article-cover_image-shrink_600_2000/0/1520235083204?e=2147483647&v=beta&t=4AWLmwZ95J8Zd4FXPx70nYas5ED93omCtHga9xCUEdM"
+    },
+    {
+     "url": "https://www.radiofrance.fr/pikapi/images/a92eaf0b-cc18-45e2-846d-306f889a9b42/2048"
+    },
+    {
+     "url": "https://cdn.sanity.io/images/wjwneku4/production/53f46a0d1a99c39b25c69a9e4c1ec525cabcf5a4-976x549.png"
+    },
+    {
+     "url": "https://media.snl.no/media/182686/standard_compressed_NL-HaNA_2.24.01.03_0_906-2801.jpg"
+    },
+    {
+     "url": "https://images.squarespace-cdn.com/content/v1/545a686fe4b059216c7cb8cc/1543608776023-M7N5JJ7IIVBWWL38H6H5/bpq_ls_138.jpg"
+    },
+    {
+     "url": "https://www.nps.gov/wapa/learn/historyculture/images/armed-forces-casualty-list.jpg"
+    },
+    {
+     "url": "https://www.radiofrance.fr/pikapi/images/82d6ebb6-2328-4a7a-8672-4fe0fd57293a/2048"
+    },
+    {
+     "url": "https://dimages2.corriereobjects.it/files/original/uploads/2026/08/12/6a7c818f8a9d7.r_d.494-467-0.jpeg"
+    },
+    {
+     "url": "https://platform.vox.com/wp-content/uploads/sites/2/chorus/uploads/chorus_asset/file/25013791/GettyImages_51347132.jpg?quality=90&strip=all&crop=0,0,100,100"
+    },
+    {
+     "url": "https://www.gilderlehrman.org/sites/default/files/styles/card_tall_1x/public/2024-01/GLC09795.04_VietnamTroops.png?h=e819f2d3&itok=MODh6-vq"
+    },
+    {
+     "url": "https://www.climate.gov/sites/default/files/styles/full_width_620_alternate_image/public/greenland_tidecheck_610.jpg?itok=P1FeiCKy"
+    },
+    {
+     "url": "https://www.ysma.gr/wp-content/uploads/2021/07/33_1.jpg"
+    },
+    {
+     "url": "https://www.uwec.edu/sites/default/files/styles/650x650_non_webp/public/2024-07/AS279.011.029.002.jpg?h=bfcf6e1e&itok=NA-VGu3v"
+    },
+    {
+     "url": "https://www.sueddeutsche.de/2026/09/24/ca52fb5a-267c-45a6-9143-d79294344a9f.jpg"
+    }
+   ],
+   "webEntities": [
+    {
+     "description": "Normandy landings",
+     "entityId": "/m/01lhv6",
+     "score": 1.49955
+    },
+    {
+     "description": "World War II",
+     "entityId": "/m/081pw",
+     "score": 1.0821
+    },
+    {
+     "description": "Operation Overlord",
+     "entityId": "/m/0ch1lys",
+     "score": 1.0815
+    },
+    {
+     "description": "Pacific War",
+     "entityId": "/m/01y998",
+     "score": 0.90480006
+    },
+    {
+     "description": "Liberation of Paris",
+     "entityId": "/m/037g_b",
+     "score": 0.8292
+    },
+    {
+     "description": "European Theater of World War II",
+     "entityId": "/m/01y98y",
+     "score": 0.768
+    },
+    {
+     "description": "1945",
+     "entityId": "/g/11b77d3kx_",
+     "score": 0.7129
+    },
+    {
+     "description": "Allies of World War II",
+     "entityId": "/m/06v9sf",
+     "score": 0.6943
+    },
+    {
+     "description": "Invasion",
+     "entityId": "/m/01ckq4",
+     "score": 0.6895
+    },
+    {
+     "entityId": "/t/29dcfy71_4rlx",
+     "score": 0.6357
+    },
+    {
+     "description": "1944",
+     "entityId": "/g/11b77dhv_m",
+     "score": 0.5731
+    },
+    {
+     "description": "History",
+     "entityId": "/m/03g3w",
+     "score": 0.4702
+    },
+    {
+     "entityId": "/t/26tx7xy9_tgvr",
+     "score": 0.4541
+    }
+   ]
+  }
+ }
+}

@@ -1,0 +1,326 @@
+{
+ "dated_at": "2026-09-27T17:11:02+00:00",
+ "page_dates": {
+  "https://magazine.caltech.edu/post/go-big-and-go-to-jupiter-10-engineering-challenges-europa-clipper-had-to-overcome": {
+   "date": "2025-07-23",
+   "source": "htmldate"
+  },
+  "https://wccftech.com/nasa-kscs-surroundings-eerily-calm-as-hurricane-miltons-eye-passes-over-it/": {
+   "date": "2024-10-10",
+   "source": "htmldate"
+  },
+  "https://www.facebook.com/groups/SpaceLaunchSchedule/posts/1225723885134733/": {
+   "date": null,
+   "source": null
+  },
+  "https://www.space.com/europa-clipper-hurricane-milton-nasa-ksc-photo": {
+   "date": "2024-10-10",
+   "source": "htmldate"
+  },
+  "https://x.com/NASAKennedy/status/1844096262338949213": {
+   "date": "2024-10-09",
+   "source": "htmldate"
+  },
+  "https://x.com/Spaceguy5/status/1844105378898039029": {
+   "date": "2024-10-09",
+   "source": "htmldate"
+  }
+ },
+ "requested_at": "2026-09-27T16:42:51+00:00",
+ "vision": {
+  "webDetection": {
+   "bestGuessLabels": [
+    {
+     "label": "kennedy space center hurricane milton",
+     "languageCode": "en"
+    }
+   ],
+   "fullMatchingImages": [
+    {
+     "url": "https://images.squarespace-cdn.com/content/v1/586ec16bb3db2b558ebfec60/fdcbcde5-9614-4ada-b853-6642d13739e9/w8HnX3mx7G23vzSihyq2kk-1200-80.png"
+    },
+    {
+     "url": "https://cdn.mos.cms.futurecdn.net/w8HnX3mx7G23vzSihyq2kk.jpg"
+    },
+    {
+     "url": "https://cdn.mos.cms.futurecdn.net/w8HnX3mx7G23vzSihyq2kk-1920-80.jpg"
+    },
+    {
+     "url": "https://cdn.wccftech.com/wp-content/uploads/2024/10/NASA-KENNEDY-HURRICANE-MILTON-1456x968.jpeg"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=10161359312230862"
+    },
+    {
+     "url": "https://pbs.twimg.com/media/GZeLxyfWEAA3fSG.jpg"
+    },
+    {
+     "url": "https://cdn.mos.cms.futurecdn.net/w8HnX3mx7G23vzSihyq2kk-1200-80.jpg"
+    }
+   ],
+   "pagesWithMatchingImages": [
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=10161359312230862"
+      }
+     ],
+     "pageTitle": "Photo not taken by me. Kennedy Space Center preparing for ...",
+     "url": "https://www.facebook.com/groups/SpaceLaunchSchedule/posts/1225723885134733/"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://pbs.twimg.com/media/GZeLxyfWEAA3fSG.jpg"
+      }
+     ],
+     "pageTitle": "NASA's Kennedy Space Center (@NASAKennedy) on X",
+     "url": "https://x.com/NASAKennedy/status/1844096262338949213"
+    },
+    {
+     "pageTitle": "Cape Canaveral Space Force Station and the Kennedy ... - Facebook",
+     "url": "https://www.facebook.com/news6/posts/cape-canaveral-space-force-station-and-the-kennedy-space-center-remained-closed-/949572983871429/"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://cdn.mos.cms.futurecdn.net/w8HnX3mx7G23vzSihyq2kk-1920-80.jpg"
+      },
+      {
+       "url": "https://cdn.mos.cms.futurecdn.net/w8HnX3mx7G23vzSihyq2kk-1200-80.jpg"
+      },
+      {
+       "url": "https://cdn.mos.cms.futurecdn.net/w8HnX3mx7G23vzSihyq2kk.jpg"
+      }
+     ],
+     "pageTitle": "NASA secures Europa Clipper probe as Hurricane Milton ... - Space",
+     "url": "https://www.space.com/europa-clipper-hurricane-milton-nasa-ksc-photo"
+    },
+    {
+     "pageTitle": "NASA's Kennedy Space Center - Facebook",
+     "url": "https://www.facebook.com/NASAKennedy/photos/kennedy-has-entered-hurcon-ii-ahead-of-hurricane-miltons-approachthe-center-is-n/1077547614035716/?locale=ga_IE"
+    },
+    {
+     "pageTitle": "NASA crews assess damage at Kennedy Space Center ... - Yahoo",
+     "url": "https://www.yahoo.com/news/nasa-crews-assess-damage-kennedy-134223248.html"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://images.squarespace-cdn.com/content/v1/586ec16bb3db2b558ebfec60/fdcbcde5-9614-4ada-b853-6642d13739e9/w8HnX3mx7G23vzSihyq2kk-1200-80.png"
+      }
+     ],
+     "pageTitle": "Go Big and Go to Jupiter: 10 Engineering Challenges Europa ...",
+     "url": "https://magazine.caltech.edu/post/go-big-and-go-to-jupiter-10-engineering-challenges-europa-clipper-had-to-overcome"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://pbs.twimg.com/media/GZeLxyfWEAA3fSG.jpg"
+      }
+     ],
+     "pageTitle": "Spaceguy5 on X: \"I hope that all of my KSC friends stay safe!\" / X",
+     "url": "https://x.com/Spaceguy5/status/1844105378898039029"
+    },
+    {
+     "pageTitle": "Aerial Survey of Kennedy Space Center Following Hurricane Matthew",
+     "url": "https://www.youtube.com/watch?v=2BUaS2QCeZk"
+    },
+    {
+     "pageTitle": "Watch #HurricaneMilton from the International Space Station NASA ...",
+     "url": "https://www.instagram.com/reel/DA6o7HlpdXu/?hl=en"
+    },
+    {
+     "pageTitle": "NASA Kennedy Space Center Hurricane Milton damage - K92.3",
+     "url": "https://www.k923orlando.com/news/local/nasa-crews-assess-damage-kennedy-space-center-hurricane-milton/DI2JBKUZ2NBDVIFQLEZZURTIRY/"
+    },
+    {
+     "pageTitle": "Kennedy Space Center Sustained Damage During Hurricane Irma",
+     "url": "https://www.youtube.com/watch?v=X04oC-TefF8"
+    },
+    {
+     "pageTitle": "Hurricane Milton seen from space station hours before Florida landfall",
+     "url": "https://www.youtube.com/watch?v=URkHrVfJnbE"
+    },
+    {
+     "pageTitle": "ISS captures views of Hurricane Milton in Gulf of Mexico",
+     "url": "https://www.facebook.com/newspath/videos/iss-captures-views-of-hurricane-milton-in-gulf-of-mexico/2290112344678619/"
+    },
+    {
+     "pageTitle": "Hurricane Milton seen from space as it approaches Florida - YouTube",
+     "url": "https://www.youtube.com/watch?v=BehxQ0ABK2A"
+    },
+    {
+     "pageTitle": "Watch Hurricane Milton from space as it approaches Florida",
+     "url": "https://www.washingtonpost.com/video/climate-environment/watch-hurricane-milton-from-space-as-it-approaches-florida/2024/10/09/2100f8ce-093f-474a-92d6-5c0456bd4442_video.html"
+    },
+    {
+     "pageTitle": "Eye of Hurricane Milton seen from space off Florida coast - BBC News",
+     "url": "https://www.bbc.co.uk/news/videos/c1wn552lz0do"
+    },
+    {
+     "pageTitle": "Timelapse of hurricane Milton from the International Space Station ...",
+     "url": "https://www.reddit.com/r/BeAmazed/comments/1fz5gnb/timelapse_of_hurricane_milton_from_the/"
+    },
+    {
+     "pageTitle": "Video from space gives a bird's-eye view of Hurricane Milton",
+     "url": "https://www.nbcnews.com/video/hurricane-milton-nasa-and-noaa-show-storm-from-space-221271621752"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://cdn.wccftech.com/wp-content/uploads/2024/10/NASA-KENNEDY-HURRICANE-MILTON-1456x968.jpeg"
+      }
+     ],
+     "pageTitle": "NASA KSC's Surroundings \"Eerily Calm\" As Hurricane Milton's Eye ...",
+     "url": "https://wccftech.com/nasa-kscs-surroundings-eerily-calm-as-hurricane-miltons-eye-passes-over-it/"
+    }
+   ],
+   "partialMatchingImages": [
+    {
+     "url": "https://www.despacho505.com/wp-content/uploads/news/347fc292869311ef8a37de807d3fb500.jpg"
+    },
+    {
+     "url": "https://gestion.pe/resizer/v2/HAG5ECOYQVFH3IUCZPA2Y2ZI5A.jpg?auth=8360f53a7dd8f3ec1340f1dd341d478158102f88cae144af6624b59f340c9130&width=1200&height=900&quality=75&smart=true"
+    }
+   ],
+   "visuallySimilarImages": [
+    {
+     "url": "https://d1.awsstatic.com/onedam/marketing-channels/website/aws/en_US/solution-case-studies/approved/images/gcrp-case-study-images/Screenshot%202025-11-11%20at%2015-28-37%20NG-1%20Launch%20Recap%20-%20YouTube.f0070fa6926ed384d536dc59fc72ec58f9998654.png"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=1133393017900107&get_thumbnail=1"
+    },
+    {
+     "url": "https://www.arianespace.com/app/uploads/sites/4/2024/04/BG-08-1-768x448.webp"
+    },
+    {
+     "url": "https://lookaside.instagram.com/seo/google_widget/crawler/?media_id=3954969804842887725"
+    },
+    {
+     "url": "https://lookaside.instagram.com/seo/google_widget/crawler/?media_id=3986675153228396221"
+    },
+    {
+     "url": "https://pbs.twimg.com/media/GhZNdR0XQAAHhDs?format=webp&name=large"
+    },
+    {
+     "url": "https://www.esa.int/var/esa/storage/images/esa_multimedia/images/2026/04/ariane_6_lifts_off_for_flight_va268/27250500-2-eng-GB/Ariane_6_lifts_off_for_flight_VA268_pillars.jpg"
+    },
+    {
+     "url": "https://lookaside.instagram.com/seo/google_widget/crawler/?media_id=3957348207566907045"
+    },
+    {
+     "url": "https://www.arianespace.com/app/uploads/sites/4/2026/01/va267_retrait-portique_zl4_0079-768x512.jpg"
+    },
+    {
+     "url": "https://airandspace.si.edu/sites/default/files/styles/callout_tile/public/oembed_thumbnails/dtvunEOKDDwS7wwpUGKg4uQjbvvv_EKARLbSQn_Rlds.jpg.webp?itok=SvB70ZfU"
+    },
+    {
+     "url": "https://www.cmse.gov.cn/dmt/tj/tzbh/202411/W020250318755299078675.jpg"
+    },
+    {
+     "url": "https://upload.wikimedia.org/wikipedia/commons/2/28/Shijian-23_Pre-Launch.png?utm_source=en.wikipedia.org&utm_campaign=index&utm_content=original"
+    },
+    {
+     "url": "https://www.esa.int/var/esa/storage/images/esa_multimedia/videos/2018/10/bepicolombo_launch_replay/17824748-2-eng-GB/BepiColombo_launch_replay_pillars.jpg"
+    },
+    {
+     "url": "https://pbs.twimg.com/amplify_video_thumb/2050301368209186816/img/Sh1ilySkzyfXdpDq?format=webp&name=medium"
+    },
+    {
+     "url": "https://la1ere.franceinfo.fr/image/mHRf0ZzxaPB4FIMlShLqMe_e7ow/0x0:1280x720/900x506/filters:format(webp):quality(80)/outremer%2F2026%2F02%2F12%2Fwhatsapp-image-2026-02-12-at-05-06-19-1-698dcfc788ba6552710963.jpg"
+    },
+    {
+     "url": "https://www.ariane.group/app/uploads/2024/07/8I0A1128-1-scaled.jpg"
+    },
+    {
+     "url": "https://assets.bwbx.io/images/users/iqjWHBFdfxIU/iMEApviYcaPE/v0/-1x-1.webp"
+    },
+    {
+     "url": "https://storage.ghost.io/c/29/97/29976d9d-89ea-4c77-8c0b-0e8a0eafed35/content/images/2026/07/AP25100030810232-1-1.jpg"
+    },
+    {
+     "url": "https://cdn.mos.cms.futurecdn.net/i54j4K8Kt5vKH5DAfYHkpB.jpg"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=1876322799662474&get_thumbnail=1"
+    }
+   ],
+   "webEntities": [
+    {
+     "description": "Hurricane Milton",
+     "entityId": "/g/11wj6z1w_1",
+     "score": 1.0912501
+    },
+    {
+     "description": "John F. Kennedy Space Center",
+     "entityId": "/m/045z8",
+     "score": 1.06785
+    },
+    {
+     "description": "International Space Station",
+     "entityId": "/m/03wky",
+     "score": 0.80655
+    },
+    {
+     "description": "Hurricane Matthew",
+     "entityId": "/g/11c1tb2d22",
+     "score": 0.7368
+    },
+    {
+     "description": "Tropical Cyclone",
+     "entityId": "/m/07r2x",
+     "score": 0.6885
+    },
+    {
+     "description": "NASA",
+     "entityId": "/m/05f4p",
+     "score": 0.6313
+    },
+    {
+     "entityId": "/t/2773mmnzkp0fr",
+     "score": 0.6313
+    },
+    {
+     "description": "Storm",
+     "entityId": "/m/0z71l",
+     "score": 0.5477
+    },
+    {
+     "entityId": "/t/27gdwspk7gc_1",
+     "score": 0.545
+    },
+    {
+     "description": "Space Exploration Technologies Corp.",
+     "entityId": "/m/03fkyw",
+     "score": 0.545
+    },
+    {
+     "description": "HURCON",
+     "entityId": "/m/043qclz",
+     "score": 0.4786
+    },
+    {
+     "description": "Landfall",
+     "entityId": "/m/0czz4l",
+     "score": 0.4497
+    },
+    {
+     "description": "Cloud",
+     "entityId": "/m/0csby",
+     "score": 0.4422
+    },
+    {
+     "description": "Space station",
+     "entityId": "/m/0dfmm",
+     "score": 0.3845
+    },
+    {
+     "description": "Matthew Dominick",
+     "entityId": "/g/11dfkz_wtf",
+     "score": 0.071355
+    }
+   ]
+  }
+ }
+}

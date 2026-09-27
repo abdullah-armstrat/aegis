@@ -1,0 +1,251 @@
+{
+ "dated_at": "2026-09-27T17:15:26+00:00",
+ "page_dates": {
+  "https://www.thestar.com/news/gta/toronto-police-board-agrees-to-16-5-million-settlement-over-mass-arrests-at-2010-g20/article_3242127e-c07a-54c1-8197-f25c9f3f3328.html": {
+   "date": null,
+   "source": null
+  },
+  "https://www.thestar.com/opinion/contributors/ten-years-later-the-g20-remains-a-wound-and-a-sign-that-police-reform-is/article_d0311a42-cd67-5c7d-81e9-4cb4fa77ce24.html": {
+   "date": "2020-06-08",
+   "source": "htmldate"
+  }
+ },
+ "requested_at": "2026-09-27T16:48:16+00:00",
+ "vision": {
+  "webDetection": {
+   "bestGuessLabels": [
+    {
+     "label": "police"
+    }
+   ],
+   "fullMatchingImages": [
+    {
+     "url": "https://i.imgur.com/nKBQmYe.png"
+    }
+   ],
+   "pagesWithMatchingImages": [
+    {
+     "pageTitle": "Police Department - Nashua, NH",
+     "url": "https://www.nashuanh.gov/1608/Police-Department"
+    },
+    {
+     "pageTitle": "Roommate Trouble | Police 24/7 | The CW - YouTube",
+     "url": "https://www.youtube.com/watch?v=NamBGgatqIU"
+    },
+    {
+     "pageTitle": "How Policing in America Works | Criminal Justice Basics - YouTube",
+     "url": "https://www.youtube.com/watch?v=4M8dYpNgUMg"
+    },
+    {
+     "pageTitle": "Night Patrol | Police 24/7 | The CW - YouTube",
+     "url": "https://www.youtube.com/watch?v=OsNWH2rQfpo"
+    },
+    {
+     "pageTitle": "Police Law - YouTube",
+     "url": "https://www.youtube.com/watch?v=aROSb9MOWg0"
+    },
+    {
+     "pageTitle": "Every Common Police Unit Explained - YouTube",
+     "url": "https://www.youtube.com/watch?v=JtYD7rAPfDk&vl=en"
+    },
+    {
+     "pageTitle": "What is the Role of the Police? - YouTube",
+     "url": "https://www.youtube.com/watch?v=KIAe0lYUBgo"
+    },
+    {
+     "pageTitle": "What Exactly is the Purpose of Police? - YouTube",
+     "url": "https://www.youtube.com/watch?v=pKk_2cjWwAg"
+    },
+    {
+     "pageTitle": "Cops Surprise Suspect with Warrants | Police 24/7 | The CW",
+     "url": "https://www.youtube.com/watch?v=fxcu0iuxE7o"
+    },
+    {
+     "pageTitle": "Portland Police Department expands community policing offices",
+     "url": "https://www.youtube.com/watch?v=wSMBqWBTGlQ"
+    },
+    {
+     "pageTitle": "YouTube",
+     "url": "https://www.youtube.com/watch?v=RNFGjhWBNeo"
+    },
+    {
+     "pageTitle": "Ten years later, the G20 remains a wound and a sign that police ...",
+     "partialMatchingImages": [
+      {
+       "url": "https://bloximages.chicago2.vip.townnews.com/thestar.com/content/tncms/assets/v3/editorial/3/09/309b979a-11bb-578a-bfeb-a0aa1833af3a/63e6b70e95b47.image.jpg?crop=1200%2C630%2C0%2C196"
+      }
+     ],
+     "url": "https://www.thestar.com/opinion/contributors/ten-years-later-the-g20-remains-a-wound-and-a-sign-that-police-reform-is/article_d0311a42-cd67-5c7d-81e9-4cb4fa77ce24.html"
+    },
+    {
+     "pageTitle": "Toronto police board agrees to $16.5 million settlement over mass ...",
+     "partialMatchingImages": [
+      {
+       "url": "https://bloximages.chicago2.vip.townnews.com/thestar.com/content/tncms/assets/v3/editorial/9/88/9885bbdd-46a2-5d95-8870-9db994a95c5b/63e6a2b6dac9a.image.jpg?crop=1080%2C567%2C0%2C316"
+      }
+     ],
+     "url": "https://www.thestar.com/news/gta/toronto-police-board-agrees-to-16-5-million-settlement-over-mass-arrests-at-2010-g20/article_3242127e-c07a-54c1-8197-f25c9f3f3328.html"
+    },
+    {
+     "pageTitle": "Cops Respond to Physical Disturbance Report | Police 24/7 | The CW",
+     "url": "https://www.youtube.com/watch?v=XKc2TEK3hjQ"
+    },
+    {
+     "pageTitle": "Montgomery County (MD) Police Department Recruitment Video",
+     "url": "https://www.youtube.com/watch?v=zQuO5BHBt6c"
+    },
+    {
+     "pageTitle": "Louisville police's anonymous tip line leading to arrests ... - YouTube",
+     "url": "https://www.youtube.com/watch?v=ZjoVDC3DsZ4"
+    },
+    {
+     "pageTitle": "YouTube",
+     "url": "https://www.youtube.com/watch?v=c5BI7dgXFww"
+    },
+    {
+     "pageTitle": "YouTube",
+     "url": "https://www.youtube.com/watch?v=Cb9AuqtUNT0"
+    },
+    {
+     "pageTitle": "What do you do if you're being pulled over and you aren't ... - YouTube",
+     "url": "https://www.youtube.com/watch?v=nr-QE694oao"
+    },
+    {
+     "pageTitle": "High Point Police use of force under review after two arrests - YouTube",
+     "url": "https://www.youtube.com/watch?v=FLQ2iO7QfBg"
+    }
+   ],
+   "partialMatchingImages": [
+    {
+     "url": "https://bloximages.chicago2.vip.townnews.com/thestar.com/content/tncms/assets/v3/editorial/3/09/309b979a-11bb-578a-bfeb-a0aa1833af3a/63e6b70e95b47.image.jpg?crop=1200%2C630%2C0%2C196"
+    },
+    {
+     "url": "https://bloximages.chicago2.vip.townnews.com/thestar.com/content/tncms/assets/v3/editorial/9/88/9885bbdd-46a2-5d95-8870-9db994a95c5b/63e6a2b6dac9a.image.jpg?crop=1080%2C567%2C0%2C316"
+    }
+   ],
+   "visuallySimilarImages": [
+    {
+     "url": "https://imagenes.elpais.com/resizer/v2/HLPKNJUHTJGPLGSY66OVSRY5TM.jpeg?auth=4587c531aaa2bbb6fe689d1f262b361cd624d245b98e8f2fff374f2f3d8cd043&width=414&height=311&focal=2841%2C1286"
+    },
+    {
+     "url": "https://e01-elmundo.uecdn.es/assets/multimedia/imagenes/2026/09/23/17901550895380.jpg"
+    },
+    {
+     "url": "https://static.dw.com/image/79419207_902.jpg"
+    },
+    {
+     "url": "https://ahns.pl/wp-content/uploads/2021/06/kryminologia.jpg"
+    },
+    {
+     "url": "https://static01.nyt.com/images/2022/04/15/nyregion/15nyshooting-james/15nyshooting-james-square320.jpg?quality=75&auto=webp&disable=upscale"
+    },
+    {
+     "url": "https://s1.abcstatics.com/abc/www/multimedia/espana/2026/09/26/1517712582-U46153053858XJs-562x315@diario_abc.jpg?width=562"
+    },
+    {
+     "url": "https://static01.nyt.com/images/2026/09/03/multimedia/03int-ukraine-russia-jet-drones-jgzm/03int-ukraine-russia-jet-drones-jgzm-mediumSquareAt3X.jpg"
+    },
+    {
+     "url": "https://media.city-journal.org/wp-content/uploads/sites/5/is-shotspotter-racist-an-honest-conversation-with-soundthinking-ceo-ralph-clark-GettyImages-2286988505.jpg"
+    },
+    {
+     "url": "https://images.foxtv.com/static.fox5ny.com/www.fox5ny.com/content/uploads/2026/09/640/360/nypd-manhole.png?ve=1&tl=1"
+    },
+    {
+     "url": "https://i.ytimg.com/vi/Tv-WN8qjFnE/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLA0x43mbAXC548XuFJJxs91nHP6sA"
+    },
+    {
+     "url": "https://images.ecestaticos.com/RxF6ugo88M4W1U6Qg4v9NOh5MSI=/0x0:1920x1280/1200x675/filters:fill(white):format(jpg)/f.elconfidencial.com%2Foriginal%2Ff6c%2F253%2F2c4%2Ff6c2532c4f47eb71916afbd09a50afa4.jpg"
+    },
+    {
+     "url": "https://www.radiofrance.fr/pikapi/images/43524510-6985-4ddb-9755-b5623c7a3e09/2048"
+    },
+    {
+     "url": "https://image.cnbcfm.com/api/v1/image/108154194-1748989200430-O17A8751.jpg?v=1748989419"
+    },
+    {
+     "url": "https://pbs.twimg.com/card_img/2103797813662351360/91i5dz-Y?format=webp&name=medium"
+    },
+    {
+     "url": "https://assets2.cbsnewsstatic.com/hub/i/r/2025/06/01/00d6f6f9-8b6b-4aad-844b-783fa8a9cd17/thumbnail/640x427/e1f7d70cb9ed99169a2d1c3111032590/e552061d-cd29-450c-8b4e-af14edaaef26.jpg"
+    },
+    {
+     "url": "https://cf-images.assettype.com/newindianexpress%2F2026-09-18%2Fkqoz0owp%2FPolice-officers.webp?w=480&auto=format%2Ccompress&fit=max"
+    },
+    {
+     "url": "https://cdn.prod.www.spiegel.de/images/e1ff537c-c638-43b5-8fb6-82ce8429a9f3_w488_r1.33_fpx69_fpy47.jpg"
+    },
+    {
+     "url": "https://nypost.com/wp-content/uploads/sites/2/2026/08/knife-comp.jpg?quality=75&strip=all&w=1200"
+    },
+    {
+     "url": "https://www.poynter.org/wp-content/uploads/2026/01/AP26013606289993.jpg"
+    },
+    {
+     "url": "https://media-cldnry.s-nbcnews.com/image/upload/rockcms/2026-09/260916-turkey-2-rs-f4c577.jpg"
+    }
+   ],
+   "webEntities": [
+    {
+     "description": "Curtis Cheeks",
+     "entityId": "/g/11qnpzq72x",
+     "score": 0.72765
+    },
+    {
+     "description": "Sheriff",
+     "entityId": "/m/0mb31",
+     "score": 0.6359
+    },
+    {
+     "description": "High Point Police Department",
+     "entityId": "/g/11ng17t8fj",
+     "score": 0.6087
+    },
+    {
+     "description": "Community policing",
+     "entityId": "/m/056xkw",
+     "score": 0.5638
+    },
+    {
+     "description": "Toronto Police",
+     "entityId": "/g/11bc64hktx",
+     "score": 0.5625
+    },
+    {
+     "entityId": "/t/2fb7nqvl7nlg5",
+     "score": 0.5625
+    },
+    {
+     "description": "Ride-along",
+     "entityId": "/m/03qdh3k",
+     "score": 0.5334
+    },
+    {
+     "description": "Toronto Police Service Board",
+     "entityId": "/m/09rfmt",
+     "score": 0.5189
+    },
+    {
+     "description": "Use of force",
+     "entityId": "/m/04bwyb",
+     "score": 0.5168
+    },
+    {
+     "description": "Criminal justice",
+     "entityId": "/m/016hlc",
+     "score": 0.5109
+    },
+    {
+     "description": "Warrant",
+     "entityId": "/m/01dqx2",
+     "score": 0.4829
+    },
+    {
+     "description": "Patrolling",
+     "entityId": "/m/053lf2",
+     "score": 0.4552
+    }
+   ]
+  }
+ }
+}

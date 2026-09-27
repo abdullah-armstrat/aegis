@@ -1,0 +1,105 @@
+{
+ "requested_at": "2026-09-27T16:43:20+00:00",
+ "vision": {
+  "webDetection": {
+   "bestGuessLabels": [
+    {
+     "label": "rainbow"
+    }
+   ],
+   "visuallySimilarImages": [
+    {
+     "url": "https://preview.redd.it/rainbow-at-bphc-v0-71vu4j0ecvkd1.jpeg?width=1080&crop=smart&auto=webp&s=3d895cf31167a489d4a82a7a5d7beb1329aacb24"
+    },
+    {
+     "url": "https://cdn.jmty.jp/articles/images/61707e47fef235381bbb5ef2/slide_25710F53-BEDA-4C0D-95F1-A6F4189116D6.jpg"
+    },
+    {
+     "url": "https://visitnorthcliffewa.com.au/wp-content/uploads/2024/08/nggallery_import/Picture1.jpg"
+    },
+    {
+     "url": "https://lookaside.instagram.com/seo/google_widget/crawler/?media_id=3604659130734718041"
+    },
+    {
+     "url": "https://i2.au.reastatic.net/800x600/44559cc22cf95a93c2d9e03758f62436843b30fe3d9d580416939b54a351e5a4/image.jpg"
+    },
+    {
+     "url": "https://pbs.twimg.com/media/F3yltjrXIAA7VYa?format=webp&name=large"
+    },
+    {
+     "url": "https://www.7x7.com/media-library/skyline-wilderness-park.jpg?id=55415790&width=800&quality=50"
+    },
+    {
+     "url": "https://i.imgur.com/uZnY2Lg.jpg"
+    },
+    {
+     "url": "https://www.heraldtribune.com/gcdn/presto/2022/09/21/NSHT/0f4fe5d3-3a46-49de-a0de-88a7ddcfdcad-SAR_RE_MARKET_092522_22.jpg?width=700&height=499&fit=crop&format=pjpg&auto=webp"
+    },
+    {
+     "url": "https://lookaside.instagram.com/seo/google_widget/crawler/?media_id=3968315742457781359"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=491437332990827"
+    },
+    {
+     "url": "https://cf.bstatic.com/xdata/images/hotel/max1024x768/71049639.jpg?k=c7f1acafd2e80a792dbe823b933d98129a2381a306be676b713e45a526b21f50&o="
+    },
+    {
+     "url": "https://blog.the3day.org/wp-content/uploads/2025/11/processed-778CC890-32B5-49B9-A2C5-93F3E21BEF2B-1024x768.jpeg"
+    },
+    {
+     "url": "https://media.licdn.com/dms/image/v2/D4E22AQEprOFpnGnJqw/feedshare-shrink_800/B4EZj35BmUIMAg-/0/1756505580361?e=2147483647&v=beta&t=OgXXPuvEzE7-xAghxfNoVMebuw7wgWTVoBntcFy7eT4"
+    },
+    {
+     "url": "https://live.staticflickr.com/3939/15553317106_5baa3e52ab_w.jpg"
+    },
+    {
+     "url": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/08/be/ad/d7/cooroy-golf-club.jpg?w=1200&h=1200&s=1"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=1697797409015927"
+    },
+    {
+     "url": "http://www.tus-werlau.de/images/2020-05-02_Tennis-Eroeffnung.jpg"
+    },
+    {
+     "url": "https://avatars.githubusercontent.com/u/44585666?v=4"
+    },
+    {
+     "url": "https://substackcdn.com/image/fetch/$s_!BD-X!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fd1042b56-7288-4c2b-8863-d0a52602571c_4032x3024.jpeg"
+    }
+   ],
+   "webEntities": [
+    {
+     "entityId": "/t/2fc8p8n6mc1zv",
+     "score": 0.3324
+    },
+    {
+     "description": "Rainbow",
+     "entityId": "/g/11b7ckp4fb",
+     "score": 0.3324
+    },
+    {
+     "description": "Palms",
+     "entityId": "/m/0cdl1",
+     "score": 0.3044778
+    },
+    {
+     "description": "Grass",
+     "entityId": "/m/08t9c_",
+     "score": 0.29493892
+    },
+    {
+     "description": "Tree",
+     "entityId": "/m/07j7r",
+     "score": 0.2929
+    },
+    {
+     "description": "Rainbow Shops",
+     "entityId": "/m/0922bl",
+     "score": 0.2833
+    }
+   ]
+  }
+ }
+}

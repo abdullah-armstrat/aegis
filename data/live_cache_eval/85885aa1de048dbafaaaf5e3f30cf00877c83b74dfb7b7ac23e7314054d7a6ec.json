@@ -1,0 +1,348 @@
+{
+ "dated_at": "2026-09-27T17:14:05+00:00",
+ "page_dates": {
+  "https://podroze.onet.pl/przyroda/zdjecia-chin-zrobione-z-kosmosu/y7lqvt4": {
+   "date": null,
+   "source": null
+  },
+  "https://www.encheres-luxembourg.lu/de/ergebnisse/nasa-iii-vers-lunivers-infini/photographie-aerienne-de-la-riviere-huang-ho-traversant-le-desert-du-gobi": {
+   "date": "2026-09-27",
+   "source": "htmldate"
+  },
+  "https://www.encheres-luxembourg.lu/de/ergebnisse/nasa-iii-vers-lunivers-infini/photographie-nasa-de-la-riviere-huang-ho-a-travers-le-desert-du-gobi": {
+   "date": "2026-09-27",
+   "source": "htmldate"
+  },
+  "https://www.encheres-luxembourg.lu/en/results/nasa-iii-vers-lunivers-infini/photographie-aerienne-de-la-riviere-huang-ho-traversant-le-desert-du-gobi": {
+   "date": "2026-09-27",
+   "source": "htmldate"
+  },
+  "https://www.encheres-luxembourg.lu/resultats/nasa-iii-vers-lunivers-infini/photographie-aerienne-de-la-riviere-huang-ho-traversant-le-desert-du-gobi": {
+   "date": "2026-09-27",
+   "source": "htmldate"
+  },
+  "https://www.facebook.com/100086383039831/photos/%E0%B9%81%E0%B8%A1%E0%B9%88%E0%B8%99%E0%B9%89%E0%B8%B3%E0%B9%80%E0%B8%AB%E0%B8%A5%E0%B8%B7%E0%B8%AD%E0%B8%87-%E0%B9%81%E0%B8%A1%E0%B9%88%E0%B8%99%E0%B9%89%E0%B8%B3%E0%B8%AA%E0%B8%B2%E0%B8%A2%E0%B8%AA%E0%B8%B3%E0%B8%84%E0%B8%B1%E0%B8%8D%E0%B8%82%E0%B8%AD%E0%B8%87%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B9%80%E0%B8%97%E0%B8%A8%E0%B8%88%E0%B8%B5%E0%B8%99-%E0%B9%81%E0%B8%A1%E0%B9%88%E0%B8%99%E0%B9%89%E0%B8%B3%E0%B8%AE%E0%B8%A7%E0%B8%87%E0%B9%82%E0%B8%AB-%E0%B8%AB%E0%B8%A3%E0%B8%B7%E0%B8%AD%E0%B9%81%E0%B8%A1%E0%B9%88%E0%B8%99%E0%B9%89%E0%B8%B3%E0%B9%80%E0%B8%AB%E0%B8%A5%E0%B8%B7%E0%B8%AD%E0%B8%87-huang-he-%E0%B9%80%E0%B8%9B/657717563784339/": {
+   "date": null,
+   "source": null
+  },
+  "https://www.facebook.com/100086383039831/posts/%E0%B9%81%E0%B8%A1%E0%B9%88%E0%B8%99%E0%B9%89%E0%B8%B3%E0%B9%80%E0%B8%AB%E0%B8%A5%E0%B8%B7%E0%B8%AD%E0%B8%87%E0%B9%81%E0%B8%A1%E0%B9%88%E0%B8%99%E0%B9%89%E0%B8%B3-%E0%B8%A7%E0%B8%B4%E0%B8%9B%E0%B9%82%E0%B8%A2%E0%B8%84-%E0%B9%81%E0%B8%A1%E0%B9%88%E0%B8%99%E0%B9%89%E0%B8%B3%E0%B8%AA%E0%B8%B2%E0%B8%A2%E0%B8%AA%E0%B8%B3%E0%B8%84%E0%B8%B1%E0%B8%8D%E0%B8%82%E0%B8%AD%E0%B8%87%E0%B8%8A%E0%B8%B2%E0%B8%A7%E0%B8%88%E0%B8%B5%E0%B8%99%E0%B9%81%E0%B8%A1%E0%B9%88%E0%B8%99%E0%B9%89%E0%B8%B3%E0%B8%AE%E0%B8%A7%E0%B8%87%E0%B9%82%E0%B8%AB%E0%B8%AB%E0%B8%A3%E0%B8%B7%E0%B8%AD%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B9%80%E0%B8%A3%E0%B8%B2%E0%B8%A3%E0%B8%B9%E0%B9%89%E0%B8%88%E0%B8%B1%E0%B8%81%E0%B8%81%E0%B8%B1%E0%B8%99%E0%B9%83/531286869760743/": {
+   "date": null,
+   "source": null
+  },
+  "https://www.inexhibit.com/case-studies/ordos-museum-mad-architects-china/": {
+   "date": "2024-08-03",
+   "source": "htmldate"
+  },
+  "https://www.pinterest.com/ideas/huang-ho-river-map/901368332388/": {
+   "date": "2026-09-22",
+   "source": "htmldate"
+  },
+  "https://www.pinterest.com/ideas/yellow-river-huang-he-river/903045968219/": {
+   "date": "2026-09-22",
+   "source": "htmldate"
+  }
+ },
+ "requested_at": "2026-09-27T16:46:17+00:00",
+ "vision": {
+  "webDetection": {
+   "bestGuessLabels": [
+    {
+     "label": "sand"
+    }
+   ],
+   "fullMatchingImages": [
+    {
+     "url": "https://skywalking1.files.wordpress.com/2013/09/yellow-r-gobi-sts068-220-033.jpg"
+    },
+    {
+     "url": "https://www.inexhibit.com/wp-content/uploads/2015/03/Ordos-museum-China-MAD-13.jpg"
+    },
+    {
+     "url": "https://www.encheres-luxembourg.lu/images/ventes/58/151_1.jpg"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=531287426427354"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=658299230392839"
+    },
+    {
+     "url": "https://cdn.podroze.onet.pl/1/FWjk9lMaHR0cDovL29jZG4uZXUvaW1hZ2VzL3B1bHNjbXMvTnpjN01EQV8vZjZjM2Y2ZjdiOGFjOWE4NDRlZTc4YjZhMmQ3NjdhOWMuanBlZ5GTBc0C0M0C0N4AAqEwB6ExBA"
+    },
+    {
+     "url": "https://i.pinimg.com/474x/66/d9/fb/66d9fb2738b825005199dae0fe599a43.jpg"
+    }
+   ],
+   "pagesWithMatchingImages": [
+    {
+     "pageTitle": "What Is Sand?! - YouTube",
+     "url": "https://www.youtube.com/watch?v=S0zyEN0OCR0"
+    },
+    {
+     "pageTitle": "All The Types of Sand & Why There's So Many Colors! | GEO GIRL",
+     "url": "https://www.youtube.com/watch?v=opiHowSlocY"
+    },
+    {
+     "pageTitle": "How Is Sand Made? | GET CLEVER | EP39 - YouTube",
+     "url": "https://www.youtube.com/watch?v=hrvEgSt8pRQ"
+    },
+    {
+     "pageTitle": "SAND - Global Release Day +1 - YouTube",
+     "url": "https://www.youtube.com/watch?v=FQeFheEuVWg"
+    },
+    {
+     "pageTitle": "The Amazing Life of Sand | Deep Look | PBS LearningMedia",
+     "url": "https://www.pbslearningmedia.org/resource/93d3137b-d106-49bf-a3d1-607f26f5bd22/the-amazing-life-of-sand/"
+    },
+    {
+     "pageTitle": "Science on Instagram: \" Sand is a non-cohesive grainy material ...",
+     "url": "https://www.instagram.com/reel/C6EyI4WIYbR/?hl=en"
+    },
+    {
+     "pageTitle": "Tony describes the differences between the types of sand and what ...",
+     "url": "https://www.facebook.com/BackyardLandscape/videos/whats-the-difference-between-they-types-of-sand/2932882460272674/"
+    },
+    {
+     "pageTitle": "What is Sand? Composition, Colors and Various Types of Sand",
+     "url": "https://eartheclipse.com/science/geology/sand-composition-colors-types.html"
+    },
+    {
+     "pageTitle": "sand | Significado desde el tema Geography - Longman",
+     "url": "https://www.ldoceonline.com/es-LA/Geography-topic/sand_1"
+    },
+    {
+     "pageTitle": "sand | Significado desde el tema Geology - Longman",
+     "url": "https://www.ldoceonline.com/es-LA/Geology-topic/sand_1"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://www.inexhibit.com/wp-content/uploads/2015/03/Ordos-museum-China-MAD-13.jpg"
+      }
+     ],
+     "pageTitle": "China - The Ordos Museum by MAD Architects | Inexhibit",
+     "url": "https://www.inexhibit.com/case-studies/ordos-museum-mad-architects-china/"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://i.pinimg.com/474x/66/d9/fb/66d9fb2738b825005199dae0fe599a43.jpg"
+      }
+     ],
+     "pageTitle": "Huang Ho River Map - Pinterest",
+     "url": "https://www.pinterest.com/ideas/huang-ho-river-map/901368332388/"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://skywalking1.files.wordpress.com/2013/09/yellow-r-gobi-sts068-220-033.jpg"
+      }
+     ],
+     "pageTitle": "Yellow River Huang He River - Pinterest",
+     "url": "https://www.pinterest.com/ideas/yellow-river-huang-he-river/903045968219/"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://www.encheres-luxembourg.lu/images/ventes/58/151_1.jpg"
+      }
+     ],
+     "pageTitle": "Aerial photograph of the Huang Ho river crossing the Gobi desert",
+     "url": "https://www.encheres-luxembourg.lu/en/results/nasa-iii-vers-lunivers-infini/photographie-aerienne-de-la-riviere-huang-ho-traversant-le-desert-du-gobi"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://www.encheres-luxembourg.lu/images/ventes/58/151_1.jpg"
+      }
+     ],
+     "pageTitle": "Photographie a\u00e9rienne de la rivi\u00e8re Huang Ho traversant le d\u00e9sert ...",
+     "url": "https://www.encheres-luxembourg.lu/resultats/nasa-iii-vers-lunivers-infini/photographie-aerienne-de-la-riviere-huang-ho-traversant-le-desert-du-gobi"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://www.encheres-luxembourg.lu/images/ventes/58/151_1.jpg"
+      }
+     ],
+     "pageTitle": "Luftaufnahme des Flusses Huang Ho durch die W\u00fcste Gobi",
+     "url": "https://www.encheres-luxembourg.lu/de/ergebnisse/nasa-iii-vers-lunivers-infini/photographie-aerienne-de-la-riviere-huang-ho-traversant-le-desert-du-gobi"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://www.encheres-luxembourg.lu/images/ventes/58/144_1.jpg"
+      }
+     ],
+     "pageTitle": "NASA-Fotografie des Flusses Huang Ho durch die W\u00fcste Gobi",
+     "url": "https://www.encheres-luxembourg.lu/de/ergebnisse/nasa-iii-vers-lunivers-infini/photographie-nasa-de-la-riviere-huang-ho-a-travers-le-desert-du-gobi"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://cdn.podroze.onet.pl/1/FWjk9lMaHR0cDovL29jZG4uZXUvaW1hZ2VzL3B1bHNjbXMvTnpjN01EQV8vZjZjM2Y2ZjdiOGFjOWE4NDRlZTc4YjZhMmQ3NjdhOWMuanBlZ5GTBc0C0M0C0N4AAqEwB6ExBA"
+      }
+     ],
+     "pageTitle": "Jak wygl\u0105daj\u0105 Chiny z g\u00f3ry? Wspania\u0142e zdj\u0119cia NASA - Podr\u00f3\u017ce Onet",
+     "url": "https://podroze.onet.pl/przyroda/zdjecia-chin-zrobione-z-kosmosu/y7lqvt4"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=658299230392839"
+      }
+     ],
+     "pageTitle": "The Earth - \"\u0e41\u0e21\u0e48\u0e19\u0e49\u0e33\u0e40\u0e2b\u0e25\u0e37\u0e2d\u0e07\" \u0e41\u0e21\u0e48\u0e19\u0e49\u0e33\u0e2a\u0e32\u0e22\u0e2a\u0e33\u0e04\u0e31\u0e0d\u0e02\u0e2d\u0e07\u0e1b\u0e23\u0e30\u0e40\u0e17\u0e28\u0e08\u0e35\u0e19 #\u0e41\u0e21\u0e48\u0e19\u0e49\u0e33\u0e2e\u0e27\u0e07\u0e42\u0e2b ...",
+     "url": "https://www.facebook.com/100086383039831/photos/%E0%B9%81%E0%B8%A1%E0%B9%88%E0%B8%99%E0%B9%89%E0%B8%B3%E0%B9%80%E0%B8%AB%E0%B8%A5%E0%B8%B7%E0%B8%AD%E0%B8%87-%E0%B9%81%E0%B8%A1%E0%B9%88%E0%B8%99%E0%B9%89%E0%B8%B3%E0%B8%AA%E0%B8%B2%E0%B8%A2%E0%B8%AA%E0%B8%B3%E0%B8%84%E0%B8%B1%E0%B8%8D%E0%B8%82%E0%B8%AD%E0%B8%87%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B9%80%E0%B8%97%E0%B8%A8%E0%B8%88%E0%B8%B5%E0%B8%99-%E0%B9%81%E0%B8%A1%E0%B9%88%E0%B8%99%E0%B9%89%E0%B8%B3%E0%B8%AE%E0%B8%A7%E0%B8%87%E0%B9%82%E0%B8%AB-%E0%B8%AB%E0%B8%A3%E0%B8%B7%E0%B8%AD%E0%B9%81%E0%B8%A1%E0%B9%88%E0%B8%99%E0%B9%89%E0%B8%B3%E0%B9%80%E0%B8%AB%E0%B8%A5%E0%B8%B7%E0%B8%AD%E0%B8%87-huang-he-%E0%B9%80%E0%B8%9B/657717563784339/"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=531287426427354"
+      }
+     ],
+     "pageTitle": "\u201c\u0e41\u0e21\u0e48\u0e19\u0e49\u0e33\u0e40\u0e2b\u0e25\u0e37\u0e2d\u0e07\u201d\u0e41\u0e21\u0e48\u0e19\u0e49\u0e33 \u0e27\u0e34\u0e1b\u0e42\u0e22\u0e04 \u0e41\u0e21\u0e48\u0e19\u0e49\u0e33\u0e2a\u0e32\u0e22\u0e2a\u0e33\u0e04\u0e31\u0e0d\u0e02\u0e2d\u0e07\u0e0a\u0e32\u0e27\u0e08\u0e35\u0e19 #\u0e41\u0e21\u0e48\u0e19\u0e49\u0e33\u0e2e\u0e27\u0e07\u0e42\u0e2b \u0e2b\u0e23\u0e37\u0e2d ...",
+     "url": "https://www.facebook.com/100086383039831/posts/%E0%B9%81%E0%B8%A1%E0%B9%88%E0%B8%99%E0%B9%89%E0%B8%B3%E0%B9%80%E0%B8%AB%E0%B8%A5%E0%B8%B7%E0%B8%AD%E0%B8%87%E0%B9%81%E0%B8%A1%E0%B9%88%E0%B8%99%E0%B9%89%E0%B8%B3-%E0%B8%A7%E0%B8%B4%E0%B8%9B%E0%B9%82%E0%B8%A2%E0%B8%84-%E0%B9%81%E0%B8%A1%E0%B9%88%E0%B8%99%E0%B9%89%E0%B8%B3%E0%B8%AA%E0%B8%B2%E0%B8%A2%E0%B8%AA%E0%B8%B3%E0%B8%84%E0%B8%B1%E0%B8%8D%E0%B8%82%E0%B8%AD%E0%B8%87%E0%B8%8A%E0%B8%B2%E0%B8%A7%E0%B8%88%E0%B8%B5%E0%B8%99%E0%B9%81%E0%B8%A1%E0%B9%88%E0%B8%99%E0%B9%89%E0%B8%B3%E0%B8%AE%E0%B8%A7%E0%B8%87%E0%B9%82%E0%B8%AB%E0%B8%AB%E0%B8%A3%E0%B8%B7%E0%B8%AD%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B9%80%E0%B8%A3%E0%B8%B2%E0%B8%A3%E0%B8%B9%E0%B9%89%E0%B8%88%E0%B8%B1%E0%B8%81%E0%B8%81%E0%B8%B1%E0%B8%99%E0%B9%83/531286869760743/"
+    }
+   ],
+   "visuallySimilarImages": [
+    {
+     "url": "https://cdn2.picryl.com/photo/1994/09/30/yellow-river-china-80eed5-1024.jpg"
+    },
+    {
+     "url": "https://dialogue.earth/content/uploads/2020/05/yellow_river.jpg"
+    },
+    {
+     "url": "https://media.istockphoto.com/id/944390290/photo/view-from-the-plane-to-the-sahara-desert-and-the-red-sea.jpg?s=612x612&w=0&k=20&c=LzRkDtCQ9CDSN5aszhLmZWK9KCRIoNn3YbP-TANgdDA="
+    },
+    {
+     "url": "https://ic.pics.livejournal.com/tomcatsky/81286924/84842/84842_original.jpg"
+    },
+    {
+     "url": "https://us.123rf.com/450wm/jb555/jb5551701/jb555170100250/87065187-vista-a%C3%A9rea-del-paisaje-de-monta%C3%B1a-en-xinjiang.jpg?ver=6"
+    },
+    {
+     "url": "https://p2.ssl.cdn.btime.com/t015c610b3843e507fd.jpg?size=1000x667"
+    },
+    {
+     "url": "https://i.pinimg.com/736x/c6/9d/4e/c69d4e949190e328af2d5f91c554f9fa.jpg"
+    },
+    {
+     "url": "https://cdn.myportfolio.com/c9ad49ef-7797-46ab-9de2-b625c94f3e9b/b10ac1dc-d941-456f-888b-a9bcf22ef6ed_rw_1920.jpeg?h=0fda89eef437734c3120a68645a3582f"
+    },
+    {
+     "url": "https://akcdn.detik.net.id/community/media/visual/2021/04/18/foto-jepretan-astronaut-di-luar-angkasa-6_169.jpeg?w=620"
+    },
+    {
+     "url": "https://thumbs.dreamstime.com/b/desert-landscape-captured-above-reveals-swirling-clouds-sandy-terrain-highlighting-nature-s-beauty-vastness-ai-374446143.jpg"
+    },
+    {
+     "url": "https://media.defense.gov/2012/Jul/06/2000756765/1366/740/0/120101-A-ZZ999-005.JPG"
+    },
+    {
+     "url": "https://thumbs.dreamstime.com/b/paisaje-hermoso-del-invierno-con-la-nevada-ventisca-de-nieve-puesta-sol-107154771.jpg"
+    },
+    {
+     "url": "https://thumbs.dreamstime.com/b/breathtaking-aerial-view-river-system-desert-landscape-stunning-showcases-complex-winding-vast-highlighting-unique-415825380.jpg"
+    },
+    {
+     "url": "https://i.etsystatic.com/54900049/r/il/2b3b0f/8196103276/il_340x270.8196103276_kyif.jpg"
+    },
+    {
+     "url": "https://www.brockmann-consult.de/wp-content/uploads/2021/02/s2_vvv_0005_Ebene-0-comp.jpg"
+    },
+    {
+     "url": "https://live.staticflickr.com/3197/2707944062_d699092446_z.jpg"
+    },
+    {
+     "url": "http://competition.worldphotographiccup.org/usr/32/submitted/mini/1823.jpg"
+    },
+    {
+     "url": "https://thumbs.dreamstime.com/b/aerial-view-surrealistic-industrial-place-human-impact-environment-degraded-landscape-destroyed-land-view-above-158284547.jpg"
+    },
+    {
+     "url": "https://c8.alamy.com/comp/DG1W33/elk265-1854-wyoming-yellowstone-national-park-mammoth-hot-springs-DG1W33.jpg"
+    },
+    {
+     "url": "https://b2480247.assetcdn.net/2.0/2480247/wp-content/uploads/2022/05/river-patterns-jeroenvannieuwenhove-18.jpg?lossy=1&strip=1&avif=1"
+    }
+   ],
+   "webEntities": [
+    {
+     "description": "Yellow River",
+     "entityId": "/m/0df3z",
+     "score": 1.2714076
+    },
+    {
+     "description": "River",
+     "entityId": "/m/06cnp",
+     "score": 0.6411
+    },
+    {
+     "description": "Sand",
+     "entityId": "/m/099fz",
+     "score": 0.6233305
+    },
+    {
+     "description": "Qinghai",
+     "entityId": "/m/017g16",
+     "score": 0.56428355
+    },
+    {
+     "description": "\u9102\u5c14\u591a\u65af\u535a\u7269\u9986",
+     "entityId": "/g/11b5qfs4_9",
+     "score": 0.5570236
+    },
+    {
+     "description": "Desert",
+     "entityId": "/m/0284w",
+     "score": 0.4439
+    },
+    {
+     "description": "Sai River",
+     "entityId": "/m/09gdjhq",
+     "score": 0.35715002
+    },
+    {
+     "description": "Gobi Desert",
+     "entityId": "/m/0ff0d",
+     "score": 0.35685
+    },
+    {
+     "entityId": "/t/2dgg60z74vt0",
+     "score": 0.3442
+    },
+    {
+     "description": "River source",
+     "entityId": "/m/025mm1",
+     "score": 0.268
+    },
+    {
+     "description": "Ordos City",
+     "entityId": "/m/06z55c",
+     "score": 0.2480332
+    },
+    {
+     "description": "Geography",
+     "entityId": "/m/034ns",
+     "score": 0.2317
+    },
+    {
+     "description": "Beach",
+     "entityId": "/m/0b3yr",
+     "score": 0.206
+    },
+    {
+     "description": "Inner Mongolia",
+     "entityId": "/m/0fbks",
+     "score": 0.0039276606
+    },
+    {
+     "description": "China",
+     "entityId": "/m/0d05w3",
+     "score": 2.6434566e-07
+    }
+   ]
+  }
+ }
+}

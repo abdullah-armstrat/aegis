@@ -1,0 +1,426 @@
+{
+ "dated_at": "2026-09-27T17:24:51+00:00",
+ "page_dates": {
+  "https://pearlharborwarbirds.com/jaw-dropping-color-photos-of-pearl-harbor/": {
+   "date": null,
+   "source": null
+  },
+  "https://www.facebook.com/Archmil/posts/our-broadcast-email-appears-to-be-down-this-evening-so-please-enjoy-archbishop-l/6615791211825574/": {
+   "date": null,
+   "source": null
+  },
+  "https://www.facebook.com/PimaAirAndSpace/posts/today-is-pearl-harbor-remembrance-day-for-the-events-on-december-7-1941-the-b-17/744670694364425/": {
+   "date": null,
+   "source": null
+  },
+  "https://www.facebook.com/wlukfox11/posts/this-year-marks-80-years-since-the-world-war-ii-attack/6989441701096361/": {
+   "date": null,
+   "source": null
+  },
+  "https://www.imdb.com/title/tt0213149/": {
+   "date": null,
+   "source": null
+  },
+  "https://www.telegraph.co.uk/pearl-harbor/": {
+   "date": "2016-12-28",
+   "source": "htmldate"
+  },
+  "https://www.youtube.com/watch?v=-K4cRXleH0I": {
+   "date": "2016-11-29",
+   "source": "htmldate"
+  },
+  "https://www.youtube.com/watch?v=9unVMw7xIx0": {
+   "date": "2022-12-07",
+   "source": "htmldate"
+  },
+  "https://www.youtube.com/watch?v=YDcNZGdstvA": {
+   "date": "2021-12-06",
+   "source": "htmldate"
+  },
+  "https://www.youtube.com/watch?v=tCu8t6mFiLk": {
+   "date": "2021-12-10",
+   "source": "htmldate"
+  }
+ },
+ "requested_at": "2026-09-27T16:57:56+00:00",
+ "vision": {
+  "webDetection": {
+   "bestGuessLabels": [
+    {
+     "label": "Attack on Pearl Harbor"
+    }
+   ],
+   "pagesWithMatchingImages": [
+    {
+     "pageTitle": "Pearl Harbor (2001) - IMDb",
+     "partialMatchingImages": [
+      {
+       "url": "https://m.media-amazon.com/images/M/MV5BMTgwMTg4NjMzMF5BMl5BanBnXkFtZTcwNTgwMTIyNw@@._V1_QL75_UX323_.jpg"
+      }
+     ],
+     "url": "https://www.imdb.com/title/tt0213149/"
+    },
+    {
+     "pageTitle": "Memoir chronicles sailor's survival of Pearl Harbor attack - YouTube",
+     "partialMatchingImages": [
+      {
+       "url": "https://i.ytimg.com/vi/vm-EeVSeOzU/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLBONZpRa6y5UlyU50e5c7-Ufcd7QA"
+      }
+     ],
+     "url": "https://www.youtube.com/watch?v=-K4cRXleH0I"
+    },
+    {
+     "pageTitle": "Remembering Pearl Harbor and American resilience - Facebook",
+     "partialMatchingImages": [
+      {
+       "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=2090440281106544"
+      }
+     ],
+     "url": "https://www.facebook.com/PimaAirAndSpace/posts/today-is-pearl-harbor-remembrance-day-for-the-events-on-december-7-1941-the-b-17/744670694364425/"
+    },
+    {
+     "pageTitle": "Things you didn't know about the attack on Pearl Harbor - YouTube",
+     "partialMatchingImages": [
+      {
+       "url": "https://i.ytimg.com/vi/vJbNhqKXguw/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLAu2-vcSFO8jFJkK28LiRH9aJCmJw"
+      }
+     ],
+     "url": "https://www.youtube.com/watch?v=9unVMw7xIx0"
+    },
+    {
+     "pageTitle": "Countdown to Pearl Harbor? (FDR, Advance Knowledge) - YouTube",
+     "partialMatchingImages": [
+      {
+       "url": "https://i.ytimg.com/vi/vm-EeVSeOzU/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLBONZpRa6y5UlyU50e5c7-Ufcd7QA"
+      }
+     ],
+     "url": "https://www.youtube.com/watch?v=tCu8t6mFiLk"
+    },
+    {
+     "pageTitle": "Pearl Harbor Survivors Gather For 80th Anniversary Of Attack",
+     "partialMatchingImages": [
+      {
+       "url": "https://i.ytimg.com/vi/vm-EeVSeOzU/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLBONZpRa6y5UlyU50e5c7-Ufcd7QA"
+      }
+     ],
+     "url": "https://www.youtube.com/watch?v=YDcNZGdstvA"
+    },
+    {
+     "pageTitle": "Archbishop Listecki's Love One Another message and Pearl Harbor ...",
+     "partialMatchingImages": [
+      {
+       "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=5555438087888840"
+      }
+     ],
+     "url": "https://www.facebook.com/Archmil/posts/our-broadcast-email-appears-to-be-down-this-evening-so-please-enjoy-archbishop-l/6615791211825574/"
+    },
+    {
+     "pageTitle": "Pearl Harbor - The Telegraph",
+     "partialMatchingImages": [
+      {
+       "url": "https://www.telegraph.co.uk/content/dam/briefs/2026/04/07/TELEMMGLPICT000477056524_177556429262828_trans_NvBQzQNjv4BqnY32puTRmJBD0IQz1kt_ZW6qMEuv0qSVyX1bNcDmagk.jpeg?imwidth=350"
+      }
+     ],
+     "url": "https://www.telegraph.co.uk/pearl-harbor/"
+    },
+    {
+     "pageTitle": "This year marks 80 years since the World War II attack. - Facebook",
+     "partialMatchingImages": [
+      {
+       "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=4755517707817263"
+      }
+     ],
+     "url": "https://www.facebook.com/wlukfox11/posts/this-year-marks-80-years-since-the-world-war-ii-attack/6989441701096361/"
+    },
+    {
+     "pageTitle": "Color Photos of the Pearl Harbor Attack",
+     "partialMatchingImages": [
+      {
+       "url": "https://pearlharborwarbirds.com/wp-content/uploads/sites/6926/2016/09/Awesome-Color-Photos-of-the-Attack-on-Pearl-Harbor-6.jpg?w=700&h=700&zoom=2"
+      }
+     ],
+     "url": "https://pearlharborwarbirds.com/jaw-dropping-color-photos-of-pearl-harbor/"
+    },
+    {
+     "pageTitle": "Pearl Harbor Leadership Experience",
+     "partialMatchingImages": [
+      {
+       "url": "https://battlefieldleadership.com/wp-content/uploads/2025/11/BL_Mid_Photo_Pearl_Harbor.jpg"
+      }
+     ],
+     "url": "https://battlefieldleadership.com/leadership-experiences/pearl-harbor/"
+    },
+    {
+     "pageTitle": "US Navy - Page 2 - The Telegraph",
+     "partialMatchingImages": [
+      {
+       "url": "https://www.telegraph.co.uk/content/dam/briefs/2026/04/07/TELEMMGLPICT000477056524_177556429262828_trans_NvBQzQNjv4BqnY32puTRmJBD0IQz1kt_ZW6qMEuv0qSVyX1bNcDmagk.jpeg?imwidth=350"
+      }
+     ],
+     "url": "https://www.telegraph.co.uk/us-navy/page-2/"
+    },
+    {
+     "pageTitle": "Tom Fordy - The Telegraph",
+     "partialMatchingImages": [
+      {
+       "url": "https://www.telegraph.co.uk/content/dam/briefs/2026/04/07/TELEMMGLPICT000477056524_177556429262828_trans_NvBQzQNjv4BqnY32puTRmJBD0IQz1kt_ZW6qMEuv0qSVyX1bNcDmagk.jpeg?imwidth=350"
+      }
+     ],
+     "url": "https://www.telegraph.co.uk/authors/t/tk-to/tom-fordy/page-2/"
+    },
+    {
+     "pageTitle": "Ben Affleck - The Telegraph",
+     "partialMatchingImages": [
+      {
+       "url": "https://www.telegraph.co.uk/content/dam/briefs/2026/04/07/TELEMMGLPICT000477056524_177556429262828_trans_NvBQzQNjv4BqnY32puTRmJBD0IQz1kt_ZW6qMEuv0qSVyX1bNcDmagk.jpeg?imwidth=350"
+      }
+     ],
+     "url": "https://www.telegraph.co.uk/ben-affleck/"
+    },
+    {
+     "pageTitle": "Pearl Harbor (2001) - Photos - IMDb",
+     "partialMatchingImages": [
+      {
+       "url": "https://m.media-amazon.com/images/M/MV5BMTgwMTg4NjMzMF5BMl5BanBnXkFtZTcwNTgwMTIyNw@@._V1_QL75_UX323_.jpg"
+      }
+     ],
+     "url": "https://www.imdb.com/title/tt0213149/mediaindex/"
+    },
+    {
+     "pageTitle": "A Drone Mission Under Pearl Harbor's Dry Docks - LinkedIn",
+     "partialMatchingImages": [
+      {
+       "url": "https://media.licdn.com/dms/image/v2/D4E12AQE7CdEw6XyCig/article-cover_image-shrink_720_1280/B4EZxJhwg3I0AI-/0/1770760112764?e=2147483647&v=beta&t=E-32MmpBayi_huOIejWMIRIZ2eFJcpskojbwZ1t4AP4"
+      }
+     ],
+     "url": "https://www.linkedin.com/pulse/inspecting-beneath-history-drone-mission-under-pearl-harbors-segarra-r28be"
+    },
+    {
+     "pageTitle": "Big Serge Thought | Substack",
+     "partialMatchingImages": [
+      {
+       "url": "https://substackcdn.com/image/fetch/$s_!ch2v!,w_150,h_150,c_fill,f_auto,q_auto:good,fl_progressive:steep,g_center/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F8c814782-ea1c-4626-ab2d-0e463190da54_1024x625.webp"
+      }
+     ],
+     "url": "https://bigserge.substack.com/"
+    },
+    {
+     "pageTitle": "Archive - Big Serge Thought",
+     "partialMatchingImages": [
+      {
+       "url": "https://substackcdn.com/image/fetch/$s_!ch2v!,w_150,h_150,c_fill,f_auto,q_auto:good,fl_progressive:steep,g_center/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F8c814782-ea1c-4626-ab2d-0e463190da54_1024x625.webp"
+      }
+     ],
+     "url": "https://bigserge.substack.com/archive"
+    },
+    {
+     "pageTitle": "Attack on Pearl Harbor - Ranker",
+     "url": "https://www.ranker.com/review/attack-on-pearl-harbor/509298"
+    },
+    {
+     "pageTitle": "Drone Lidar and The Use Case for Forestry - LinkedIn",
+     "partialMatchingImages": [
+      {
+       "url": "https://media.licdn.com/dms/image/v2/D4E12AQE7CdEw6XyCig/article-cover_image-shrink_720_1280/B4EZxJhwg3I0AI-/0/1770760112764?e=2147483647&v=beta&t=E-32MmpBayi_huOIejWMIRIZ2eFJcpskojbwZ1t4AP4"
+      }
+     ],
+     "url": "https://www.linkedin.com/pulse/drone-lidar-use-case-forestry-frank-j-segarra"
+    }
+   ],
+   "partialMatchingImages": [
+    {
+     "url": "https://mblogthumb-phinf.pstatic.net/MjAyNDA1MjFfMTA4/MDAxNzE2MzAyODMxOTMx.voNN6pocP2VdxkkKopc55XXUDCa1HKij97dD6lxt2sog.O83xPZjYf-W_s6iAkLGF3SqZkCP0d1YGG6uyW4cxncEg.PNG/image.png?type=w400"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=1581461448551794"
+    },
+    {
+     "url": "https://pearlharborwarbirds.com/wp-content/uploads/sites/6926/2016/09/Awesome-Color-Photos-of-the-Attack-on-Pearl-Harbor-6.jpg?w=700&h=700&zoom=2"
+    },
+    {
+     "url": "https://substackcdn.com/image/fetch/$s_!ch2v!,w_150,h_150,c_fill,f_auto,q_auto:good,fl_progressive:steep,g_center/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F8c814782-ea1c-4626-ab2d-0e463190da54_1024x625.webp"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=122308222418237157"
+    },
+    {
+     "url": "https://images.delfi.ee/media-api-image-cropper/v1/fe3e20b0-56d5-11ec-b86e-3b729d0f0b77.jpg?noup&w=1200&h=711&ch=0.8831&cw=1&cx=0&cy=0&r=16:9"
+    },
+    {
+     "url": "https://media.licdn.com/dms/image/v2/D4E12AQE7CdEw6XyCig/article-cover_image-shrink_720_1280/B4EZxJhwg3I0AI-/0/1770760112764?e=2147483647&v=beta&t=E-32MmpBayi_huOIejWMIRIZ2eFJcpskojbwZ1t4AP4"
+    },
+    {
+     "url": "https://i-s.zhuoyou.com/upload/news/20211214/%E5%9B%BE%E7%89%877.png"
+    },
+    {
+     "url": "https://t1.blockdit.com/photos/2021/07/60f4594af45d950c8eb27dd2_800x0xcover_fdoxlrF-.jpg"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=10217858495212485"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=2090440281106544"
+    },
+    {
+     "url": "https://mblogthumb-phinf.pstatic.net/MjAyMzEwMTNfMTI2/MDAxNjk3MTg0NDgyNTY2.tpkkw9s4o-kdRU8d8vZuviQmw74WWmibQ2vBOLM0ui0g.PhXkadLrrLhlTTMhVUL8ME60jMct_H4ll3VGNkXlrF0g.PNG.idw103/SE-9461df8e-5c52-45be-81f9-45b291676e7e.png?type=w800"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=4772818779444710"
+    },
+    {
+     "url": "https://new.hdrezka.se/kp-stills/1957/16515.webp"
+    },
+    {
+     "url": "https://www.imaeil.com/photos/2026/08/13/2026081320454066684_l.jpg"
+    },
+    {
+     "url": "https://storage.ghost.io/c/8c/e6/8ce68df1-b8bf-474a-a3e0-701a018ef40d/content/images/size/w1170/wp-content/uploads/2018/12/Zrtvovao-se-da-spasi-stotine-O-Hrvatu-koji-je-postao-heroj-Pearl-Harboura-snimljen-film_ca_large.jpg"
+    },
+    {
+     "url": "https://images.uncyclomedia.co/desencyclopedie/fr/thumb/a/a7/MN6.jpg/200px-MN6.jpg"
+    },
+    {
+     "url": "https://assets.telegraphindia.com/abp/2026/Apr/1775543825_9.jpg"
+    },
+    {
+     "url": "https://hips.hearstapps.com/hmg-prod/images/813553f8-302d-4cb7-b6c7-29dce51e0ef0.jpg?crop=0.676xw:1.00xh;0.0358xw,0&resize=1200:*"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=4755517707817263"
+    }
+   ],
+   "visuallySimilarImages": [
+    {
+     "url": "https://www.emerson.com/is/image/emerson/Image-ID-1287490:3-2?fmt=webp-alpha&qlt=95"
+    },
+    {
+     "url": "https://storage.moldova1.md/images/5cb852a8-5ac8-4f6e-b81a-66b13dc88bd0.jpg"
+    },
+    {
+     "url": "https://media-cdn.t24.com.tr/media/library/2026/09/5a6c2f77-9c25-4dfb-a246-1952da259e63.webp"
+    },
+    {
+     "url": "https://ichef.bbci.co.uk/ace/branded_news/1200/cpsprodpb/15c3/live/41153930-b4bb-11f1-b1d1-571ed4d7ff2c.jpg"
+    },
+    {
+     "url": "https://s.france24.com/media/display/7fbde97c-b4be-11f1-b2c6-5b4fdf021577/w:720/p:16x9/2026-09-20T042905Z-1824787393-RC2QMNA5QBAK-RTRMADP-3-UKRAINE-CRISIS-RUSSIA-REFINERY.jpg"
+    },
+    {
+     "url": "https://media.eco-files.cz/economia/production/files/2026/09/21/08/10/00/32bc85bd-20f6-40a7-9cc9-7dea022821d5/tag_reuters.com-2026_newsml_rc26nna8pnjy-original-446800.jpg"
+    },
+    {
+     "url": "https://img.novayagazeta.eu/d7340c66bc474cc7b720b3e56baf72cea/4xl"
+    },
+    {
+     "url": "https://cdn.prod.www.spiegel.de/images/b1551cff-8c74-4280-b0b3-265db6668c1b_w488_r1.5_fpx47_fpy49.png"
+    },
+    {
+     "url": "https://www.reuters.com/resizer/v2/DWCJE4JULFL7NIGBUU53WPOIHA.jpg?auth=a994067e2ccddaf810941b72010b31807ed604bf14fd42106775bf3e9073147f"
+    },
+    {
+     "url": "https://www.atlanticcouncil.org/wp-content/uploads/2026/08/2026-08-01T014555Z_661660133_MT1ZUMA000UKN8SI_RTRMADP_3_ZUMA-e1786049783955.jpg"
+    },
+    {
+     "url": "https://www.unrwa.org/sites/default/files/styles/778x517/public/content/image_galleries/image_gallery_134390_46109_1705301424.jpg?itok=mNHRgz7A"
+    },
+    {
+     "url": "https://media.cnn.com/api/v1/images/stellar/prod/cnnarabic-2026-09-20-images-344689.jpg?c=16x9&q=h_270,w_480,c_fill"
+    },
+    {
+     "url": "https://cdnphoto.dantri.com.vn/gKcFFvRo0ZQneVWOn3o3Ii87JAs=/zoom/1200_630/2026/08/07/nga-tan-cong-kiev-ukrainereuters-cropped-1786071502468.jpg"
+    },
+    {
+     "url": "https://www.ems.psu.edu/sites/ems/files/AdobeStock_emissions%20sized.jpg"
+    },
+    {
+     "url": "https://images.theconversation.com/files/753341/original/file-20260811-60-egkf6l.jpg?ixlib=rb-4.1.1&rect=1640%2C0%2C6030%2C4020&q=50&auto=format&w=768&h=512&fit=crop&dpr=2"
+    },
+    {
+     "url": "https://image.stern.de/38280570/t/UP/v2/w480/r1.5/-/moskau-drohnenangriff-ukraine.jpg"
+    },
+    {
+     "url": "https://www.nrdc.org/sites/default/files/styles/medium_16x9_100/public/media-uploads/gettyimages-886861738_2400.jpg.jpg?h=c3635fa2&itok=T6edIBBy"
+    },
+    {
+     "url": "https://www.aljazeera.com/wp-content/uploads/2022/03/AP22071489679797-1-1.jpg"
+    },
+    {
+     "url": "https://site.moh.ps/new/img/2023.jpg"
+    },
+    {
+     "url": "https://ca-times.brightspotcdn.com/dims4/default/75b59e7/2147483647/strip/true/crop/4000x2100+0+282/resize/1200x630!/quality/75/?url=https%3A%2F%2Fcalifornia-times-brightspot.s3.amazonaws.com%2F5b%2Fd5%2F544bd39a437eac36f53f1b36daea%2Fgettyimages-2193809066.jpg"
+    }
+   ],
+   "webEntities": [
+    {
+     "description": "Attack on Pearl Harbor",
+     "entityId": "/m/0gc1_",
+     "score": 1.49985
+    },
+    {
+     "description": "World War II",
+     "entityId": "/m/081pw",
+     "score": 1.06335
+    },
+    {
+     "description": "United States",
+     "entityId": "/m/09c7w0",
+     "score": 0.87465
+    },
+    {
+     "description": "Battleship Row",
+     "entityId": "/m/0321kt",
+     "score": 0.873
+    },
+    {
+     "description": "Empire of Japan",
+     "entityId": "/m/0193qj",
+     "score": 0.77129996
+    },
+    {
+     "entityId": "/t/26tx7xy9_tgvr",
+     "score": 0.5831
+    },
+    {
+     "entityId": "/t/29dcfy71_4rlx",
+     "score": 0.5788
+    },
+    {
+     "description": "National Pearl Harbor Remembrance Day",
+     "entityId": "/m/05h5c5_",
+     "score": 0.5385
+    },
+    {
+     "description": "1941",
+     "entityId": "/g/11b77d6b5_",
+     "score": 0.4422
+    },
+    {
+     "description": "Pearl Harbor Survivors Association",
+     "entityId": "/m/0cl9n8",
+     "score": 0.3949
+    },
+    {
+     "description": "Battle",
+     "entityId": "/m/01bvx",
+     "score": 0.3911
+    },
+    {
+     "description": "December 7",
+     "entityId": "/m/028kv",
+     "score": 0.3802
+    },
+    {
+     "description": "Takeo Yoshikawa",
+     "entityId": "/m/01gxwk",
+     "score": 0.094485
+    },
+    {
+     "description": "Pearl Harbor",
+     "entityId": "/m/0pc62",
+     "score": 0.09166501
+    }
+   ]
+  }
+ }
+}

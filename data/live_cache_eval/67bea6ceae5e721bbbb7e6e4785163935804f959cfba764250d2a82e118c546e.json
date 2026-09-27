@@ -1,0 +1,101 @@
+{
+ "requested_at": "2026-09-27T16:43:49+00:00",
+ "vision": {
+  "webDetection": {
+   "bestGuessLabels": [
+    {
+     "label": "track"
+    }
+   ],
+   "visuallySimilarImages": [
+    {
+     "url": "https://www.aar.org/wp-content/uploads/2024/02/Gondola-Slider.png.webp"
+    },
+    {
+     "url": "https://www.norfolksouthern.com/adobe/dynamicmedia/deliver/dm-aid--bfb8092c-b154-47dd-a7e9-f460a993df18/trilevel-autorack-on-train.jpg?quality=85&preferwebp=true"
+    },
+    {
+     "url": "https://upload.wikimedia.org/wikipedia/commons/7/7e/ARMN_761511_20050529_IL_Rochelle.jpg?utm_source=en.wikipedia.org&utm_campaign=index&utm_content=original"
+    },
+    {
+     "url": "https://p5.img.cctvpic.com/fmspic/2026/08/28/2258a0284c9e4e778a0060073b149947-1.jpg"
+    },
+    {
+     "url": "https://www.thermoking.com/content/dam/thermoking/images/610x365/cargo-rbc-610x365.jpg"
+    },
+    {
+     "url": "https://www.moeve.es/stfls/comercial/IMAGENES/HVO/hvo_25/m06-naked-card-list-hvo3-desktop-668x400.webp"
+    },
+    {
+     "url": "https://edmontonglobal.ca/wp-content/uploads/2024/07/Trade-Pages-Images-Website-4.png"
+    },
+    {
+     "url": "https://industryinfo.bg/img/260923055306tovaren-zhp-transport.jpg"
+    },
+    {
+     "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c6/FerromexCarInBoltonON.png/500px-FerromexCarInBoltonON.png?utm_source=en.wikipedia.org&utm_campaign=parser&utm_content=thumbnail"
+    },
+    {
+     "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/93/LO_DME_49328.jpg/500px-LO_DME_49328.jpg?utm_source=en.wikipedia.org&utm_campaign=parser&utm_content=thumbnail"
+    },
+    {
+     "url": "https://www.bmv.de/SharedDocs/DE/Bilder/E/gueterzug.jpg?__blob=normal"
+    },
+    {
+     "url": "https://www.bnsf.com/ship-with-bnsf/ways-of-shipping/equipment/images/temperature-controlled-trailer.jpg"
+    },
+    {
+     "url": "https://www.aar.org/wp-content/uploads/2025/04/Wellcars.png.webp"
+    },
+    {
+     "url": "https://www.txdot.gov/content/dam/images/division/rrd/freight-cars-on-rail.png"
+    },
+    {
+     "url": "https://www.forbes.ro/wp-content/uploads/2026/08/shutterstock-2790655255.jpg"
+    },
+    {
+     "url": "https://www.norfolksouthern.com/adobe/dynamicmedia/deliver/dm-aid--918a4944-8062-463b-91b0-4e5f8a0fe54f/automobile-carrier-trains-parked-side-by-side.jpg?quality=85&preferwebp=true"
+    },
+    {
+     "url": "https://ichef.bbci.co.uk/images/ic/480xn/p0l1hdgj.jpg.webp"
+    },
+    {
+     "url": "https://s7d2.scene7.com/is/image/Caterpillar/CM20220426-a2799-a5240?$cc-s$&fmt=pjpeg"
+    },
+    {
+     "url": "https://www.wpr.org/wp-content/uploads/2021/06/sauk_city_bridge.jpg"
+    },
+    {
+     "url": "https://www.securite-ferroviaire.fr/sites/default/files/pages/images/2023-07/shutterstock_1750471730.jpg"
+    }
+   ],
+   "webEntities": [
+    {
+     "description": "Rail transport",
+     "entityId": "/m/06d_3",
+     "score": 0.5291977
+    },
+    {
+     "description": "Railroad car",
+     "entityId": "/m/01g50p",
+     "score": 0.43989238
+    },
+    {
+     "description": "Goods wagon",
+     "entityId": "/m/05252qc",
+     "score": 0.3392736
+    },
+    {
+     "description": "Grass",
+     "entityId": "/m/08t9c_",
+     "score": 0.29349297
+    },
+    {
+     "description": "Cargo",
+     "entityId": "/m/023cbk",
+     "score": 0.2361
+    }
+   ]
+  }
+ }
+}

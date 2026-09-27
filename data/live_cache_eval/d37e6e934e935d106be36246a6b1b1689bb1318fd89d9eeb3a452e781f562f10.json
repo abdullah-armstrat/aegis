@@ -1,0 +1,235 @@
+{
+ "dated_at": "2026-09-27T17:20:57+00:00",
+ "page_dates": {
+  "https://www.diploweb.com/Western-women-in-jihad-triumph-of.html": {
+   "date": null,
+   "source": null
+  },
+  "https://www.snopes.com/fact-check/girl-forced-child-marriage-meme/": {
+   "date": "2019-03-18",
+   "source": "htmldate"
+  },
+  "https://www.wired.it/attualita/ambiente/2019/09/26/5-nuove-bufale-greta-thunberg/": {
+   "date": "2019-09-26",
+   "source": "htmldate"
+  },
+  "https://x.com/AbdulElSayed/status/2091151440433623395": {
+   "date": "2026-08-22",
+   "source": "htmldate"
+  },
+  "https://x.com/Obi_Wan_Gump/status/2091213250541306088": {
+   "date": "2026-08-22",
+   "source": "htmldate"
+  },
+  "https://x.com/Obi_Wan_Gump/status/2091213250541306088/photo/1": {
+   "date": "2026-08-22",
+   "source": "htmldate"
+  }
+ },
+ "requested_at": "2026-09-27T16:53:27+00:00",
+ "vision": {
+  "webDetection": {
+   "bestGuessLabels": [
+    {
+     "label": "fun"
+    }
+   ],
+   "fullMatchingImages": [
+    {
+     "url": "https://mediaproxy.snopes.com/width/1200/height/675/https://media.snopes.com/2019/03/childbride_social.jpg"
+    },
+    {
+     "url": "https://mediaproxy.snopes.com/width/1200/https://media.snopes.com/2019/03/childbride_social.jpg"
+    }
+   ],
+   "pagesWithMatchingImages": [
+    {
+     "pageTitle": "Fun, Fun, Fun (Remastered 2001) - YouTube",
+     "url": "https://www.youtube.com/watch?v=VF_o-N0fhZ0"
+    },
+    {
+     "pageTitle": "FUN! - YouTube",
+     "url": "https://www.youtube.com/watch?v=jufb6X8jFqo"
+    },
+    {
+     "pageTitle": "Fun. - Some Nights - YouTube",
+     "url": "https://www.youtube.com/watch?v=HT2TGWCOakg"
+    },
+    {
+     "pageTitle": "20 TOTALLY FUN THINGS TO DO WHEN YOU'RE BORED - YouTube",
+     "url": "https://www.youtube.com/watch?v=yGZufQYm4E4"
+    },
+    {
+     "pageTitle": "Dr. Abdul El-Sayed on X: \"So do we think JD is taking Usha with him ...",
+     "partialMatchingImages": [
+      {
+       "url": "https://pbs.twimg.com/media/HQV7VBuaMAAElH2?format=webp&name=large"
+      }
+     ],
+     "url": "https://x.com/AbdulElSayed/status/2091151440433623395"
+    },
+    {
+     "pageTitle": "Geopolitics. Western women in jihad - Diploweb.com",
+     "partialMatchingImages": [
+      {
+       "url": "https://www.diploweb.com/IMG/jpg/1.jpg"
+      }
+     ],
+     "url": "https://www.diploweb.com/Western-women-in-jihad-triumph-of.html"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://mediaproxy.snopes.com/width/1200/https://media.snopes.com/2019/03/childbride_social.jpg"
+      },
+      {
+       "url": "https://mediaproxy.snopes.com/width/1200/height/675/https://media.snopes.com/2019/03/childbride_social.jpg"
+      }
+     ],
+     "pageTitle": "Does This Photograph Show a Girl Forced Into Child Marriage by ...",
+     "url": "https://www.snopes.com/fact-check/girl-forced-child-marriage-meme/"
+    },
+    {
+     "pageTitle": "Doug on X: \"@AbdulElSayed Better than taking his nine-year-old ...",
+     "partialMatchingImages": [
+      {
+       "url": "https://pbs.twimg.com/media/HQV7VBuaMAAElH2?format=webp&name=large"
+      }
+     ],
+     "url": "https://x.com/Obi_Wan_Gump/status/2091213250541306088/photo/1"
+    },
+    {
+     "pageTitle": "\"@AbdulElSayed Better than taking his nine-year-old bride back ... - X",
+     "partialMatchingImages": [
+      {
+       "url": "https://pbs.twimg.com/media/HQV7VBuaMAAElH2?format=webp&name=large"
+      }
+     ],
+     "url": "https://x.com/Obi_Wan_Gump/status/2091213250541306088"
+    },
+    {
+     "pageTitle": "Greta Thunberg, 5 nuove bufale sull'attivista svedese - Wired Italia",
+     "partialMatchingImages": [
+      {
+       "url": "https://media-assets.wired.it/photos/615daec904249cf3a9c84d75/master/w_1600%2Cc_limit/thunberg_isis_bufala.jpg"
+      }
+     ],
+     "url": "https://www.wired.it/attualita/ambiente/2019/09/26/5-nuove-bufale-greta-thunberg/"
+    }
+   ],
+   "partialMatchingImages": [
+    {
+     "url": "https://www.diploweb.com/IMG/jpg/1.jpg"
+    },
+    {
+     "url": "https://media-assets.wired.it/photos/615daec904249cf3a9c84d75/master/w_1600%2Cc_limit/thunberg_isis_bufala.jpg"
+    },
+    {
+     "url": "https://pbs.twimg.com/media/HQV7VBuaMAAElH2?format=webp&name=large"
+    }
+   ],
+   "visuallySimilarImages": [
+    {
+     "url": "https://media.licdn.com/dms/image/v2/C5122AQEoerePKpTy4w/feedshare-shrink_800/feedshare-shrink_800/0/1575438332467?e=2147483647&v=beta&t=hCzsHV1F80SUMlf9pQd3JUQHGOVbCTSnO5fhhfvvh2o"
+    },
+    {
+     "url": "https://i.ytimg.com/vi/qVe2voacFfI/maxresdefault.jpg"
+    },
+    {
+     "url": "https://i.ytimg.com/vi/fs8d3DOMSiA/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLAIMHs_DvwjR225yWWN2nb0Hqcc4w"
+    },
+    {
+     "url": "https://media.cnn.com/api/v1/images/stellar/prod/230505145038-02-afghan-evacuees-stuck.jpg?c=original"
+    },
+    {
+     "url": "https://newsmedia.tasnimnews.ir/Tasnim/Uploaded/Image/1397/04/14/1397041414465153714658714.jpg"
+    },
+    {
+     "url": "https://scd.infomigrants.net/media/resize/my_image_medium/6752d5241ff2964cfeb903034ae7a4f962fbb0de.jpg"
+    },
+    {
+     "url": "https://p19-common-sign.tiktokcdn-us.com/tos-alisg-p-0037/oIx0nABLEABiAA6RfCAwIXAiuC4iCFC4E6YIOX~tplv-tiktokx-origin.image?dr=9636&x-expires=1786831200&x-signature=zxc4RBzUv%2Bm8MQPOCh0bk0G%2F%2BGE%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=55bbe6a9&idc=useast5"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=1389450500011347"
+    },
+    {
+     "url": "https://www.palestineremembered.com/Gaza/Iraq-al-Manshiyya/Picture118944.webp"
+    },
+    {
+     "url": "https://almadapaper.net/wp-content/uploads/2026/09/00-54.jpg"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=1386192480164030&get_thumbnail=1"
+    },
+    {
+     "url": "https://media.mehrnews.com/d/2026/08/31/4/6154974.jpg?ts=1788127137492"
+    },
+    {
+     "url": "https://i.cbc.ca/ais/1.3497451,1458313619000/full/max/0/default.jpg?im=Crop%2Crect%3D%280%2C67%2C1224%2C688%29%3BResize%3D620"
+    },
+    {
+     "url": "https://static01.nyt.com/images/2026/03/24/multimedia/24int-afghanistan-release-1-gbwt/24int-afghanistan-release-1-gbwt-articleLarge.jpg?quality=75&auto=avif&disable=upscale"
+    },
+    {
+     "url": "https://www.tjekdet.dk/sites/default/files/styles/6_10_570x950/public/2021-08/20210826-145543-L-1920x1078we.jpg?itok=OdWXCte0"
+    },
+    {
+     "url": "https://www.nrc.no/cdn-cgi/image/width=640,format=auto,fit=crop,height=640/globalassets/images/countries/afghanistan/2026/from-pain-to-positivity-habibullahs-story-of-resilience/rs35584_286a6210-2.jpg"
+    },
+    {
+     "url": "https://ichef.bbci.co.uk/ace/standard/480/cpsprodpb/79a6/live/e122f910-f920-11ef-9e61-71ee71f26eb1.jpg"
+    },
+    {
+     "url": "https://www.fairplanet.support/wp-content/uploads/2020/03/2628040670-62d0951de5-c.1676558077.jpg"
+    },
+    {
+     "url": "https://www.afghanistan-analysts.org/en/wp-content/uploads/sites/2/2023/07/337967C-highres-scaled.jpg"
+    },
+    {
+     "url": "https://adu.edu.az/images/article/1084/thumb.jpg?2020-04-24+20%3A00%3A35"
+    }
+   ],
+   "webEntities": [
+    {
+     "description": "Fun, Fun, Fun (Remastered 2001)",
+     "entityId": "/g/11f265rq5q",
+     "score": 0.5665
+    },
+    {
+     "description": "The Beach Boys",
+     "entityId": "/m/01fl3",
+     "score": 0.4528
+    },
+    {
+     "description": "Marriage in Islam",
+     "entityId": "/m/0nhh3l5",
+     "score": 0.438
+    },
+    {
+     "description": "fun.",
+     "entityId": "/m/04glv29",
+     "score": 0.437
+    },
+    {
+     "description": "Meme",
+     "entityId": "/m/04wpw",
+     "score": 0.415
+    },
+    {
+     "entityId": "/t/24mypdx4svpvn",
+     "score": 0.3808
+    },
+    {
+     "description": "Universal Music Group",
+     "entityId": "/g/11byd5x_f4",
+     "score": 0.3408
+    },
+    {
+     "entityId": "/t/23h2r5y_b1g5m",
+     "score": 0.3408
+    }
+   ]
+  }
+ }
+}

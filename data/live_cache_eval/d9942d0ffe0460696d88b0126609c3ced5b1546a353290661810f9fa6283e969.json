@@ -1,0 +1,91 @@
+{
+ "requested_at": "2026-09-27T16:45:42+00:00",
+ "vision": {
+  "webDetection": {
+   "bestGuessLabels": [
+    {
+     "label": "whale"
+    }
+   ],
+   "visuallySimilarImages": [
+    {
+     "url": "https://static.ocean.org/oceanorg/2026/08/grey-tail-1-Arjan-Bronkhorst-6a909599d19af.jpg"
+    },
+    {
+     "url": "https://www.pcouncil.org/wp-content/uploads/2019/05/Pacific-bluefin-tuna-Forty-Mile-Bank-California-Tom-Benson-Flickr.jpg"
+    },
+    {
+     "url": "https://i.cbc.ca/ais/13d32def-c218-4e2a-9b58-df434b86cbf1,1777048018832/full/max/0/default.jpg?im=Crop%2Crect%3D%280%2C0%2C1920%2C1080%29%3B"
+    },
+    {
+     "url": "https://media.whalescientists.com/2026/02/21224029/2019-07-23-16-45-49_IS_KK_IMG_1264-768x512.jpeg"
+    },
+    {
+     "url": "https://i.cbc.ca/ais/b5525b4f-ceae-449e-b9f1-a880700a76a4,1786998622336/full/max/0/default.jpg?im=Crop%2Crect%3D%280%2C0%2C1920%2C1080%29%3B"
+    },
+    {
+     "url": "https://www.fisheries.noaa.gov/s3/2021-01/north-atlantic-right-whale-1-.jpg"
+    },
+    {
+     "url": "https://lookaside.instagram.com/seo/google_widget/crawler/?media_id=3962901788639677104"
+    },
+    {
+     "url": "https://ichef.bbci.co.uk/news/480/cpsprodpb/7e74/live/212076c0-b34f-11f1-b949-71f91f81d1ab.jpg"
+    },
+    {
+     "url": "https://cdn.wcs.org/2025/08/06/10/19/43/65f4ec35-2d73-4548-8a1b-ca87a6c9616c/Ricardo-Antunes_0112_Humpback-Whales-New-York-Bight-NY_USA_09-12-15.jpg"
+    },
+    {
+     "url": "https://cloudfront-us-east-1.images.arcpublishing.com/bostonglobe/TOMZT4ATKV3SPV5ZKBWQKPHY6Y.jpg"
+    },
+    {
+     "url": "https://static.ocean.org/oceanorg/2021/11/KWNR_2010-08-27_LBarrett-Lennard_BlenheimIsl_0582-1009x670.jpg"
+    },
+    {
+     "url": "https://ofb.gouv.fr/sites/ofb-gouv-fr/files/styles/webp/card_medium_tablet/public/import/pro/images/Documentation/Dauphin-commun-baie-de-Douarnenez_Mickael-Buanic-OFB_49364_carree.jpg.webp"
+    },
+    {
+     "url": "https://wwfasia.awsassets.panda.org/img/siwi7_1_751897.jpg"
+    },
+    {
+     "url": "https://images.ctfassets.net/9833dwig2thk/env-dotAsset-photo-2200/77375effe328075dbd6bd6e6b6a1cb16/species-recovery-gray-whale.jpg"
+    },
+    {
+     "url": "https://images.squarespace-cdn.com/content/v1/62a7c29d6be21678d5e3ef9c/1659547776286-IKTFQ9S4F7GNVVRIMYJW/unsplash-image-QnBrjY-nFUs.jpg"
+    },
+    {
+     "url": "https://lookaside.instagram.com/seo/google_widget/crawler/?media_id=3925366271022028227"
+    },
+    {
+     "url": "https://www.mmc.gov/wp-content/uploads/nmmlweb-killerwhale-lrg-10.jpg"
+    },
+    {
+     "url": "https://cdn.prod.www.spiegel.de/images/7fb3fc07-640c-4cbb-a84b-7ba245b7205a_w488_r1.33_fpx35_fpy38.jpg"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=10164432643153904"
+    },
+    {
+     "url": "https://ewhale.eu/wp-content/uploads/2023/02/3_Humpback030515i_27-1-600x600.png"
+    }
+   ],
+   "webEntities": [
+    {
+     "description": "Sea-M",
+     "entityId": "/g/11zj3lbsf6",
+     "score": 0.4947
+    },
+    {
+     "description": "Whale",
+     "entityId": "/g/121dcm9p",
+     "score": 0.305
+    },
+    {
+     "description": "Fish",
+     "entityId": "/m/0ch_cf",
+     "score": 0.29123285
+    }
+   ]
+  }
+ }
+}

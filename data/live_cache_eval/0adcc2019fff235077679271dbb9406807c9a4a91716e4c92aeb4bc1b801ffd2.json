@@ -1,0 +1,273 @@
+{
+ "dated_at": "2026-09-27T17:21:45+00:00",
+ "page_dates": {
+  "https://ameblo.jp/sakisaki-72/entry-12577374218.html": {
+   "date": "2020-02-24",
+   "source": "htmldate"
+  },
+  "https://ifilo.net/v/8UrMiWi": {
+   "date": "2024-12-10",
+   "source": "htmldate"
+  },
+  "https://www.hindustantimes.com/it-s-viral/video-doesn-t-show-fox-breastfeeding-orphaned-koala-babies-in-australia/story-9aHMHEDqGtg0OZ3eupGCLN.html": {
+   "date": "2020-01-26",
+   "source": "wayback"
+  },
+  "https://www.indiatoday.in/fact-check/story/fact-check-truth-behind-mother-fox-feeding-koalas-during-australia-bushfires-1640381-2020-01-26": {
+   "date": "2020-01-26",
+   "source": "wayback"
+  },
+  "https://youturn.in/factcheck/fox-feeding-koalas-australia.html": {
+   "date": null,
+   "source": null
+  }
+ },
+ "requested_at": "2026-09-27T16:54:13+00:00",
+ "vision": {
+  "webDetection": {
+   "bestGuessLabels": [
+    {
+     "label": "koala fox",
+     "languageCode": "en"
+    }
+   ],
+   "fullMatchingImages": [
+    {
+     "url": "https://akm-img-a-in.tosshub.com/indiatoday/images/story/202001/australia_bushfire_koala_fact_.jpeg"
+    }
+   ],
+   "pagesWithMatchingImages": [
+    {
+     "pageTitle": "Is This Fox Eating A Koala? - YouTube",
+     "url": "https://www.youtube.com/watch?v=VIDOXBSLCig"
+    },
+    {
+     "pageTitle": "Koalas | Which Are Cuter? | Meet the Animals | Little Fox - YouTube",
+     "url": "https://www.youtube.com/watch?v=EvNxcsOuNBE"
+    },
+    {
+     "pageTitle": "KOALA KID - Small Bear, Big Adventures! | FOX Home Entertainment",
+     "url": "https://www.youtube.com/watch?v=_kRZ2WqYOGY"
+    },
+    {
+     "pageTitle": "Koala Lou (Mem Fox) - Daily Read Aloud - YouTube",
+     "url": "https://www.youtube.com/watch?v=jcIqrc1olx0"
+    },
+    {
+     "pageTitle": "That'll leave a mark: Clumsy koala runs head-first into tree - Fox News",
+     "url": "https://www.foxnews.com/video/5185614845001"
+    },
+    {
+     "pageTitle": "Fact Check: Fox breastfeeding Koala babies in Australia? Here's the ...",
+     "url": "https://www.newsmobile.in/nm-fact-checker/fact-check-fox-breastfeeding-koala-babies-in-australia-heres-the-truth/"
+    },
+    {
+     "pageTitle": "Does this video show fox breastfeeding orphaned koala babies in ...",
+     "partialMatchingImages": [
+      {
+       "url": "https://images.hindustantimes.com/rf/image_size_300x169/HT/p2/2020/01/25/Pictures/_67236d7e-3f4f-11ea-8d17-9068169bb2f5.PNG"
+      }
+     ],
+     "url": "https://www.hindustantimes.com/it-s-viral/video-doesn-t-show-fox-breastfeeding-orphaned-koala-babies-in-australia/story-9aHMHEDqGtg0OZ3eupGCLN.html"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://akm-img-a-in.tosshub.com/indiatoday/images/story/202001/australia_bushfire_koala_fact_.jpeg"
+      },
+      {
+       "url": "https://akm-img-a-in.tosshub.com/indiatoday/images/story/202001/australia_bushfire_koala_fact_.jpeg?size=1200:675"
+      }
+     ],
+     "pageTitle": "Fact Check: Truth behind mother fox feeding koalas during Australia ...",
+     "url": "https://www.indiatoday.in/fact-check/story/fact-check-truth-behind-mother-fox-feeding-koalas-during-australia-bushfires-1640381-2020-01-26"
+    },
+    {
+     "pageTitle": "How much do you know about koalas? | National Geographic Animals",
+     "url": "https://www.facebook.com/NatGeoAnimals/videos/how-much-do-you-know-about-koalas-/1569941011160131/"
+    },
+    {
+     "pageTitle": "Curious about koalas? This video dives into their unique behaviors ...",
+     "url": "https://www.facebook.com/realwild/videos/koala-secrets-territory-scent-and-love-aussie-wildlife-facts/2052244308920073/"
+    },
+    {
+     "pageTitle": "\u0b86\u0bb8\u0bcd\u0ba4\u0bbf\u0bb0\u0bc7\u0bb2\u0bbf\u0baf\u0bbe\u0bb5\u0bbf\u0bb2\u0bcd \u0ba4\u0bbe\u0baf\u0bc8 \u0b87\u0bb4\u0ba8\u0bcd\u0ba4 \u0b95\u0bcb\u0bb2\u0bbe ... - YouTurn",
+     "partialMatchingImages": [
+      {
+       "url": "https://d2y0rn4f1ve9hm.cloudfront.net/2020/01/fox-45.jpg"
+      }
+     ],
+     "url": "https://youturn.in/factcheck/fox-feeding-koalas-australia.html"
+    },
+    {
+     "pageTitle": "\u5fc3\u512a\u3057\u3044\u304d\u3064\u306d\u3055\u3093 | \u90a3\u6d25\u4e43 \u54b2\u306e\u30ec\u30c3\u30b9\u30f3\uff06\u308f\u3093\u306b\u3083\u3093\u65e5\u8a18",
+     "partialMatchingImages": [
+      {
+       "url": "https://stat.ameba.jp/user_images/20200224/08/sakisaki-72/a7/fd/j/o0500037514718014386.jpg?cax=1280-720"
+      }
+     ],
+     "url": "https://ameblo.jp/sakisaki-72/entry-12577374218.html"
+    },
+    {
+     "pageTitle": "\u062d\u0627\u0635\u0644 \u062c\u0641\u062a \u06af\u06cc\u0631\u06cc \u062d\u06cc\u0648\u0627\u0646\u0627\u062a \u0645\u062e\u062a\u0644\u0641 - \u0641\u06cc\u0644\u0648",
+     "partialMatchingImages": [
+      {
+       "url": "https://soil.ifilo.net/filo/video/TVRNNU9TOHdNaTh3TWc9PQ==/Ym5Oc1YweEhXQT09/9toh-720X404.jpg"
+      }
+     ],
+     "url": "https://ifilo.net/v/8UrMiWi"
+    }
+   ],
+   "partialMatchingImages": [
+    {
+     "url": "https://akm-img-a-in.tosshub.com/indiatoday/images/story/202001/australia_bushfire_koala_fact_.jpeg?size=1200:675"
+    },
+    {
+     "url": "https://d2y0rn4f1ve9hm.cloudfront.net/2020/01/fox-45.jpg"
+    },
+    {
+     "url": "https://images.hindustantimes.com/rf/image_size_300x169/HT/p2/2020/01/25/Pictures/_67236d7e-3f4f-11ea-8d17-9068169bb2f5.PNG"
+    },
+    {
+     "url": "https://soil.ifilo.net/filo/video/TVRNNU9TOHdNaTh3TWc9PQ==/Ym5Oc1YweEhXQT09/9toh-720X404.jpg"
+    },
+    {
+     "url": "https://stat.ameba.jp/user_images/20200224/08/sakisaki-72/a7/fd/j/o0500037514718014386.jpg?cax=1280-720"
+    }
+   ],
+   "visuallySimilarImages": [
+    {
+     "url": "https://www.nps.gov/sajh/planyourvisit/images/Fox_Photography.png"
+    },
+    {
+     "url": "https://lookaside.instagram.com/seo/google_widget/crawler/?media_id=3912819900202737906"
+    },
+    {
+     "url": "https://lookaside.instagram.com/seo/google_widget/crawler/?media_id=3988535093756808138"
+    },
+    {
+     "url": "https://portal.ct.gov/-/media/deep/wildlife/images/fox_template.jpg?rev=19df485e04214081a35b4ff0a811cb53&la=en&h=500&w=500&hash=16E5826EA573DC2AD78F22F8714280E2"
+    },
+    {
+     "url": "https://static.toiimg.com/thumb/122314536/122314536.jpg?height=746&width=420&resizemode=76&imgsize=236116"
+    },
+    {
+     "url": "https://lookaside.instagram.com/seo/google_widget/crawler/?media_id=3974385061992870153"
+    },
+    {
+     "url": "https://lookaside.instagram.com/seo/google_widget/crawler/?media_id=3912819894339180506"
+    },
+    {
+     "url": "https://www.hww.ca/wp-content/uploads/2014/11/Red-Fox_Richard-Dupuis.jpg"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=1656845663116748"
+    },
+    {
+     "url": "https://www.tiktok.com/api/img/?itemId=7568381219465973003&location=0&aid=1988"
+    },
+    {
+     "url": "https://wwfgifts-files.worldwildlife.org/wwfgifts/images/red-fox-landing-photo.jpg"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=1541162951383342"
+    },
+    {
+     "url": "https://wildwnc.org/wp-content/uploads/yootheme/cache/b6/Red-Fox-b6c4e3fe.jpg?src=wp-content/uploads/2025/12/Red-Fox.jpg&thumbnail=600,400,&hash=6889cd54"
+    },
+    {
+     "url": "https://i.ytimg.com/vi/h6-yoT65vC0/hqdefault.jpg"
+    },
+    {
+     "url": "https://lookaside.instagram.com/seo/google_widget/crawler/?media_id=3912819895572221492"
+    },
+    {
+     "url": "https://www.waldwissen.net/assets/wald/tiere/saeuger/wsl_goldschakal/189653_original_R_K_by_Anguane_pixelio.de.jpg"
+    },
+    {
+     "url": "https://itameri.fi/wp-content/uploads/sites/5/2024/09/Itainen_Suomenlahti__Kotka_Vanhankylanmaa_Kettu_25-09-2013_METSAHALLITUS_Maiju_Lanki-2225-960x720.jpg"
+    },
+    {
+     "url": "https://opn.gov.pl/uploads/thumbs/669855aae4746281089693.webp"
+    },
+    {
+     "url": "https://noahs-ark.github.io/images/skulk_of_foxes.jpg"
+    },
+    {
+     "url": "https://www.cdc.gov/bird-flu/media/images/2024/08/fox-kits.jpg?_=79039"
+    }
+   ],
+   "webEntities": [
+    {
+     "description": "Red fox",
+     "entityId": "/m/02r5q6",
+     "score": 1.246806
+    },
+    {
+     "description": "Koala",
+     "entityId": "/m/04cp_",
+     "score": 1.08585
+    },
+    {
+     "description": "Swift fox",
+     "entityId": "/m/02mwvg",
+     "score": 1.0679672
+    },
+    {
+     "description": "Koala Lou",
+     "entityId": "/m/04t0g_m",
+     "score": 1.059
+    },
+    {
+     "description": "Kit fox",
+     "entityId": "/m/027tn4",
+     "score": 1.0301157
+    },
+    {
+     "description": "Bears",
+     "entityId": "/m/01dws",
+     "score": 0.89175
+    },
+    {
+     "description": "Gray fox",
+     "entityId": "/m/03mr8x",
+     "score": 0.75374997
+    },
+    {
+     "description": "Fox",
+     "entityId": "/m/0306r",
+     "score": 0.7379
+    },
+    {
+     "description": "Dhole",
+     "entityId": "/m/02dcv",
+     "score": 0.56372267
+    },
+    {
+     "description": "Kangaroo",
+     "entityId": "/m/04c0y",
+     "score": 0.4199
+    },
+    {
+     "description": "Lion",
+     "entityId": "/m/096mb",
+     "score": 0.41895002
+    },
+    {
+     "description": "Giant panda",
+     "entityId": "/m/03bj1",
+     "score": 0.39990002
+    },
+    {
+     "description": "Australia",
+     "entityId": "/m/0chghy",
+     "score": 0.37725002
+    },
+    {
+     "entityId": "/t/2s1gvx9sl0bc",
+     "score": 0.2515
+    }
+   ]
+  }
+ }
+}

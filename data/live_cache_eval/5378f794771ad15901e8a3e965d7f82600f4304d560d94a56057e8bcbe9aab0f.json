@@ -1,0 +1,392 @@
+{
+ "dated_at": "2026-09-27T17:23:04+00:00",
+ "page_dates": {
+  "https://www.13wmaz.com/article/news/nation-world/anderson-cooper-addresses-viral-hurricane-photo-on-cnn/93-595847134": {
+   "date": null,
+   "source": null
+  },
+  "https://www.businessinsider.com/cnn-anderson-cooper-donald-trump-jr-hurricane-florence-2018-9": {
+   "date": "2018-09-18",
+   "source": "htmldate"
+  },
+  "https://www.kens5.com/article/news/nation-world/anderson-cooper-addresses-viral-hurricane-photo-on-cnn/273-595846997": {
+   "date": null,
+   "source": null
+  },
+  "https://www.kvue.com/article/news/local/verify/verify-viral-picture-of-anderson-cooper-in-deep-water-is-not-from-florence/507-595175925": {
+   "date": null,
+   "source": null
+  },
+  "https://www.kvue.com/article/news/nation-world/anderson-cooper-addresses-viral-hurricane-photo-on-cnn/269-595846988": {
+   "date": null,
+   "source": null
+  },
+  "https://www.thv11.com/article/news/local/verify/verify-viral-picture-of-anderson-cooper-in-deep-water-is-not-from-florence/507-595175925": {
+   "date": null,
+   "source": null
+  },
+  "https://www.washingtonpost.com/video/politics/trumps-visit-to-puerto-rico-in-two-minutes/2017/10/03/47464a98-a88a-11e7-9a98-07140d2eed02_video.html": {
+   "date": null,
+   "source": null
+  }
+ },
+ "requested_at": "2026-09-27T16:55:19+00:00",
+ "vision": {
+  "webDetection": {
+   "bestGuessLabels": [
+    {
+     "label": "anderson cooper katrina",
+     "languageCode": "en"
+    }
+   ],
+   "fullMatchingImages": [
+    {
+     "url": "https://cdn.adh.reperio.news/image-e/e4f94580-f3b0-4d8d-a75d-4fb9bed3a842/index.jpeg?p=a%3D1%26co%3D1.05%26w%3D1257%26h%3D750%26r%3Dcontain%26f%3Dwebp"
+    },
+    {
+     "url": "https://mediaproxy.snopes.com/width/1200/https://media.snopes.com/2018/09/cooperike.jpg"
+    },
+    {
+     "url": "https://mediaproxy.snopes.com/width/1200/height/675/https://media.snopes.com/2018/09/cooperike.jpg"
+    },
+    {
+     "url": "https://cdn.adh.reperio.news/image-e/e4f94580-f3b0-4d8d-a75d-4fb9bed3a842/index.jpeg?p=f%3Djpeg%26w%3D1200%26h%3D675%26r%3Dcover"
+    },
+    {
+     "url": "https://cdn.adh.reperio.news/image-e/e4f94580-f3b0-4d8d-a75d-4fb9bed3a842/index.jpeg"
+    },
+    {
+     "url": "https://preview.redd.it/why-is-fox-news-allowed-to-have-news-in-their-name-v0-dwqitzgtc9hg1.jpeg?width=958&format=pjpg&auto=webp&s=c9ce5e9d1f3cdb32a027054986d8f824f85f928d"
+    },
+    {
+     "url": "https://i.redd.it/dwqitzgtc9hg1.jpeg"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=3122429241154265"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=620657392115946"
+    },
+    {
+     "url": "http://p9.itc.cn/q_70/images03/20201107/3be25f4386c14443915665593ecb5752.png"
+    },
+    {
+     "url": "https://cdn.adh.reperio.news/image-e/e4f94580-f3b0-4d8d-a75d-4fb9bed3a842/index.jpeg?p=a%3D1%26co%3D1.05%26w%3D700%26h%3D420%26r%3Dcover%26f%3Dwebp"
+    },
+    {
+     "url": "https://mediaproxy.snopes.com/width/600/https://media.snopes.com/2018/09/cooperike.jpg"
+    },
+    {
+     "url": "https://cdn.adh.reperio.news/image-e/e4f94580-f3b0-4d8d-a75d-4fb9bed3a842/index.jpeg?p=a%3D1%26co%3D1.05%26w%3D500%26h%3D300%26r%3Dcover%26f%3Dwebp"
+    }
+   ],
+   "pagesWithMatchingImages": [
+    {
+     "pageTitle": "While reporting on Hurricane Katrina in 2005, CNN's Anderson ...",
+     "url": "https://www.facebook.com/AC360/videos/while-reporting-on-hurricane-katrina-in-2005-cnns-anderson-cooper-witnessed-a-de/3050006228529814/"
+    },
+    {
+     "pageTitle": "Anderson Cooper covers Hurricane Katrina aftermath - YouTube",
+     "url": "https://www.youtube.com/watch?v=LoUsAWnb2Hg"
+    },
+    {
+     "pageTitle": "Anderson revisits horrific memory covering Hurricane Katrina 20 ...",
+     "url": "https://www.cnn.com/2025/08/27/weather/video/ac-revisits-katrina-horrific-moment-digvid-dead-body-20-anniversary"
+    },
+    {
+     "pageTitle": "Anderson Cooper Revisits Hurricane Katrina Victim Jerry Peters in ...",
+     "url": "https://www.facebook.com/AC360/videos/while-reporting-on-hurricane-katrina-in-2005-cnns-anderson-cooper-witnessed-a-de/1963179377817290/"
+    },
+    {
+     "pageTitle": "Anderson revisits horrific moment covering Hurricane Katrina in 2005",
+     "url": "https://www.cnn.com/2025/08/27/us/video/anderson-cooper-hurricane-katrina-jerry-peters-vrtc"
+    },
+    {
+     "pageTitle": "Anderson Cooper Landrieu Katrina - YouTube",
+     "url": "https://www.youtube.com/watch?v=fYb9Oyxscfo"
+    },
+    {
+     "pageTitle": "Anderson Cooper discusses Hurricane Katrina - YouTube",
+     "url": "https://www.youtube.com/watch?v=glY5mFJ0ivU"
+    },
+    {
+     "pageTitle": "Anderson revisits horrific moment covering Hurricane Katrina in 2005",
+     "url": "https://edition.cnn.com/2025/08/27/us/video/anderson-cooper-hurricane-katrina-jerry-peters-vrtc"
+    },
+    {
+     "pageTitle": "The Situation Room and Anderson Cooper on Hurricane Katrina",
+     "url": "https://www.youtube.com/watch?v=zABJN6g9x1M"
+    },
+    {
+     "pageTitle": "Anderson Cooper - Charlie Rose",
+     "url": "https://charlierose.com/videos/10495"
+    },
+    {
+     "pageTitle": "Anderson Cooper on Hurricane Katrina's impact on reporting",
+     "url": "https://www.linkedin.com/posts/television-academy-foundation_theinterviews-andersoncooper-cnn-activity-7451098614078119936-2OWH"
+    },
+    {
+     "pageTitle": "Anderson Cooper's Katrina Coverage: A Deep Dive",
+     "url": "https://sadasd22edasasss-08.desco-pontos-naoresponder.tecnologia.ws/tecnologia-news/anderson-coopers-katrina-coverage-a-deep-dive-1764808919"
+    },
+    {
+     "pageTitle": "Anderson Cooper addresses viral hurricane photo on CNN | kvue.com",
+     "partialMatchingImages": [
+      {
+       "url": "https://media.kvue.com/assets/KVUE/images/595204264/595204264_1920x1080.jpg"
+      }
+     ],
+     "url": "https://www.kvue.com/article/news/nation-world/anderson-cooper-addresses-viral-hurricane-photo-on-cnn/269-595846988"
+    },
+    {
+     "pageTitle": "Anderson Cooper addresses viral hurricane photo on CNN - 13WMAZ",
+     "partialMatchingImages": [
+      {
+       "url": "https://media.13wmaz.com/assets/WMAZ/images/595204580/595204580_1920x1080.jpg"
+      }
+     ],
+     "url": "https://www.13wmaz.com/article/news/nation-world/anderson-cooper-addresses-viral-hurricane-photo-on-cnn/93-595847134"
+    },
+    {
+     "pageTitle": "Anderson Cooper addresses viral hurricane photo on CNN - KENS 5",
+     "partialMatchingImages": [
+      {
+       "url": "https://media.kens5.com/assets/KENS/images/595204284/595204284_1920x1080.jpg"
+      }
+     ],
+     "url": "https://www.kens5.com/article/news/nation-world/anderson-cooper-addresses-viral-hurricane-photo-on-cnn/273-595846997"
+    },
+    {
+     "pageTitle": "Anderson Cooper's Katrina Coverage: A Deep Dive",
+     "url": "https://dbsebnik.imexhs.com/imexhs-news/anderson-coopers-katrina-coverage-a-deep-dive-1764808919"
+    },
+    {
+     "pageTitle": "CNN's Anderson Cooper Slams Donald Trump Jr. for Hurricane ...",
+     "partialMatchingImages": [
+      {
+       "url": "https://i.insider.com/5ba113e72badb9148308c9c4?width=1600&crop=16:9,smart&format=jpeg"
+      }
+     ],
+     "url": "https://www.businessinsider.com/cnn-anderson-cooper-donald-trump-jr-hurricane-florence-2018-9"
+    },
+    {
+     "pageTitle": "Trump's visit to Puerto Rico, in two minutes - The Washington Post",
+     "partialMatchingImages": [
+      {
+       "url": "https://www.washingtonpost.com/wp-apps/imrs.php?src=https%3A%2F%2Fd1i4t8bqe7zgj6.cloudfront.net%2F09-18-2018%2Ft_6ba2c58e74034d889fe1d1c7f2253d9b_name_Anderson.jpg&w=300"
+      }
+     ],
+     "url": "https://www.washingtonpost.com/video/politics/trumps-visit-to-puerto-rico-in-two-minutes/2017/10/03/47464a98-a88a-11e7-9a98-07140d2eed02_video.html"
+    },
+    {
+     "pageTitle": "VERIFY: Viral picture of Anderson Cooper in 'deep' water is not from ...",
+     "partialMatchingImages": [
+      {
+       "url": "https://media.kvue.com/assets/CCT/images/595202374/595202374_1920x1080.jpg"
+      }
+     ],
+     "url": "https://www.kvue.com/article/news/local/verify/verify-viral-picture-of-anderson-cooper-in-deep-water-is-not-from-florence/507-595175925"
+    },
+    {
+     "pageTitle": "VERIFY: Viral picture of Anderson Cooper in 'deep' water is not from ...",
+     "partialMatchingImages": [
+      {
+       "url": "https://media.thv11.com/assets/CCT/images/595202374/595202374_1920x1080.jpg"
+      }
+     ],
+     "url": "https://www.thv11.com/article/news/local/verify/verify-viral-picture-of-anderson-cooper-in-deep-water-is-not-from-florence/507-595175925"
+    }
+   ],
+   "partialMatchingImages": [
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=1898831456862519"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=552022961885200"
+    },
+    {
+     "url": "https://pbs.twimg.com/media/HSu9g5IXgAAST_q?format=webp&name=large"
+    },
+    {
+     "url": "https://pbs.twimg.com/media/HTKBlcHWYAAPobU?format=webp&name=large"
+    },
+    {
+     "url": "https://pbs.twimg.com/media/HSnpsucWYAANsiT?format=webp&name=large"
+    },
+    {
+     "url": "https://i.redd.it/kr0kyotdpoqh1.jpeg"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=10156057916384125"
+    },
+    {
+     "url": "https://pbs.twimg.com/media/HS6TONaXwAAxSvO?format=webp&name=large"
+    },
+    {
+     "url": "https://cdn.adh.reperio.news/image-e/e4f94580-f3b0-4d8d-a75d-4fb9bed3a842/index.jpeg?p=f%3Djpeg%26w%3D1200%26h%3D900%26r%3Dcover"
+    },
+    {
+     "url": "https://pbs.twimg.com/media/HTG7ymhWAAA-o_r?format=webp&name=large"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=1590997339707009"
+    },
+    {
+     "url": "https://pbs.twimg.com/media/HS1WoMQaoAAWzqz?format=webp&name=large"
+    },
+    {
+     "url": "https://media.kvue.com/assets/CCT/images/595202374/595202374_1920x1080.jpg"
+    },
+    {
+     "url": "https://pbs.twimg.com/media/HSqkJtLXoAExT2V?format=webp&name=large"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/threads/DdhLwVZjONC/0/image.jpg"
+    },
+    {
+     "url": "https://pbs.twimg.com/media/HStUmHsXIAA4rrn?format=webp&name=large"
+    },
+    {
+     "url": "https://pbs.twimg.com/media/HS1vDeuWwAA9s71?format=webp&name=large"
+    },
+    {
+     "url": "https://cdn.adh.reperio.news/image-e/e4f94580-f3b0-4d8d-a75d-4fb9bed3a842/index.jpeg?p=f%3Djpeg%26w%3D1200%26h%3D1200%26r%3Dcover"
+    },
+    {
+     "url": "https://i.insider.com/5ba113e72badb9148308c9c4?width=1600&crop=16:9,smart&format=jpeg"
+    },
+    {
+     "url": "https://www.washingtonpost.com/wp-apps/imrs.php?src=https%3A%2F%2Fd1i4t8bqe7zgj6.cloudfront.net%2F09-18-2018%2Ft_6ba2c58e74034d889fe1d1c7f2253d9b_name_Anderson.jpg&w=300"
+    }
+   ],
+   "visuallySimilarImages": [
+    {
+     "url": "http://mediatvr.tvr.ro/media-tvr/image/202411/w640/b-2024-nov-29-filler-19-omul-anului-emisie10-inundatii3_79953900.jpg"
+    },
+    {
+     "url": "https://dialogue.earth/content/uploads/2022/08/Dominican-Republic-floods-Latin-America-Climate-Week_Ricardo-Rojas_Alamy_2CCNW5W-scaled.jpg"
+    },
+    {
+     "url": "https://live.staticflickr.com/3248/2593481347_de135f5fa5_z.jpg"
+    },
+    {
+     "url": "https://d3i6fh83elv35t.cloudfront.net/static/2026/08/2026-08-16T225714Z_997874081_RC2RZMAJJDZW_RTRMADP_3_USA-WEATHER-1024x683.jpg"
+    },
+    {
+     "url": "https://6846802.fs1.hubspotusercontent-na1.net/hubfs/6846802/VS-Photograph_20220930_Stock_Adobe_223222215_%C2%A9Adobe%20copy.png"
+    },
+    {
+     "url": "https://static.scientificamerican.com/dam/m/114fc02316f70f67/original/Heavy_flooding-in-rural-area_submerged-cars_trees.jpg?m=1724261082.705"
+    },
+    {
+     "url": "https://s.hdnux.com/photos/01/63/06/41/30173288/3/rawImage.jpg"
+    },
+    {
+     "url": "https://platform.vox.com/wp-content/uploads/sites/2/chorus/uploads/chorus_asset/file/9280135/839971208.jpg?quality=90&strip=all&crop=0,0,100,100"
+    },
+    {
+     "url": "https://media.licdn.com/dms/image/v2/D4E12AQEydHQ03m2pkQ/article-cover_image-shrink_720_1280/article-cover_image-shrink_720_1280/0/1678190924886?e=2147483647&v=beta&t=Wv67dqCh3G95RCdeiUtUCADCmWxzoAgCZEsEc50c-rY"
+    },
+    {
+     "url": "https://img-msp-prod.nzz.ch/2026/08/10/a97c6022-b2ee-4e55-b3d5-930abf0d4cbe.jpg?width=1200&height=674&fit=bounds&quality=75&auto=webp&crop=8295,4665,x0,y865&wmark=nzz"
+    },
+    {
+     "url": "https://ichef.bbci.co.uk/ace/ws/640/cpsprodpb/1dd9/live/a79e7020-7ea8-11f1-bee8-53ce494e1abc.jpg.webp"
+    },
+    {
+     "url": "https://www.nmas.com.mx/_next/image/?url=https%3A%2F%2Fstatic.nmas.com.mx%2FNmas%2Fcms%2F1790452426465-snapshot.jpg&w=1920&q=75"
+    },
+    {
+     "url": "https://www.mastercard.com/news/media/wmcdd12a/climate_resilience.jpg?width=571&height=321&v=1db316f62f84410"
+    },
+    {
+     "url": "https://ichef.bbci.co.uk/ace/standard/976/cpsprodpb/1085/production/_132192240_serena.jpg"
+    },
+    {
+     "url": "https://i.guim.co.uk/img/media/809d68e2f50dc50b44c8318df58c2101dea13eed/118_0_3200_1921/master/3200.jpg?width=1200&height=900&quality=85&auto=format&fit=crop&s=e70ac6b940efeb4a0ded8270783eddaa"
+    },
+    {
+     "url": "https://www.undp.org/sites/g/files/zskgke326/files/styles/image_with_credit_caption_wide_large_1920_x897_/public/2025-04/maiduguri_2.png?itok=JU5nwLsm"
+    },
+    {
+     "url": "https://i0.wp.com/www.texastribune.org/wp-content/uploads/2017/08/Cypress_NEENA_TT-1.jpg?fit=1500%2C1000&quality=100&ssl=1&w=1200&h=630"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=1429846979345881"
+    },
+    {
+     "url": "https://img.apmcdn.org/45eb963d00decd3b009c7644b591a11f4255f492/uncropped/849d66-20240624-walking-400.jpg"
+    },
+    {
+     "url": "https://salurbalmedia.blob.core.windows.net/salurbal-org-public-media/pages/home/home__climate-flood.png"
+    }
+   ],
+   "webEntities": [
+    {
+     "description": "Anderson Cooper",
+     "entityId": "/m/02z14n",
+     "score": 13.269
+    },
+    {
+     "description": "Jack Cafferty",
+     "entityId": "/m/03_8x4",
+     "score": 5.7735004
+    },
+    {
+     "description": "Hurricane Katrina",
+     "entityId": "/m/07nnlb",
+     "score": 1.0701001
+    },
+    {
+     "description": "The Situation Room with Wolf Blitzer",
+     "entityId": "/m/06k_25",
+     "score": 0.85245
+    },
+    {
+     "description": "Hurricane Florence",
+     "entityId": "/g/11fctqlyt8",
+     "score": 0.82379997
+    },
+    {
+     "description": "Flood",
+     "entityId": "/m/0dbtv",
+     "score": 0.7349397
+    },
+    {
+     "entityId": "/t/21t5fvtsxlb5v",
+     "score": 0.7182
+    },
+    {
+     "description": "Tropical Cyclone",
+     "entityId": "/m/07r2x",
+     "score": 0.4637
+    },
+    {
+     "description": "Storm",
+     "entityId": "/m/0z71l",
+     "score": 0.3604
+    },
+    {
+     "description": "CNN",
+     "entityId": "/g/11bycynvfd",
+     "score": 0.3237
+    },
+    {
+     "description": "Journalist",
+     "entityId": "/m/0d8qb",
+     "score": 0.3125
+    },
+    {
+     "description": "Donald Trump Jr.",
+     "entityId": "/m/0dzqp5",
+     "score": 0.055770006
+    },
+    {
+     "description": "Mary Landrieu",
+     "entityId": "/m/019tyn",
+     "score": 0.051450003
+    }
+   ]
+  }
+ }
+}

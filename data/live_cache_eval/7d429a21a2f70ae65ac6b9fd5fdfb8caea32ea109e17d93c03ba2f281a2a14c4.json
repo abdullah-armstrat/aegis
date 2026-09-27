@@ -1,0 +1,292 @@
+{
+ "dated_at": "2026-09-27T17:13:00+00:00",
+ "page_dates": {
+  "https://www.facebook.com/NASAHistoryOffice/photos/2283149251736744/": {
+   "date": null,
+   "source": null
+  },
+  "https://www.facebook.com/NASAHistoryOffice/videos/sts-3-launch/308284163169969/": {
+   "date": null,
+   "source": null
+  },
+  "https://www.facebook.com/NASASpaceflight/posts/july-17th-on-this-day-in-1997-columbia-returned-to-nasas-kennedy-space-center-ru/1358468592945841/": {
+   "date": null,
+   "source": null
+  },
+  "https://www.facebook.com/groups/238586436216288/posts/7552493184825540/": {
+   "date": null,
+   "source": null
+  },
+  "https://www.facebook.com/groups/350991197872690/posts/964050069900130/": {
+   "date": null,
+   "source": null
+  },
+  "https://www.facebook.com/groups/39126673492/posts/10159785488343493/": {
+   "date": null,
+   "source": null
+  },
+  "https://www.facebook.com/groups/814204010473746/posts/1113241080570036/": {
+   "date": null,
+   "source": null
+  },
+  "https://www.facebook.com/groups/USHistoryGroup/posts/3218921954989838/": {
+   "date": null,
+   "source": null
+  },
+  "https://www.facebook.com/groups/spacehipsters/posts/5211794122198762/": {
+   "date": null,
+   "source": null
+  },
+  "https://www.facebook.com/groups/spacehipsters/posts/7681268111918005/": {
+   "date": null,
+   "source": null
+  }
+ },
+ "requested_at": "2026-09-27T16:44:43+00:00",
+ "vision": {
+  "webDetection": {
+   "bestGuessLabels": [
+    {
+     "label": "narrow-body aircraft"
+    }
+   ],
+   "fullMatchingImages": [
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=5600500576632851"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=2283149251736744"
+    }
+   ],
+   "pagesWithMatchingImages": [
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=5600500576632851"
+      }
+     ],
+     "pageTitle": "July 17th - on this day in 1997, Columbia returned to NASA's ...",
+     "url": "https://www.facebook.com/NASASpaceflight/posts/july-17th-on-this-day-in-1997-columbia-returned-to-nasas-kennedy-space-center-ru/1358468592945841/"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=2283149251736744"
+      }
+     ],
+     "pageTitle": "NASA History - NASA History added a new photo.",
+     "url": "https://www.facebook.com/NASAHistoryOffice/photos/2283149251736744/"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=5600500576632851"
+      }
+     ],
+     "pageTitle": "When Rush got to go see Columbia launch - Facebook",
+     "url": "https://www.facebook.com/groups/spacehipsters/posts/7681268111918005/"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=5600500576632851"
+      }
+     ],
+     "pageTitle": "March 25 1979 - Columbia delivered to JFK Space Center. - Facebook",
+     "url": "https://www.facebook.com/groups/spacehipsters/posts/5211794122198762/"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=2283149251736744"
+      }
+     ],
+     "pageTitle": "On March 22, 1982, Space Shuttle Columbia launched on her third ...",
+     "url": "https://www.facebook.com/NASAHistoryOffice/videos/sts-3-launch/308284163169969/"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=5600500576632851"
+      }
+     ],
+     "pageTitle": "March 25 1979 - Columbia delivered to JFK Space Center. - Facebook",
+     "url": "https://www.facebook.com/groups/USHistoryGroup/posts/3218921954989838/"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=5600500576632851"
+      }
+     ],
+     "pageTitle": "30 March 1982 Space Shuttle Columbia returned to Earth after 8",
+     "url": "https://www.facebook.com/groups/350991197872690/posts/964050069900130/"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=5600500576632851"
+      }
+     ],
+     "pageTitle": "Columbia's turnaround record on March 22, 1982 - Facebook",
+     "url": "https://www.facebook.com/groups/39126673492/posts/10159785488343493/"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=5600500576632851"
+      }
+     ],
+     "pageTitle": "Space shuttle Columbia's 44th anniversary launch - Facebook",
+     "url": "https://www.facebook.com/groups/814204010473746/posts/1113241080570036/"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=5600500576632851"
+      }
+     ],
+     "pageTitle": "June 27,1982 Space Shuttle Columbia launched from the Kennedy ...",
+     "url": "https://www.facebook.com/groups/238586436216288/posts/7552493184825540/"
+    }
+   ],
+   "visuallySimilarImages": [
+    {
+     "url": "https://www.admtl.com/sfsites/c/cms/delivery/media/MCWOGYSR37H5ANJI5QM37HN7OM4I?channelId=0apMm00000009hd"
+    },
+    {
+     "url": "https://www.admtl.com/sfsites/c/cms/delivery/media/MCB53AH6ET25FQ5NW5AAREJZ47KE?channelId=0apMm00000009hd"
+    },
+    {
+     "url": "https://t1.unipage.net/src/cgkows.png"
+    },
+    {
+     "url": "https://www.globaltimes.cn/Portals/0/attachment/2026/2026-09-20/c91c45ee-f3eb-43cd-9392-f8ad10ab3b54.jpeg"
+    },
+    {
+     "url": "https://www.nssif.gov.uk/uploads/images/Greenjets-PR-July-2026.jpg"
+    },
+    {
+     "url": "https://cdn.unitycms.io/images/7B3Op7-jK7u8IOox7ob0ZE.jpg"
+    },
+    {
+     "url": "https://ichef.bbci.co.uk/ace/ws/660/cpsprodpb/7ebb/live/06ade8b0-462c-11ee-bfe0-b951e23cab02.jpg.webp"
+    },
+    {
+     "url": "https://www.aeronautica.difesa.it/wp-content/uploads/2023/06/DSC8688-scaled.jpg"
+    },
+    {
+     "url": "https://media.cntraveler.com/photos/69d573aabe62b5edca6564bc/master/w_1600%2Cc_limit/karsh-mehta-Py1wDXCVTG8-unsplash.jpg"
+    },
+    {
+     "url": "https://airlineoperations.ai/~/uploads/2025/09/bcg-klm-partnership-thumb.jpg"
+    },
+    {
+     "url": "https://i.cbc.ca/ais/1.5779973,1603895927000/full/max/0/default.jpg?im=Crop%2Crect%3D%280%2C2%2C1507%2C847%29%3B"
+    },
+    {
+     "url": "https://trthaberstatic.cdn.wp.trt.com.tr/resimler/2488000/2489833.jpg"
+    },
+    {
+     "url": "https://img.lemde.fr/2026/07/06/0/0/5500/3666/1440/960/60/0/2f87547_ftp-1-ezsiqphve0i2-2026-07-06t064625z-968034102-rc268maog2pw-rtrmadp-3-europe-weather-france-wildfire.JPG"
+    },
+    {
+     "url": "https://www.imperial.ac.uk/newsarchive/images/main/newseventsimage_1581503596802_mainnews2012_x1.jpg"
+    },
+    {
+     "url": "https://www.un.org/sites/un2.un.org/files/styles/3x2-front-thumbnail/public/field/image/2026/09/image1170x530cropped.jpg"
+    },
+    {
+     "url": "https://www.boeing.com/content/theboeingcompany/us/en/defense/autonomous-and-unmanned-systems/mq-28-ghost-bat/_jcr_content/root/container/section_629077935_co_463895747/layout_container/layout_column/gallery/item_1761158285200.coreimg.jpeg/1761676516470/mq-28-ghost-bat-gallery-img-3.jpeg"
+    },
+    {
+     "url": "https://www.embraer.com/media/nfwbmsdp/contact-us-banner.jpg?v=1dd145cc0475530"
+    },
+    {
+     "url": "https://media.licdn.com/dms/image/v2/D4E10AQH3vqyTwW-gXg/videocover-low/B4EaDItGKcHQAk-/0/1790073670362?e=2147483647&v=beta&t=AXWVryjAWSjOwBedJWwuPoRfHF7IMX1wMBxsYy-dOCo"
+    },
+    {
+     "url": "https://cdn-fgnbn.nitrocdn.com/CExiFXHDXAeTGrlIkvRSSLnZISOqDumi/assets/images/optimized/rev-1898e54/www.dtn.com/wp-content/uploads/2020/07/aviation-high-ice-water-res.jpg"
+    },
+    {
+     "url": "https://humanprogress.org/wp-content/uploads/2021/06/GettyImages-471992967-1024x683.jpg"
+    }
+   ],
+   "webEntities": [
+    {
+     "description": "NASA Shuttle Landing Facility",
+     "entityId": "/m/09wqb9",
+     "score": 1.10517
+    },
+    {
+     "description": "Shuttle Carrier Aircraft",
+     "entityId": "/m/02k_17",
+     "score": 1.07565
+    },
+    {
+     "description": "Aircraft",
+     "entityId": "/m/0k5j",
+     "score": 1.0533
+    },
+    {
+     "description": "Shuttle Training Aircraft",
+     "entityId": "/m/06xcl_",
+     "score": 0.93795
+    },
+    {
+     "entityId": "/t/2773mmnzkp0fr",
+     "score": 0.7219
+    },
+    {
+     "description": "NASA",
+     "entityId": "/m/05f4p",
+     "score": 0.7219
+    },
+    {
+     "description": "Space Shuttle Columbia",
+     "entityId": "/m/06_sn",
+     "score": 0.7165
+    },
+    {
+     "description": "Space Shuttle orbiter",
+     "entityId": "/m/0gqjty",
+     "score": 0.6074
+    },
+    {
+     "description": "Space Shuttle",
+     "entityId": "/m/0v0hpxr",
+     "score": 0.5786
+    },
+    {
+     "entityId": "/t/22ll8wtk248gg",
+     "score": 0.536
+    },
+    {
+     "description": "Boeing Co",
+     "entityId": "/m/0178g",
+     "score": 0.536
+    },
+    {
+     "description": "Space Shuttle Discovery",
+     "entityId": "/m/06_t4",
+     "score": 0.5358
+    },
+    {
+     "description": "John F. Kennedy Space Center",
+     "entityId": "/m/045z8",
+     "score": 0.21057001
+    },
+    {
+     "description": "C. Gordon Fullerton",
+     "entityId": "/m/02j6g0",
+     "score": 0.08461501
+    },
+    {
+     "description": "Jack Lousma",
+     "entityId": "/m/02j6b8",
+     "score": 0.077745
+    }
+   ]
+  }
+ }
+}

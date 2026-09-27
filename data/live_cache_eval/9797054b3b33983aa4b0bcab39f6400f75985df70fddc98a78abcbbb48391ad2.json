@@ -1,0 +1,189 @@
+{
+ "dated_at": "2026-09-27T17:10:50+00:00",
+ "page_dates": {
+  "https://www.nasa.gov/earth/natural-disasters/tornadoes/": {
+   "date": "2025-02-01",
+   "source": "wayback"
+  }
+ },
+ "requested_at": "2026-09-27T16:42:22+00:00",
+ "vision": {
+  "webDetection": {
+   "bestGuessLabels": [
+    {
+     "label": "storm"
+    }
+   ],
+   "fullMatchingImages": [
+    {
+     "url": "http://images-assets.nasa.gov/image/KSC-2013-2815/KSC-2013-2815~small.jpg"
+    }
+   ],
+   "pagesWithMatchingImages": [
+    {
+     "pageTitle": "Powerful Storm System Pushes East After Slamming Wisconsin",
+     "url": "https://www.youtube.com/watch?v=LE_bw3uR4HY"
+    },
+    {
+     "pageTitle": "Storm Team 8: Tracking storms over West Michigan - YouTube",
+     "url": "https://www.youtube.com/watch?v=tn_ary9GGAI"
+    },
+    {
+     "pageTitle": "This Storm Keeps Getting Stronger! - YouTube",
+     "url": "https://www.youtube.com/watch?v=npr4g0N3mLU"
+    },
+    {
+     "pageTitle": "This Storm Just Went From BAD To MUCH WORSE! - YouTube",
+     "url": "https://www.youtube.com/watch?v=Ys_UK9VxRMI"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "http://images-assets.nasa.gov/image/KSC-2013-2815/KSC-2013-2815~small.jpg"
+      }
+     ],
+     "pageTitle": "Tornadoes - NASA",
+     "url": "https://www.nasa.gov/earth/natural-disasters/tornadoes/"
+    }
+   ],
+   "visuallySimilarImages": [
+    {
+     "url": "https://www.noaa.gov/sites/default/files/styles/landscape_width_1275/public/2024-09/tornado-supercell.jpg?h=25175aa1&itok=6YohsuD2"
+    },
+    {
+     "url": "https://eos.org/wp-content/uploads/2024/03/9781119217718-Natural-Disasters-cover-image-original-high-res-image.png"
+    },
+    {
+     "url": "https://www.cnn.com/interactive/2024/06/weather/storm-chaser-krystle-wright-cnnphotos/media/images/s_129A3536D922144E0BCFE91E5178C5B56CEB942297BE8AF80151A9AE932DF2E6_1717538256963__85A4484.jpg"
+    },
+    {
+     "url": "https://images-assets.nasa.gov/image/200907100001HQ/200907100001HQ~large.jpg?w=1920&h=1209&fit=clip&crop=faces%2Cfocalpoint"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=122218270148381852"
+    },
+    {
+     "url": "https://dims.apnews.com/dims4/default/6881041/2147483647/strip/true/crop/8640x5760+0+0/resize/599x399!/quality/90/?url=https%3A%2F%2Fassets.apnews.com%2Fa5%2F7a%2Fbe1d564a1cbc298d9527169fc9ab%2Fc0a8a2e9dcba40bd9af62f072c601787"
+    },
+    {
+     "url": "https://www.osha.gov/sites/default/files/NatDisasters_iStock-826211134.jpg"
+    },
+    {
+     "url": "https://nsf-gov-resources.nsf.gov/2023-05/IMG_0184_h.jpg"
+    },
+    {
+     "url": "https://media.lrytas.lt/images/2026/09/23/205804200-4a67902f-b083-4695-8887-7eac218c1563.jpg"
+    },
+    {
+     "url": "https://assets.science.nasa.gov/dynamicimage/assets/science/esd/climate/2023/12/john-fowler-qQIb6343A8U-unsplash-scaled-1.jpeg?w=2560&h=1655&fit=clip&crop=faces%2Cfocalpoint"
+    },
+    {
+     "url": "https://blogs.egu.eu/divisions/gm/files/2026/08/raychel-sanner-cswvKS59E90-unsplash-1400x800.jpg"
+    },
+    {
+     "url": "https://meteofrance.com/sites/default/files/images/articles/Illustration%20Getty%20Prevision.gif"
+    },
+    {
+     "url": "https://lookaside.instagram.com/seo/google_widget/crawler/?media_id=3548129779159495644"
+    },
+    {
+     "url": "https://globalnews.ca/wp-content/uploads/2026/07/Thunderstorm.jpg?quality=65&strip=all&w=720"
+    },
+    {
+     "url": "https://www.bbk.bund.de/SharedDocs/Bilder/DE/Allgemein-Schmuckbilder/Naturkatastrophen-Extremwetter-Klimawandel/unwetter.jpg?__blob=square&v=3"
+    },
+    {
+     "url": "https://www.noaa.gov/sites/default/files/styles/landscape_width_1275/public/2024-05/testtwister2.png?h=f805ecf0&itok=Y8MazpHC"
+    },
+    {
+     "url": "https://rpn.gov.pl/uploads/thumbs/6698486227b7d664569686.webp"
+    },
+    {
+     "url": "https://static01.nyt.com/images/2026/08/21/21vid-xp-storm-spout-embed-66461-cover/21vid-xp-storm-spout-embed-66461-cover-jumbo.jpg?auto=avif&quality=75"
+    },
+    {
+     "url": "https://d15-a.sdn.cz/d_15/c_img_qD_A/kOyy3Gv43yBZFliW7HSS50v/b61d/italie-supercela-pocasi.jpeg?fl=cro,239,0,3025,2016%7Cres,1200,,1%7Cjpg,80,,1"
+    },
+    {
+     "url": "https://media.licdn.com/dms/image/v2/D4E12AQGYHSpaH8A3MQ/article-cover_image-shrink_720_1280/B4EZY.8PdsHcAM-/0/1744812702038?e=2147483647&v=beta&t=CLfHkpILIAURzh00u8fFmDLTJ0Hp8Hq7ymIGdy1hsXA"
+    }
+   ],
+   "webEntities": [
+    {
+     "description": "Storm",
+     "entityId": "/m/0z71l",
+     "score": 0.7759982
+    },
+    {
+     "description": "Tornado",
+     "entityId": "/m/09c5_",
+     "score": 0.7324
+    },
+    {
+     "description": "Squall line",
+     "entityId": "/m/02p206k",
+     "score": 0.5113
+    },
+    {
+     "description": "Weather",
+     "entityId": "/m/0866r",
+     "score": 0.5068
+    },
+    {
+     "description": "Wind",
+     "entityId": "/m/03m9d0z",
+     "score": 0.4998
+    },
+    {
+     "description": "Squall",
+     "entityId": "/m/01kdnf",
+     "score": 0.4791
+    },
+    {
+     "description": "Severe weather",
+     "entityId": "/m/02rkvls",
+     "score": 0.473
+    },
+    {
+     "description": "Enhanced Fujita scale",
+     "entityId": "/m/025sv3h",
+     "score": 0.3356
+    },
+    {
+     "description": "West Michigan",
+     "entityId": "/m/03k1b8",
+     "score": 0.3039
+    },
+    {
+     "description": "just",
+     "entityId": "/g/11ryz3dn2g",
+     "score": 0.2709
+    },
+    {
+     "entityId": "/t/2773mmnzkp0fr",
+     "score": 0.1666
+    },
+    {
+     "description": "NASA",
+     "entityId": "/m/05f4p",
+     "score": 0.1666
+    },
+    {
+     "description": "large",
+     "entityId": "/g/11mmk_fsh3",
+     "score": 0.165
+    },
+    {
+     "description": "Temperature",
+     "entityId": "/m/07gr_",
+     "score": 0.1531
+    },
+    {
+     "description": "April 25",
+     "entityId": "/m/010q_",
+     "score": 0.1529
+    }
+   ]
+  }
+ }
+}

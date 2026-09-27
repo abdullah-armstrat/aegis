@@ -1,0 +1,81 @@
+{
+ "requested_at": "2026-09-27T16:45:22+00:00",
+ "vision": {
+  "webDetection": {
+   "bestGuessLabels": [
+    {
+     "label": "fog"
+    }
+   ],
+   "visuallySimilarImages": [
+    {
+     "url": "https://www.tiktok.com/api/img/?itemId=7469280773577755912&location=0&aid=1988"
+    },
+    {
+     "url": "https://images.pexels.com/photos/9808579/pexels-photo-9808579.jpeg?auto=compress&w=1260&h=750&dpr=1"
+    },
+    {
+     "url": "https://media.licdn.com/dms/image/v2/D5612AQHNbrNRade-Pw/article-cover_image-shrink_720_1280/B56ZhjJRJoHcAU-/0/1754010040426?e=2147483647&v=beta&t=17Jd8LaVFySoW__Tnk_jvwXsZR0tazWowmot--5WWAI"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=3150772195008765"
+    },
+    {
+     "url": "https://images.twnmm.com/c55i45ef3o2a/6q3LTNzkP1E8G4ayjLoQAK/71b9177dab51e577fbc1c0f0ced1ce0d/Screenshot_2024-01-24_at_10.49.00_AM.png?fm=webp&q=80&w=3840"
+    },
+    {
+     "url": "https://live.staticflickr.com/262/32383659265_6d5fba606d.jpg"
+    },
+    {
+     "url": "https://p19-common-sign.tiktokcdn-us.com/tos-maliva-p-0068/oU6I3qi59AMlMWkRCwXjbNoIBfAjigB18AS0zI~tplv-tiktokx-origin.image?dr=9636&x-expires=1782561600&x-signature=zoBKaYLDfhLcsObEp5ZsUFZ%2Fv10%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=55bbe6a9&idc=useast5"
+    },
+    {
+     "url": "https://media.licdn.com/dms/image/v2/D4D22AQHni4kZHwwnhQ/feedshare-shrink_800/B4DZV8hZ8lGcAg-/0/1741550891824?e=2147483647&v=beta&t=Yg8jci_B3WLinRpR1Gnl57sPFWBWeD7zuV_ibBCZdKU"
+    },
+    {
+     "url": "https://www.nationwide.com/staticassets/lc-auto-FoggyRoad_315750962_tcm108-106291.jpg"
+    },
+    {
+     "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d5/K-Gy-Fog-555%282%29.jpg/960px-K-Gy-Fog-555%282%29.jpg?utm_source=ko.wikipedia.org&utm_campaign=parser&utm_content=thumbnail"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=10110123325945621"
+    },
+    {
+     "url": "https://rnervion.mediasector.es/wp-content/uploads/2026/01/23165300/WhatsApp-Image-2026-01-23-at-15.44.07-e1769183610301-550x309.jpeg"
+    },
+    {
+     "url": "https://i.scdn.co/image/ab67616d00001e029c94e9f4038d7bbbe343840f"
+    },
+    {
+     "url": "https://azertag.az/files/2026/3/17900007544129811132.jpeg"
+    },
+    {
+     "url": "https://live.staticflickr.com/461/32344548316_d65d3ab0a3_z.jpg"
+    },
+    {
+     "url": "https://i.guim.co.uk/img/media/9fe9692aee1cf2347699be6dfc053313c9249bc7/0_7_4259_2555/master/4259.jpg?width=1200&height=900&quality=85&auto=format&fit=crop&s=f6e56ae967b338d94394a7d78ccd03f8"
+    },
+    {
+     "url": "https://www.tiktok.com/api/img/?itemId=7665267695897660693&location=0&aid=1988"
+    },
+    {
+     "url": "https://www.tiktok.com/api/img/?itemId=7327079031646571818&location=0&aid=1988"
+    },
+    {
+     "url": "https://media.springernature.com/lw685/springer-static/image/chp%3A10.1007%2F978-3-031-60731-8_12/MediaObjects/626801_1_En_12_Fig4_HTML.jpg"
+    },
+    {
+     "url": "https://static.eldiario.es/clip/a61ed828-0966-4143-bac5-6c5930ca2ecc_source-aspect-ratio_default_0.jpg"
+    }
+   ],
+   "webEntities": [
+    {
+     "description": "MGM-157 EFOGM",
+     "entityId": "/m/0cc518z",
+     "score": 0.3352
+    }
+   ]
+  }
+ }
+}

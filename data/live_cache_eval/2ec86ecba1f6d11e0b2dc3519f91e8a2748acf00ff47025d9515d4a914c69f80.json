@@ -1,0 +1,452 @@
+{
+ "dated_at": "2026-09-27T17:19:54+00:00",
+ "page_dates": {
+  "https://gt.linkedin.com/company/theory-sf": {
+   "date": "2026-09-21",
+   "source": "htmldate"
+  },
+  "https://m.phoenixframingandmore.com/?b68e86d=29_2218650_2_3": {
+   "date": null,
+   "source": null
+  },
+  "https://support.charkhegardoonyazd.com/?ifd=29.2218650.2.79": {
+   "date": null,
+   "source": null
+  },
+  "https://timesofindia.indiatimes.com/viral-news/the-truth-behind-the-viral-post-of-mass-desertion-of-cars-in-germany-due-to-rising-fuel-prices/articleshow/64287184.cms": {
+   "date": null,
+   "source": null
+  },
+  "https://wap.kyujin-host.com/en-gb/germany-fuel-price-abandoned-cars-2de1b73-29-2218650-2-15/": {
+   "date": null,
+   "source": null
+  },
+  "https://wap.ohridtoptim.com/?aad=29.2218650.2.19": {
+   "date": null,
+   "source": null
+  },
+  "https://www.altnews.in/viral-picture-of-germans-protesting-fuel-price-hike-is-of-a-traffic-jam-in-china/": {
+   "date": null,
+   "source": null
+  },
+  "https://www.facebook.com/groups/Edopolitics/posts/1828616370506584/": {
+   "date": null,
+   "source": null
+  },
+  "https://www.gachborikosar.com/?835e014=29_2218650_2_98": {
+   "date": null,
+   "source": null
+  },
+  "https://www.linkedin.com/posts/theory-sf_pipeline-isnt-converting-why-cmos-struggle-activity-7453532377504497664-9BqI": {
+   "date": "2026-04-24",
+   "source": "htmldate"
+  }
+ },
+ "requested_at": "2026-09-27T16:52:19+00:00",
+ "vision": {
+  "webDetection": {
+   "bestGuessLabels": [
+    {
+     "label": "Fuel"
+    }
+   ],
+   "fullMatchingImages": [
+    {
+     "url": "https://staticimg.amarujala.com/assets/images/2018/05/23/germany_1527071040.jpeg"
+    },
+    {
+     "url": "https://static.toiimg.com/thumb/msid-64287224,width-1280,height-720,resizemode-4/64287224.jpg"
+    },
+    {
+     "url": "https://www.motorshow.me/uploadImages/ExtImages/images1/traffic%20jam%20viral%20china%20germany-636613896310033962.jpg"
+    },
+    {
+     "url": "https://staticimg.amarujala.com/assets/images/2018/05/23/germany_1527071040.jpeg?w=414&dpr=1.0&q=80"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=915098177996780"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=1801215460440323"
+    },
+    {
+     "url": "https://static.toiimg.com/thumb/msid-64287224,width-400,resizemode-4/64287224.jpg"
+    },
+    {
+     "url": "https://myrtlevilleswimmers.com/wp-content/uploads/2019/03/traffic.jpg?w=584"
+    }
+   ],
+   "pagesWithMatchingImages": [
+    {
+     "pageTitle": "Viral picture of Germans protesting fuel-price hike is of a traffic jam in ...",
+     "partialMatchingImages": [
+      {
+       "url": "https://www.altnews.in/wp-content/uploads/2018/09/Germans-Protest-1024x536.jpeg"
+      }
+     ],
+     "url": "https://www.altnews.in/viral-picture-of-germans-protesting-fuel-price-hike-is-of-a-traffic-jam-in-china/"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://static.toiimg.com/thumb/msid-64287224,width-400,resizemode-4/64287224.jpg"
+      },
+      {
+       "url": "https://static.toiimg.com/thumb/msid-64287224,width-1280,height-720,resizemode-4/64287224.jpg"
+      }
+     ],
+     "pageTitle": "Viral post of 'mass desertion' of cars in Germany due to rising fuel ...",
+     "url": "https://timesofindia.indiatimes.com/viral-news/the-truth-behind-the-viral-post-of-mass-desertion-of-cars-in-germany-due-to-rising-fuel-prices/articleshow/64287184.cms"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=1801215460440323"
+      }
+     ],
+     "pageTitle": "I found this on facebook, but it was written in French",
+     "url": "https://www.facebook.com/groups/Edopolitics/posts/1828616370506584/"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://static.toiimg.com/thumb/msid-64287224,width-1280,height-720,resizemode-4/64287224.jpg"
+      }
+     ],
+     "pageTitle": "Germany Dealer Fuel Price Abandoned Cars / Thousands Of ...",
+     "url": "https://m.phoenixframingandmore.com/?b68e86d=29_2218650_2_3"
+    },
+    {
+     "pageTitle": "Cover photos - FUEL Milwaukee - Facebook",
+     "url": "https://www.facebook.com/fuelmilwaukee/albums/619379876884794/"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://static.toiimg.com/thumb/msid-64287224,width-1280,height-720,resizemode-4/64287224.jpg"
+      }
+     ],
+     "pageTitle": "Germany Authentic Fuel Price Abandoned Cars Viral Post Of 'mass ...",
+     "url": "https://support.charkhegardoonyazd.com/?ifd=29.2218650.2.79"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://static.toiimg.com/thumb/msid-64287224,width-1280,height-720,resizemode-4/64287224.jpg"
+      }
+     ],
+     "pageTitle": "Discounts Germany Fuel Price Abandoned Cars Viral Post Of 'mass ...",
+     "url": "https://www.gachborikosar.com/?835e014=29_2218650_2_98"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://static.toiimg.com/thumb/msid-64287224,width-1280,height-720,resizemode-4/64287224.jpg"
+      }
+     ],
+     "pageTitle": "Germany Fuel Price Independent Abandoned Cars | Pinch In India ...",
+     "url": "https://wap.ohridtoptim.com/?aad=29.2218650.2.19"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://static.toiimg.com/thumb/msid-64287224,width-1280,height-720,resizemode-4/64287224.jpg"
+      }
+     ],
+     "pageTitle": "Germany Sale Fuel Price Abandoned Cars + Viral Revolutionary ...",
+     "url": "https://wap.kyujin-host.com/en-gb/germany-fuel-price-abandoned-cars-2de1b73-29-2218650-2-15/"
+    },
+    {
+     "pageTitle": "Why Pipelines Feel Stuck and What Fixes It | Theory SF posted on ...",
+     "partialMatchingImages": [
+      {
+       "url": "https://media.licdn.com/dms/image/sync/v2/D5627AQE9u2Zun4r0eQ/articleshare-shrink_800/B56Z3BDUBDGsAI-/0/1777060365332?e=2147483647&v=beta&t=mAUzbtX2B-oRbFBsSG4qONJXjEq9W_zwkmtoMJ-RW3o"
+      }
+     ],
+     "url": "https://www.linkedin.com/posts/theory-sf_pipeline-isnt-converting-why-cmos-struggle-activity-7453532377504497664-9BqI"
+    },
+    {
+     "pageTitle": "Theory SF | LinkedIn",
+     "partialMatchingImages": [
+      {
+       "url": "https://media.licdn.com/dms/image/sync/v2/D5627AQE9u2Zun4r0eQ/articleshare-shrink_800/B56Z3BDUBDGsAI-/0/1777060365332?e=2147483647&v=beta&t=mAUzbtX2B-oRbFBsSG4qONJXjEq9W_zwkmtoMJ-RW3o"
+      }
+     ],
+     "url": "https://gt.linkedin.com/company/theory-sf"
+    },
+    {
+     "pageTitle": "Theory SF | LinkedIn",
+     "partialMatchingImages": [
+      {
+       "url": "https://media.licdn.com/dms/image/sync/v2/D5627AQE9u2Zun4r0eQ/articleshare-shrink_800/B56Z3BDUBDGsAI-/0/1777060365332?e=2147483647&v=beta&t=mAUzbtX2B-oRbFBsSG4qONJXjEq9W_zwkmtoMJ-RW3o"
+      }
+     ],
+     "url": "https://pr.linkedin.com/company/theory-sf"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://myrtlevilleswimmers.com/wp-content/uploads/2019/03/traffic.jpg?w=584"
+      }
+     ],
+     "pageTitle": "Myrtleville Swimmers | Page 31 - myrtlevilleswimmers",
+     "url": "https://myrtlevilleswimmers.com/author/damianoneill/page/31/"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://myrtlevilleswimmers.com/wp-content/uploads/2019/03/traffic.jpg?w=584"
+      }
+     ],
+     "pageTitle": "Page 31 \u2013 Open Water \u2013 Sea Swimming in Cork, Ireland",
+     "url": "https://myrtlevilleswimmers.com/page/31/"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://myrtlevilleswimmers.com/wp-content/uploads/2019/03/traffic.jpg?w=584"
+      }
+     ],
+     "pageTitle": "March | 2019 - Myrtleville Swimmers",
+     "url": "https://myrtlevilleswimmers.com/2019/03/"
+    },
+    {
+     "pageTitle": "Supreme Court Asks States to Frame Rules For Selling Uninsured ...",
+     "partialMatchingImages": [
+      {
+       "url": "https://s3.india.com/wp-content/uploads/2018/05/German-cars-2.jpg?impolicy=Medium_Widthonly&w=238&h=134"
+      }
+     ],
+     "url": "https://www.india.com/business/frame-rules-for-selling-uninsured-vehicles-in-accident-to-pay-victims-sc-to-states-3324163/"
+    },
+    {
+     "pageTitle": "Kamduni Gang rape case: 6 accused found guilty - India.com",
+     "partialMatchingImages": [
+      {
+       "url": "https://s3.india.com/wp-content/uploads/2018/05/German-cars-2.jpg?impolicy=Medium_Widthonly&w=238&h=134"
+      }
+     ],
+     "url": "https://www.india.com/news/india/kamduni-gang-rape-case-6-accused-found-guilty-term-of-punishment-to-be-pronounced-tomorrow-898405/"
+    },
+    {
+     "pageTitle": "The Traffic Is Crazy | TikTok",
+     "partialMatchingImages": [
+      {
+       "url": "https://www.tiktok.com/api/img/?itemId=7678210504296287520&location=3&aid=1988&index=1"
+      }
+     ],
+     "url": "https://www.tiktok.com/discover/the-traffic-is-crazy"
+    },
+    {
+     "pageTitle": "China Super Highway - TikTok",
+     "partialMatchingImages": [
+      {
+       "url": "https://www.tiktok.com/api/img/?itemId=7678210504296287520&location=3&aid=1988&index=1"
+      }
+     ],
+     "url": "https://www.tiktok.com/discover/china-super-highway"
+    },
+    {
+     "pageTitle": "Fuel On (@fuelonstores) - Facebook",
+     "url": "https://www.facebook.com/fuelonstores/?locale=hy_AM"
+    }
+   ],
+   "partialMatchingImages": [
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=643274652694065"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=1686848238044646"
+    },
+    {
+     "url": "https://www.altnews.in/wp-content/uploads/2018/09/Germans-Protest-1024x536.jpeg"
+    },
+    {
+     "url": "https://awsimages.detik.net.id/api/wm/2026/09/20/kumpulan-hoaks-dan-kebohongan-di-internet-jangan-gampang-tertipu-1789897312360_169.jpeg?wid=54&w=1200&v=1&t=jpeg"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=1716621248418558"
+    },
+    {
+     "url": "https://cdnimg.wisgoon.com/GslbBF6O_4V7Is3s2IYBJN0mBkDxyhzEOa93B0yVhG0/fill/236/147/no/1/aHR0cHM6Ly9pcnMwMS53aXNnb29uLmNvbS9pcnMwMS8zMy9hNi9hMS8zYi9pcnMwMV9zM29sZF8xNTU2OTczOTUyMzI0MDk0LmpwZw.webp"
+    },
+    {
+     "url": "https://images.news18.com/static-bengali/uploads/2024/05/Traffic-Jam-1-2024-05-6cde6c277d51e25cb11a2844fccfa3b1.jpg?impolicy=website&width=360&height=270"
+    },
+    {
+     "url": "https://media.licdn.com/dms/image/sync/v2/D5627AQE9u2Zun4r0eQ/articleshare-shrink_800/B56Z3BDUBDGsAI-/0/1777060365332?e=2147483647&v=beta&t=mAUzbtX2B-oRbFBsSG4qONJXjEq9W_zwkmtoMJ-RW3o"
+    },
+    {
+     "url": "http://5b0988e595225.cdn.sohucs.com/images/20190116/84ee0eb4dd0f4ba786973d26edc0225a.jpeg"
+    },
+    {
+     "url": "https://awsimages.detik.net.id/api/wm/2026/09/20/kumpulan-hoaks-dan-kebohongan-di-internet-jangan-gampang-tertipu-1789897312360_169.jpeg?wid=60&w=1200&v=1&t=jpeg"
+    },
+    {
+     "url": "https://pbs.twimg.com/media/EBv1669XoAAZjQ8?format=webp&name=large"
+    },
+    {
+     "url": "https://iluminasi.com/img/thumb/banner-5-insiden-jalan-sesak-yang-berlaku-lebih-24-jam-durasinya-551.jpg"
+    },
+    {
+     "url": "https://www.malumatfurus.org/wp-content/uploads/cin-trafik-1-770x515.jpg"
+    },
+    {
+     "url": "https://www.autoszektor.hu/sites/default/files/u1393/china-traffic_2356349b.jpg"
+    },
+    {
+     "url": "https://n1.itc.cn/img7/adapt/wb/sohulife/2026/08/30/178805653032319568_664_2000.JPEG"
+    },
+    {
+     "url": "https://p7.itc.cn/images01/20220211/1a5bbe26c990404591bb936161f0af3e.jpeg"
+    },
+    {
+     "url": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjjgZO6x7WUt4AlyV4P0rZ_iGeq3TdWwv94xY4XaE_IiM3sXRQHFwaThjj0GJ-aaAucLmqYzXNyVUSYd4LM_qqxS5nWLdXh7V8GXam6uZUWXSCkKq0PB6uB6sjFcxv7FdSqtIr0WBQTYC8/s1600/5-%25D8%25A3%25D8%25B4%25D9%258A%25D8%25A7%25D8%25A1-%25D8%25BA%25D8%25B1%25D9%258A%25D8%25A8%25D8%25A9-%25D9%2581%25D9%258A-%25D8%25A7%25D9%2584%25D8%25B5%25D9%258A%25D9%2586.jpg"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=713509418983643"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=100008830140691"
+    },
+    {
+     "url": "https://media.elwatannews.com/media/img/mediaarc/medium/2640343961517840911.jpg"
+    }
+   ],
+   "visuallySimilarImages": [
+    {
+     "url": "x-raw-image:///ca2da0feb283603a1c17c770fe3287c842fb8271d95a8b12fe28b137cdfd3049"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=4099380136815946"
+    },
+    {
+     "url": "https://medicinskaccess.se/media/2041/bilkoe_arkiv.jpg?anchor=center&mode=crop&width=450&height=280&rnd=132169402450000000"
+    },
+    {
+     "url": "https://img.zeit.de/2026-06/italien-gebuehrenpflichtige-autobahn-baustelle-stau-bild/super__430x287"
+    },
+    {
+     "url": "https://i.redd.it/ugpcvtqusvrh1.png"
+    },
+    {
+     "url": "https://media.istockphoto.com/id/476239495/fr/photo/embouteillage-sur-les-heures-de-pointe-istanbul.jpg?s=612x612&w=0&k=20&c=LG3d9D_FQounGtGyMWxXsLiKyVStCzxw-HWaqmyPWto="
+    },
+    {
+     "url": "https://platform.vox.com/wp-content/uploads/sites/2/chorus/assets/4679391/161063900.jpg"
+    },
+    {
+     "url": "https://pds.joongang.co.kr/news/component/htmlphoto_mmdata/202609/21/55a90951-50dd-4a98-9f78-07e01054d266.jpg/_ir_410x230_/t.jpg"
+    },
+    {
+     "url": "https://media.licdn.com/dms/image/v2/D4E12AQEoSXDn1xHnRw/article-cover_image-shrink_720_1280/B4EZXru9dLHMAM-/0/1743416712000?e=2147483647&v=beta&t=uqjwVTXNnMRM19za468CAPBEMXFuHPHF9xiHnjb-Tx4"
+    },
+    {
+     "url": "https://image.nyteknik.se/4380873.jpg?imageId=4380873&width=1200"
+    },
+    {
+     "url": "https://basna.ir/files/fa/news/1397/1/26/1469_708.jpg"
+    },
+    {
+     "url": "https://img.etimg.com/thumb/width-420,height-315,imgsize-288328,resizemode-75,msid-134517519/industry/transportation/roadways/delhis-busiest-road-may-see-changes-commuters-from-noida-and-ghaziabad-will-face-lesser-traffic-govt-is-finding-new-ways-to-reduce-delays.jpg"
+    },
+    {
+     "url": "https://dimages2.gazzettaobjects.it/files/image_528_298/uploads/2026/07/01/6a456e4e4c007.jpeg"
+    },
+    {
+     "url": "https://i.guim.co.uk/img/media/3e9e645909ae51676d1a957dcdf9d795d76a31fe/0_13_1280_768/master/1280.jpg?width=460&quality=85&auto=format&fit=max&s=936f8ee799a4c6d6b1eb9a8851a7576a"
+    },
+    {
+     "url": "https://media.licdn.com/dms/image/v2/C5112AQGTYsNwK172Bg/article-cover_image-shrink_600_2000/article-cover_image-shrink_600_2000/0/1520214985442?e=2147483647&v=beta&t=DahNZyn5HSgbVefxYN9aoFOZsgP2Auf5KcLkkXfNUPs"
+    },
+    {
+     "url": "https://pds.joongang.co.kr/news/component/htmlphoto_mmdata/202609/26/b4793d1d-4200-4e4e-b3bf-1fb7e141fb0c.jpg/_ir_410x230_/t.jpg"
+    },
+    {
+     "url": "https://media.springernature.com/lw685/springer-static/image/chp%3A10.1007%2F978-3-030-63567-1_19/MediaObjects/484295_1_En_19_Fig2_HTML.jpg"
+    },
+    {
+     "url": "https://static.toiimg.com/thumb/msid-130481623,imgsize-1413165,width-400,height-225,resizemode-72/image-used-for-representative-purpose-only.jpg"
+    },
+    {
+     "url": "https://www.protothema.gr/images/640x360share/jpg/files/2020-08-04/kinisi.jpg"
+    },
+    {
+     "url": "https://i.guim.co.uk/img/media/48efccaf5680e0c28c80b0c55acba1319a5a15f8/0_181_5464_3278/master/5464.jpg?width=465&dpr=1&s=none&crop=5%3A4"
+    }
+   ],
+   "webEntities": [
+    {
+     "description": "Car",
+     "entityId": "/m/0k4j",
+     "score": 1.0596
+    },
+    {
+     "description": "Fuel",
+     "entityId": "/m/02ywd",
+     "score": 0.7036
+    },
+    {
+     "description": "SUV",
+     "entityId": "/m/0ctrp",
+     "score": 0.63791037
+    },
+    {
+     "description": "Traffic",
+     "entityId": "/m/0btp2",
+     "score": 0.6123224
+    },
+    {
+     "description": "Petrol",
+     "entityId": "/m/05wy2",
+     "score": 0.5424
+    },
+    {
+     "description": "Filling station",
+     "entityId": "/m/0gm3m",
+     "score": 0.5109
+    },
+    {
+     "description": "Diesel fuel",
+     "entityId": "/m/0l0xy",
+     "score": 0.4731
+    },
+    {
+     "description": "Fuel pump",
+     "entityId": "/m/022lfb",
+     "score": 0.4337
+    },
+    {
+     "description": "Price",
+     "entityId": "/m/01d_1l",
+     "score": 0.424
+    },
+    {
+     "description": "Dallas Traffic",
+     "entityId": "/g/11yh4cgqcp",
+     "score": 0.3521
+    },
+    {
+     "description": "Utility vehicle",
+     "entityId": "/m/047gm1n",
+     "score": 0.336
+    },
+    {
+     "description": "Driving",
+     "entityId": "/m/0kw6d",
+     "score": 0.3275
+    },
+    {
+     "description": "Traffic congestion",
+     "entityId": "/m/01j0ry",
+     "score": 0.32555497
+    },
+    {
+     "description": "Parking",
+     "entityId": "/m/01jp76",
+     "score": 0.31373018
+    }
+   ]
+  }
+ }
+}

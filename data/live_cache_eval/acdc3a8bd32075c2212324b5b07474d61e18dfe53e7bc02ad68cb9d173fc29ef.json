@@ -1,0 +1,126 @@
+{
+ "requested_at": "2026-09-27T16:45:37+00:00",
+ "vision": {
+  "webDetection": {
+   "bestGuessLabels": [
+    {
+     "label": "water bird"
+    }
+   ],
+   "visuallySimilarImages": [
+    {
+     "url": "https://www.twtainan.net/Image/107538/?r=1737448826914"
+    },
+    {
+     "url": "https://www.nps.gov/common/uploads/structured_data/3700EEE6-F3AB-1D1F-DF5DF0A22AB0D74D.jpg"
+    },
+    {
+     "url": "https://www.ppic.org/wp-content/uploads/2025/10/10.-Conclusion-top_Egret-taking-flight_GettyImages-2150885470.jpg"
+    },
+    {
+     "url": "https://www.twtainan.net/Image/107543/?r=1737448628866"
+    },
+    {
+     "url": "https://nesplandscapes.edu.au/wp-content/uploads/2023/08/Egret_tweed_river-1-e1757897189818-750x450.png"
+    },
+    {
+     "url": "https://lookaside.instagram.com/seo/google_widget/crawler/?media_id=3983424635961363746"
+    },
+    {
+     "url": "https://www.gulfspillrestoration.noaa.gov/sites/default/files/migrations/used/LA_TIG.jpg"
+    },
+    {
+     "url": "https://www.twtainan.net/content/images/hotnews/107369/1920x1080_hotnews-image-clpbqpjry0mrcea28ngl8g.png"
+    },
+    {
+     "url": "https://cdn.download.ams.birds.cornell.edu/api/v2/asset/665218531/480"
+    },
+    {
+     "url": "https://www.twtainan.net/Image/107545/?r=1737448661451"
+    },
+    {
+     "url": "https://ezgo.ardswc.gov.tw/_api/content/images/tours/42282/640x480_tours-image-szcmqj0k10uu_s9pvaunwa.jpg"
+    },
+    {
+     "url": "https://www.wildlifetrusts.org/sites/default/files/styles/spotlight_default/public/2018-01/Spoonbill%202%20%28c%29%20Amy%20Lewis.jpg?h=42693ae4&itok=4m_OzIKr"
+    },
+    {
+     "url": "https://visitestonia.com/content-images/634405/celebrate-springtime-in-estonia-en-001-visit-estonia.JPG"
+    },
+    {
+     "url": "https://www.kopavogur.is/_next/image?url=%2Fmedia%2Ffile%2Fkopavogur00604-1-2000x1333.jpg&w=3840&q=80&dpl=dpl_HwBLnnk9sBRhfKr9zPRmg74oMdoP"
+    },
+    {
+     "url": "https://lookaside.instagram.com/seo/google_widget/crawler/?media_id=3764651181567269602"
+    },
+    {
+     "url": "https://www.hmc.edu.cn/material/images/r1.png"
+    },
+    {
+     "url": "https://www.teriin.org/sites/default/files/images/goa/GOA_Z6.jpg"
+    },
+    {
+     "url": "https://images.pexels.com/photos/37585557/pexels-photo-37585557.jpeg"
+    },
+    {
+     "url": "https://www.bto.org/sites/default/files/styles/crop_image_3_2/public/gannets-and-gulls-foraging-at-sea-edmund-fellowes-bto_0.jpg.webp?itok=Z5h5L73s"
+    },
+    {
+     "url": "https://live.staticflickr.com/4721/39489006874_3a345ae110_z.jpg"
+    }
+   ],
+   "webEntities": [
+    {
+     "description": "Snowy egret",
+     "entityId": "/m/01p17h",
+     "score": 0.8665153
+    },
+    {
+     "description": "Great egret",
+     "entityId": "/m/01jl55",
+     "score": 0.802
+    },
+    {
+     "description": "Little egret",
+     "entityId": "/m/01p1m6",
+     "score": 0.7850814
+    },
+    {
+     "description": "Birds",
+     "entityId": "/m/015p6",
+     "score": 0.53565
+    },
+    {
+     "description": "Egret",
+     "entityId": "/m/0123gb",
+     "score": 0.4502
+    },
+    {
+     "description": "Water",
+     "entityId": "/m/0838f",
+     "score": 0.43080002
+    },
+    {
+     "description": "Seabird",
+     "entityId": "/m/012shk",
+     "score": 0.4174166
+    },
+    {
+     "description": "Herons",
+     "entityId": "/m/01jgnh",
+     "score": 0.39674997
+    },
+    {
+     "description": "Water bird",
+     "entityId": "/g/11h3v8vs_y",
+     "score": 0.376
+    },
+    {
+     "description": "Wader",
+     "entityId": "/m/01d0z1",
+     "score": 0.36003223
+    }
+   ]
+  }
+ }
+}

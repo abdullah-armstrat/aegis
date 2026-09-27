@@ -1,0 +1,334 @@
+{
+ "dated_at": "2026-09-27T17:17:07+00:00",
+ "page_dates": {
+  "https://bangaloremirror.indiatimes.com/bangalore/others/fake-news-buster-not-nikes-fiery-response/articleshow/65833261.cms": {
+   "date": null,
+   "source": null
+  },
+  "https://www.facebook.com/MarketingMind.in/posts/nike-did-not-plan-this-moment-but-wimbledon-gave-it-the-perfect-stageduring-the-/1361532076164840/": {
+   "date": null,
+   "source": null
+  },
+  "https://www.facebook.com/OfficialSageSteele/posts/has-nike-become-the-worst-brand-in-sports-/1549477546534242/": {
+   "date": null,
+   "source": null
+  },
+  "https://www.facebook.com/andrewlohhp/posts/whats-happening-at-nike-ive-never-liked-their-products-which-are-more-hype-than-/29058919707039602/": {
+   "date": null,
+   "source": null
+  },
+  "https://www.facebook.com/groups/runnerslovingrunning/posts/4148222875282118/": {
+   "date": null,
+   "source": null
+  },
+  "https://www.snopes.com/fact-check/nike-burned-sneakers/": {
+   "date": "2018-09-11",
+   "source": "htmldate"
+  },
+  "https://www.snopes.com/latest/?pagenum=888": {
+   "date": null,
+   "source": null
+  },
+  "https://www.snopes.com/tag/colin-kaepernick/?pagenum=2": {
+   "date": null,
+   "source": null
+  },
+  "https://www.snopes.com/tag/nike/": {
+   "date": "2024-06-24",
+   "source": "htmldate"
+  }
+ },
+ "requested_at": "2026-09-27T16:50:02+00:00",
+ "vision": {
+  "webDetection": {
+   "bestGuessLabels": [
+    {
+     "label": "running shoe"
+    }
+   ],
+   "fullMatchingImages": [
+    {
+     "url": "https://mediaproxy.snopes.com/width/1200/https://media.snopes.com/2018/09/burnednikes.jpg"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=10100737788977760"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=1178436772295374"
+    },
+    {
+     "url": "https://mediaproxy.snopes.com/width/600/https://media.snopes.com/2018/09/burnednikes.jpg"
+    }
+   ],
+   "pagesWithMatchingImages": [
+    {
+     "pageTitle": "Everything You Need To Know About Running Shoes in 2025",
+     "url": "https://www.youtube.com/watch?v=cOebJtQ2FgA"
+    },
+    {
+     "pageTitle": "The Best Running Shoe From Every Brand in 2026! - YouTube",
+     "url": "https://www.youtube.com/watch?v=9qv6rh34rXU"
+    },
+    {
+     "pageTitle": "The Best Running Shoe From Every Brand (100% honest review)",
+     "url": "https://www.youtube.com/watch?v=MFpzCcf6Q9U"
+    },
+    {
+     "pageTitle": "The 5 Best Daily Running Shoes You Can Buy Right Now - YouTube",
+     "url": "https://www.youtube.com/watch?v=sPCVFolFc6E"
+    },
+    {
+     "pageTitle": "Running Shoe - Amazon.com",
+     "url": "https://www.amazon.com/running-shoe/s?k=running+shoe"
+    },
+    {
+     "pageTitle": "Running+shoes - Amazon.com",
+     "url": "https://www.amazon.com/running-shoes/s?k=running%2Bshoes"
+    },
+    {
+     "pageTitle": "Comfort / Shoe / Footwear: Product Types - Amazon.com",
+     "url": "https://us.amazon.com/Running-Footwear-Shoe-Comfort/s?keywords=Running+Footwear&rh=n%3A21514848011%2Cp_n_g-1003446729111%3A24196137011&c=ts&ts_id=21514848011"
+    },
+    {
+     "pageTitle": "Running Shoes - Amazon.com",
+     "url": "https://www.amazon.com/running-shoes-%EF%BF%BC/s?k=running+shoes+%EF%BF%BC"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=10100737788977760"
+      }
+     ],
+     "pageTitle": "Nike Carb Loafer II with Zero Technology lol - Facebook",
+     "url": "https://www.facebook.com/groups/runnerslovingrunning/posts/4148222875282118/"
+    },
+    {
+     "pageTitle": "Has Nike Become the Worst Brand in Sports? - Facebook",
+     "partialMatchingImages": [
+      {
+       "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=10218761149721897"
+      }
+     ],
+     "url": "https://www.facebook.com/OfficialSageSteele/posts/has-nike-become-the-worst-brand-in-sports-/1549477546534242/"
+    },
+    {
+     "pageTitle": "Nike did not plan this moment, but Wimbledon gave it the perfect ...",
+     "partialMatchingImages": [
+      {
+       "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=10218761149721897"
+      }
+     ],
+     "url": "https://www.facebook.com/MarketingMind.in/posts/nike-did-not-plan-this-moment-but-wimbledon-gave-it-the-perfect-stageduring-the-/1361532076164840/"
+    },
+    {
+     "pageTitle": "Running Shoes in United States - BBB Sporting Goods",
+     "url": "https://www.bbbsportinggoods.com/united-states/footwear/running-shoes/"
+    },
+    {
+     "pageTitle": "Kylian Mbappe leaves Nike for On after 20 years - Facebook",
+     "partialMatchingImages": [
+      {
+       "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=10218761149721897"
+      }
+     ],
+     "url": "https://www.facebook.com/andrewlohhp/posts/whats-happening-at-nike-ive-never-liked-their-products-which-are-more-hype-than-/29058919707039602/"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://mediaproxy.snopes.com/width/1200/https://media.snopes.com/2018/09/burnednikes.jpg"
+      }
+     ],
+     "pageTitle": "Did Nike Release a Line of 'Burned' Sneakers to Clap Back at ...",
+     "url": "https://www.snopes.com/fact-check/nike-burned-sneakers/"
+    },
+    {
+     "pageTitle": "Fake News Buster: Not nike's fiery response - Bangalore Mirror",
+     "partialMatchingImages": [
+      {
+       "url": "https://static.toiimg.com/thumb/65833284.cms?resizemode=4&width=400"
+      },
+      {
+       "url": "https://static.toiimg.com/photo/imgsize-1184784,msid-65833284/65833284.jpg"
+      }
+     ],
+     "url": "https://bangaloremirror.indiatimes.com/bangalore/others/fake-news-buster-not-nikes-fiery-response/articleshow/65833261.cms"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://mediaproxy.snopes.com/width/600/https://media.snopes.com/2018/09/burnednikes.jpg"
+      }
+     ],
+     "pageTitle": "Nike Articles | Snopes.com",
+     "url": "https://www.snopes.com/tag/nike/"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://mediaproxy.snopes.com/width/600/https://media.snopes.com/2018/09/burnednikes.jpg"
+      }
+     ],
+     "pageTitle": "Colin Kaepernick Articles | Page 2 | Snopes.com",
+     "url": "https://www.snopes.com/tag/colin-kaepernick/?pagenum=2"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://mediaproxy.snopes.com/width/600/https://media.snopes.com/2018/09/burnednikes.jpg"
+      }
+     ],
+     "pageTitle": "What's New | Page 888 | Snopes.com",
+     "url": "https://www.snopes.com/latest/?pagenum=888"
+    }
+   ],
+   "partialMatchingImages": [
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=10218761149721897"
+    },
+    {
+     "url": "https://static.toiimg.com/photo/imgsize-1184784,msid-65833284/65833284.jpg"
+    },
+    {
+     "url": "https://static.toiimg.com/thumb/65833284.cms?resizemode=4&width=400"
+    }
+   ],
+   "visuallySimilarImages": [
+    {
+     "url": "https://www.tiktok.com/api/img/?itemId=7171914007270542635&location=0&aid=1988"
+    },
+    {
+     "url": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/ooaqPAA3ME4qYBkNRHinoiCAIEaYBxdgpg6lA~tplv-tiktokx-origin.image?dr=9636&x-expires=1790658000&x-signature=hTOWfQ2s5DNhZhTf6JECbz67nr0%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=55bbe6a9&idc=useast8"
+    },
+    {
+     "url": "https://www.tiktok.com/api/img/?itemId=7674006075674250514&location=0&aid=1988"
+    },
+    {
+     "url": "https://www.tiktok.com/api/img/?itemId=7661830061154192660&location=3&aid=1988&index=4"
+    },
+    {
+     "url": "https://lookaside.instagram.com/seo/google_widget/crawler/?media_id=3974677029717965028"
+    },
+    {
+     "url": "https://i.ytimg.com/vi/_DMsziFxGjc/hqdefault.jpg"
+    },
+    {
+     "url": "https://preview.redd.it/some-recent-finds-in-sarasota-fl-v0-8bu7rta6e7qh1.jpg?width=640&crop=smart&auto=webp&s=f58b0b8c83cc3ba586ed9353541dec71d9fe4675"
+    },
+    {
+     "url": "https://lookaside.instagram.com/seo/google_widget/crawler/?media_id=3978958844818259190"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/instagram/DV1DHmJxpo5/0/image.jpg"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=1665310595601447"
+    },
+    {
+     "url": "https://www.tiktok.com/api/img/?itemId=7527173535287020805&location=3&aid=1988&index=31"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/threads/DdDnXcomYiU/0/image.jpg"
+    },
+    {
+     "url": "https://p19-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/oE5Ak4AgIBiiHCEBy99iE0dPhBMATKoAyaqjA~tplv-tiktokx-origin.image?dr=9636&x-expires=1790690400&x-signature=yI0ni9ej9MD9LXZM9rP2CsvDW48%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=55bbe6a9&idc=useast5"
+    },
+    {
+     "url": "https://lookaside.instagram.com/seo/google_widget/crawler/?media_id=3967236275482207292"
+    },
+    {
+     "url": "https://pbs.twimg.com/profile_banners/1277314324982185984/1700767391"
+    },
+    {
+     "url": "https://i.ebayimg.com/images/g/jYwAAOSwaX5m8srt/s-l1200.webp"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/threads/DdsoF8RkdbM/0/image.jpg"
+    },
+    {
+     "url": "https://www.thefashionlaw.com/wp-content/uploads/2025/11/Screenshot-2025-11-19-at-5.13.09-PM.png"
+    },
+    {
+     "url": "https://www.tiktok.com/api/img/?itemId=7658253399456075028&location=3&aid=1988&index=1"
+    },
+    {
+     "url": "https://www.tiktok.com/api/img/?itemId=7441746442328231223&location=0&aid=1988"
+    }
+   ],
+   "webEntities": [
+    {
+     "description": "Shoe",
+     "entityId": "/m/06rrc",
+     "score": 0.7386
+    },
+    {
+     "description": "Running Shoe",
+     "entityId": "/g/11fl7dvkff",
+     "score": 0.7109
+    },
+    {
+     "description": "Nike",
+     "entityId": "/m/0cnsqjb",
+     "score": 0.7105
+    },
+    {
+     "entityId": "/t/26lk3k_8hrbw2",
+     "score": 0.7105
+    },
+    {
+     "description": "Nike",
+     "entityId": "/m/0lwkh",
+     "score": 0.7045
+    },
+    {
+     "description": "Trainer",
+     "entityId": "/m/09kjlm",
+     "score": 0.6961331
+    },
+    {
+     "description": "Running",
+     "entityId": "/m/06h7j",
+     "score": 0.5906
+    },
+    {
+     "description": "Sports shoes",
+     "entityId": "/m/027k4k",
+     "score": 0.4724
+    },
+    {
+     "entityId": "/t/218svrm2h78ls",
+     "score": 0.4687
+    },
+    {
+     "description": "Under Armour",
+     "entityId": "/m/03sdzf",
+     "score": 0.4687
+    },
+    {
+     "description": "Footwear",
+     "entityId": "/m/09j5n",
+     "score": 0.4235
+    },
+    {
+     "description": "Under Armour",
+     "entityId": "/g/1ymzslvpb",
+     "score": 0.403
+    },
+    {
+     "description": "adidas",
+     "entityId": "/m/01jtml",
+     "score": 0.3533
+    },
+    {
+     "entityId": "/t/23ntszq3ml5fp",
+     "score": 0.3533
+    },
+    {
+     "description": "ADIDAS",
+     "entityId": "/g/1ym_1qtkc",
+     "score": 0.2974
+    }
+   ]
+  }
+ }
+}

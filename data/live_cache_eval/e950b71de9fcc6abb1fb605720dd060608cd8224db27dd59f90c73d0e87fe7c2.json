@@ -1,0 +1,91 @@
+{
+ "requested_at": "2026-09-27T16:43:32+00:00",
+ "vision": {
+  "webDetection": {
+   "bestGuessLabels": [
+    {
+     "label": "outer space"
+    }
+   ],
+   "visuallySimilarImages": [
+    {
+     "url": "https://media.licdn.com/dms/image/v2/C561BAQF4SUh3qW2JGg/company-background_10000/company-background_10000/0/1620827873859/sphinx_defense_cover?e=2147483647&v=beta&t=astNnnt5MY634y3orPat4DSdMJPU5oHhnkv7BHPfhJ8"
+    },
+    {
+     "url": "https://ncspacegrant.ncsu.edu/guten/wp-content/uploads/2024/03/iss070e024002orig_1500x844px.jpg"
+    },
+    {
+     "url": "https://assets.science.nasa.gov/content/dam/science/esd/eo/images/imagerecords/153000/153440/ISS072-E-29325.jpg/jcr:content/renditions/cq5dam.web.1280.1280.jpeg"
+    },
+    {
+     "url": "https://www.nasa.gov/wp-content/uploads/2025/01/iss072e031398.jpg"
+    },
+    {
+     "url": "https://www.mmm.ucar.edu/sites/default/files/styles/large/public/2022-07/cold-front-warm-front-hurricane-felix-76969.jpeg?itok=HJozGI_m"
+    },
+    {
+     "url": "https://www.science.org/cms/asset/802f775d-b45c-4c32-afea-1e68b5848b47/_20231215_nf_boty_ai-weather.jpg"
+    },
+    {
+     "url": "https://lookaside.instagram.com/seo/google_widget/crawler/?media_id=3988173928691808485"
+    },
+    {
+     "url": "https://imageio.forbes.com/specials-images/imageserve/674727f1d0316ce59c0c2538/Florida-Residents-Prepare-For-Hurricane-Milton/0x0.jpg?format=jpg&width=480"
+    },
+    {
+     "url": "https://media.licdn.com/dms/image/v2/C4D1BAQE9xRZ1XFX3EA/company-background_10000/company-background_10000/0/1633014257211/generation_investment_management_cover?e=2147483647&v=beta&t=wBNgCDU2ExJtGtiaYaQNGCtPp6QPttTrQo4zxH1_7Es"
+    },
+    {
+     "url": "https://lamont.columbia.edu/sites/lamont.columbia.edu/files/styles/cu_crop/public/content/Hurricane%20Harvey%20as%20seen%20from%20the%20International%20Space%20Station%20on%20Aug%2028%202017%20-%20Randy%20Bresnik%20-%20NASA_4x3.jpg.webp?itok=ZuwgaUfL"
+    },
+    {
+     "url": "https://ecos-appdev-production.s3.amazonaws.com/science_site/s3fs-public/styles/story_grid_block/public/2025-02/iss042e340851_1.jpg?h=653f21ff&itok=hV4mjITG"
+    },
+    {
+     "url": "https://cuhkintouch.cpr.cuhk.edu.hk/wp-content/uploads/2022/02/CUHK-in-Touch-Feb-Issue-Typhoons-3-scaled.jpg"
+    },
+    {
+     "url": "https://futureplc.com/wp-content/uploads/2026/02/3-4.png"
+    },
+    {
+     "url": "https://geophysics.stanford.edu/sites/geophysics/files/styles/card_3_2_1920x1280_/public/media/image/213975ec-33f6-4c6b-b623-08c94cc58470_0.png?itok=vnBZKJaY"
+    },
+    {
+     "url": "https://assets.newsweek.com/wp-content/uploads/2026/09/GettyImages-1527901540-9.jpg?w=1600&quality=80&webp=1"
+    },
+    {
+     "url": "https://icgcargo.blob.core.windows.net/assets/uploads/img/carousel/carousel-1.jpg"
+    },
+    {
+     "url": "https://www.lepoint.fr/resizer/v2/7BM23MYPGNHYFCDJUUXI5SJKEA.jpg?auth=7711daf7df64db3c8215a9ede6c8483b4e54a2b99d4f4cb121e905b6e66f551e&width=368&height=276&smart=true"
+    },
+    {
+     "url": "https://lookaside.instagram.com/seo/google_widget/crawler/?media_id=3963889611915709110"
+    },
+    {
+     "url": "https://um.baden-wuerttemberg.de/fileadmin/_processed_/d/2/csm_Blick-vom-Weltall-auf-einen-riesigen-Hurrikan-ueber-dem-Meer-mit-Mond-im-Hintergrund-Matt-Trommer-Shutterstock-4906567-2434x1310_7a39fb6c9a.jpg"
+    },
+    {
+     "url": "https://media.nature.com/lw767/magazine-assets/d41586-026-00842-z/d41586-026-00842-z_52166858.jpg"
+    }
+   ],
+   "webEntities": [
+    {
+     "description": "/m/02j71",
+     "entityId": "/m/011qgdq2",
+     "score": 0.7671
+    },
+    {
+     "description": "Earth",
+     "entityId": "/m/02j71",
+     "score": 0.6730097
+    },
+    {
+     "description": "Universe",
+     "entityId": "/m/07v7c",
+     "score": 0.32210726
+    }
+   ]
+  }
+ }
+}

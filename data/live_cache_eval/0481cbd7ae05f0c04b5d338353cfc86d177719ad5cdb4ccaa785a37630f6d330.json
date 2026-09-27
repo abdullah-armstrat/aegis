@@ -1,0 +1,96 @@
+{
+ "requested_at": "2026-09-27T16:43:34+00:00",
+ "vision": {
+  "webDetection": {
+   "bestGuessLabels": [
+    {
+     "label": "lighthouse"
+    }
+   ],
+   "visuallySimilarImages": [
+    {
+     "url": "https://rmets.onlinelibrary.wiley.com/cms/asset/b67efc35-96b8-467b-9815-679675109547/qj4831-toc-0001-m.jpg?trick=1788324270858"
+    },
+    {
+     "url": "https://nasawinds.org/images/195948380_m_normal_none.jpg"
+    },
+    {
+     "url": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/oYfOe1lDCTGyQvWRXJA7SQgMeApIfumFky8TtR~tplv-tiktokx-origin.image?dr=9636&x-expires=1786615200&x-signature=fkr6%2FQthKZ0M6CwU3GuWZQ9y4qQ%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=55bbe6a9&idc=useast5"
+    },
+    {
+     "url": "https://live.staticflickr.com/2842/12797670613_81ea468bce_z.jpg"
+    },
+    {
+     "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/Calgary_airport_ATC_tower%2C_Jul_2017.jpg/1280px-Calgary_airport_ATC_tower%2C_Jul_2017.jpg?utm_source=fi.wikipedia.org&utm_campaign=index&utm_content=thumbnail"
+    },
+    {
+     "url": "https://gateway.okhistory.org/ark:/67531/metadc1552711/small/"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=1381131440681606"
+    },
+    {
+     "url": "https://dps.informatik.uni-leipzig.de/buchmann/25-hessen2/DSCN7704.JPG"
+    },
+    {
+     "url": "https://img.sparknews.funkemedien.de/411611357/411611357_1774972646_v16_9_1200.jpeg"
+    },
+    {
+     "url": "https://www.planete-sciences.org/espace/IMG/jpg/img_9824.jpg"
+    },
+    {
+     "url": "https://www.tiktok.com/api/img/?itemId=7653192851592908062&location=3&aid=1988&index=15"
+    },
+    {
+     "url": "https://media.licdn.com/dms/image/v2/C5612AQGwBcofy8E3LA/article-cover_image-shrink_720_1280/article-cover_image-shrink_720_1280/0/1596603307020?e=2147483647&v=beta&t=zsx_MFQ8cBz8ITTf18xlfvHhiEVnFDwkpH40RnWMuew"
+    },
+    {
+     "url": "https://patch.com/img/cdn20/users/22423906/20250213/051204/styles/raw/public/processed_images/DSCF0964.jpeg"
+    },
+    {
+     "url": "https://i.ytimg.com/vi/PXaPB9_2mPo/maxresdefault.jpg"
+    },
+    {
+     "url": "https://kiderul.startlap.hu/uploads/2026/09/d4_cs_borult_vilagito.jpg"
+    },
+    {
+     "url": "https://s.hdnux.com/photos/01/36/52/20/24814594/3/1920x0.jpg"
+    },
+    {
+     "url": "http://img2.chinadaily.com.cn/images/202607/04/6a489022a310986e1018ece4.jpeg"
+    },
+    {
+     "url": "https://static.independent.co.uk/2026/04/28/17/2267050683.jpg?width=1200&height=1200&fit=crop"
+    },
+    {
+     "url": "https://images.alltrails.com/eyJidWNrZXQiOiJhc3NldHMuYWxsdHJhaWxzLmNvbSIsImtleSI6InVwbG9hZHMvcGhvdG8vaW1hZ2UvMTM1OTYxOTA4LzAzZWMxNWY5NGVmZmQ1OWE2OWI4NWM0MzZjOTVhZjZiLmpwZyIsImVkaXRzIjp7InRvRm9ybWF0Ijoid2VicCIsInJlc2l6ZSI6eyJ3aWR0aCI6IjUwMCIsImhlaWdodCI6IjUwMCIsImZpdCI6Imluc2lkZSJ9LCJyb3RhdGUiOm51bGwsImpwZWciOnsidHJlbGxpc1F1YW50aXNhdGlvbiI6dHJ1ZSwib3ZlcnNob290RGVyaW5naW5nIjp0cnVlLCJvcHRpbWlzZVNjYW5zIjp0cnVlLCJxdWFudGlzYXRpb25UYWJsZSI6M319fQ=="
+    },
+    {
+     "url": "https://d.techtimes.com/en/full/475450/starship-flight-14-targets-first-orbit-starlink-v3-satellites-falcon-9-cannot-carry.jpg?w=1600&h=1600&q=88&f=e88afc800b7365d61eeaf9eecbbf8ab1"
+    }
+   ],
+   "webEntities": [
+    {
+     "description": "MGM-157 EFOGM",
+     "entityId": "/m/0cc518z",
+     "score": 0.3699
+    },
+    {
+     "description": "Lighthouse",
+     "entityId": "/m/04h7h",
+     "score": 0.36081424
+    },
+    {
+     "description": "Tower M",
+     "entityId": "/g/11gck6xpc9",
+     "score": 0.3018
+    },
+    {
+     "description": "Observation",
+     "entityId": "/m/05nx_",
+     "score": 0.269
+    }
+   ]
+  }
+ }
+}

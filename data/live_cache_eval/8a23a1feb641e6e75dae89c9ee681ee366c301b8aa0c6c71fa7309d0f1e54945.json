@@ -1,0 +1,208 @@
+{
+ "requested_at": "2026-09-27T16:54:50+00:00",
+ "vision": {
+  "webDetection": {
+   "bestGuessLabels": [
+    {
+     "label": "Dazed"
+    }
+   ],
+   "fullMatchingImages": [
+    {
+     "url": "https://images-prod.dazeddigital.com/2492/azure/dazed-prod/1300/7/1307648.jpg"
+    },
+    {
+     "url": "https://images-prod.dazeddigital.com/1400/azure/dazed-prod/1270/1/1271026.jpg"
+    },
+    {
+     "url": "https://images-prod.dazeddigital.com/1280/azure/dazed-prod/1290/8/1298278.jpg"
+    },
+    {
+     "url": "https://images-prod.dazeddigital.com/1274/azure/dazed-prod/1310/9/1319585.JPG"
+    },
+    {
+     "url": "https://images-prod.dazeddigital.com/1248/azure/dazed-prod/1330/8/1338682.jpg"
+    },
+    {
+     "url": "https://images-prod.dazeddigital.com/1198/azure/dazed-prod/1190/7/1197021.jpg"
+    },
+    {
+     "url": "https://images-prod.dazeddigital.com/1150/azure/dazed-prod/1300/2/1302346.jpg"
+    },
+    {
+     "url": "https://images-prod.dazeddigital.com/1118/azure/dazed-prod/1330/6/1336396.jpg"
+    },
+    {
+     "url": "https://images-prod.dazeddigital.com/1066/azure/dazed-prod/1260/3/1263468.jpg"
+    },
+    {
+     "url": "https://images-prod.dazeddigital.com/1050/azure/dazed-prod/1310/1/1311527.jpg"
+    },
+    {
+     "url": "https://images-prod.dazeddigital.com/1036/azure/dazed-prod/1250/9/1259781.jpg"
+    },
+    {
+     "url": "https://images-prod.dazeddigital.com/1026/azure/dazed-prod/1320/8/1328025.jpg"
+    },
+    {
+     "url": "https://images-prod.dazeddigital.com/1007/azure/dazed-prod/1290/9/1299642.jpg"
+    },
+    {
+     "url": "https://images-prod.dazeddigital.com/1006/azure/dazed-prod/1310/8/1318095.jpg"
+    },
+    {
+     "url": "https://images-prod.dazeddigital.com/998/azure/dazed-prod/1300/0/1300195.jpg"
+    },
+    {
+     "url": "https://images-prod.dazeddigital.com/983/azure/dazed-prod/1140/8/1148909.jpg"
+    },
+    {
+     "url": "https://images-prod.dazeddigital.com/982/azure/dazed-prod/1320/3/1323547.jpg"
+    },
+    {
+     "url": "https://images-prod.dazeddigital.com/978/azure/dazed-prod/1190/9/1199790.jpg"
+    },
+    {
+     "url": "https://images-prod.dazeddigital.com/975/azure/dazed-prod/1130/0/1130700.jpg"
+    },
+    {
+     "url": "https://images-prod.dazeddigital.com/1237/azure/dazed-prod/1330/3/1333965.jpg"
+    }
+   ],
+   "visuallySimilarImages": [
+    {
+     "url": "https://pictures.rs-cdn.com/CF-a1b40f08-4131-4747-915a-db3b8e3b3818/width=1200,height=1200,fit=scale-down,sharpen=0.00/e497182799a78b2b368496ced7a72d8f.svg"
+    },
+    {
+     "url": "https://media.geeksforgeeks.org/wp-content/uploads/20250508160949661677/eda10.webp"
+    },
+    {
+     "url": "https://eukeducation.org.uk/media/jnil5inp/pattern-7-gradient-3.jpg?width=1000&v=1dd2a65aed570b0"
+    },
+    {
+     "url": "https://transequality.org/themes/custom/a4te/images/pattern-13-rows-pink.svg"
+    },
+    {
+     "url": "https://tally.so/images/demo/v2/input-badges.png"
+    },
+    {
+     "url": "https://toyota.jp/pages/contents/sapotoyo/commentary/sapotoyoplus/images/trouble/kv_bg_sp.png"
+    },
+    {
+     "url": "https://images.squarespace-cdn.com/content/v1/63c1998284800f4c18513794/f7480072-81c0-4a15-bb64-bfa9bc20af67/imageedit_2_8361362500.png"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=2319855238817580&get_thumbnail=1"
+    },
+    {
+     "url": "https://houselimerick.ie/wp-content/uploads/2022/11/House-Logo-dublin.svg"
+    },
+    {
+     "url": "https://custom.cvent.com/033cfc2cbef84bedbb0a1559c2eeb020/pix/c582267b5a7440b98510850a9b8f8137.png"
+    },
+    {
+     "url": "https://www.3dicons.com/__static/__3d-icons_static/img/HeaderMobile.png"
+    },
+    {
+     "url": "x-raw-image:///1449cd0a39aabe734fdc2e7c8a7010c070971b562cd80360b37fc4bc29c96d8b"
+    },
+    {
+     "url": "https://images.squarespace-cdn.com/content/v1/61d8c535ec4a7c63aca1799a/9e22f1f0-19b8-40e7-88a0-5cc5beb9f335/cad_bg_identity_section_2.gif"
+    },
+    {
+     "url": "https://static.showit.co/800/WHZpbO5jTD6hiytb_S7TDQ/shared/hf100k_-_usd100k_pattern_med_thistle.png"
+    },
+    {
+     "url": "https://www.scienceshumaines.com/themes/sciences_humaines/images/placeholder.jpg"
+    },
+    {
+     "url": "https://vera-institute.transforms.svdcdn.com/production/images/step-5-build-locally-tailored-policy-solutions/Rural-jail-steps-05.png?auto=compress%2Cformat&fit=crop&dm=1646960415&s=3c385690163ea379d05c75468df68531"
+    },
+    {
+     "url": "https://gcp-na-images.contentstack.com/v3/assets/bltea6093859af6183b/blt1eb565e33e0f7f78/698a1c7022fb8571e3e2c7cd/nft-art-teens-3.gif?branch=production"
+    },
+    {
+     "url": "https://images.squarespace-cdn.com/content/v1/63e3ca88a615473a4345cd65/60db6484-db93-4150-895b-996f56882d1e/cym-icons-wallpaper.png"
+    },
+    {
+     "url": "https://t3.ftcdn.net/jpg/21/79/42/74/360_F_2179427427_OnWMIy5FAmOrz055734dk1sTfDXLI51G.jpg"
+    },
+    {
+     "url": "https://en.bidt.digital/wp-content/uploads/sites/5/2026/04/bidt-Header-Landingpage-Dighum-Conference-20260416-V2-scaled.jpg"
+    }
+   ],
+   "webEntities": [
+    {
+     "description": "Dazed",
+     "entityId": "/m/09s9gj",
+     "score": 0.6922
+    },
+    {
+     "description": "Norman Fucking Rockwell!",
+     "entityId": "/g/11fcsshcky",
+     "score": 0.4988
+    },
+    {
+     "description": "succeeding",
+     "entityId": "/g/11spgy0dz3",
+     "score": 0.4384
+    },
+    {
+     "description": "Caprisongs",
+     "entityId": "/g/11rn0qv347",
+     "score": 0.3758
+    },
+    {
+     "description": "Fashion",
+     "entityId": "/m/032tl",
+     "score": 0.3507
+    },
+    {
+     "description": "fit",
+     "entityId": "/g/11sz_pp_w4",
+     "score": 0.304
+    },
+    {
+     "description": "frightening",
+     "entityId": "/g/11mmjqc932",
+     "score": 0.2979
+    },
+    {
+     "description": "Model",
+     "entityId": "/m/0d1pc",
+     "score": 0.2843
+    },
+    {
+     "description": "De La Soul",
+     "entityId": "/m/0169x4",
+     "score": 0.2786
+    },
+    {
+     "description": "FKA twigs",
+     "entityId": "/m/0slzrly",
+     "score": 0.10309501
+    },
+    {
+     "description": "Ken Park",
+     "entityId": "/m/01h1zp",
+     "score": 0.052455004
+    },
+    {
+     "description": "Lana Del Rey",
+     "entityId": "/m/0h62t_s",
+     "score": 0.048975002
+    },
+    {
+     "description": "Dua Lipa",
+     "entityId": "/g/11bxfyskcg",
+     "score": 0.048435
+    },
+    {
+     "description": "Charli xcx",
+     "entityId": "/m/0j42l4h",
+     "score": 0.043635
+    }
+   ]
+  }
+ }
+}

@@ -1,0 +1,306 @@
+{
+ "dated_at": "2026-09-27T17:13:52+00:00",
+ "page_dates": {
+  "https://picryl.com/media/ksc-02pd0542-f23681": {
+   "date": null,
+   "source": null
+  },
+  "https://shorebeat.com/lavallette-seaside/2018/10/island-pet-owners-warned-over-raccoons-carrying-canine-distemper/": {
+   "date": null,
+   "source": null
+  },
+  "https://www.greenville.com/news/2022/06/state-officials-urge-residents-not-to-keep-wild-animals-as-pets/": {
+   "date": "2022-07-31",
+   "source": "htmldate"
+  },
+  "https://www.greenville.com/news/2025/03/rabid-raccoon-confirmed-in-anderson-county-two-people-exposed/": {
+   "date": "2025-03-15",
+   "source": "htmldate"
+  },
+  "https://www.spartanburg.com/news/2022/06/state-officials-urge-residents-not-to-keep-wild-animals-as-pets/": {
+   "date": "2022-07-31",
+   "source": "htmldate"
+  },
+  "https://www.spartanburg.com/news/2023/03/rabid-raccoon-confirmed-in-spartanburg-county-one-pet-exposed-2/": {
+   "date": "2023-04-03",
+   "source": "htmldate"
+  },
+  "https://www.spartanburg.com/news/2023/09/rabid-raccoon-confirmed-in-greenville-county-two-pets-exposed/": {
+   "date": "2023-09-11",
+   "source": "htmldate"
+  }
+ },
+ "requested_at": "2026-09-27T16:45:55+00:00",
+ "vision": {
+  "webDetection": {
+   "bestGuessLabels": [
+    {
+     "label": "procyon"
+    }
+   ],
+   "fullMatchingImages": [
+    {
+     "url": "http://brick.shorebeat.com/wp-content/uploads/2018/10/raccoon.jpg"
+    },
+    {
+     "url": "https://files.mainstreetonline.com/public/uploads/sites/4/2020/05/raccoon_in_grass-scaled.jpg"
+    },
+    {
+     "url": "https://cdn2.picryl.com/photo/2002/04/19/ksc-02pd0542-f23681-1024.jpg"
+    },
+    {
+     "url": "https://cdn2.picryl.com/photo/2002/04/19/ksc-02pd0542-f23681-640.jpg"
+    },
+    {
+     "url": "https://cache.getarchive.net/Prod/thumb/cdn2/L3Bob3RvLzIwMDIvMDQvMTkva3NjLTAycGQwNTQyLWYyMzY4MS0xMDI0LmpwZw%3D%3D/320/223/jpg"
+    }
+   ],
+   "pagesWithMatchingImages": [
+    {
+     "pageTitle": "Procyon Star - YouTube",
+     "url": "https://www.youtube.com/watch?v=2OmJfwsZS7w"
+    },
+    {
+     "pageTitle": "The dexterous and adaptable Common Raccoon (Procyon lotor) is ...",
+     "url": "https://www.facebook.com/oakridgesmoraine.org/videos/the-dexterous-and-adaptable-common-raccoon-procyon-lotor-is-able-to-thrive-in-to/357631973895763/"
+    },
+    {
+     "pageTitle": "The Defence of Procyon III - Round One Gameplay - YouTube",
+     "url": "https://www.youtube.com/watch?v=4swBG9veNlk"
+    },
+    {
+     "pageTitle": "Procyon is the 8th brightest star in the night sky. Finding it is easy ...",
+     "url": "https://www.facebook.com/learnthesky/videos/procyon-is-the-8th-brightest-star-in-the-night-sky-finding-it-is-easy-use-the-sh/1150880770591487/"
+    },
+    {
+     "pageTitle": "The Defence of Procyon III | Solo Playthrough | With Mike - YouTube",
+     "url": "https://www.youtube.com/watch?v=QCEb7zkEQYs"
+    },
+    {
+     "pageTitle": "eon procyon review - YouTube",
+     "url": "https://www.youtube.com/watch?v=xE6eMNdI0ZU"
+    },
+    {
+     "pageTitle": "Play Procyon by Sam Cydan on Amazon Music",
+     "url": "https://www.amazon.com/Procyon-Extended-Mix/dp/B0B337GTN7"
+    },
+    {
+     "pageTitle": "Procyon Wildlife (@ProcyonWildlife) - Photos | Facebook",
+     "url": "https://www.facebook.com/ProcyonWildlife/photos/"
+    },
+    {
+     "pageTitle": "Procyon by Ben Stone on Amazon Music",
+     "url": "https://www.amazon.com/Procyon-Ben-Stone/dp/B07TYX93ZS"
+    },
+    {
+     "pageTitle": "Pronunciation of Procyon in British English - YouGlish",
+     "url": "https://youglish.com/pronounce/procyon/english/uk"
+    },
+    {
+     "pageTitle": "42 pronunciations of Procyon in American English - YouGlish",
+     "url": "https://youglish.com/pronounce/procyon/english/us"
+    },
+    {
+     "pageTitle": "Procyon | Nomenclature Wiki - Fandom",
+     "url": "https://nomenclature.fandom.com/wiki/Procyon"
+    },
+    {
+     "pageTitle": "_Procyon_ (genus) \u2014 Grokipedia",
+     "url": "https://grokipedia.com/page/Procyon_(genus)"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://files.mainstreetonline.com/public/uploads/sites/4/2020/05/raccoon_in_grass-scaled.jpg"
+      }
+     ],
+     "pageTitle": "Rabid Raccoon Confirmed in Anderson County; Two People Exposed",
+     "url": "https://www.greenville.com/news/2025/03/rabid-raccoon-confirmed-in-anderson-county-two-people-exposed/"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://files.mainstreetonline.com/public/uploads/sites/4/2020/05/raccoon_in_grass-scaled.jpg"
+      }
+     ],
+     "pageTitle": "State Officials Urge Residents Not to Keep Wild Animals as Pets",
+     "url": "https://www.greenville.com/news/2022/06/state-officials-urge-residents-not-to-keep-wild-animals-as-pets/"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://files.mainstreetonline.com/public/uploads/sites/5/2020/05/raccoon_in_grass-scaled.jpg"
+      }
+     ],
+     "pageTitle": "Rabid Bat and Raccoon Confirmed in the Upstate; Five Pets Exposed",
+     "url": "https://www.spartanburg.com/news/2023/09/rabid-raccoon-confirmed-in-greenville-county-two-pets-exposed/"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://files.mainstreetonline.com/public/uploads/sites/5/2020/05/raccoon_in_grass-scaled.jpg"
+      }
+     ],
+     "pageTitle": "Rabid Raccoon Confirmed in Spartanburg County; One Pet Exposed",
+     "url": "https://www.spartanburg.com/news/2023/03/rabid-raccoon-confirmed-in-spartanburg-county-one-pet-exposed-2/"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://files.mainstreetonline.com/public/uploads/sites/5/2020/05/raccoon_in_grass-scaled.jpg"
+      }
+     ],
+     "pageTitle": "State Officials Urge Residents Not to Keep Wild Animals as Pets",
+     "url": "https://www.spartanburg.com/news/2022/06/state-officials-urge-residents-not-to-keep-wild-animals-as-pets/"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "http://brick.shorebeat.com/wp-content/uploads/2018/10/raccoon.jpg"
+      }
+     ],
+     "pageTitle": "Island Pet Owners Warned Over Raccoons Carrying Canine ...",
+     "url": "https://shorebeat.com/lavallette-seaside/2018/10/island-pet-owners-warned-over-raccoons-carrying-canine-distemper/"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://cache.getarchive.net/Prod/thumb/cdn2/L3Bob3RvLzIwMDIvMDQvMTkva3NjLTAycGQwNTQyLWYyMzY4MS0xMDI0LmpwZw%3D%3D/320/223/jpg"
+      },
+      {
+       "url": "https://cdn2.picryl.com/photo/2002/04/19/ksc-02pd0542-f23681-640.jpg"
+      },
+      {
+       "url": "https://cdn2.picryl.com/photo/2002/04/19/ksc-02pd0542-f23681-1024.jpg"
+      }
+     ],
+     "pageTitle": "KENNEDY SPACE CENTER, FLA. -- A raccoon keeps an eye on\u2026",
+     "url": "https://picryl.com/media/ksc-02pd0542-f23681"
+    }
+   ],
+   "visuallySimilarImages": [
+    {
+     "url": "https://sgavmst.dk/media/hqspa1g4/vaskebjoern.jpg?width=960&hmac=20bad600343df6ff816a7bada7cfbea612b36d55b8536e4200fc5af1cd746fa4"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=1490272766461866"
+    },
+    {
+     "url": "https://www.nabu.de/imperia/md/nabu/images/arten/tiere/saeugetiere/raubtiere/baeren/150209-nabu-waschbaer-christoph-bosch4.jpeg"
+    },
+    {
+     "url": "https://assets.artdatabanken.se/image/_3/30945_6003382_3.jpg"
+    },
+    {
+     "url": "https://quadro.burda-forward.de/ctf/5a5e627d-d2aa-4b13-9793-067306564e4b.add5f49b-4e60-4d3f-9e1b-c55195dff701.jpg?im=RegionOfInterestCrop=(992,558),regionOfInterest=(788,553)&hash=15484e2d35396ed3780f5c7024a7cf791b9b733f022bb2a1b8c78691d2f8d53b"
+    },
+    {
+     "url": "https://www.michigan.gov/dnr/-/media/Project/Websites/dnr/Images/WLD/raccoon.jpg?rev=8115ae674e494a5a93f926e2c7121a32&hash=E3E31528F902D69A3AF8A7EC7C020F84&mw=1024"
+    },
+    {
+     "url": "https://wdfw.wa.gov/sites/default/files/styles/page_body_half_width/public/2022-12/9909lpr.jpg?itok=yN0n-VcX"
+    },
+    {
+     "url": "https://www.nabu.de/imperia/md/nabu/images/arten/tiere/saeugetiere/raubtiere/baeren/150209-nabu-waschbaer-christoph-bosch.jpeg"
+    },
+    {
+     "url": "https://i.cbc.ca/ais/760c569c-1f72-4bde-ae6f-3754bf449207,1789325571750/full/max/0/default.jpg?im=Crop%2Crect%3D%280%2C51%2C768%2C432%29%3B"
+    },
+    {
+     "url": "https://pbs.twimg.com/media/HMFB-j3W0AAQ-UO?format=webp&name=large"
+    },
+    {
+     "url": "https://tudomanyplaza.hu/wp-content/uploads/2026/05/mosomedve.jpg"
+    },
+    {
+     "url": "https://www.health.belgium.be/sites/default/files/styles/full_mini/public/media/images/2025-11/procyon_lotor_raton_laveur.jpg?itok=B4ikuftb"
+    },
+    {
+     "url": "https://www.sfu.ca/content/sfu/srs/campus-safety-security/public-safety/safety-guides/wildlife/jcr:content/main_content/image_369089750.img.640.medium.jpg/1724277723150.jpg"
+    },
+    {
+     "url": "https://live.staticflickr.com/65535/54780161545_c282a28153_w.jpg"
+    },
+    {
+     "url": "https://cdn.pixabay.com/photo/2018/07/14/17/46/raccoon-3538081_640.jpg"
+    },
+    {
+     "url": "https://dnr.maryland.gov/wildlife/PublishingImages/04072021-raccoon.jpg"
+    },
+    {
+     "url": "https://i.cbc.ca/ais/d8c96e54-4a43-493a-a690-9c6cb516e426,1781832078081/full/max/0/default.jpg?im=Crop%2Crect%3D%280%2C52%2C1000%2C562%29%3B"
+    },
+    {
+     "url": "https://cdn.cogecolive.com/prod-20260926/audio_1790430077748988_620x349.jpeg"
+    },
+    {
+     "url": "https://m1.quebecormedia.com/emp/emp/pexels_andromeda99_36419442fd06ab1f-a870-4337-89e9-c08e4623c8d3_ORIGINAL.jpg?impolicy=crop-resize&x=0&y=182&w=3504&h=1971&width=800"
+    },
+    {
+     "url": "https://fv-media-uploads.s3.amazonaws.com/nsyilxcen/2024-05-30--20-25-06/Screenshot_2024-05-30_at_8_medium.jpg"
+    }
+   ],
+   "webEntities": [
+    {
+     "description": "Crab-eating raccoon",
+     "entityId": "/m/07dwwm",
+     "score": 0.9555151
+    },
+    {
+     "description": "Bats",
+     "entityId": "/m/01h44",
+     "score": 0.60899997
+    },
+    {
+     "description": "Muskrat",
+     "entityId": "/m/02r80_",
+     "score": 0.55275
+    },
+    {
+     "description": "Mammal",
+     "entityId": "/m/04rky",
+     "score": 0.5318
+    },
+    {
+     "description": "Dog",
+     "entityId": "/m/0bt9lr",
+     "score": 0.5148
+    },
+    {
+     "entityId": "/t/282y5x6pvjkv4",
+     "score": 0.4334
+    },
+    {
+     "description": "found",
+     "entityId": "/g/11rhr01qpj",
+     "score": 0.4312
+    },
+    {
+     "description": "Canine distemper",
+     "entityId": "/m/0p56l",
+     "score": 0.4138
+    },
+    {
+     "description": "Procyon Wildlife",
+     "entityId": "/g/1hg4vkr1_",
+     "score": 0.3765
+    },
+    {
+     "description": "Rabies",
+     "entityId": "/m/0fsd1",
+     "score": 0.367
+    },
+    {
+     "description": "Procyonids",
+     "entityId": "/m/0145sj",
+     "score": 0.16683
+    },
+    {
+     "description": "Raccoons",
+     "entityId": "/g/11bc58kld4",
+     "score": 0.048331805
+    }
+   ]
+  }
+ }
+}

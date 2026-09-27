@@ -1,0 +1,116 @@
+{
+ "requested_at": "2026-09-27T16:45:38+00:00",
+ "vision": {
+  "webDetection": {
+   "bestGuessLabels": [
+    {
+     "label": "spoonbill"
+    }
+   ],
+   "visuallySimilarImages": [
+    {
+     "url": "https://lookaside.instagram.com/seo/google_widget/crawler/?media_id=3972482475483565659"
+    },
+    {
+     "url": "https://www.tiktok.com/api/img/?itemId=7686404446200368402&location=3&aid=1988&index=15"
+    },
+    {
+     "url": "https://biomimicry.org/wp-content/uploads/2024/10/joseph-corl-xJwRWAWicr0-unsplash-1024x679.jpg"
+    },
+    {
+     "url": "https://web.araba.eus/documents/1247685/4110109/Hegaztien+munduko+eguna+2026.jpg/9f7b08f6-894f-8c6d-6ba7-fdb5bff3891c?t=1789984857215"
+    },
+    {
+     "url": "https://lookaside.instagram.com/seo/google_widget/crawler/?media_id=3476306567599545760"
+    },
+    {
+     "url": "https://zslpublications.onlinelibrary.wiley.com/cms/attachment/a8491af6-054d-4c8b-969b-6833aa2d58d0/izy12051-fig-0001-m.jpg"
+    },
+    {
+     "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/db/Oriental_Stork_2_marugame_kagawa.jpg/330px-Oriental_Stork_2_marugame_kagawa.jpg?utm_source=de.wikipedia.org&utm_campaign=parser&utm_content=thumbnail"
+    },
+    {
+     "url": "https://www.cm-tourisme.be/uploads/news/_categoryCover1200Jpeg/Cigogne-blanche-%C3%A0-lAquascope-de-Virelles-1.jpg"
+    },
+    {
+     "url": "https://i.ytimg.com/vi/aitPNYUxM_k/hq720_custom_2.jpg?sqp=COzT3dUG-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLA5zd5AuA5yLpERb9846FwtRcxdvw"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=1920469565549285"
+    },
+    {
+     "url": "https://media.licdn.com/dms/image/v2/D4E22AQGTAUDhOcZ5_A/feedshare-shrink_800/B4EaCqrqr1HYAk-/0/1789569969322?e=2147483647&v=beta&t=KGP75KAb93LMwKaOXM08M_noFmpvbh85ncZ6FrhPt8E"
+    },
+    {
+     "url": "https://www.glo.texas.gov/sites/default/files/styles/1_2/public/2024-12/Coastal_Planning_spoonbill.jpg?itok=dR_fgr99"
+    },
+    {
+     "url": "https://tpwmagazine.com/media/images/0826_Travel-SPI_1_RoseateSpoonbill_MaeganLanha.width-786.jpg"
+    },
+    {
+     "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a0/Pelecanus_Philippensis.JPG/250px-Pelecanus_Philippensis.JPG?utm_source=ar.wikipedia.org&utm_campaign=parser&utm_content=thumbnail"
+    },
+    {
+     "url": "https://lookaside.instagram.com/seo/google_widget/crawler/?media_id=3973853544297329316"
+    },
+    {
+     "url": "https://www.arb-occitanie.fr/wp-content/uploads/2023/04/cigogne_S_Baudouin_SMCG_6.jpg"
+    },
+    {
+     "url": "https://www.doi.gov/sites/default/files/styles/medium_4_3/public/tiles/bg-images/roseate-spoonbill-fws.jpg?itok=UdUM2xVI"
+    },
+    {
+     "url": "https://www.nature.org/content/dam/tnc/nature/en/documents/s/o/southern-deltas-brochure-2026.pdf.thumb.1280.1280.png"
+    },
+    {
+     "url": "https://www.eoy.ee/pics/2459_Valge-toonekurg_Joesuus_01.12.2020_Rein_Kalmus.jpg"
+    },
+    {
+     "url": "https://eizie.eus/eu/home-contents/first/carousel/6banda.jpeg/@@images/efe5f5a0-d80d-42df-9adf-03619270b090.jpeg"
+    }
+   ],
+   "webEntities": [
+    {
+     "description": "Birds",
+     "entityId": "/m/015p6",
+     "score": 0.69795
+    },
+    {
+     "description": "Spoonbills",
+     "entityId": "/m/019600",
+     "score": 0.55118835
+    },
+    {
+     "description": "Seabird",
+     "entityId": "/m/012shk",
+     "score": 0.46780887
+    },
+    {
+     "description": "Water",
+     "entityId": "/m/0838f",
+     "score": 0.4359
+    },
+    {
+     "description": "Wader",
+     "entityId": "/m/01d0z1",
+     "score": 0.41976804
+    },
+    {
+     "description": "Cranes",
+     "entityId": "/m/01c43w",
+     "score": 0.4188
+    },
+    {
+     "description": "Stork",
+     "entityId": "/m/0jtjg",
+     "score": 0.40500003
+    },
+    {
+     "description": "Water bird",
+     "entityId": "/g/11h3v8vs_y",
+     "score": 0.3782
+    }
+   ]
+  }
+ }
+}

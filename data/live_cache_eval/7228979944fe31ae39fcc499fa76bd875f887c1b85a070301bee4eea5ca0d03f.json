@@ -1,0 +1,96 @@
+{
+ "requested_at": "2026-09-27T16:43:36+00:00",
+ "vision": {
+  "webDetection": {
+   "bestGuessLabels": [
+    {
+     "label": "architecture"
+    }
+   ],
+   "visuallySimilarImages": [
+    {
+     "url": "https://www.greenpeace.org/static/planet4-czech-republic-stateless/2018/10/01c5dc14-01c5dc14-pocerady-cut.jpg"
+    },
+    {
+     "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/50/Braunkohlekraftwerk.jpg/1280px-Braunkohlekraftwerk.jpg?utm_source=hr.wikipedia.org&utm_campaign=index&utm_content=thumbnail"
+    },
+    {
+     "url": "https://energytracker.asia/wp-content/uploads/2025/03/Captive-Coal-Expansion-in-Indonesia-Risks-Increasing-Costs-and-Threatens-the-Peak-Emissions-by-2030-Target-Photo-by-Jason-Mavrommatis-Source-Unsplash-500x400.jpg"
+    },
+    {
+     "url": "https://www.usatoday.com/gcdn/presto/2022/02/28/USAT/d202dc0c-47ee-45c4-b5c5-7ce2131735c1-XXX_XXX-coal_mining515.JPG?crop=3766,2825,x0,y0"
+    },
+    {
+     "url": "https://static.politico.com/dims4/default/55a1666/2147483647/resize/600/quality/100/?url=https://static.politico.com/c1/30/6161fe2448bb82b79f455f1dcc76/https-delivery-gettyimages.com/downloads/2150754321"
+    },
+    {
+     "url": "https://static.scientificamerican.com/sciam/cache/file/6A10D9AF-AEB1-4E3F-88A05E6E7D14FC65_source.jpg?crop=4%3A3%2Csmart&w=1200"
+    },
+    {
+     "url": "https://www.pressherald.com/wp-content/uploads/sites/4/2026/02/43241379_20250907_woodland-pulp_1A.jpg?w=1200&h=900&crop=1"
+    },
+    {
+     "url": "https://dims.apnews.com/dims4/default/6fe664a/2147483647/strip/true/crop/6779x4524+0+0/resize/599x400!/quality/90/?url=https%3A%2F%2Fassets.apnews.com%2F5d%2Fa8%2F9dde039f1d3b93f40de322de6f38%2F5b9123660f5f4060a82cd6c455fdbdcf"
+    },
+    {
+     "url": "https://healthygulf.org/wp-content/uploads/2021/03/FertilizerPollutionImage.jpg"
+    },
+    {
+     "url": "https://lookaside.instagram.com/seo/google_widget/crawler/?media_id=3977370668451853099"
+    },
+    {
+     "url": "https://www.supplychainschool.ie/wp-content/uploads/sites/6/fly-images/70642/shutterstock_1242727780-1_compressed-scaled-590x450-cc.jpg"
+    },
+    {
+     "url": "https://static.wixstatic.com/media/nsplsh_fa1534d6d95646a99b9465c6890dc4b5~mv2.jpg/v1/fill/w_578,h_440,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/Image%20by%20CDC.jpg"
+    },
+    {
+     "url": "https://storage.ghost.io/c/50/0c/500c32dd-8661-43a5-bab9-407a958ba474/content/images/size/w1000/2025/10/7DGE1XwBeoOH8r7ekeCG.jpg"
+    },
+    {
+     "url": "https://assets.weforum.org/article/image/rBC7gAFdUWErzi_qyynFECURKTn8bYNnUM4SG9LWetw.jpg"
+    },
+    {
+     "url": "https://www.kraj-lbc.cz/getFile/id:584960/type:medium/20240226_141438.jpg"
+    },
+    {
+     "url": "https://storage.ghost.io/c/bd/52/bd52a4c1-eed6-4103-b487-e9a77365f6b3/content/images/2025/11/GettyImages-1807358350-1.jpg"
+    },
+    {
+     "url": "https://www.reuters.com/resizer/v2/2CKZW5AMRNLGTP2MLCXEIGG4ZQ.jpg?auth=ce8d53b0ccc6a83290b5038dfabc7d428a064ddbac17b3c59573d855b2faf615"
+    },
+    {
+     "url": "https://i0.wp.com/nffc.net/wp-content/uploads/2018/06/AA_Iowa-7.jpg?fit=1440%2C810&ssl=1"
+    },
+    {
+     "url": "https://static.spektrum.de/fm/912/f640x360/ethanolplant.jpg"
+    },
+    {
+     "url": "https://www.energynomics.ro/wp-content/uploads/2026/08/CE-Oltenia-site.webp"
+    }
+   ],
+   "webEntities": [
+    {
+     "description": "ArchitectureM RIBA Chartered Practice",
+     "entityId": "/g/1tdvtw8r",
+     "score": 0.3333
+    },
+    {
+     "description": "Tree",
+     "entityId": "/m/07j7r",
+     "score": 0.2982198
+    },
+    {
+     "description": "Parcel",
+     "entityId": "/m/0gs32y",
+     "score": 0.27713344
+    },
+    {
+     "description": "Architecture",
+     "entityId": "/m/03nfmq",
+     "score": 0.27606815
+    }
+   ]
+  }
+ }
+}

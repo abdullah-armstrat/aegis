@@ -1,0 +1,136 @@
+{
+ "requested_at": "2026-09-27T16:47:00+00:00",
+ "vision": {
+  "webDetection": {
+   "bestGuessLabels": [
+    {
+     "label": "tower block"
+    }
+   ],
+   "visuallySimilarImages": [
+    {
+     "url": "https://images-assets.nasa.gov/image/KSC-20260427-PH-FMX01_0035/KSC-20260427-PH-FMX01_0035~large.jpg?w=1920&h=1280&fit=clip&crop=faces%2Cfocalpoint"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=886094766893358"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=4408752369344151"
+    },
+    {
+     "url": "https://utrechtcityinbusiness.nl/wp-content/uploads/2026/03/20250819_160835_web-1024x916.webp"
+    },
+    {
+     "url": "https://www.de-heus.nl/siteassets/over-ons/de-heus-voeders-fabriek-veghel.jpg?format=webp&mode=crop&width=768"
+    },
+    {
+     "url": "https://upload.wikimedia.org/wikipedia/commons/e/e8/OwenSoundHarbour.JPG?utm_source=vo.wikipedia.org&utm_campaign=index&utm_content=original"
+    },
+    {
+     "url": "https://www.esa.int/var/esa/storage/images/esa_multimedia/images/2022/09/rocket_rollback7/24491715-2-eng-GB/Rocket_rollback_card_medium.jpg"
+    },
+    {
+     "url": "https://harboe.com/wp-content/uploads/2024/03/442A6250-scaled.jpg"
+    },
+    {
+     "url": "https://powerplants.vattenfall.com/binaries/medium/content/gallery/powerplants/plants/forsmark10_0.jpg"
+    },
+    {
+     "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1a/Barrow-in-Furness_Wikivoyage_Banner.jpg/3840px-Barrow-in-Furness_Wikivoyage_Banner.jpg?utm_source=en.wikivoyage.org&utm_campaign=index&utm_content=thumbnail"
+    },
+    {
+     "url": "https://media.licdn.com/dms/image/v2/D4E22AQHQGLyzHOu6-A/feedshare-shrink_800/B4EaA397.XHkAc-/0/1787645378797?e=2147483647&v=beta&t=LMelAdYZlXJ3ehcAf4R10weI1wosr9mbQQLmnDn3PRQ"
+    },
+    {
+     "url": "https://www.asc-csa.gc.ca/images/actualites/nouvelles/2026-03-18-artemis-ii-sls-rocket-and-orion-spacecraft-rolled-out-to-launch-pad-ahead-of-april-launch-id-19800-og.jpg"
+    },
+    {
+     "url": "https://media.snl.no/media/150970/standard_Slemmestad_sementfabrikk.jpg"
+    },
+    {
+     "url": "https://stateofgreen.com/en/wp-content/uploads/2026/02/Aalborg-Portland-AdobeStock_761600239_Editorial_Use_Only-800x601.jpeg"
+    },
+    {
+     "url": "https://rijkswaterstaat.imgix.net/hartelkering_tcm26-306633.jpg?crop=entropy&w=1200&h=630"
+    },
+    {
+     "url": "https://darrp.noaa.gov/sites/default/files/node-images/domtar.jpg"
+    },
+    {
+     "url": "https://static.dw.com/image/68187076_903.webp"
+    },
+    {
+     "url": "https://d1rwj3sbvso8ql.cloudfront.net/11-12-2019/t_f9962a3bab6d45cbbc065bff124e0f28_name_5dcb0eacc9e77c0009733855_1466500469229_xjc7df_t_1573588657390_1920_1080_5400_.jpg"
+    },
+    {
+     "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/88/Bentinck_Dock_at_King%27s_Lynn_-_geograph.org.uk_-_228722.jpg/250px-Bentinck_Dock_at_King%27s_Lynn_-_geograph.org.uk_-_228722.jpg?utm_source=en.wikipedia.org&utm_campaign=parser&utm_content=thumbnail"
+    },
+    {
+     "url": "https://static.politico.com/b0/53/ce0bee0f4a2b823b75ba0b887bad/33cccf79a99d4d38bab8938e61ac8b9b.jpeg"
+    }
+   ],
+   "webEntities": [
+    {
+     "description": "Sea-M",
+     "entityId": "/g/11zj3lbsf6",
+     "score": 0.5008
+    },
+    {
+     "description": "Corporate headquarters",
+     "entityId": "/m/03c8phm",
+     "score": 0.35764864
+    },
+    {
+     "description": "High-rise building",
+     "entityId": "/m/0vlys",
+     "score": 0.33196095
+    },
+    {
+     "description": "ArchitectureM RIBA Chartered Practice",
+     "entityId": "/g/1tdvtw8r",
+     "score": 0.3292
+    },
+    {
+     "description": "Headquarters",
+     "entityId": "/m/037rzs",
+     "score": 0.31233606
+    },
+    {
+     "description": "Building",
+     "entityId": "/m/0cgh4",
+     "score": 0.3074
+    },
+    {
+     "description": "Boat",
+     "entityId": "/m/019jd",
+     "score": 0.29508212
+    },
+    {
+     "description": "Commerce",
+     "entityId": "/g/1214lylq",
+     "score": 0.2868
+    },
+    {
+     "description": "Tower",
+     "entityId": "/m/01fdzj",
+     "score": 0.286
+    },
+    {
+     "description": "Commercial property",
+     "entityId": "/m/09fspj",
+     "score": 0.2794
+    },
+    {
+     "description": "Architecture",
+     "entityId": "/m/03nfmq",
+     "score": 0.26954716
+    },
+    {
+     "description": "Corporation",
+     "entityId": "/m/023k2",
+     "score": 0.2427
+    }
+   ]
+  }
+ }
+}

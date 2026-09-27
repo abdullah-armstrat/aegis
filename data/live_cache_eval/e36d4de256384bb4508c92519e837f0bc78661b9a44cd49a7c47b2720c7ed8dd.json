@@ -1,0 +1,246 @@
+{
+ "dated_at": "2026-09-27T17:16:09+00:00",
+ "page_dates": {
+  "https://anncoulter.substack.com/p/video-the-anchor-baby-just-wanted": {
+   "date": "2026-07-21",
+   "source": "htmldate"
+  },
+  "https://www.snopes.com/author/bethania/?pagenum=42": {
+   "date": "2020-07-02",
+   "source": "htmldate"
+  },
+  "https://www.snopes.com/category/photos/?pagenum=32": {
+   "date": "2020-06-26",
+   "source": "htmldate"
+  },
+  "https://www.snopes.com/fact-check/attempted-robbery-target-field/": {
+   "date": "2020-06-26",
+   "source": "htmldate"
+  },
+  "https://www.snopes.com/latest/?pagenum=763": {
+   "date": "2020-07-08",
+   "source": "htmldate"
+  }
+ },
+ "requested_at": "2026-09-27T16:49:12+00:00",
+ "vision": {
+  "webDetection": {
+   "bestGuessLabels": [
+    {
+     "label": "climbing"
+    }
+   ],
+   "fullMatchingImages": [
+    {
+     "url": "https://mediaproxy.snopes.com/width/1200/https://media.snopes.com/2020/06/target-field.jpg"
+    },
+    {
+     "url": "https://mediaproxy.snopes.com/width/600/https://media.snopes.com/2020/06/target-field.jpg"
+    }
+   ],
+   "pagesWithMatchingImages": [
+    {
+     "pageTitle": "12 Climbing Technique Exercises Everyone Should Try - YouTube",
+     "url": "https://www.youtube.com/watch?v=6a_0TP-pj8Q"
+    },
+    {
+     "pageTitle": "Learn 100+ Climbing Techniques With Just 4 Movement Concepts",
+     "url": "https://www.youtube.com/watch?v=a8DTOztiuLM"
+    },
+    {
+     "pageTitle": "The Biggest Climbing Hack for Rapid Progress: Climbing with Intent",
+     "url": "https://www.youtube.com/watch?v=03hy_n0nees"
+    },
+    {
+     "pageTitle": "HowNOT2 \u2013 Intro to Sport Climbing ft. Hard is Easy - YouTube",
+     "url": "https://www.youtube.com/watch?v=yxNYyCONYGo"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://mediaproxy.snopes.com/width/600/https://media.snopes.com/2020/06/target-field.jpg"
+      },
+      {
+       "url": "https://mediaproxy.snopes.com/width/1200/https://media.snopes.com/2020/06/target-field.jpg"
+      }
+     ],
+     "pageTitle": "Does This Video Show a Man Being Assaulted by BLM Protesters?",
+     "url": "https://www.snopes.com/fact-check/attempted-robbery-target-field/"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://mediaproxy.snopes.com/width/600/https://media.snopes.com/2020/06/target-field.jpg"
+      }
+     ],
+     "pageTitle": "Bethania Palma, Author at Snopes.com Page 42",
+     "url": "https://www.snopes.com/author/bethania/?pagenum=42"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://mediaproxy.snopes.com/width/600/https://media.snopes.com/2020/06/target-field.jpg"
+      }
+     ],
+     "pageTitle": "What's New | Page 763 | Snopes.com",
+     "url": "https://www.snopes.com/latest/?pagenum=763"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://mediaproxy.snopes.com/width/600/https://media.snopes.com/2020/06/target-field.jpg"
+      }
+     ],
+     "pageTitle": "Fauxtography Archives | Page 32 - Snopes.com",
+     "url": "https://www.snopes.com/category/photos/?pagenum=32"
+    },
+    {
+     "pageTitle": "The Anchor Baby Just Wanted Welfare: Jason Richwine Interview",
+     "partialMatchingImages": [
+      {
+       "url": "https://substackcdn.com/image/fetch/$s_!PQw6!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F3919b03c-b537-4cfd-a2b6-3715c29405c8_1284x854.png"
+      }
+     ],
+     "url": "https://anncoulter.substack.com/p/video-the-anchor-baby-just-wanted"
+    }
+   ],
+   "partialMatchingImages": [
+    {
+     "url": "https://substackcdn.com/image/fetch/$s_!PQw6!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F3919b03c-b537-4cfd-a2b6-3715c29405c8_1284x854.png"
+    }
+   ],
+   "visuallySimilarImages": [
+    {
+     "url": "https://media.springernature.com/lw685/springer-static/image/art%3A10.1007%2Fs11042-024-19146-3/MediaObjects/11042_2024_19146_Fig17_HTML.jpg"
+    },
+    {
+     "url": "https://media.springernature.com/lw1200/springer-static/image/art%3A10.1007%2Fs13278-021-00807-2/MediaObjects/13278_2021_807_Fig8_HTML.jpg"
+    },
+    {
+     "url": "x-raw-image:///3fcfa58928df0d0277e72184f973e31c0e4e5bc5cd612cc7a34a3200090d3f3e"
+    },
+    {
+     "url": "https://www.mdpi.com/applsci/applsci-14-09349/article_deploy/html/images/applsci-14-09349-g005.png"
+    },
+    {
+     "url": "https://ars.els-cdn.com/content/image/1-s2.0-S0030402617308872-gr6.jpg"
+    },
+    {
+     "url": "https://i0.wp.com/media.globalnews.ca/videostatic/news/44vjnpb1jt-1hh7ihbbxn/GNM-Fr-SLPC_WEB_thumbnail_1280x720.jpg?w=1200&quality=70&strip=all"
+    },
+    {
+     "url": "https://media.springernature.com/lw1200/springer-static/image/art%3A10.1007%2Fs11760-019-01474-9/MediaObjects/11760_2019_1474_Fig7_HTML.jpg"
+    },
+    {
+     "url": "https://phosphor.utils.elfsightcdn.com/?url=https%3A%2F%2Fscontent-bru2-1.cdninstagram.com%2Fv%2Ft51.82787-15%2F729716775_18142758457537589_6079158703076969634_n.jpg%3Fstp%3Ddst-jpg_e15_s360x360_tt6%26_nc_cat%3D100%26ig_cache_key%3DMzkyNTEyNjY2NTc3MTM3NzE3OTE4MTQyNzU4NDUxNTM3NTg5.3-ccb7-5%26ccb%3D7-5%26_nc_sid%3D58cdad%26efg%3DeyJ2ZW5jb2RlX3RhZyI6IkNMSVBTLnhwaWRzLjcyMC5zZHIudmlkZW9fZGVmYXVsdF9jb3Zlcl9mcmFtZS5DMyJ9%26_nc_ohc%3DdTKuvgF817cQ7kNvwFIwnvO%26_nc_oc%3DAdq9KXietYIBWVrpV26eADCFNnzoldeSTPz5idwxS3PzbvkRT9vdIlLHBI4XOch6NjY%26_nc_ad%3Dz-m%26_nc_cid%3D0%26_nc_zt%3D23%26_nc_ht%3Dscontent-bru2-1.cdninstagram.com%26_nc_gid%3DS-O1nnsQz86hM8ArdLF2Gw%26_nc_ss%3D7a3ba%26oh%3D00_Af8syt3OriWOI44HXkDVGMMxMyn1qsK6lkEBjpxlaZ_-YA%26oe%3D6A405CCE"
+    },
+    {
+     "url": "https://www.waikato.ac.nz/assets/Uploads/About-us/Major-projects/Hillcrest-Campus-Masterplan/living-campus.webp"
+    },
+    {
+     "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4f/Shoefiti_Europaplatz_Bern_11.jpg/500px-Shoefiti_Europaplatz_Bern_11.jpg?utm_source=it.wikipedia.org&utm_campaign=parser&utm_content=thumbnail"
+    },
+    {
+     "url": "https://img.redbull.com/images/c_fill,g_auto,w_400,h_267/q_auto,f_auto/redbullcom/2026/9/21/kztrq4jrjsuytxyyl8y3/skaters-tackle-features-during-red-bull-origin-at-brooklyn-banks"
+    },
+    {
+     "url": "https://www.webjapan.co.jp/wp-content/uploads/2025/10/helmet.png"
+    },
+    {
+     "url": "https://images.vpro.nl/1lpyq7lljlzf/ex_555,ey_0,eh_1080,ew_810,w_384/source.webp"
+    },
+    {
+     "url": "https://www.skole-foraeldre.dk/sites/default/files/styles/teaser_image/public/langelinieskolen_20150319_00228_0_0.jpg?itok=e1PKRnGw"
+    },
+    {
+     "url": "https://www.publicspace.be/media/pages/genk/7aa43d2fbd-1726473856/ps-tent-0098.webp"
+    },
+    {
+     "url": "https://journals.openedition.org/eue/docannexe/image/538/img-10-small580.png"
+    },
+    {
+     "url": "https://image.trouw.nl/278187383/feature-crop/1200/1200/afbeelding"
+    },
+    {
+     "url": "https://i.ytimg.com/vi/WlIYa3lH5UI/maxresdefault.jpg"
+    },
+    {
+     "url": "https://images.pexels.com/photos/11897993/pexels-photo-11897993.jpeg?cs=tinysrgb&dpr=1&w=500"
+    },
+    {
+     "url": "https://1gr.cz/fotky/idnes/18/022/vidw/BUR715ada_e91c5533c90c43fdbdbd14773f4d6ac2_0.jpg"
+    }
+   ],
+   "webEntities": [
+    {
+     "description": "Snopes",
+     "entityId": "/m/02dkt6",
+     "score": 0.8663
+    },
+    {
+     "description": "Climbing",
+     "entityId": "/m/01rwk",
+     "score": 0.6158403
+    },
+    {
+     "description": "Sport climbing",
+     "entityId": "/m/03bgj7",
+     "score": 0.4257
+    },
+    {
+     "description": "Hard is Easy",
+     "entityId": "/g/11yf0n804n",
+     "score": 0.3128
+    },
+    {
+     "description": "just",
+     "entityId": "/g/11ryz3dn2g",
+     "score": 0.2788
+    },
+    {
+     "description": "Rumble",
+     "entityId": "/g/11lm7rcc21",
+     "score": 0.269
+    },
+    {
+     "description": "past",
+     "entityId": "/g/11rhr38347",
+     "score": 0.2614
+    },
+    {
+     "description": "Climbing technique",
+     "entityId": "/m/01szx1",
+     "score": 0.254
+    },
+    {
+     "description": "How NOT 2",
+     "entityId": "/g/11xzlby2w0",
+     "score": 0.2464
+    },
+    {
+     "entityId": "/m/0svml3_",
+     "score": 0.2285
+    },
+    {
+     "description": "YouTube",
+     "entityId": "/m/09jcvs",
+     "score": 0.2285
+    },
+    {
+     "description": "Law",
+     "entityId": "/m/04gb7",
+     "score": 0.19
+    },
+    {
+     "entityId": "/t/2brmx5slpnwr5",
+     "score": 0.19
+    },
+    {
+     "description": "Bethania Palma",
+     "entityId": "/g/11gbhdwbbl",
+     "score": 0.05409
+    }
+   ]
+  }
+ }
+}

@@ -1,0 +1,81 @@
+{
+ "requested_at": "2026-09-27T16:43:22+00:00",
+ "vision": {
+  "webDetection": {
+   "bestGuessLabels": [
+    {
+     "label": "tree"
+    }
+   ],
+   "visuallySimilarImages": [
+    {
+     "url": "https://grapevine.is/wp-content/uploads/2026/08/011_p6_IMG-7380-copy-480x340.webp"
+    },
+    {
+     "url": "https://www.kernenergieinnederland.nl/files/images/19891026-kcd.jpg"
+    },
+    {
+     "url": "https://wildnis-wandern.de/wp-content/uploads/2021/12/womo_etappen_norwegen_n_014.jpg"
+    },
+    {
+     "url": "https://static.ffx.io/images/$zoom_0.423%2C$multiply_2%2C$ratio_1.5%2C$width_756%2C$x_10%2C$y_0/t_crop_custom/c_scale%2Cw_620%2Cq_88%2Cf_auto/8d84cafeb953b03beaaca6c8510d7fba5248c3c0"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/instagram/DBgzIWqyMu0/0/image.jpg"
+    },
+    {
+     "url": "https://www.petitfute.com/medias/mag/30425/originale/33217-la-cite-de-l-espace-a.jpg"
+    },
+    {
+     "url": "https://img.img-cdn.yle.fi/crop_extract,w_5447,h_3063,x_0,y_471/crop_fill,w_1200,h_675/f_auto/39-136066767064d9f110ee/1728467319"
+    },
+    {
+     "url": "https://img.epravda.com.ua/epravda/images/doc/8/d/97846/8da467f21ba5650fe7def554be42b4d4.jpeg"
+    },
+    {
+     "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e2/Kraftwerk_Zolling_Gesamtansicht.jpg/1280px-Kraftwerk_Zolling_Gesamtansicht.jpg?utm_source=de.wikipedia.org&utm_campaign=index&utm_content=thumbnail"
+    },
+    {
+     "url": "https://www.tiktok.com/api/img/?itemId=7427042343204752658&location=0&aid=1988"
+    },
+    {
+     "url": "https://www.wastetodaymagazine.com/remote/aHR0cHM6Ly9naWVjZG4uYmxvYi5jb3JlLndpbmRvd3MubmV0L2ZpbGV1cGxvYWRzL2ltYWdlLzIwMjYvMDgvMTIvd2lud2FzdGVodWRzb253ZWIuanBn.HKXev34-xo4.jpg?format=webp"
+    },
+    {
+     "url": "https://upload.wikimedia.org/wikipedia/commons/5/5f/Lehi_Monument.jpg?utm_source=he.wikipedia.org&utm_campaign=index&utm_content=original"
+    },
+    {
+     "url": "https://upload.wikimedia.org/wikipedia/commons/e/ed/Lakeuden_risti_church_20180925.jpg?utm_source=eo.wikipedia.org&utm_campaign=index&utm_content=original"
+    },
+    {
+     "url": "https://lookaside.instagram.com/seo/google_widget/crawler/?media_id=3849294085253752338"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=654101440448548&get_thumbnail=1"
+    },
+    {
+     "url": "https://svd.vgc.no/v2/images/aec2f96a-716b-419d-b9fd-cbb200b25971?fit=crop&format=auto&h=653&q=90&upscale=true&w=980&s=c0c573c3c229a5db79e3439eb9fa20757560e452"
+    },
+    {
+     "url": "https://cloudfront-eu-central-1.images.arcpublishing.com/irishtimes/VTYNI6NDQBP4D4HL23A27GY6QE.jpg"
+    },
+    {
+     "url": "https://lookaside.instagram.com/seo/google_widget/crawler/?media_id=3967326288700146588"
+    },
+    {
+     "url": "https://www.tiktok.com/api/img/?itemId=7162995718045633834&location=0&aid=1988"
+    },
+    {
+     "url": "https://cdn.prod.www.spiegel.de/images/ebefd937-357b-4f46-a59f-71a06dbda7b2_w488_r1.33_fpx46.66_fpy50.jpg"
+    }
+   ],
+   "webEntities": [
+    {
+     "description": "Tree",
+     "entityId": "/m/07j7r",
+     "score": 0.33120155
+    }
+   ]
+  }
+ }
+}

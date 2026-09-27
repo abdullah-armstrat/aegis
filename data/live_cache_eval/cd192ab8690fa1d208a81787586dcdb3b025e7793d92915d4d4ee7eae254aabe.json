@@ -1,0 +1,408 @@
+{
+ "dated_at": "2026-09-27T17:19:20+00:00",
+ "page_dates": {
+  "https://7news.com.au/weather/climate-change/the-real-story-behind-viral-photo-of-climate-change-protesters-leaving-rubbish-behind-in-sydneys-hyde-park-c-465028": {
+   "date": null,
+   "source": null
+  },
+  "https://cpas.anu.edu.au/news-events/news/merchants-misinformation-are-all-over-internet-real-problem-lies-us": {
+   "date": "2019-10-14",
+   "source": "htmldate"
+  },
+  "https://politifact.com/factchecks/2019/sep/24/facebook-posts/photo-doesnt-show-trash-left-climate-strike-protes/": {
+   "date": "2020-11-12",
+   "source": "wayback"
+  },
+  "https://thewest.com.au/news/climate-change/the-picture-of-rubbish-left-behind-by-climate-change-protest-exposed-as-fake-news-ng-b881330417z": {
+   "date": "2019-09-22",
+   "source": "wayback"
+  },
+  "https://today.rtl.lu/news/luxembourg/hoax-facebook-post-denigrating-luxembourg-protesters-goes-viral-1407157": {
+   "date": "2019-09-22",
+   "source": "htmldate"
+  },
+  "https://www.facebook.com/RogueWeatherNow/posts/edited-at-730-pmi-posted-the-photo-below-after-seeing-it-earlier-today-i-did-do-/3242004705825043/": {
+   "date": null,
+   "source": null
+  },
+  "https://www.nzherald.co.nz/world/hoax-climate-change-photo-shared-more-than-34000-times-outrages-facebook-users/QSIVRNR557TOCWY53MSF7GIRRY/": {
+   "date": "2019-09-21",
+   "source": "htmldate"
+  },
+  "https://www.pedestrian.tv/news/climate-strike-rubbish-photo-hoax/": {
+   "date": "2019-09-21",
+   "source": "htmldate"
+  },
+  "https://www.perthnow.com.au/news/environment/the-picture-of-rubbish-left-behind-by-climate-change-protest-exposed-as-fake-news-ng-b881330435z": {
+   "date": null,
+   "source": null
+  },
+  "https://www.theguardian.com/environment/2019/sep/21/climate-strikes-hoax-photo-accusing-australian-protesters-of-leaving-rubbish-behind-goes-viral": {
+   "date": "2019-09-21",
+   "source": "htmldate"
+  }
+ },
+ "requested_at": "2026-09-27T16:52:01+00:00",
+ "vision": {
+  "webDetection": {
+   "bestGuessLabels": [
+    {
+     "label": "hyde park extinction rebellion",
+     "languageCode": "en"
+    }
+   ],
+   "fullMatchingImages": [
+    {
+     "url": "https://visibility-digital.com/wp-content/uploads/sites/2/2024/08/hoax-the-royal-parks.webp"
+    },
+    {
+     "url": "http://www.e-bezpeci.cz/images/odpadky_hoax.jpg"
+    },
+    {
+     "url": "https://i.guim.co.uk/img/media/d9e478fe328e62f581d86b20de8d9dab29f2d86f/0_95_1283_770/master/1283.jpg?width=1200&quality=85&auto=format&fit=max&s=15ce3e9064741005c747573a270ec477"
+    },
+    {
+     "url": "https://i.guim.co.uk/img/media/d9e478fe328e62f581d86b20de8d9dab29f2d86f/0_95_1283_770/master/1283.jpg?width=700&quality=85&auto=format&fit=max&s=0b0b4d1f89dddfa05a9b4621f79561d5"
+    },
+    {
+     "url": "https://i.guim.co.uk/img/media/d9e478fe328e62f581d86b20de8d9dab29f2d86f/0_95_1283_770/master/1283.jpg?width=465&dpr=1&s=none&crop=none"
+    }
+   ],
+   "pagesWithMatchingImages": [
+    {
+     "pageTitle": "The real story behind viral photo of rubbish left behind 'after climate ...",
+     "partialMatchingImages": [
+      {
+       "url": "https://images.7news.com.au/publication/C-465028/b21165abadd3234b4d41f1bbf27283a78ef215d2-16x9-x0y0w1920h1080.png"
+      }
+     ],
+     "url": "https://7news.com.au/weather/climate-change/the-real-story-behind-viral-photo-of-climate-change-protesters-leaving-rubbish-behind-in-sydneys-hyde-park-c-465028"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://i.guim.co.uk/img/media/d9e478fe328e62f581d86b20de8d9dab29f2d86f/0_95_1283_770/master/1283.jpg?width=465&dpr=1&s=none&crop=none"
+      },
+      {
+       "url": "https://i.guim.co.uk/img/media/d9e478fe328e62f581d86b20de8d9dab29f2d86f/0_95_1283_770/master/1283.jpg?width=1200&quality=85&auto=format&fit=max&s=15ce3e9064741005c747573a270ec477"
+      },
+      {
+       "url": "https://i.guim.co.uk/img/media/d9e478fe328e62f581d86b20de8d9dab29f2d86f/0_95_1283_770/master/1283.jpg?width=700&quality=85&auto=format&fit=max&s=0b0b4d1f89dddfa05a9b4621f79561d5"
+      }
+     ],
+     "pageTitle": "Climate strikes: hoax photo accusing Australian protesters of leaving ...",
+     "url": "https://www.theguardian.com/environment/2019/sep/21/climate-strikes-hoax-photo-accusing-australian-protesters-of-leaving-rubbish-behind-goes-viral"
+    },
+    {
+     "pageTitle": "Hyde Park trash aftermath blamed on pot rally, not environmental ...",
+     "partialMatchingImages": [
+      {
+       "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=3242004399158407"
+      }
+     ],
+     "url": "https://www.facebook.com/RogueWeatherNow/posts/edited-at-730-pmi-posted-the-photo-below-after-seeing-it-earlier-today-i-did-do-/3242004705825043/"
+    },
+    {
+     "pageTitle": "what pushes people to drastic action on climate change? - YouTube",
+     "url": "https://www.youtube.com/watch?v=7FitSDGF6o0"
+    },
+    {
+     "pageTitle": "Extinction Rebellion is a \"loopy middle-class doomsday cult\"",
+     "url": "https://www.youtube.com/watch?v=aWXDo41mkGE"
+    },
+    {
+     "pageTitle": "How Extinction Rebellion Became A Global Climate Movement",
+     "url": "https://www.youtube.com/watch?v=cuwe2cnGNhk"
+    },
+    {
+     "pageTitle": "Hoax Facebook post denigrating Luxembourg protesters goes viral",
+     "partialMatchingImages": [
+      {
+       "url": "https://static-prod.rtl.lu/dims4/default/d4eb276/2147483647/strip/true/crop/1024x576+0+152/resize/1032x581!/quality/90/?url=https%3A%2F%2Frtl-luxembourg-new-production-web.s3.eu-central-1.amazonaws.com%2Fbrightspot%2F30%2F21%2F4508aa0d9eee37cc939374c31a8d%2Fce7a6f446e780b3527773f2410520898.png"
+      },
+      {
+       "url": "https://static-prod.rtl.lu/dims4/default/690a565/2147483647/strip/false/crop/1024x881+0+0/resize/1024x881!/quality/90/?url=https%3A%2F%2Frtl-luxembourg-new-production-web.s3.eu-central-1.amazonaws.com%2Fbrightspot%2F30%2F21%2F4508aa0d9eee37cc939374c31a8d%2Fce7a6f446e780b3527773f2410520898.png"
+      },
+      {
+       "url": "https://static-prod.rtl.lu/dims4/default/cf9222b/2147483647/strip/true/crop/1024x577+0+152/resize/492x277!/quality/90/?url=https%3A%2F%2Frtl-luxembourg-new-production-web.s3.eu-central-1.amazonaws.com%2Fbrightspot%2F30%2F21%2F4508aa0d9eee37cc939374c31a8d%2Fce7a6f446e780b3527773f2410520898.png"
+      },
+      {
+       "url": "https://static-prod.rtl.lu/dims4/default/8da75ad/2147483647/strip/true/crop/1024x576+0+152/resize/1224x689!/quality/90/?url=https%3A%2F%2Frtl-luxembourg-new-production-web.s3.eu-central-1.amazonaws.com%2Fbrightspot%2F30%2F21%2F4508aa0d9eee37cc939374c31a8d%2Fce7a6f446e780b3527773f2410520898.png"
+      }
+     ],
+     "url": "https://today.rtl.lu/news/luxembourg/hoax-facebook-post-denigrating-luxembourg-protesters-goes-viral-1407157"
+    },
+    {
+     "pageTitle": "The Sea is Rising and so are We | Extinction Rebellion - YouTube",
+     "url": "https://www.youtube.com/watch?v=_Z7DbR9VY9E"
+    },
+    {
+     "pageTitle": "The picture of rubbish 'left behind by climate change protest ...",
+     "partialMatchingImages": [
+      {
+       "url": "https://images.thewest.com.au/publication/B881330417Z/1569040468200_GN62DT7SJ.1-0.png"
+      },
+      {
+       "url": "https://images.thewest.com.au/publication/B881330417Z/1569040468200_GN62DT8AT.1-0.png"
+      }
+     ],
+     "url": "https://thewest.com.au/news/climate-change/the-picture-of-rubbish-left-behind-by-climate-change-protest-exposed-as-fake-news-ng-b881330417z"
+    },
+    {
+     "pageTitle": "The picture of rubbish 'left behind by climate change protest ...",
+     "partialMatchingImages": [
+      {
+       "url": "https://images.perthnow.com.au/publication/B881330435Z/1569040421205_GN62DT7SJ.3-0.png?imwidth=668&impolicy=pn_v3"
+      },
+      {
+       "url": "https://images.perthnow.com.au/publication/B881330435Z/1569040421205_GN62DT8AT.1-0.png?imwidth=668&impolicy=pn_v3"
+      }
+     ],
+     "url": "https://www.perthnow.com.au/news/environment/the-picture-of-rubbish-left-behind-by-climate-change-protest-exposed-as-fake-news-ng-b881330435z"
+    },
+    {
+     "pageTitle": "Mid-August Climate Justice Actions - Extinction Rebellion PDX",
+     "url": "https://xrpdx.org/mid-august-climate-justice-actions/"
+    },
+    {
+     "pageTitle": "This photo doesn't show trash left by climate strike protesters",
+     "partialMatchingImages": [
+      {
+       "url": "https://politifact.com/wp-content/uploads/2025/10/Screen_Shot_2019-09-24_at_2.06.20_PM.jpg"
+      }
+     ],
+     "url": "https://politifact.com/factchecks/2019/sep/24/facebook-posts/photo-doesnt-show-trash-left-climate-strike-protes/"
+    },
+    {
+     "pageTitle": "air quality Archives - Extinction Rebellion PDX",
+     "url": "https://xrpdx.org/tag/air-quality/"
+    },
+    {
+     "pageTitle": "Hoax climate change photo shared more than 34000 times outrages ...",
+     "partialMatchingImages": [
+      {
+       "url": "https://www.nzherald.co.nz/resizer/v2/Y65QTN7F23Q575YQBUQVWXN3UI.jpg?auth=1dc57072afae0ec2a91fb0b1b98541da2ac14cfc80e96c3a592eaad3b8e0bb37&width=576&height=613&quality=70&smart=true"
+      }
+     ],
+     "url": "https://www.nzherald.co.nz/world/hoax-climate-change-photo-shared-more-than-34000-times-outrages-facebook-users/QSIVRNR557TOCWY53MSF7GIRRY/"
+    },
+    {
+     "pageTitle": "Multnomah County Archives - Extinction Rebellion PDX",
+     "url": "https://xrpdx.org/tag/multnomah-county/"
+    },
+    {
+     "pageTitle": "Hyde Park Teen Takeover on Halloween Night 2025 in Chicago",
+     "url": "https://www.facebook.com/SubX.News/videos/hyde-park-teen-takeover-dismissive-command-scared-citizens-report-of-person-with/4207642499495387/"
+    },
+    {
+     "pageTitle": "Gene Park has Joined The Rebellion\u2122 : r/TwoBestFriendsPlay",
+     "url": "https://www.reddit.com/r/TwoBestFriendsPlay/comments/1ms8nqx/gene_park_has_joined_the_rebellion/"
+    },
+    {
+     "pageTitle": "Teen 'takeovers' spark chaos in US cities, fueling debate over ...",
+     "url": "https://thenationaldesk.com/top-videos/teen-takeovers-spark-chaos-in-us-cities-fueling-debate-over-response-washington-dc-jeanine-pirro-chicago-hyde-park-crime-theft"
+    },
+    {
+     "pageTitle": "Climate Strike Rubbish Photo Turns Out To Be A Hoax - Pedestrian TV",
+     "partialMatchingImages": [
+      {
+       "url": "https://www.pedestrian.tv/wp-content/uploads/2019/09/Screen-Shot-2019-09-21-at-7.27.44-pm.png?quality=75&w=320&h=180&crop=1"
+      }
+     ],
+     "url": "https://www.pedestrian.tv/news/climate-strike-rubbish-photo-hoax/"
+    },
+    {
+     "pageTitle": "Merchants of misinformation are all over the internet. But the real ...",
+     "partialMatchingImages": [
+      {
+       "url": "https://images.theconversation.com/files/293539/original/file-20190923-54754-ldx86f.jpeg?ixlib=rb-1.1.0&q=45&auto=format&w=754&fit=clip"
+      }
+     ],
+     "url": "https://cpas.anu.edu.au/news-events/news/merchants-misinformation-are-all-over-internet-real-problem-lies-us"
+    }
+   ],
+   "partialMatchingImages": [
+    {
+     "url": "https://i.guim.co.uk/img/media/d9e478fe328e62f581d86b20de8d9dab29f2d86f/0_95_1283_770/master/1283.jpg?width=220&dpr=1&s=none&crop=5%3A4"
+    },
+    {
+     "url": "https://www.pedestrian.tv/wp-content/uploads/2019/09/Screen-Shot-2019-09-21-at-7.27.44-pm.png?quality=75&w=320&h=180&crop=1"
+    },
+    {
+     "url": "https://images.thewest.com.au/publication/B881330417Z/1569040468200_GN62DT7SJ.1-0.png"
+    },
+    {
+     "url": "https://images.theconversation.com/files/293539/original/file-20190923-54754-ldx86f.jpeg?ixlib=rb-4.1.1&q=45&auto=format&w=754&fit=clip"
+    },
+    {
+     "url": "https://static-prod.rtl.lu/dims4/default/690a565/2147483647/strip/false/crop/1024x881+0+0/resize/1024x881!/quality/90/?url=https%3A%2F%2Frtl-luxembourg-new-production-web.s3.eu-central-1.amazonaws.com%2Fbrightspot%2F30%2F21%2F4508aa0d9eee37cc939374c31a8d%2Fce7a6f446e780b3527773f2410520898.png"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=3242004399158407"
+    },
+    {
+     "url": "https://static-prod.rtl.lu/dims4/default/cf9222b/2147483647/strip/true/crop/1024x577+0+152/resize/492x277!/quality/90/?url=https%3A%2F%2Frtl-luxembourg-new-production-web.s3.eu-central-1.amazonaws.com%2Fbrightspot%2F30%2F21%2F4508aa0d9eee37cc939374c31a8d%2Fce7a6f446e780b3527773f2410520898.png"
+    },
+    {
+     "url": "https://www.nzherald.co.nz/resizer/v2/Y65QTN7F23Q575YQBUQVWXN3UI.jpg?auth=1dc57072afae0ec2a91fb0b1b98541da2ac14cfc80e96c3a592eaad3b8e0bb37&width=576&height=613&quality=70&smart=true"
+    },
+    {
+     "url": "https://images.7news.com.au/publication/C-465028/b21165abadd3234b4d41f1bbf27283a78ef215d2-16x9-x0y0w1920h1080.png"
+    },
+    {
+     "url": "https://images.perthnow.com.au/publication/B881330435Z/1569040421205_GN62DT7SJ.3-0.png?imwidth=668&impolicy=pn_v3"
+    },
+    {
+     "url": "https://static-prod.rtl.lu/dims4/default/d4eb276/2147483647/strip/true/crop/1024x576+0+152/resize/1032x581!/quality/90/?url=https%3A%2F%2Frtl-luxembourg-new-production-web.s3.eu-central-1.amazonaws.com%2Fbrightspot%2F30%2F21%2F4508aa0d9eee37cc939374c31a8d%2Fce7a6f446e780b3527773f2410520898.png"
+    },
+    {
+     "url": "https://static-prod.rtl.lu/dims4/default/ebf2991/2147483647/strip/true/crop/1024x576+0+152/resize/1224x689!/quality/90/?url=https%3A%2F%2Frtl-luxembourg-new-production-web.s3.eu-central-1.amazonaws.com%2Fbrightspot%2F03%2Fea%2F72c7f245cbc560bd2a8aca775fbd%2Fa0b99bb702dfbc8f2fbf37b6bd00fe77.png"
+    },
+    {
+     "url": "https://images.thewest.com.au/publication/B881330417Z/1569040468200_GN62DT8AT.1-0.png"
+    },
+    {
+     "url": "https://images.perthnow.com.au/publication/B881330435Z/1569040421205_GN62DT8AT.1-0.png?imwidth=668&impolicy=pn_v3"
+    },
+    {
+     "url": "https://assets.sbs.com.au/dims4/default/a50062b/2147483647/strip/true/crop/494x278+0+120/resize/1280x720!/quality/90/?url=https%3A%2F%2Fsbs-au-brightspot.s3.ap-southeast-2.amazonaws.com%2Fdrupal%2Fyourlanguage%2Fpublic%2Fthe_post_from_the_australian_youth_coal_coalition_went_viral.jpg"
+    },
+    {
+     "url": "https://images.theconversation.com/files/312965/original/file-20200130-41507-pd14ii.PNG?ixlib=rb-1.1.0&q=45&auto=format&w=1000&fit=clip"
+    },
+    {
+     "url": "https://politifact.com/wp-content/uploads/2025/10/Screen_Shot_2019-09-24_at_2.06.20_PM.jpg"
+    }
+   ],
+   "visuallySimilarImages": [
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/instagram/DWFDDYRAm_N/0/image.jpg"
+    },
+    {
+     "url": "https://media.rff.org/images/shutterstock_8714521.2e16d0ba.fill-619x619.jpg"
+    },
+    {
+     "url": "https://lookaside.instagram.com/seo/google_widget/crawler/?media_id=3976092073189595255"
+    },
+    {
+     "url": "https://www.solidarnosc.p.lodz.pl/wp-content/uploads/2022/05/StockSnap_LTKV70U67U-scaled.jpg"
+    },
+    {
+     "url": "https://media.licdn.com/dms/image/v2/D5622AQEGNnwZas026g/feedshare-shrink_800/B56aDQGP0LIUAc-/0/1790197695573?e=2147483647&v=beta&t=PXh7kcdMyIA2bKHnbh55FZj9xfejXqME2oeFk5mZWn8"
+    },
+    {
+     "url": "https://www.prospectpark.org/wp-content/uploads/filer_public/dd/3c/dd3c8234-849d-4dbd-9916-69b0c7d9e38c/rs4070_029-lpr.jpg"
+    },
+    {
+     "url": "https://prod-img.standaard.be/public/nieuws/yygkq2-file87qb1cu3uv7kbh7oj8k/alternates/SIXTEEN_NINE_1200/file87qb1cu3uv7kbh7oj8k"
+    },
+    {
+     "url": "https://www.royalparks.org.uk/sites/default/files/2023-06/Visitors%20enjoying%20the%20sunshine%20in%20The%20Green%20Park.jpg"
+    },
+    {
+     "url": "https://ghum.kuleuven.be/NL/images/park-mg-7272s-lr-web-xsysx.jpg/@@images/image-0-430d6eb86859afabffc98eff645a10fb.jpeg"
+    },
+    {
+     "url": "https://www.sciencespo-rennes.fr/sites/default/files/styles/large/public/media/2022-10/6-thabor_rennes.png?itok=HWSjHVMy"
+    },
+    {
+     "url": "https://media.licdn.com/dms/image/v2/D4D22AQHU5qIiDq-UFg/feedshare-shrink_800/B4DZ9_atxlK8Ag-/0/1784549142616?e=2147483647&v=beta&t=Atq2w1NrwNyKZ_CcnDPof-YUF1j3bjsscC-jNZBTmPk"
+    },
+    {
+     "url": "https://uni-tuebingen.de/fileadmin/_processed_/3/4/csm_Abschluss_113_b02edb73e3.webp"
+    },
+    {
+     "url": "https://i0.wp.com/thefifthestate.com.au/wp-content/uploads/1970/06/AdobeStock_9198152.jpeg?resize=800%2C600&ssl=1"
+    },
+    {
+     "url": "https://www.parkinson.org/sites/default/files/styles/1920px_wide/public/images/cards-three-up-1.jpg?itok=zbLanTVI"
+    },
+    {
+     "url": "https://s.aolcdn.com/images/dims?format=jpg&quality=80&thumbnail=480%2C270%2Cauto&image_uri=https%3A%2F%2Fhermes.media.static.aol.com%2Fmedia%2F2026%2F09%2F23%2F30f69254-c95f-3343-ae4a-376a56a8ee9e%2Fcaaff21b-c3d2-4281-94fb-d18df9a778b6.jpg&client=76f99bdb8f78cd44cc0b&signature=8706302d73b90d4eaeaf35fc77f9349cb4441e11"
+    },
+    {
+     "url": "https://www.tiktok.com/api/img/?itemId=7498878725165976875&location=0&aid=1988"
+    },
+    {
+     "url": "https://www.uni-potsdam.de/fileadmin/projects/up-entdecken/migrated_contents/WarmUP2020_Online_dMdM_KSG_01.jpg"
+    },
+    {
+     "url": "https://cdn.prod.www.spiegel.de/images/e68c382e-ed01-49a6-92ff-6f394095bd43_w488_r1.33_fpx49_fpy59.jpg"
+    },
+    {
+     "url": "https://www.centralpark.com/downloads/7903/download/yoga-pose.jpg?cb=b6f42bdef0a2b6911f05e778fe8cea2f"
+    },
+    {
+     "url": "https://www.pewresearch.org/wp-content/uploads/sites/20/2025/07/SR_25.07.09_world-pop_featured.png"
+    }
+   ],
+   "webEntities": [
+    {
+     "description": "Extinction Rebellion",
+     "entityId": "/g/11fhwknqrx",
+     "score": 0.7248
+    },
+    {
+     "description": "September 2019 climate strikes",
+     "entityId": "/g/11h_f7mjt0",
+     "score": 0.69194996
+    },
+    {
+     "description": "Fridays for Future",
+     "entityId": "/g/11fk4qx_fj",
+     "score": 0.38535002
+    },
+    {
+     "description": "Climate movement",
+     "entityId": "/m/012kx8cp",
+     "score": 0.3724
+    },
+    {
+     "description": "unreal",
+     "entityId": "/g/11pclxw8ft",
+     "score": 0.3587
+    },
+    {
+     "description": "350PDX",
+     "entityId": "/g/11bx1yfqtf",
+     "score": 0.3419
+    },
+    {
+     "description": "Climate justice",
+     "entityId": "/m/0g5846q",
+     "score": 0.2891
+    },
+    {
+     "description": "Natural environment",
+     "entityId": "/m/02py09",
+     "score": 0.2776
+    },
+    {
+     "description": "succeeding",
+     "entityId": "/g/11spgy0dz3",
+     "score": 0.2719
+    },
+    {
+     "description": "Strike action",
+     "entityId": "/m/0149p3",
+     "score": 0.2653
+    },
+    {
+     "description": "near",
+     "entityId": "/g/120z94z5n",
+     "score": 0.2632
+    },
+    {
+     "description": "Image",
+     "entityId": "/m/0jg24",
+     "score": 0.2553
+    },
+    {
+     "description": "Fossil fuel",
+     "entityId": "/m/0cx6y",
+     "score": 0.2532
+    }
+   ]
+  }
+ }
+}

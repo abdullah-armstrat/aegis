@@ -1,0 +1,409 @@
+{
+ "dated_at": "2026-09-27T17:23:29+00:00",
+ "page_dates": {
+  "https://billofrightsinstitute.org/essays/us-military-intervention-in-afghanistan/": {
+   "date": "2020-09-11",
+   "source": "htmldate"
+  },
+  "https://en.wikipedia.org/wiki/Operation_Cyclone": {
+   "date": "2007-01-11",
+   "source": "htmldate"
+  },
+  "https://en.wikipedia.org/wiki/Prelude_to_the_War_in_Afghanistan_(2001%E2%80%932021)": {
+   "date": "2022-10-08",
+   "source": "htmldate"
+  },
+  "https://en.wikipedia.org/wiki/Taliban": {
+   "date": "2001-11-13",
+   "source": "htmldate"
+  },
+  "https://www.nationalgeographic.com/history/article/centuries-long-struggle-for-afghanistan": {
+   "date": null,
+   "source": null
+  },
+  "https://www.smh.com.au/world/asia/miniskirts-and-mujahideen-how-did-afghanistan-come-to-be-defined-by-war-20201123-p56h68.html": {
+   "date": "2021-01-17",
+   "source": "htmldate"
+  }
+ },
+ "requested_at": "2026-09-27T16:56:00+00:00",
+ "vision": {
+  "webDetection": {
+   "bestGuessLabels": [
+    {
+     "label": "bush taliban",
+     "languageCode": "en"
+    }
+   ],
+   "fullMatchingImages": [
+    {
+     "url": "https://i.natgeofe.com/n/5f592b06-24ac-44f8-9f80-afdd11289b92/AP_21183624831430.jpg"
+    },
+    {
+     "url": "https://www.chicagotribune.com/wp-content/uploads/migration/2024/01/04/FMLT6R5C5ZAGDOCIL3RQRCMQ2E.jpg"
+    },
+    {
+     "url": "https://static.independent.co.uk/2021/07/02/18/Afghanistan_Timeline_31430.jpg"
+    },
+    {
+     "url": "https://www.mcall.com/wp-content/uploads/migration/2020/05/27/UU4Q2NJW3BEK7GDHZSWZVI477I.jpg"
+    },
+    {
+     "url": "https://storage.googleapis.com/afs-prod/media/1763b13ff67647ca9041a70db2bbe0f3/3000.jpeg"
+    },
+    {
+     "url": "https://yurtsever.org.tr/wp-content/uploads/2018/02/reagan-taliban.jpg"
+    },
+    {
+     "url": "http://images.huffingtonpost.com/2016-07-28-1469718579-7153385-Sunni_February_1983.jpg"
+    },
+    {
+     "url": "https://images.squarespace-cdn.com/content/v1/554a5733e4b02559210e4177/1474591059083-7AI40G6G9KIMX5JR1HSM/image-asset.jpeg"
+    },
+    {
+     "url": "https://images.squarespace-cdn.com/content/v1/6005a180c8cd610112a8a795/1631731037658-XT6RBDLK6K5S38VNDF8X/reagan+stingers+mujahadeen.jpg"
+    },
+    {
+     "url": "https://fee.org/wp-content/uploads/articles/reagan_mujahideen.jpeg?width=498&height=331"
+    },
+    {
+     "url": "https://image.pbs.org/video-assets/bb8qKyM-asset-original-W6vSO5F.jpg"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=4225126204274288"
+    },
+    {
+     "url": "https://static.nationalgeographicbrasil.com/files/styles/image_3200/public/ap_21183624831430.webp?w=1600&h=1065"
+    },
+    {
+     "url": "https://preview.redd.it/what-would-say-is-reagans-worst-long-lasting-mistake-v0-fzk81b4h0mid1.jpeg?width=1284&format=pjpg&auto=webp&s=9790fb65129e357725652e787d92242f7acb0d83"
+    },
+    {
+     "url": "https://i.redd.it/fzk81b4h0mid1.jpeg"
+    },
+    {
+     "url": "https://miro.medium.com/v2/resize:fit:1358/format:webp/1*tHNuvDxtHvFdK4sLBHK6pg.jpeg"
+    },
+    {
+     "url": "https://cdn.karar.com/other/2021/08/21/1-044.jpg"
+    },
+    {
+     "url": "https://picx.zhimg.com/v2-f784e1b4aef4896a28614c73bbdaec05_1440w.jpg"
+    },
+    {
+     "url": "https://static.independent.co.uk/2021/07/02/18/Afghanistan_Timeline_31430.jpg?width=1200&height=800&crop=1200:800"
+    },
+    {
+     "url": "https://mediaproxy.snopes.com/width/1200/https://media.snopes.com/2016/03/ronald-reagan-taliban.jpg"
+    }
+   ],
+   "pagesWithMatchingImages": [
+    {
+     "pageTitle": "George W Bush's remarks on the Taliban | TRT World - Facebook",
+     "url": "https://www.facebook.com/trtworld/videos/george-w-bushs-remarks-on-the-taliban/2651780505129098/"
+    },
+    {
+     "pageTitle": "Relying on the Taliban is a risk, says fmr. George W. Bush assistant ...",
+     "url": "https://www.facebook.com/cnbc/videos/relying-on-the-taliban-is-a-risk-says-fmr-george-w-bush-assistant-sec-of-state/360670812450926/"
+    },
+    {
+     "pageTitle": "President George W. Bush's full address announcing first ... - YouTube",
+     "url": "https://www.youtube.com/watch?v=SGXRMlPL3XI"
+    },
+    {
+     "pageTitle": "Innocent Afghans are suffering under the Taliban's mafia-like rule ...",
+     "url": "https://www.facebook.com/TheBushCenter/videos/innocent-afghans-are-suffering-under-the-talibans-mafia-like-rule-read-the-bush-/1556749441590657/"
+    },
+    {
+     "pageTitle": "'It breaks my heart': George W. Bush on Afghanistan pullout | DW News",
+     "url": "https://www.youtube.com/watch?v=DoeLZnxPsaQ"
+    },
+    {
+     "pageTitle": "From the archives: George W. Bush announces Afghanistan war",
+     "url": "https://www.nbcnews.com/now/video/from-the-archives-george-w-bush-announces-afghanistan-war-70796357899"
+    },
+    {
+     "pageTitle": "Bush address on military action in Afghanistan - YouTube",
+     "url": "https://www.youtube.com/watch?v=osXkym5GHXI"
+    },
+    {
+     "pageTitle": "Afghan Activist: George W. Bush's Claim U.S. War in Afghanistan ...",
+     "url": "https://www.youtube.com/watch?v=Y4ZCWxgkk78"
+    },
+    {
+     "pageTitle": "The United States Fails to Defeat the Taliban - PBS Learning Media",
+     "url": "https://www.pbslearningmedia.org/resource/fln41amtaliban-soc-ustaliban/the-united-states-fails-to-defeat-the-taliban-america-and-the-taliban/"
+    },
+    {
+     "pageTitle": "Here's what the former US President Bush said on this day 20 years ...",
+     "url": "https://www.facebook.com/trtworld/videos/on-this-day-20-years-ago-george-w-bush-declared-war-on-afghanistan/3006053453056302/"
+    },
+    {
+     "pageTitle": "U.S. Military Intervention in Afghanistan - Bill of Rights Institute",
+     "partialMatchingImages": [
+      {
+       "url": "https://bri-wp-images.s3.amazonaws.com/wp-content/uploads/BRI_APUSH_16_04_Mujahideen-780x550.jpg"
+      },
+      {
+       "url": "https://bri-wp-images.s3.amazonaws.com/wp-content/uploads/BRI_APUSH_16_04_Mujahideen.jpg"
+      }
+     ],
+     "url": "https://billofrightsinstitute.org/essays/us-military-intervention-in-afghanistan/"
+    },
+    {
+     "pageTitle": "Bush administration had plan to overthrow Taliban if they failed to ...",
+     "url": "https://www.9news.com/article/news/bush-administration-had-plan-to-overthrow-taliban-if-they-failed-to-turn-over-bin-laden/73-344928781"
+    },
+    {
+     "pageTitle": "How George Bush's Taliban prophecy completely missed the mark",
+     "url": "https://en.yenisafak.com/world/how-george-bushs-taliban-prophecy-completely-missed-the-mark-3578580"
+    },
+    {
+     "pageTitle": "Operation Cyclone - Wikipedia",
+     "partialMatchingImages": [
+      {
+       "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b8/Reagan_sitting_with_people_from_the_Afghanistan-Pakistan_region_in_February_1983.jpg/330px-Reagan_sitting_with_people_from_the_Afghanistan-Pakistan_region_in_February_1983.jpg?utm_source=en.wikipedia.org&utm_campaign=parser&utm_content=thumbnail"
+      },
+      {
+       "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b8/Reagan_sitting_with_people_from_the_Afghanistan-Pakistan_region_in_February_1983.jpg/1280px-Reagan_sitting_with_people_from_the_Afghanistan-Pakistan_region_in_February_1983.jpg?utm_source=en.wikipedia.org&utm_campaign=index&utm_content=thumbnail"
+      }
+     ],
+     "url": "https://en.wikipedia.org/wiki/Operation_Cyclone"
+    },
+    {
+     "pageTitle": "Prelude to the War in Afghanistan (2001\u20132021) - Wikipedia",
+     "partialMatchingImages": [
+      {
+       "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b8/Reagan_sitting_with_people_from_the_Afghanistan-Pakistan_region_in_February_1983.jpg/250px-Reagan_sitting_with_people_from_the_Afghanistan-Pakistan_region_in_February_1983.jpg?utm_source=en.wikipedia.org&utm_campaign=parser&utm_content=thumbnail"
+      }
+     ],
+     "url": "https://en.wikipedia.org/wiki/Prelude_to_the_War_in_Afghanistan_(2001%E2%80%932021)"
+    },
+    {
+     "pageTitle": "Taliban - Wikipedia",
+     "partialMatchingImages": [
+      {
+       "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b8/Reagan_sitting_with_people_from_the_Afghanistan-Pakistan_region_in_February_1983.jpg/250px-Reagan_sitting_with_people_from_the_Afghanistan-Pakistan_region_in_February_1983.jpg?utm_source=en.wikipedia.org&utm_campaign=parser&utm_content=thumbnail"
+      }
+     ],
+     "url": "https://en.wikipedia.org/wiki/Taliban"
+    },
+    {
+     "pageTitle": "George W. Bush and wife Laura break silence after Afghanistan falls ...",
+     "url": "https://www.washingtonexaminer.com/news/1795111/george-w-bush-and-wife-laura-break-silence-after-afghanistan-falls-to-taliban/"
+    },
+    {
+     "pageTitle": "George W. Bush said he felt 'deep sadness' watching the Taliban ...",
+     "url": "https://www.yahoo.com/news/george-w-bush-said-felt-093919750.html"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://i.natgeofe.com/n/5f592b06-24ac-44f8-9f80-afdd11289b92/AP_21183624831430.jpg"
+      }
+     ],
+     "pageTitle": "Historic images show the centuries-long struggle for Afghanistan",
+     "url": "https://www.nationalgeographic.com/history/article/centuries-long-struggle-for-afghanistan"
+    },
+    {
+     "pageTitle": "Taliban in Afghanistan: How did a nation come to be defined by war?",
+     "partialMatchingImages": [
+      {
+       "url": "https://static.ffx.io/images/$zoom_0.279%2C$multiply_0.7725%2C$ratio_1.5%2C$width_756%2C$x_0%2C$y_0/t_crop_custom/q_86%2Cf_auto/19bac678fd9b9f72b273a906436f331973c63b1e"
+      }
+     ],
+     "url": "https://www.smh.com.au/world/asia/miniskirts-and-mujahideen-how-did-afghanistan-come-to-be-defined-by-war-20201123-p56h68.html"
+    }
+   ],
+   "partialMatchingImages": [
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/threads/DdFf6pJDXpk/2/image.jpg"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=1072593318649501"
+    },
+    {
+     "url": "https://carnegie.org/wp-content/uploads/2026/02/c12820-32.jpg"
+    },
+    {
+     "url": "https://preview.redd.it/why-do-people-say-ronald-reagan-was-the-devil-v0-0zhq07rjz4kb1.jpeg?width=739&format=pjpg&auto=webp&s=08d979c0d8e7f21ba48b4fb90be6ab46c481e8cd"
+    },
+    {
+     "url": "https://i.redd.it/0zhq07rjz4kb1.jpeg"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=10177406543215206"
+    },
+    {
+     "url": "https://i.ytimg.com/vi/yrSV3Z9gTmM/hqdefault.jpg"
+    },
+    {
+     "url": "https://v.wpimg.pl/ZDFmYWRmdSUnDy9kfRZ4MGRXez47T3ZmM09jdX1cY3Z2FXYxOwE_NiMdNnk1Hy80JxopeSIBdSU2BHYhY0I-LTUdNTYrQj8pJAg9eDFebyF0Djgzf1xjJnFAbWFgDnd8cVVhemZVPiB3CzgzNA84ImQQ"
+    },
+    {
+     "url": "https://www.clementscenter.org/wp-content/uploads/media/k2/items/src/62d8a0a826023e1f0111f69f3b6a2d59.jpg"
+    },
+    {
+     "url": "https://www.imerodromos.gr/wp-content/uploads/2021/08/15.jpg"
+    },
+    {
+     "url": "https://artouch.com/wp-content/uploads/2026/01/20033702.jpg"
+    },
+    {
+     "url": "https://bri-wp-images.s3.amazonaws.com/wp-content/uploads/BRI_APUSH_16_04_Mujahideen.jpg"
+    },
+    {
+     "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b8/Reagan_sitting_with_people_from_the_Afghanistan-Pakistan_region_in_February_1983.jpg/1280px-Reagan_sitting_with_people_from_the_Afghanistan-Pakistan_region_in_February_1983.jpg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=thumbnail"
+    },
+    {
+     "url": "https://image.stern.de/30678128/t/4O/v4/w960/r1.7778/-/das-endeder-illusionen-picture-1241563848.jpg"
+    },
+    {
+     "url": "https://www.foundationsandfutures.org/wp-content/uploads/2025/11/05.06.032.IMG_WEMP.ReaganWithAfghanMujahideen.1983.PD_.ReaganLibrary-1.jpg"
+    },
+    {
+     "url": "https://pbs.twimg.com/media/HR-xbYoXAAABof3?format=webp&name=large"
+    },
+    {
+     "url": "https://bri-wp-images.s3.amazonaws.com/wp-content/uploads/BRI_APUSH_16_04_Mujahideen-780x550.jpg"
+    },
+    {
+     "url": "https://img.vocus.cc/VUwGyo--U1N975mwOHQvhVKMszX26AkoNstBy_NNNi0/w:400/f:webp/plain/https://images.vocus.cc/8ced1c63-4ef6-4ec1-837c-beed6ee96f0b.jpg"
+    },
+    {
+     "url": "https://static.tildacdn.com/tild3366-6233-4235-b033-366662633230/_______________REGNU.jpg"
+    },
+    {
+     "url": "https://i2.wp.com/upload.wikimedia.org/wikipedia/commons/b/b8/Reagan_sitting_with_people_from_the_Afghanistan-Pakistan_region_in_February_1983.jpg"
+    }
+   ],
+   "visuallySimilarImages": [
+    {
+     "url": "https://dims.apnews.com/dims4/default/12a0a1b/2147483647/strip/false/crop/3000x1996+0+0/resize/980x652!/quality/90/?url=https%3A%2F%2Fstorage.googleapis.com%2Fafs-prod%2Fmedia%2F51ba2fbd552a475894673130a4e7a4c1%2F3000.jpeg"
+    },
+    {
+     "url": "https://static.evangelisch.de/get/?daid=00010001_pYkUDdro23DuFaEsvPt3VTbr9qXBTuMelaR6aQRPSPE000000408520&dfid=i-62"
+    },
+    {
+     "url": "https://www.acistampa.com/images/rs06082022095441_57410jpgjpg_1659791224.JPG?w=800&h=600"
+    },
+    {
+     "url": "https://www.acistampa.com/images/foto_udienza-rettore-unicatt-1_1723458364.jpeg?w=600&h=400"
+    },
+    {
+     "url": "https://catholicconnect.in//storage/assets/uploads/news_images/f36sK1OEs1OfbV91jkRrYSuOL0ElvoxJo9TZkQVz.jpg"
+    },
+    {
+     "url": "https://dailytimes.com.pk/assets/uploads/2026/09/10/PTI-rejects-referendum-on-creation-of-new-provinces.jpg"
+    },
+    {
+     "url": "https://midias.correiobraziliense.com.br/_midias/jpg/2024/06/06/imagem_do_whatsapp_de_2024_06_06_a_s__10_30_22_3c08df55-37774587.jpg"
+    },
+    {
+     "url": "https://reformiert.info/admin/data/files/page_article/image/20168/230414_zhhp001_delegation-oerk-in-rom_teaser_big.jpg?lm=1711490587"
+    },
+    {
+     "url": "https://focus.huffingtonpost.fr/2026/06/20/0/0/1194/796/1820/1213/75/0/3a0654a_upload-1-bv0ccxtu59oi-afp-20260620-b7q76jm-v1-highres-iranpakistanusisraelwardiplomacy.jpg"
+    },
+    {
+     "url": "https://www.globalsistersreport.org/files/styles/facebook_ratio/public/2024-04/4.25.24%20Francis%20and%20LCWR%202024.JPG?h=82f92a78&itok=-HdBlfON"
+    },
+    {
+     "url": "https://www.ncronline.org/files/styles/facebook_ratio/public/2023-11/20231106T0730-POPE-LAUDATO-SI-MOVEMENT-1768262%20CROP.jpg?h=6b0e383c&itok=wX6Va90n"
+    },
+    {
+     "url": "https://alfayomega.es/wp-content/uploads/2026/07/mozambique.jpg"
+    },
+    {
+     "url": "https://images.wsj.net/im-312679/?width=700&height=467"
+    },
+    {
+     "url": "https://www.pill.org.pk/wp-content/uploads/2025/08/Prof-Nasim-Chaudhry-Prof.-Nusrat-Husain-and-Prof.-Imran-Chaudhry-met-former-President-Dr.-Arif-Alvi-scaled.png"
+    },
+    {
+     "url": "https://www.globsec.org/sites/default/files/2022-10/Obra%CC%81zok-WhatsApp-2022-10-13-o-16.56.103-768x512.jpg"
+    },
+    {
+     "url": "https://i0.wp.com/www.newwaysministry.org/wp-content/uploads/2019/09/71586363_10156351012191496_7332963171025551360_n.jpg?resize=444%2C296&ssl=1"
+    },
+    {
+     "url": "https://setemargens.com/wp-content/uploads/2024/08/Paglia-em-audiencia-com-Papa-Francisco-8-agosro-2024.-Foto-Vatican-Media-scaled.jpeg"
+    },
+    {
+     "url": "https://d15-a.sdn.cz/d_15/c_img_gR_3/4xaFP/papez-premier-vatikan.jpeg?fl=cro,0,153,1600,900%7Cres,1200,,1%7Cjpg,80,,1"
+    },
+    {
+     "url": "https://latamjournalismreview.org/wp-content/uploads/2025/04/FEATURED-Paola-Ugaz-Papa.png"
+    },
+    {
+     "url": "https://www.ncronline.org/files/2023-11/20231106T0730-POPE-LAUDATO-SI-MOVEMENT-1768262%20CROP.jpg"
+    }
+   ],
+   "webEntities": [
+    {
+     "description": "George W. Bush",
+     "entityId": "/m/09b6zr",
+     "score": 10.567501
+    },
+    {
+     "description": "Osama bin Laden",
+     "entityId": "/m/05mg9",
+     "score": 6.9449997
+    },
+    {
+     "description": "Mark Kimmitt",
+     "entityId": "/m/031q33",
+     "score": 5.5245
+    },
+    {
+     "description": "Colin Powell",
+     "entityId": "/m/0203v",
+     "score": 5.5065002
+    },
+    {
+     "description": "War in Afghanistan",
+     "entityId": "/m/0d_fsc",
+     "score": 1.0789499
+    },
+    {
+     "description": "Kabul",
+     "entityId": "/m/0494n",
+     "score": 0.87265205
+    },
+    {
+     "entityId": "/t/288s8btcjfr17",
+     "score": 0.7203
+    },
+    {
+     "description": "Operation Cyclone",
+     "entityId": "/m/027mn7n",
+     "score": 0.66120005
+    },
+    {
+     "description": "Terrorism",
+     "entityId": "/m/07jq_",
+     "score": 0.5244
+    },
+    {
+     "description": "United States",
+     "entityId": "/m/09c7w0",
+     "score": 0.5115
+    },
+    {
+     "description": "Mujahideen",
+     "entityId": "/m/051nv",
+     "score": 0.5108
+    },
+    {
+     "entityId": "/t/26tx7xy9_tgvr",
+     "score": 0.341
+    },
+    {
+     "description": "Afghanistan",
+     "entityId": "/m/0jdd",
+     "score": 0.043218
+    }
+   ]
+  }
+ }
+}

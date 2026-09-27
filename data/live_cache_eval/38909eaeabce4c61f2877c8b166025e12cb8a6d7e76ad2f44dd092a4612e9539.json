@@ -1,0 +1,226 @@
+{
+ "dated_at": "2026-09-27T17:16:08+00:00",
+ "page_dates": {
+  "https://www.snopes.com/author/dan/?pagenum=96": {
+   "date": null,
+   "source": null
+  },
+  "https://www.snopes.com/category/photos/?pagenum=53": {
+   "date": null,
+   "source": null
+  },
+  "https://www.snopes.com/tag/mexico/?pagenum=3": {
+   "date": "2019-03-31",
+   "source": "htmldate"
+  },
+  "https://www.snopes.com/tag/migrant-caravan/?pagenum=2": {
+   "date": "2018-05-02",
+   "source": "htmldate"
+  }
+ },
+ "requested_at": "2026-09-27T16:49:07+00:00",
+ "vision": {
+  "webDetection": {
+   "bestGuessLabels": [
+    {
+     "label": "horror"
+    }
+   ],
+   "fullMatchingImages": [
+    {
+     "url": "https://mediaproxy.snopes.com/width/1200/https://media.snopes.com/2018/10/caravan-1.jpg"
+    },
+    {
+     "url": "https://mediaproxy.snopes.com/width/600/https://media.snopes.com/2018/10/caravan-1.jpg"
+    }
+   ],
+   "pagesWithMatchingImages": [
+    {
+     "pageTitle": "10 Horror Movies I Walked Out On! Here's Why - YouTube",
+     "url": "https://www.youtube.com/watch?v=qeyVP2hR5z0"
+    },
+    {
+     "pageTitle": "My Top 100 Horror Movies - YouTube",
+     "url": "https://www.youtube.com/watch?v=Szzw8as6D-U"
+    },
+    {
+     "pageTitle": "House of Screams | Full Horror Movie (Holiday Season ... - YouTube",
+     "url": "https://www.youtube.com/watch?v=0wTIq_k8MMI"
+    },
+    {
+     "pageTitle": "October Horror on the Criterion Channel - YouTube",
+     "url": "https://www.youtube.com/watch?v=a4aXah8oc7c"
+    },
+    {
+     "pageTitle": "Horror had an abolutely packed week and we are still processing all ...",
+     "url": "https://www.facebook.com/DreadCentral/videos/horror-had-an-abolutely-packed-week-and-we-are-still-processing-all-of-it-which-/4511503472427908/"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://mediaproxy.snopes.com/width/600/https://media.snopes.com/2018/10/caravan-1.jpg"
+      }
+     ],
+     "pageTitle": "Mexico Articles | Page 3 | Snopes.com",
+     "url": "https://www.snopes.com/tag/mexico/?pagenum=3"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://mediaproxy.snopes.com/width/600/https://media.snopes.com/2018/10/caravan-1.jpg"
+      }
+     ],
+     "pageTitle": "Migrant Caravans Articles | Page 2 | Snopes.com",
+     "url": "https://www.snopes.com/tag/migrant-caravan/?pagenum=2"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://mediaproxy.snopes.com/width/600/https://media.snopes.com/2018/10/caravan-1.jpg"
+      }
+     ],
+     "pageTitle": "Dan Evon, Author at Snopes.com Page 96",
+     "url": "https://www.snopes.com/author/dan/?pagenum=96"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://mediaproxy.snopes.com/width/600/https://media.snopes.com/2018/10/caravan-1.jpg"
+      }
+     ],
+     "pageTitle": "Fauxtography Archives | Page 53 | Snopes.com",
+     "url": "https://www.snopes.com/category/photos/?pagenum=53"
+    }
+   ],
+   "visuallySimilarImages": [
+    {
+     "url": "https://mediaproxy.snopes.com/width/600/https://media.snopes.com/2018/10/caravan-1.jpg"
+    },
+    {
+     "url": "https://gdb.rferl.org/01000000-0aff-0242-e78f-08db2173e38d_w1080_h608_b_s.jpg"
+    },
+    {
+     "url": "https://static.euronews.com/articles/248238/432x243_248238.jpg"
+    },
+    {
+     "url": "https://s3.zona.media/legacy/medialibrary/d17/d17788a650ea80aedb6af6c6ca0a39c8.jpg"
+    },
+    {
+     "url": "https://metro.co.uk/wp-content/uploads/2016/11/attacked.jpg?quality=90&strip=all&w=646"
+    },
+    {
+     "url": "https://pbs.twimg.com/media/HQBaYTXXEAEvuPg?format=webp&name=large"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=2728685280633880"
+    },
+    {
+     "url": "https://i.blogs.es/edcea5/punisher/450_1000.jpeg"
+    },
+    {
+     "url": "https://parcaventuregeneve.com/wp-content/uploads/2016/10/IMG_2198.jpg"
+    },
+    {
+     "url": "https://www.tagesspiegel.de/images/3241384/alternates/BASE_21_9_W1000/1660075853000/tagesspiegel-3388.jpeg"
+    },
+    {
+     "url": "https://www.leparisien.fr/resizer/YgUSx6ND6EsJWSZ3QFFfN-nZQC8=/1600x900/cloudfront-eu-central-1.images.arcpublishing.com/leparisien/4I4UB5YZUXJSW7OYSSN4WDPHGU.jpg"
+    },
+    {
+     "url": "https://images.unian.net/photos/2009_11/thumb_files/800_0_1259330549.jpg"
+    },
+    {
+     "url": "https://s3.laprensani.com/wp-content/uploads/2025/12/honduras-disturbios-afp-1024x675.jpg"
+    },
+    {
+     "url": "https://fantlab.ru/images/films/plus/1390_1?r=1492545505"
+    },
+    {
+     "url": "https://politiken.dk/migration_catalog/article5165434.ece/ORIGINALS/original_615/Ukraine"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=184716067205643"
+    },
+    {
+     "url": "https://jcpatriot.com/wp-content/uploads/2016/10/legends-900x600-900x600.jpg"
+    },
+    {
+     "url": "https://pbs.twimg.com/profile_images/1561447680466767872/6xpnu6nj_400x400.jpg"
+    },
+    {
+     "url": "https://laopinion.com/wp-content/uploads/sites/3/2015/08/im_20120507_news05_305079893.jpg?fit=480,324&crop=0px,27px,480px,270px"
+    },
+    {
+     "url": "https://fotos.perfil.com/2025/05/21/trim/500/281/colectivo-12620250521-2027565.jpg"
+    }
+   ],
+   "webEntities": [
+    {
+     "description": "Horror anthology",
+     "entityId": "/g/11qg_m3hfg",
+     "score": 0.7273
+    },
+    {
+     "description": "frightening",
+     "entityId": "/g/11mmjqc932",
+     "score": 0.6379
+    },
+    {
+     "description": "The Criterion Channel",
+     "entityId": "/g/11hzcm8rv9",
+     "score": 0.5858
+    },
+    {
+     "description": "Photograph",
+     "entityId": "/m/068jd",
+     "score": 0.498
+    },
+    {
+     "description": "Horror fiction",
+     "entityId": "/m/011l5k99",
+     "score": 0.4464
+    },
+    {
+     "description": "Dread Central",
+     "entityId": "/m/0zdqsfy",
+     "score": 0.3892
+    },
+    {
+     "description": "create",
+     "entityId": "/g/11qg_c03j7",
+     "score": 0.3418
+    },
+    {
+     "description": "Snopes",
+     "entityId": "/m/02dkt6",
+     "score": 0.3417
+    },
+    {
+     "description": "Anthology",
+     "entityId": "/m/0nbdmj8",
+     "score": 0.3209
+    },
+    {
+     "description": "important",
+     "entityId": "/g/11p129bq3t",
+     "score": 0.3144
+    },
+    {
+     "description": "Dan Evon",
+     "entityId": "/g/11mvtk8bl2",
+     "score": 0.08325
+    },
+    {
+     "description": "Halloween",
+     "entityId": "/m/0m3gy",
+     "score": 0.054149996
+    },
+    {
+     "description": "Alex Kasprak",
+     "entityId": "/g/11f0ymycw7",
+     "score": 0.04035
+    }
+   ]
+  }
+ }
+}

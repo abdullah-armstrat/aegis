@@ -1,0 +1,101 @@
+{
+ "requested_at": "2026-09-27T16:43:39+00:00",
+ "vision": {
+  "webDetection": {
+   "bestGuessLabels": [
+    {
+     "label": "wall"
+    }
+   ],
+   "visuallySimilarImages": [
+    {
+     "url": "https://www.construction21.org/france/data/sources/users/5415/3-ecocampus.jpg"
+    },
+    {
+     "url": "https://freight.cargo.site/t/original/i/03cf78c9d060900780f4614af3c80a9110805fd91edfc74a1efa03270bc15c35/Sel_25_The-Day-After-House-1b.jpg"
+    },
+    {
+     "url": "https://ivystudio.ca/wp-content/uploads/2025/05/cvsh-by-ivy-studio-co-photo-copyright-alex-lesage-9.jpg"
+    },
+    {
+     "url": "https://buildinggreen.eu/together/wp-content/uploads/sites/9/2026/03/26biomat-casesignatur-1200x630px-udenlogo-770x404.jpg"
+    },
+    {
+     "url": "https://www.baunetz-campus.de/img/3/2/7/7/8/7/3/2-5dc949b010620f67.jpeg"
+    },
+    {
+     "url": "https://ecal-media.sos-ch-gva-2.exo.io/filer_public_thumbnails/filer_public/d3/21/d32166c2-f81c-4c31-8bd3-8016231336ec/presquerienprojects_byjasminedeporta-10.jpg__0x1280_q85_subsampling-2.jpg"
+    },
+    {
+     "url": "https://freight.cargo.site/t/original/i/7ed68c7e899a3d4b9d847b99fe2361c77556f687ac8ba9548120022caa3e2891/Sel_25_The-Day-After-House-6.jpg"
+    },
+    {
+     "url": "https://design.umontreal.ca/fileadmin/amenagement/2023-DES/03_ProgrammesEtCours/M_DCI/DES-prog-MDCI-projet01_-485x347.png"
+    },
+    {
+     "url": "https://themaclive.s3-assets.com/3_2026-08-06-095145_dhqu.png"
+    },
+    {
+     "url": "https://fsn1.your-objectstorage.com/stantonwilliams/2795/conversions/stanton-williams-nantes-concrete-large.jpg"
+    },
+    {
+     "url": "https://www.artchive.com/wp-content/uploads/2024/08/untitled-donald-judd-1976-2.jpg"
+    },
+    {
+     "url": "https://www.nextroom.at/data/media/med_media/medium/1780389856.jpg?1780389962"
+    },
+    {
+     "url": "https://aljawadpike.com/public/uploads/practice/people/practice/people/_small/3610/AJP_NEWS_2404.webp"
+    },
+    {
+     "url": "https://framerframed.nl/wp-content/uploads/2020/01/Elsewheres-Within-Here_Foto-Betul-Ellialtioglu-2019-695x391.jpg"
+    },
+    {
+     "url": "https://cdn.aninteriormag.com/wp-content/uploads/2025/07/13_SecondFloorOverlookingDoubleHeightCorner_%C2%A9Moran.jpg"
+    },
+    {
+     "url": "https://www.construction21.org/deutschland/data/sources/users/1381/20230313105959-190309161web.jpg"
+    },
+    {
+     "url": "https://duplex-architects.com/content/uploads/2025/12/118_burkwil_whg2-3500x2624.jpg"
+    },
+    {
+     "url": "https://batekarchitekten.com/media/mw1500/ba1902-sch52_1_1.jpg"
+    },
+    {
+     "url": "https://www.archpaper.com/wp-content/uploads/2026/01/2417-Of-Possible-103-Grand-10-1280x1280-1.jpg"
+    },
+    {
+     "url": "https://www.levenbetts.com/_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2F63u5q1l8%2Fproduction%2F98802379bcf05a7d9839bbc1b6167c2ed51c8d9f-2400x1600.jpg%3Fw%3D600%26fit%3Dmax%26auto%3Dformat&w=2048&q=75"
+    }
+   ],
+   "webEntities": [
+    {
+     "description": "Plywood",
+     "entityId": "/m/0jh8w",
+     "score": 0.39936545
+    },
+    {
+     "description": "Lumber",
+     "entityId": "/m/025tnyc",
+     "score": 0.37308404
+    },
+    {
+     "description": "ArchitectureM RIBA Chartered Practice",
+     "entityId": "/g/1tdvtw8r",
+     "score": 0.3125
+    },
+    {
+     "description": "Property",
+     "entityId": "/m/05wrt",
+     "score": 0.30137834
+    },
+    {
+     "description": "Architecture",
+     "entityId": "/m/03nfmq",
+     "score": 0.26492864
+    }
+   ]
+  }
+ }
+}

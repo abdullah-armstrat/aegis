@@ -1,0 +1,492 @@
+{
+ "dated_at": "2026-09-27T17:25:13+00:00",
+ "page_dates": {
+  "https://danny-glover.medium.com/the-myth-of-the-impala-mama-f13c93f7ed1d": {
+   "date": null,
+   "source": null
+  },
+  "https://in.linkedin.com/in/abhishek-sharma-pune": {
+   "date": null,
+   "source": null
+  },
+  "https://in.linkedin.com/in/govind-srivastva-7a010414": {
+   "date": null,
+   "source": null
+  },
+  "https://in.linkedin.com/in/ritesh-baweja": {
+   "date": null,
+   "source": null
+  },
+  "https://www.alisonbuttigieg.com/cheetahkill": {
+   "date": null,
+   "source": null
+  },
+  "https://www.facebook.com/MARINACANOWILDLIFEPHOTOGRAPHER/photos/sharing-alison-buttigieg-explains-what-happened-to-her-outstanding-imagea-highli/1259256270796419/": {
+   "date": null,
+   "source": null
+  },
+  "https://www.facebook.com/sindhu.raam/posts/her-look-actually-this-pic-is-trending-in-social-media-as-this-photo-won-the-awa/1387172838000779/": {
+   "date": null,
+   "source": null
+  },
+  "https://www.reddit.com/r/Awwducational/comments/c91hi7/male_cheetahs_can_make_a_female_ovulate_by/": {
+   "date": null,
+   "source": null
+  },
+  "https://www.reddit.com/r/HistoryMemes/comments/n8ckvm/making_historically_accurate_memes_about_vlad/": {
+   "date": null,
+   "source": null
+  },
+  "https://www.reddit.com/r/natureismetal/comments/7zk99z/everyone_wants_a_piece_of_me_literally/": {
+   "date": null,
+   "source": null
+  }
+ },
+ "requested_at": "2026-09-27T16:58:18+00:00",
+ "vision": {
+  "webDetection": {
+   "bestGuessLabels": [
+    {
+     "label": "everyone wants a piece of me",
+     "languageCode": "en"
+    }
+   ],
+   "fullMatchingImages": [
+    {
+     "url": "https://images.squarespace-cdn.com/content/v1/66bf91336a2b575e8550dd6c/fe0ff2cc-1355-4c09-896c-d17b60a3bace/cheetah-kill-masai-mara-kenya.jpg"
+    },
+    {
+     "url": "https://cdn.fararu.com/thumbnail/MzRkYjYjJZcZ/_B9bSHuSNpVal6pMQ5AUZWs5AeF4NdXs64HnvCYUJ2bioigArzW0DHugqrZPhCqwIsF0xph8tMcf0TlJD8wMjJFUViKsN32SnZ-PPruYhBRGEvcwHL40sLQneqX-90tVf9SnLyP41cw4vRfD1sWAYw,,/MzRkYjYjJZcZ.jpg"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=2450184671732993"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=843080877182214"
+    },
+    {
+     "url": "https://pic.i7lm.com/wp-content/uploads/2020/02/16730333_1259451117476391_1429000018885913120_n.jpg"
+    },
+    {
+     "url": "http://i.imgur.com/N7FaRpR.jpg"
+    },
+    {
+     "url": "https://dabegad.com/wp-content/uploads/2017/02/16730333_1259451117476391_1429000018885913120_n.jpg"
+    },
+    {
+     "url": "https://external-preview.redd.it/record-scratch-freeze-frame-yup-thats-me-youre-probably-v0-vP0nJ8ndPpXcOc_JvnAKonfrvB1qRCEnd_ThZsjdhrw.jpeg?auto=webp&s=8aecd86ce7cd9b4001f6793d78a57f31d269414b"
+    },
+    {
+     "url": "https://dabegad.com/wp-content/uploads/2017/02/16730333_1259451117476391_1429000018885913120_n.jpg.webp"
+    },
+    {
+     "url": "http://i.imgur.com/kwZ2CQa.jpg"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=2412562398783869"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=397187143717826"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=1393813110670720"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=105732624508082"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=1960597920888601"
+    },
+    {
+     "url": "https://api.tabula.ge/files/styles/gallery_full/public/photos/2017/10/4.jpeg.jpg?itok=gUtrRijK"
+    },
+    {
+     "url": "https://preview.redd.it/after-4-years-i-discover-the-root-of-my-anhedonia-v0-qyl0voxybm7b1.jpg?width=725&format=pjpg&auto=webp&s=422b657d974e0a5d0d35862e3a840889ec2f5cec"
+    },
+    {
+     "url": "https://kenh14cdn.com/2019/7/29/photo-1-15644115908621955706375.jpg"
+    },
+    {
+     "url": "https://img.youm7.com/ArticleImgs/2019/12/26/769814-%D8%B5%D9%88%D8%B1%D8%A9-%D8%A7%D8%B5%D8%B7%D9%8A%D8%A7%D8%AF-%D9%81%D9%87%D9%88%D8%AF-%D9%84%D8%BA%D8%B2%D8%A7%D9%84%D8%A9.jpg"
+    },
+    {
+     "url": "https://img.news.ebc.net.tw/images/2017/02/18/1487414309149KTo5.jpg"
+    }
+   ],
+   "pagesWithMatchingImages": [
+    {
+     "pageTitle": "Everybody wants a piece of me - song and lyrics by Ryan brio - Spotify",
+     "url": "https://open.spotify.com/track/1s8Vbj2nwofxfwEQtmCPsH"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://preview.redd.it/everyone-wants-a-piece-of-me-literally-v0-hninlcp88vh01.jpg?width=640&crop=smart&auto=webp&s=ce55b038fa301617d4aca6be39e669c271271fcd"
+      },
+      {
+       "url": "https://i.redd.it/hninlcp88vh01.jpg"
+      }
+     ],
+     "pageTitle": "Everyone wants a piece of me, literally : r/natureismetal - Reddit",
+     "url": "https://www.reddit.com/r/natureismetal/comments/7zk99z/everyone_wants_a_piece_of_me_literally/"
+    },
+    {
+     "pageTitle": "Everyone Wants A Piece Of Me by Bruce Greaves on Amazon Music",
+     "url": "https://www.amazon.com/Everyone-Wants-Piece-Me/dp/B0DVSSMLGH"
+    },
+    {
+     "pageTitle": "Everybody Wants A Piece Of Me - song and lyrics by Rob Smith",
+     "url": "https://open.spotify.com/track/2wV6uhfz318pdB12pkQR9z"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=1259256270796419"
+      }
+     ],
+     "pageTitle": "Marina - SHARING! Alison Buttigieg explains what happened to her ...",
+     "url": "https://www.facebook.com/MARINACANOWILDLIFEPHOTOGRAPHER/photos/sharing-alison-buttigieg-explains-what-happened-to-her-outstanding-imagea-highli/1259256270796419/"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=10154083932837038"
+      }
+     ],
+     "pageTitle": "Sindhu Raam - Facebook",
+     "url": "https://www.facebook.com/sindhu.raam/posts/her-look-actually-this-pic-is-trending-in-social-media-as-this-photo-won-the-awa/1387172838000779/"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "http://i.imgur.com/kwZ2CQa.jpg"
+      }
+     ],
+     "pageTitle": "Making historically accurate memes about Vlad Draculea Day 5",
+     "url": "https://www.reddit.com/r/HistoryMemes/comments/n8ckvm/making_historically_accurate_memes_about_vlad/"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "http://i.imgur.com/kwZ2CQa.jpg"
+      }
+     ],
+     "pageTitle": "Male cheetahs can make a female ovulate by barking at her. - Reddit",
+     "url": "https://www.reddit.com/r/Awwducational/comments/c91hi7/male_cheetahs_can_make_a_female_ovulate_by/"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://miro.medium.com/1*NZHl2ZsxqpziCLR6DHOMmQ.jpeg"
+      },
+      {
+       "url": "https://miro.medium.com/v2/resize:fit:725/1*NZHl2ZsxqpziCLR6DHOMmQ.jpeg"
+      }
+     ],
+     "pageTitle": "The Myth of the Impala Mama - Danny Glover - Medium",
+     "url": "https://danny-glover.medium.com/the-myth-of-the-impala-mama-f13c93f7ed1d"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://images.squarespace-cdn.com/content/v1/66bf91336a2b575e8550dd6c/fe0ff2cc-1355-4c09-896c-d17b60a3bace/cheetah-kill-masai-mara-kenya.jpg"
+      }
+     ],
+     "pageTitle": "Cheetah Kill | Discover Nature's Power \u2013 View Now",
+     "url": "https://www.alisonbuttigieg.com/cheetahkill"
+    },
+    {
+     "pageTitle": "Ritesh Baweja - Chola Securities NIMS, Jaipur - LinkedIn",
+     "partialMatchingImages": [
+      {
+       "url": "https://media.licdn.com/dms/image/v2/D4D22AQFDcsUvsQA6rw/feedshare-shrink_800/B4DZ.ZhReXJ4Ac-/0/1784987064469?e=2147483647&v=beta&t=qSibJXv7DBCX8j7JqXBwWS1pF6d2EQK3Ztri2kTQMvQ"
+      }
+     ],
+     "url": "https://in.linkedin.com/in/ritesh-baweja"
+    },
+    {
+     "pageTitle": "Abhishek Sharma - Operations Team Lead - BPS @ Tech Mahindra",
+     "partialMatchingImages": [
+      {
+       "url": "https://media.licdn.com/dms/image/v2/D5622AQGGZS-J-TSC9Q/feedshare-shrink_800/B56Z.qGtCAHcAg-/0/1785265312162?e=2147483647&v=beta&t=DJrVUyJmJRU1yZUKsta0elkRx5VTsDovgInkDfgBEz0"
+      }
+     ],
+     "url": "https://in.linkedin.com/in/abhishek-sharma-pune"
+    },
+    {
+     "pageTitle": "govind srivastva - Assistant General Manager - LinkedIn",
+     "partialMatchingImages": [
+      {
+       "url": "https://media.licdn.com/dms/image/v2/D4D22AQFDcsUvsQA6rw/feedshare-shrink_800/B4DZ.ZhReXJ4Ac-/0/1784987064469?e=2147483647&v=beta&t=qSibJXv7DBCX8j7JqXBwWS1pF6d2EQK3Ztri2kTQMvQ"
+      }
+     ],
+     "url": "https://in.linkedin.com/in/govind-srivastva-7a010414"
+    },
+    {
+     "pageTitle": "Jayasree Thenavasu - Sigma Byte - LinkedIn",
+     "partialMatchingImages": [
+      {
+       "url": "https://media.licdn.com/dms/image/v2/D4D22AQFDcsUvsQA6rw/feedshare-shrink_800/B4DZ.ZhReXJ4Ac-/0/1784987064469?e=2147483647&v=beta&t=qSibJXv7DBCX8j7JqXBwWS1pF6d2EQK3Ztri2kTQMvQ"
+      }
+     ],
+     "url": "https://in.linkedin.com/in/jayasree-thenavasu"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://images.squarespace-cdn.com/content/v1/66bf91336a2b575e8550dd6c/fe0ff2cc-1355-4c09-896c-d17b60a3bace/cheetah-kill-masai-mara-kenya.jpg"
+      }
+     ],
+     "pageTitle": "Portfolio | Explore Wildlife Photography Today",
+     "url": "https://www.alisonbuttigieg.com/portfolio"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "http://i.imgur.com/kwZ2CQa.jpg"
+      }
+     ],
+     "pageTitle": "A baby Gorilla and its mom, trying to pet a Muntjac Deer that lives in ...",
+     "url": "https://www.reddit.com/r/interestingasfuck/comments/pqnquz/a_baby_gorilla_and_its_mom_trying_to_pet_a/"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://i.pinimg.com/474x/43/70/b0/4370b0ee5c252e9dbfeb74aac0c846c6.jpg"
+      }
+     ],
+     "pageTitle": "South africa trip outfits | Africa travel photography ideas ... - Pinterest",
+     "url": "https://www.pinterest.com/pin/south-africa-trip-outfits--641692646915303250/"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://i.pinimg.com/474x/43/70/b0/4370b0ee5c252e9dbfeb74aac0c846c6.jpg"
+      }
+     ],
+     "pageTitle": "More to explore - Pinterest",
+     "url": "https://www.pinterest.com/pin/796644621639692809/"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://i.pinimg.com/474x/43/70/b0/4370b0ee5c252e9dbfeb74aac0c846c6.jpg"
+      }
+     ],
+     "pageTitle": "SEPTEMBER 2011 - Best of Kruger Plus Big Cats Photo Safari",
+     "url": "https://es.pinterest.com/pin/629870697887531452/"
+    },
+    {
+     "pageTitle": "Viral photo of impala and cheetah didn't lead photographer to ...",
+     "partialMatchingImages": [
+      {
+       "url": "https://africacheck.org/sites/default/files/styles/hero_lg/public/2019/08/cheetah_false.png?h=bde28bee&itok=4SDEf9oN"
+      }
+     ],
+     "url": "https://africacheck.org/fact-checks/meta-programme-fact-checks/viral-photo-impala-and-cheetah-didnt-lead-photographer"
+    }
+   ],
+   "partialMatchingImages": [
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=100025234703799"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=10155263741298947"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=873688885775252"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=241204663073268"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=2037798419634389"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=10210409746352952"
+    },
+    {
+     "url": "https://pbs.twimg.com/media/HS-EAkQW0AEceWk?format=webp&name=large"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=1715289395219082"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=788370121310120"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=1067502573350820"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=1999403743416763"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=631174703929121"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=1951380244952092"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=182324253531843"
+    },
+    {
+     "url": "https://www.tiktok.com/api/img/?itemId=7582988586270641428&location=3&aid=1988&index=1"
+    },
+    {
+     "url": "https://5b0988e595225.cdn.sohucs.com/q_70,c_zoom,w_640/images/20180519/81f0532e006d439c8c3479a3a4a25094.jpeg"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=1707414206990599"
+    },
+    {
+     "url": "https://www.edirneyiseviyorum.com/wp-content/uploads/2025/07/IMG_6984.jpeg"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=1732060464764943"
+    },
+    {
+     "url": "https://bahasainggrismudahsite.wordpress.com/wp-content/uploads/2018/02/cheetah-vs-deer.png?w=1108"
+    }
+   ],
+   "visuallySimilarImages": [
+    {
+     "url": "https://static.nationalgeographic.fr/files/styles/image_3200/public/02-cheetah-gallery-2328630_uploadsmember407371yourshot-407371-2328630jpg_7zrnh2g7tlxin5fqu5wxzscfldp3eflutfvvbpyjwjhzlmh4iziq_2418x3065.adapt_.676.1.webp?w=1600&h=2027&q=100"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=5244881645593893"
+    },
+    {
+     "url": "https://res.cloudinary.com/cea/image/upload/f_auto,q_auto/v1/mirroredImages/H46HiaQp7YtfNiDZk/op6d0uchrgkcurgug0xu"
+    },
+    {
+     "url": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi7Wj9IduOQRFsem47Es5CLAumFtaImWShATSwL21FFWafyNkyFSc6sAbk0lUhS7HPtX9gZhUCfIVcqxn3L_Dz4hrE-jzVXTBJHTYMQZ6ml4vepsjgcmxtXGeyADcA47S4Leo-s4E64oAf9/s1600/800px-Leopard_kill_-_KNP_-_001.jpg"
+    },
+    {
+     "url": "https://lookaside.instagram.com/seo/google_widget/crawler/?media_id=3829319271469686780"
+    },
+    {
+     "url": "https://blog.cabells.com/wp-content/uploads/2020/04/header.jpg?w=640"
+    },
+    {
+     "url": "https://lookaside.instagram.com/seo/google_widget/crawler/?media_id=3931857056721604441"
+    },
+    {
+     "url": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1a/5e/8d/9e/caption.jpg?w=300&h=300&s=1"
+    },
+    {
+     "url": "https://i.insider.com/6092fe3bf22c6b00185dc446?width=600&format=jpeg&auto=webp"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=10213996568447748"
+    },
+    {
+     "url": "https://pbs.twimg.com/media/Equ5nTmXAAIXbSw?format=webp&name=large"
+    },
+    {
+     "url": "https://lookaside.instagram.com/seo/google_widget/crawler/?media_id=3933266787311346922"
+    },
+    {
+     "url": "https://img.wikiwand.com/wikipedia/commons/thumb/0/07/Cheetah_with_impala.jpg/500px-Cheetah_with_impala.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+    },
+    {
+     "url": "https://www.poelking.com/news/fp-5717.jpg"
+    },
+    {
+     "url": "https://cdn.mos.cms.futurecdn.net/QN3dJpqYqeBpUgoMxTK32m.jpg"
+    },
+    {
+     "url": "https://media0.faz.net/image/w1240/e12ffb480008/w2837h1596x155y0/202205/1.8000553/vorliebe-fuer-kleine-huftiere.webp"
+    },
+    {
+     "url": "https://media.lex.dk/media/206204/standard_compressed_Giraffe-young-Serengeti-Trolle.jpg"
+    },
+    {
+     "url": "http://www.tina-malfilatre.com/images_habillage/7.jpg"
+    },
+    {
+     "url": "https://lookaside.instagram.com/seo/google_widget/crawler/?media_id=3932321311107044851"
+    },
+    {
+     "url": "https://i.ytimg.com/vi/52-uBLL-9v4/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLD2A56PQzryDy4uQ6dHbhT634yfhA"
+    }
+   ],
+   "webEntities": [
+    {
+     "description": "Cheetah",
+     "entityId": "/m/0cd4d",
+     "score": 1.0243849
+    },
+    {
+     "description": "Everybody Wants A Piece Of Me",
+     "entityId": "/g/11bv5__zyy",
+     "score": 0.5198
+    },
+    {
+     "description": "Impala",
+     "entityId": "/m/01r9wv",
+     "score": 0.44055003
+    },
+    {
+     "description": "Leopard",
+     "entityId": "/m/0c29q",
+     "score": 0.38564998
+    },
+    {
+     "description": "other",
+     "entityId": "/g/11qh5bk72c",
+     "score": 0.3279
+    },
+    {
+     "description": "Spotify",
+     "entityId": "/g/11hy9l1k8h",
+     "score": 0.326
+    },
+    {
+     "description": "Big cat",
+     "entityId": "/m/016126",
+     "score": 0.3068
+    },
+    {
+     "description": "Photographer",
+     "entityId": "/m/0lgw7",
+     "score": 0.2938
+    },
+    {
+     "description": "create",
+     "entityId": "/g/11qg_c03j7",
+     "score": 0.2892
+    },
+    {
+     "description": "Photography",
+     "entityId": "/m/05wkw",
+     "score": 0.2823
+    },
+    {
+     "description": "Everyone Wants A Piece Of Me",
+     "entityId": "/g/11x27jx19j",
+     "score": 0.2812
+    },
+    {
+     "description": "Rob Smith",
+     "entityId": "/g/11qsbpdy48",
+     "score": 0.2722
+    },
+    {
+     "description": "Photograph",
+     "entityId": "/m/068jd",
+     "score": 0.2695
+    },
+    {
+     "description": "Antelope",
+     "entityId": "/m/0czz2",
+     "score": 0.2647
+    },
+    {
+     "description": "Alison Buttigieg",
+     "entityId": "/g/11gd3vpnr4",
+     "score": 0.04005
+    }
+   ]
+  }
+ }
+}

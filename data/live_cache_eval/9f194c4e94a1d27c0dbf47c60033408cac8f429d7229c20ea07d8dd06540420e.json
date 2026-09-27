@@ -1,0 +1,435 @@
+{
+ "dated_at": "2026-09-27T17:14:53+00:00",
+ "page_dates": {
+  "https://jjhm.eklablog.com/alvaro-munera-the-last-bullfight-a138946814": {
+   "date": null,
+   "source": null
+  },
+  "https://www.affordablemallorca.com/es/insights/animal-rights-on-mallorca": {
+   "date": null,
+   "source": null
+  },
+  "https://www.affordablemallorca.com/insights/animal-rights-on-mallorca": {
+   "date": "2019-11-12",
+   "source": "wayback"
+  },
+  "https://www.facebook.com/VT/posts/the-veteran-matador-met-his-fate-at-the-horns-of-a-bull/1069785438586877/": {
+   "date": null,
+   "source": null
+  },
+  "https://www.facebook.com/groups/142126849181880/posts/24036232296011334/": {
+   "date": null,
+   "source": null
+  },
+  "https://www.facebook.com/warwick.schiller/posts/tylers-bullfighting-career-was-over-before-it-started/10239110315673729/": {
+   "date": null,
+   "source": null
+  },
+  "https://www.reddit.com/r/pics/comments/xpek4/this_incredible_photo_marks_the_end_of_matador/": {
+   "date": null,
+   "source": null
+  },
+  "https://www.snopes.com/category/photos/?pagenum=118": {
+   "date": "2012-07-30",
+   "source": "htmldate"
+  },
+  "https://www.snopes.com/fact-check/the-last-bullfight/": {
+   "date": "2012-07-17",
+   "source": "htmldate"
+  },
+  "https://www.snopes.com/tag/animal-cruelty/?pagenum=2": {
+   "date": "2016-07-26",
+   "source": "htmldate"
+  }
+ },
+ "requested_at": "2026-09-27T16:47:39+00:00",
+ "vision": {
+  "webDetection": {
+   "bestGuessLabels": [
+    {
+     "label": "bullfighter crying",
+     "languageCode": "en"
+    }
+   ],
+   "fullMatchingImages": [
+    {
+     "url": "https://mediaproxy.snopes.com/width/1200/https://media.snopes.com/2015/04/bullfight.jpg"
+    },
+    {
+     "url": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgCWItuZL1g8nOdCqOBdRD0rVvrY9kPbaSlaztngrzntOB5S9TqMtvpYPZEzk26a13XcI8UjiUcMeqks3ebQzppGlDXUvdK2qP_8FshcXaQve_6uzga2z-1I6AyfPXaLZ9rUfGkPqjDSxDe/s1600/torero.jpg"
+    },
+    {
+     "url": "https://mediaproxy.snopes.com/width/600/https://media.snopes.com/2015/04/bullfight.jpg"
+    },
+    {
+     "url": "https://bible-facts.org/uploads/posts/2013-12/thumbs/1387278683_8wdugopzzma.jpg"
+    },
+    {
+     "url": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgCWItuZL1g8nOdCqOBdRD0rVvrY9kPbaSlaztngrzntOB5S9TqMtvpYPZEzk26a13XcI8UjiUcMeqks3ebQzppGlDXUvdK2qP_8FshcXaQve_6uzga2z-1I6AyfPXaLZ9rUfGkPqjDSxDe/s400/torero.jpg"
+    }
+   ],
+   "pagesWithMatchingImages": [
+    {
+     "pageTitle": "This incredible photo marks the end of Matador Torero Alvaro ...",
+     "partialMatchingImages": [
+      {
+       "url": "https://external-preview.redd.it/this-incredible-photo-marks-the-end-of-matador-torero-v0-p7kmSF0fD2CY3cEZaWVCXNvefiF0hONvRpqww-WTJEA.jpeg?auto=webp&s=7e5a00ecd1443b7b60f5707a2749f5b4fa561e5d"
+      },
+      {
+       "url": "https://external-preview.redd.it/p7kmSF0fD2CY3cEZaWVCXNvefiF0hONvRpqww-WTJEA.jpeg?width=140&height=105&auto=webp&s=1fecc2748dae91082c3875c004c69793f88f27cb"
+      }
+     ],
+     "url": "https://www.reddit.com/r/pics/comments/xpek4/this_incredible_photo_marks_the_end_of_matador/"
+    },
+    {
+     "pageTitle": "Tyler's bullfighting career was over before it started... - Facebook",
+     "partialMatchingImages": [
+      {
+       "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=1511579903291801&get_thumbnail=1"
+      }
+     ],
+     "url": "https://www.facebook.com/warwick.schiller/posts/tylers-bullfighting-career-was-over-before-it-started/10239110315673729/"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://mediaproxy.snopes.com/width/1200/https://media.snopes.com/2015/04/bullfight.jpg"
+      }
+     ],
+     "pageTitle": "Is This the Exact Moment a Bullfighter Became an Anti ... - Snopes",
+     "url": "https://www.snopes.com/fact-check/the-last-bullfight/"
+    },
+    {
+     "pageTitle": "BULLFIGHTER CRIES IN GRIEF BEFORE THE BULL - Facebook",
+     "url": "https://www.facebook.com/61588684665887/posts/bullfighter-cries-in-grief-before-the-bull/122105451735289488/"
+    },
+    {
+     "pageTitle": "Matador's career ending moment of mercy for a bull - Facebook",
+     "partialMatchingImages": [
+      {
+       "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=10160067833040410"
+      }
+     ],
+     "url": "https://www.facebook.com/groups/142126849181880/posts/24036232296011334/"
+    },
+    {
+     "pageTitle": "The veteran matador met his fate at the horns of a bull. - Facebook",
+     "partialMatchingImages": [
+      {
+       "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=3063739067038235"
+      }
+     ],
+     "url": "https://www.facebook.com/VT/posts/the-veteran-matador-met-his-fate-at-the-horns-of-a-bull/1069785438586877/"
+    },
+    {
+     "pageTitle": "BULLFIGHTER CRIES IN GRIEF BEFORE THE BULL - YouTube",
+     "url": "https://www.youtube.com/shorts/rditpa5D0AA"
+    },
+    {
+     "pageTitle": "Grieving Bullfighter Dropped to His Knees and the Bull Refused to ...",
+     "url": "https://www.youtube.com/shorts/kAdVrFox_jQ"
+    },
+    {
+     "pageTitle": "\u00c1lvaro M\u00fanera \u2014 The Last Bullfight. - - Eklablog",
+     "partialMatchingImages": [
+      {
+       "url": "https://ekladata.com/Q3SkPJp-o1E2xrq93h37BeuwskA.jpg"
+      },
+      {
+       "url": "https://ekladata.com/o0DP5wFUHy9b2BOJ5mgYZWaPlg0.jpg"
+      }
+     ],
+     "url": "https://jjhm.eklablog.com/alvaro-munera-the-last-bullfight-a138946814"
+    },
+    {
+     "pageTitle": "Grieving Bullfighter Finds Peace In Emotional Arena ... - YouTube",
+     "url": "https://www.youtube.com/shorts/66Y_RIRXU9w"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://mediaproxy.snopes.com/width/600/https://media.snopes.com/2015/04/bullfight.jpg"
+      }
+     ],
+     "pageTitle": "Animal Cruelty Articles | Page 2 | Snopes.com",
+     "url": "https://www.snopes.com/tag/animal-cruelty/?pagenum=2"
+    },
+    {
+     "pageTitle": "Animal Rights on Mallorca",
+     "partialMatchingImages": [
+      {
+       "url": "https://www.affordablemallorca.com/uploads/posts/_fullSmaller2x/Bullfighters-remorce.png"
+      }
+     ],
+     "url": "https://www.affordablemallorca.com/es/insights/animal-rights-on-mallorca"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://mediaproxy.snopes.com/width/600/https://media.snopes.com/2015/04/bullfight.jpg"
+      }
+     ],
+     "pageTitle": "Fauxtography Archives | Page 118 - Snopes.com",
+     "url": "https://www.snopes.com/category/photos/?pagenum=118"
+    },
+    {
+     "pageTitle": "Animal Rights on Mallorca",
+     "partialMatchingImages": [
+      {
+       "url": "https://www.affordablemallorca.com/uploads/posts/_fullSmaller2x/Bullfighters-remorce.png"
+      }
+     ],
+     "url": "https://www.affordablemallorca.com/insights/animal-rights-on-mallorca"
+    },
+    {
+     "pageTitle": "Guy From Dog with a Blog - Pinterest",
+     "partialMatchingImages": [
+      {
+       "url": "https://i.pinimg.com/236x/c9/6f/b5/c96fb574d77470a137dbda49fbee2d46.jpg"
+      }
+     ],
+     "url": "https://www.pinterest.com/ideas/guy-from-dog-with-a-blog/902679912038/"
+    },
+    {
+     "pageTitle": "La vieja foto del torero presuntamente arrepentido de serlo en plena ...",
+     "partialMatchingImages": [
+      {
+       "url": "https://www.publico.es/files/og_thumbnail/uploads/2024/11/16/67385e5ca2622.jpeg"
+      }
+     ],
+     "url": "https://www.publico.es/opinion/hemeroteca/vieja-foto-torero-presuntamente-arrepentido-serlo-plena-plaza.html"
+    },
+    {
+     "pageTitle": "No, esta foto no muestra \"el fin de la carrera del torero \u00c1lvaro ...",
+     "partialMatchingImages": [
+      {
+       "url": "https://files.maldita.es/maldita/contents/2024/07/668e1dab171d8490825473639590-jpeg.jpeg"
+      },
+      {
+       "url": "https://files.maldita.es/maldita/contents/2025/11/690beb98673b51375235107491555-jpeg.jpeg"
+      }
+     ],
+     "url": "https://maldita.es/malditobulo/20251106/no-esta-foto-no-muestra-el-fin-de-la-carrera-del-torero-alvaro-munera-tras-sentirse-arrepentido-durante-una-corrida-2/"
+    },
+    {
+     "pageTitle": "Pilar Rahola on X: \"Alvaro Munera, ex torero rehabilitado",
+     "partialMatchingImages": [
+      {
+       "url": "https://pbs.twimg.com/media/A-D80UXCAAA_KCR?format=webp&name=large"
+      }
+     ],
+     "url": "https://x.com/RaholaOficial/status/279501152637288448"
+    },
+    {
+     "pageTitle": "No, esta foto no muestra a un torero en plena crisis de arrepentimiento",
+     "partialMatchingImages": [
+      {
+       "url": "https://factual.afp.com/sites/default/files/styles/og_image/public/medias/factchecking/brasil/image_4_1.jpg?itok=ju6Bp-pF"
+      }
+     ],
+     "url": "https://factual.afp.com/no-esta-foto-no-muestra-un-torero-en-plena-crisis-de-arrepentimiento"
+    },
+    {
+     "pageTitle": "Intervista a D. Alvaro M\u00fanera. Da torero a paladino contro la tortura",
+     "partialMatchingImages": [
+      {
+       "url": "https://cdn.peacelink.it/images/18005.jpg?format=jpg"
+      }
+     ],
+     "url": "https://www.peacelink.it/animali/a/38232.html"
+    }
+   ],
+   "partialMatchingImages": [
+    {
+     "url": "https://cdn.peacelink.it/images/18005.jpg?format=jpg"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=10212477606198613"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=100002253279053"
+    },
+    {
+     "url": "https://persianpet.org/Files/Contents/139406/Image66807-1.jpg"
+    },
+    {
+     "url": "https://ekladata.com/Q3SkPJp-o1E2xrq93h37BeuwskA.jpg"
+    },
+    {
+     "url": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjLJNY2ENrb1etswMNrAECVqiqvntUbdZkOC9eSVhuHQQzEy_y7eGy3yxthi-HZ8MY5IHPFNAfuHzotFawAGJIYxUXK17LkiilWTXsX9zkb20WrqS14cLvhe-CxXxrC_ZCA1PAYAJHs1x0/w1200-h630-p-k-no-nu/taureau-.jpg"
+    },
+    {
+     "url": "https://www.affordablemallorca.com/uploads/posts/_fullSmaller2x/Bullfighters-remorce.png"
+    },
+    {
+     "url": "https://s.poembook.ru/user/67/45/e9/8195358b661b63cde771b0de915e83b83019e532.jpeg"
+    },
+    {
+     "url": "https://telegrafi.com/media-library/2016-01-momenti-i-pendes-euml-s-s-euml-matadorit-demi-q-euml-e-b-euml-ri-t-euml-luftoj-euml-p-euml-r-t-euml-drejtat-e-kafsh-euml.jpg?id=56935647&width=1245&height=700&quality=90&coordinates=0%2C0%2C0%2C0"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=31383492027931378"
+    },
+    {
+     "url": "https://www.publico.es/files/og_thumbnail/uploads/2024/11/16/67385e5ca2622.jpeg"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=122196776258282935"
+    },
+    {
+     "url": "https://www.infobae.com/resizer/v2/7RZ5MWPKWFE6XJ73SSDVRHFQHA?auth=82e40cf3ded39e5b312653740cded0099088cbc7959d0f61ea4cefd2cce930c7&smart=true&width=1024&height=512&quality=85"
+    },
+    {
+     "url": "https://www.las2orillas.co/wp-content/uploads/2014/09/Torero-se-arrepiente.jpg"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=1511579903291801&get_thumbnail=1"
+    },
+    {
+     "url": "https://pbs.twimg.com/media/A1ZXJV8CYAAMNGv?format=webp&name=medium"
+    },
+    {
+     "url": "https://www.infobae.com/resizer/v2/7RZ5MWPKWFE6XJ73SSDVRHFQHA?auth=82e40cf3ded39e5b312653740cded0099088cbc7959d0f61ea4cefd2cce930c7&smart=true&width=1200&height=675&quality=85"
+    },
+    {
+     "url": "https://image.demorgen.be/57305486/width/2480/de-spijt-van-een-stierenvechter-niets-is-wat-het-lijkt"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=122192681234040892"
+    },
+    {
+     "url": "https://external-preview.redd.it/this-incredible-photo-marks-the-end-of-matador-torero-v0-p7kmSF0fD2CY3cEZaWVCXNvefiF0hONvRpqww-WTJEA.jpeg?auto=webp&s=7e5a00ecd1443b7b60f5707a2749f5b4fa561e5d"
+    }
+   ],
+   "visuallySimilarImages": [
+    {
+     "url": "https://e01-elmundo.uecdn.es/assets/multimedia/imagenes/2026/08/31/17882078897288.jpg"
+    },
+    {
+     "url": "https://e00-elmundo.uecdn.es/assets/multimedia/imagenes/2026/08/20/17872508117154.jpg"
+    },
+    {
+     "url": "https://img.youm7.com/ArticleImgs/2026/9/22/194809-14306194-(1).jpg"
+    },
+    {
+     "url": "https://imagenes.elpais.com/resizer/v2/MGDMZWR5RFF4JNDS6GNGC7DHVA.jpg?auth=c0897faa0835d32d2487a3e3d60ffffce8f31435daa4c9fc45994c5b1a09dd85&width=414&height=311&focal=2079%2C436"
+    },
+    {
+     "url": "https://pbs.twimg.com/card_img/2101759363694084097/3vDWhS2T?format=webp&name=medium"
+    },
+    {
+     "url": "https://img.youm7.com/ArticleImgs/2026/9/22/188618-%D9%85%D9%87%D8%B1%D8%AC%D8%A7%D9%86-%D9%85%D8%B5%D8%A7%D8%B1%D8%B9%D8%A9-%D8%A7%D9%84%D8%AB%D9%8A%D8%B1%D8%A7%D9%86-%D9%81%D9%8A-%D9%81%D8%B1%D9%86%D8%B3%D8%A7-(1).jpg"
+    },
+    {
+     "url": "https://fotografias-2.larazon.es/clipping/cmsimages02/2026/09/22/57533B28-C36C-4EAE-8364-00A00390768D/urdiales-vuelve-sentar-catedra-logrono-esta-vez-consigue-salir-hombros_98.jpg?crop=1600,900,x0,y83&width=1900&height=1069&optimize=low&format=webply"
+    },
+    {
+     "url": "https://pbs.twimg.com/card_img/2101770363134767104/o7vl6c3q?format=webp&name=medium"
+    },
+    {
+     "url": "https://e01-elmundo.uecdn.es/assets/multimedia/imagenes/2026/07/16/17842343190776.jpg"
+    },
+    {
+     "url": "https://e00-elmundo.uecdn.es/assets/multimedia/imagenes/2026/08/25/17876805165205.jpg"
+    },
+    {
+     "url": "https://s3.ppllstatics.com/ideal/www/multimedia/2026/06/06/MORANTE-klxG--562x315@Ideal.jpg?width=562"
+    },
+    {
+     "url": "https://e01-elmundo.uecdn.es/assets/multimedia/imagenes/2026/09/01/17882925433654.jpg"
+    },
+    {
+     "url": "https://s2.ppllstatics.com/elnortedecastilla/www/multimedia/local/2026/09/12/luque_20260912234153-U55133837378XFK-562x315@El%20Norte.jpg?width=562"
+    },
+    {
+     "url": "https://pbs.twimg.com/media/HSrHmP_W0AATS95?format=webp&name=large"
+    },
+    {
+     "url": "https://www.shutterstock.com/editorial/image-editorial/MaTbcazdN1T2A821OTI1MDI=/spanish-bullfighter-emilio-de-justo-action-during-550nw-17171094q.jpg"
+    },
+    {
+     "url": "https://e01-elmundo.uecdn.es/assets/multimedia/imagenes/2026/09/22/17900699960293.jpg"
+    },
+    {
+     "url": "https://img.youm7.com/ArticleImgs/2026/9/22/163810-%D9%85%D9%87%D8%B1%D8%AC%D8%A7%D9%86-%D9%85%D8%B5%D8%A7%D8%B1%D8%B9%D8%A9-%D8%A7%D9%84%D8%AB%D9%8A%D8%B1%D8%A7%D9%86-%D9%81%D9%8A-%D9%81%D8%B1%D9%86%D8%B3%D8%A7-(7).jpg"
+    },
+    {
+     "url": "https://pbs.twimg.com/media/HS4fCvAWcAA1Tru?format=webp&name=large"
+    },
+    {
+     "url": "https://estaticos-cdn.prensaiberica.es/clip/602a534e-5453-4316-84fa-abffeef42c93_16-9-discover-aspect-ratio_default_0_x600y267.webp"
+    },
+    {
+     "url": "https://imagenes.elpais.com/resizer/v2/VA35BALZIBHELPE5SNCFIHI2WM.jpeg?auth=157c4b835a8c1e042bc29a358942e247f09401b6f3e0b24fa77a05a4293045e6&width=414&height=311&smart=true"
+    }
+   ],
+   "webEntities": [
+    {
+     "description": "\u00c1lvaro M\u00fanera",
+     "entityId": "/g/120jwzwx",
+     "score": 10.174501
+    },
+    {
+     "description": "Bullring",
+     "entityId": "/m/06dsww",
+     "score": 0.8930403
+    },
+    {
+     "description": "Matador",
+     "entityId": "/m/01kr58",
+     "score": 0.8770003
+    },
+    {
+     "description": "Spanish-style bullfighting",
+     "entityId": "/m/02qwkbl",
+     "score": 0.5242
+    },
+    {
+     "description": "ruedo",
+     "entityId": "/g/121tbk11",
+     "score": 0.5229
+    },
+    {
+     "description": "Spanish Fighting Bull",
+     "entityId": "/m/0fng47",
+     "score": 0.5166
+    },
+    {
+     "description": "Snopes",
+     "entityId": "/m/02dkt6",
+     "score": 0.4464
+    },
+    {
+     "description": "Rodeo",
+     "entityId": "/m/0kfbd",
+     "score": 0.4194
+    },
+    {
+     "description": "Animal rights",
+     "entityId": "/m/0h4xw_",
+     "score": 0.3153
+    },
+    {
+     "description": "Photography",
+     "entityId": "/m/05wkw",
+     "score": 0.2928
+    },
+    {
+     "description": "Photograph",
+     "entityId": "/m/068jd",
+     "score": 0.2903
+    },
+    {
+     "description": "Bull",
+     "entityId": "/m/0cnyhnx",
+     "score": 0.23887256
+    },
+    {
+     "description": "Crying",
+     "entityId": "/m/0463cq4",
+     "score": 0.2334
+    }
+   ]
+  }
+ }
+}

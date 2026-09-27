@@ -1,0 +1,373 @@
+{
+ "dated_at": "2026-09-27T17:24:41+00:00",
+ "page_dates": {
+  "https://manipulatori.cz/znovu-se-siri-hoax-o-hrbitovu-elektromobilu-pobliz-parize/": {
+   "date": null,
+   "source": null
+  },
+  "https://politifact.com/factchecks/2021/may/17/facebook-posts/no-electric-cars-werent-abandoned-because-batterie/": {
+   "date": null,
+   "source": null
+  },
+  "https://www.clarin.com/autos/desolador-cementerio-autos-electricos-iban-transformar-movilidad-paris-fracasaron_0_k2Xe4BwXT.html": {
+   "date": "2021-05-20",
+   "source": "htmldate"
+  },
+  "https://www.facebook.com/groups/1737462746527033/posts/2903356543270975/": {
+   "date": null,
+   "source": null
+  },
+  "https://www.facebook.com/groups/801407303683897/posts/1075307179627240/": {
+   "date": null,
+   "source": null
+  },
+  "https://www.facebook.com/ksdktv/posts/memes-about-electric-car-graveyards-in-france-have-been-circulating-for-years-th/485530100271871/": {
+   "date": null,
+   "source": null
+  },
+  "https://www.lemonde.fr/les-decodeurs/article/2023/06/14/le-pretendu-cimetiere-d-autolib-dans-le-loir-et-cher-continue-d-alimenter-de-fausses-polemiques_6177569_4355770.html": {
+   "date": null,
+   "source": null
+  },
+  "https://www.motorpasion.com/coches-electricos/cuando-carsharing-fracasa-descampado-se-convierte-cementerio-miles-coches-electricos-abandonados": {
+   "date": null,
+   "source": null
+  },
+  "https://www.snopes.com/fact-check/electric-cars-abandoned-france/": {
+   "date": "2021-05-16",
+   "source": "htmldate"
+  },
+  "https://www.wranglerforum.com/threads/first-all-electric-jeep.2438368/latest": {
+   "date": null,
+   "source": null
+  }
+ },
+ "requested_at": "2026-09-27T16:57:35+00:00",
+ "vision": {
+  "webDetection": {
+   "bestGuessLabels": [
+    {
+     "label": "sport utility vehicle"
+    }
+   ],
+   "fullMatchingImages": [
+    {
+     "url": "https://mediaproxy.snopes.com/width/1200/https://media.snopes.com/2021/05/autolib.jpg"
+    },
+    {
+     "url": "https://i.blogs.es/a401dd/bollore-bluecar-abandonados-01/450_1000.jpeg"
+    },
+    {
+     "url": "https://www.clarin.com/2021/05/20/YhWlhD1jX_340x340__1.jpg"
+    },
+    {
+     "url": "https://www.clarin.com/2021/05/20/YhWlhD1jX_360x240__1.jpg"
+    }
+   ],
+   "pagesWithMatchingImages": [
+    {
+     "pageTitle": "Sport utility vehicle : r/carros - Reddit",
+     "url": "https://www.reddit.com/r/carros/comments/1imad9j/ve%C3%ADculo_utilit%C3%A1rio_esportivo/?tl=en"
+    },
+    {
+     "pageTitle": "Sport Utility Vehicle of the Year! - YouTube",
+     "url": "https://www.youtube.com/watch?v=rgzWiEOUTxM"
+    },
+    {
+     "pageTitle": "6 Best Sport Utility Vehicle For The Money(Reliable SUV ... - YouTube",
+     "url": "https://www.youtube.com/watch?v=FK1n1TKWybg"
+    },
+    {
+     "pageTitle": "Sport vs Utility: Is the General the perfect UTV? - YouTube",
+     "url": "https://www.youtube.com/watch?v=rw90YEGROA4"
+    },
+    {
+     "pageTitle": "Utility Sport Vehicle - Instagram",
+     "url": "https://www.instagram.com/popular/utility-sport-vehicle/"
+    },
+    {
+     "pageTitle": "Sport Utility Vehicles: Everything You Need To Know",
+     "url": "https://sadasd22edasasss-08.desco-pontos-naoresponder.tecnologia.ws/tecnologia-news/sport-utility-vehicles-everything-you-need-to-know-1767647388"
+    },
+    {
+     "pageTitle": "What is considered a sports utility vehicle, and why? - All About Auto",
+     "url": "https://allaboutauto.quora.com/https-www-quora-com-What-is-considered-a-sports-utility-vehicle-and-why-answer-Rohit-R-40"
+    },
+    {
+     "pageTitle": "Autolib EV car share graveyard in France explained - Facebook",
+     "partialMatchingImages": [
+      {
+       "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=1312339619634184"
+      },
+      {
+       "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=482516030413648"
+      }
+     ],
+     "url": "https://www.facebook.com/groups/1737462746527033/posts/2903356543270975/"
+    },
+    {
+     "pageTitle": "Renault's electric car battery recycling issue - Facebook",
+     "partialMatchingImages": [
+      {
+       "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=1312339619634184"
+      },
+      {
+       "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=482516030413648"
+      }
+     ],
+     "url": "https://www.facebook.com/groups/801407303683897/posts/1075307179627240/"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://mediaproxy.snopes.com/width/1200/https://media.snopes.com/2021/05/autolib.jpg"
+      }
+     ],
+     "pageTitle": "First All Electric Jeep? | Page 6 - Jeep Wrangler Forum",
+     "url": "https://www.wranglerforum.com/threads/first-all-electric-jeep.2438368/latest"
+    },
+    {
+     "pageTitle": "Memes about electric car graveyards in France have been ...",
+     "partialMatchingImages": [
+      {
+       "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=1312339619634184"
+      }
+     ],
+     "url": "https://www.facebook.com/ksdktv/posts/memes-about-electric-car-graveyards-in-france-have-been-circulating-for-years-th/485530100271871/"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://mediaproxy.snopes.com/width/1200/https://media.snopes.com/2021/05/autolib.jpg"
+      }
+     ],
+     "pageTitle": "Were These Electric Cars Abandoned Because Their Batteries Failed?",
+     "url": "https://www.snopes.com/fact-check/electric-cars-abandoned-france/"
+    },
+    {
+     "pageTitle": "No, electric cars weren't abandoned because batteries too costly to ...",
+     "partialMatchingImages": [
+      {
+       "url": "https://politifact.com/wp-content/uploads/2025/10/Screen_Shot_2021-07-13_at_11.10.14_AM.png"
+      }
+     ],
+     "url": "https://politifact.com/factchecks/2021/may/17/facebook-posts/no-electric-cars-werent-abandoned-because-batterie/"
+    },
+    {
+     "pageTitle": "Speciale \"Sport Utility Vehicle\" - YouTube",
+     "url": "https://www.youtube.com/watch?v=aZUmTrhoFbM"
+    },
+    {
+     "pageTitle": "Le pr\u00e9tendu \u00ab cimeti\u00e8re \u00bb d'Autolib' dans le Loir-et-Cher continue d ...",
+     "partialMatchingImages": [
+      {
+       "url": "https://img.lemde.fr/2023/06/12/0/0/599/763/664/0/75/0/5944026_1686562045697-screenshot-2023-06-12-11-27-04.png"
+      },
+      {
+       "url": "https://img.lemde.fr/2023/06/12/0/83/700/467/1440/960/60/0/d4f7b6d_1686564734648-autolibs-sologne.png"
+      },
+      {
+       "url": "https://img.lemde.fr/2023/06/12/33/80/720/360/1440/720/60/0/d4f7b6d_1686564734648-autolibs-sologne.png"
+      },
+      {
+       "url": "https://img.lemde.fr/2023/06/12/33/80/720/360/1342/671/60/0/d4f7b6d_1686564734648-autolibs-sologne.png"
+      }
+     ],
+     "url": "https://www.lemonde.fr/les-decodeurs/article/2023/06/14/le-pretendu-cimetiere-d-autolib-dans-le-loir-et-cher-continue-d-alimenter-de-fausses-polemiques_6177569_4355770.html"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://www.clarin.com/2021/05/20/YhWlhD1jX_360x240__1.jpg"
+      },
+      {
+       "url": "https://www.clarin.com/2021/05/20/YhWlhD1jX_340x340__1.jpg"
+      }
+     ],
+     "pageTitle": "El desolador cementerio de autos el\u00e9ctricos que iban a transformar ...",
+     "url": "https://www.clarin.com/autos/desolador-cementerio-autos-electricos-iban-transformar-movilidad-paris-fracasaron_0_k2Xe4BwXT.html"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://i.blogs.es/a401dd/bollore-bluecar-abandonados-01/450_1000.jpeg"
+      }
+     ],
+     "pageTitle": "Cuando el carsharing fracasa: un descampado se convierte en el ...",
+     "url": "https://www.motorpasion.com/coches-electricos/cuando-carsharing-fracasa-descampado-se-convierte-cementerio-miles-coches-electricos-abandonados"
+    },
+    {
+     "pageTitle": "Znovu se \u0161\u00ed\u0159\u00ed hoax o h\u0159bitovu elektromobil\u016f pobl\u00ed\u017e Pa\u0159\u00ed\u017ee",
+     "partialMatchingImages": [
+      {
+       "url": "https://i0.wp.com/manipulatori.cz/wp-content/uploads/2021/10/243557391_4160773877366813_430050655561744514_n.jpg"
+      }
+     ],
+     "url": "https://manipulatori.cz/znovu-se-siri-hoax-o-hrbitovu-elektromobilu-pobliz-parize/"
+    }
+   ],
+   "partialMatchingImages": [
+    {
+     "url": "https://img.lemde.fr/2023/06/12/33/80/720/360/1342/671/60/0/d4f7b6d_1686564734648-autolibs-sologne.png"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=1312339619634184"
+    },
+    {
+     "url": "https://img.lemde.fr/2023/06/12/33/80/720/360/1440/720/60/0/d4f7b6d_1686564734648-autolibs-sologne.png"
+    },
+    {
+     "url": "https://img.lemde.fr/2023/06/12/0/83/700/467/1440/960/60/0/d4f7b6d_1686564734648-autolibs-sologne.png"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=482516030413648"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=2207541442715231"
+    },
+    {
+     "url": "https://i0.wp.com/manipulatori.cz/wp-content/uploads/2021/10/243557391_4160773877366813_430050655561744514_n.jpg"
+    },
+    {
+     "url": "https://img.lemde.fr/2023/06/12/0/0/599/763/664/0/75/0/5944026_1686562045697-screenshot-2023-06-12-11-27-04.png"
+    },
+    {
+     "url": "https://politifact.com/wp-content/uploads/2025/10/Screen_Shot_2021-07-13_at_11.10.14_AM.png"
+    }
+   ],
+   "visuallySimilarImages": [
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=36637382355909981&get_thumbnail=1"
+    },
+    {
+     "url": "https://centralsa.com.gt/_astro/Bodega-Fiscal-centralsa-01.BVLJltaN_Z2kaeSB.webp"
+    },
+    {
+     "url": "https://www.outandaboutlive.co.uk/sites/default/files/styles/thumbnail_594x316/public/2026-08/oaktree-thumb.jpg.webp?itok=SY0xvvcB"
+    },
+    {
+     "url": "https://lookaside.instagram.com/seo/google_widget/crawler/?media_id=3976004956436637512"
+    },
+    {
+     "url": "https://www.watson.de/imgdb/e923/Z1200,1200,833,375,333,236/7387825345291282"
+    },
+    {
+     "url": "https://hanksautowreckers.com/images/gallery/m723414860.jpg"
+    },
+    {
+     "url": "https://images.ctfassets.net/3h69mkdgxn20/36FhcdQovJJofclDjYSnX6/3e0bd75f4a67d2027bb633d560c8ade2/Vehicle_Finance_-_Vans_3.JPG?fm=jpg&q=80"
+    },
+    {
+     "url": "https://res.cloudinary.com/spothero/image/upload/w_2000,h_1333,q_50,x_1000,y_666,c_fill,g_xy_center,f_auto/c_scale,fl_relative,g_south_east,l_logos:spothero,o_27,w_0.25,x_0.05,y_0.05/v1681243347/vi6ahtz8j19wx0lzzmgm.jpg"
+    },
+    {
+     "url": "https://rvland-h.com/cms/wp-content/themes/rvland-h/images/gallery_img24.jpg"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=890499803886726"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=1105247072171715&get_thumbnail=1"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=103485505925476"
+    },
+    {
+     "url": "https://i.insider.com/5e8b46b929d6d9474f2c2c5a?width=600&format=jpeg&auto=webp"
+    },
+    {
+     "url": "https://assets.maestronewsroom.com/media/5dd7c4a4-a961-498c-8029-59f9255b4c95/1789268989976-529573cc323f49a0.png"
+    },
+    {
+     "url": "https://gekas.mild-cdn-cloudflare.com/cdn-cgi/image/format=auto,onerror=redirect/wp-content/uploads/2024/10/Camping_Gekas-Ullared-scaled.jpg"
+    },
+    {
+     "url": "https://img.buzzfeed.com/buzzfeed-static/static/2019-12/23/16/asset/1066c05e59b4/sub-buzz-4425-1577120154-3.jpg"
+    },
+    {
+     "url": "https://media.licdn.com/dms/image/v2/D4E22AQH5gMxt-1E06g/feedshare-shrink_800/B4EaDP.KmEH4Ak-/0/1790195575479?e=2147483647&v=beta&t=88neYeOrVl8Wb9QfbVKsrVFp5F3ocX0no6zok1lYWTM"
+    },
+    {
+     "url": "https://media.licdn.com/dms/image/v2/D4D12AQHdJJPEbUpasA/article-cover_image-shrink_720_1280/article-cover_image-shrink_720_1280/0/1719218381263?e=2147483647&v=beta&t=0a3djrVEqPXgvdrUtL8S9_WZyLBX2wQWzxXZdvojXb0"
+    },
+    {
+     "url": "https://www.denka-bigswan.com/img/usage/pic_location02.jpg"
+    },
+    {
+     "url": "https://res.cloudinary.com/spothero/image/upload/w_2000,h_1333,q_50,x_1000,y_666,c_fill,g_xy_center,f_auto/c_scale,fl_relative,g_south_east,l_logos:spothero,o_27,w_0.25,x_0.05,y_0.05/v1681243346/ocyihw9kwt7o0saxxc85.jpg"
+    }
+   ],
+   "webEntities": [
+    {
+     "description": "SUV",
+     "entityId": "/m/0ctrp",
+     "score": 1.2149163
+    },
+    {
+     "description": "Car",
+     "entityId": "/m/0k4j",
+     "score": 0.97064996
+    },
+    {
+     "description": "Sports car",
+     "entityId": "/m/012mq4",
+     "score": 0.8514
+    },
+    {
+     "description": "Utility vehicle",
+     "entityId": "/m/047gm1n",
+     "score": 0.7156
+    },
+    {
+     "description": "Electric car",
+     "entityId": "/m/03nlf2w",
+     "score": 0.7135
+    },
+    {
+     "description": "Pininfarina B0",
+     "entityId": "/m/0bxtj0",
+     "score": 0.6768
+    },
+    {
+     "entityId": "/t/2h7dr62sm82rn",
+     "score": 0.6253
+    },
+    {
+     "description": "Autolib'",
+     "entityId": "/m/0h_bqvg",
+     "score": 0.6253
+    },
+    {
+     "description": "Electric vehicle",
+     "entityId": "/m/01pmdg",
+     "score": 0.6126
+    },
+    {
+     "description": "Off-road vehicle",
+     "entityId": "/m/035f_j",
+     "score": 0.5362
+    },
+    {
+     "description": "UTV",
+     "entityId": "/m/03d5590",
+     "score": 0.5088
+    },
+    {
+     "description": "Off-roading",
+     "entityId": "/m/040n1z",
+     "score": 0.504
+    },
+    {
+     "description": "Battery Electric Vehicle",
+     "entityId": "/m/070_60",
+     "score": 0.4626
+    },
+    {
+     "description": "Automobile graveyard",
+     "entityId": "/g/11ggzg2082",
+     "score": 0.4333
+    }
+   ]
+  }
+ }
+}

@@ -1,0 +1,81 @@
+{
+ "requested_at": "2026-09-27T16:56:56+00:00",
+ "vision": {
+  "webDetection": {
+   "bestGuessLabels": [
+    {
+     "label": "crowd"
+    }
+   ],
+   "visuallySimilarImages": [
+    {
+     "url": "https://americanhumanist.org/wp-content/uploads/2026/07/unnamed-scaled-e1785170929466-1350x900.jpg"
+    },
+    {
+     "url": "https://voterfriendlycampus.org/wp-content/uploads/2024/06/UNCP-Votes.jpg"
+    },
+    {
+     "url": "https://images.theconversation.com/files/731148/original/file-20260420-57-1c5tcw.jpg?ixlib=rb-4.1.1&q=45&auto=format&w=1000&fit=clip"
+    },
+    {
+     "url": "https://images.bradyunited.org/production/images/0D4A3648-1.JPG?w=600&h=600&fm=webp&auto=compress&fit=crop&dm=1762535850&s=e3161eace1868cd941938f04a74e8e08"
+    },
+    {
+     "url": "https://i0.wp.com/www.texastribune.org/wp-content/uploads/2026/08/20260804-Tarrant-Co-Election-Protest-REUTERS.jpg?fit=1200%2C809&ssl=1"
+    },
+    {
+     "url": "https://cloudfront-eu-central-1.images.arcpublishing.com/liberation/TEJGDFOFBZFM5KMCBT3NL2VQZI.jpg"
+    },
+    {
+     "url": "https://lookaside.instagram.com/seo/google_widget/crawler/?media_id=3993437145067027443"
+    },
+    {
+     "url": "https://brotherhood-sistersol.org/wp-content/uploads/2021/07/BROSIS-Legacy-Cover-FB-YT-980x551-1.jpg"
+    },
+    {
+     "url": "https://www.nea.org/sites/default/files/styles/1200x630/public/2026-01/protect-students-rally-at-us-capitol.jpg?itok=Dfs3jN-W"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=1070571235693702&get_thumbnail=1"
+    },
+    {
+     "url": "https://csvr.org.za/wp-content/uploads/2025/10/wil-publication-1.jpg"
+    },
+    {
+     "url": "https://www.hrw.org/sites/default/files/styles/square/public/media_2025/06/202506afr_south%20africa_justice_for_cwecwe.jpg?h=1116cd87&itok=vHKUYvVL"
+    },
+    {
+     "url": "https://www.salon.com/app/uploads/2026/09/GettyImages-2286055476.jpg"
+    },
+    {
+     "url": "https://static01.nyt.com/images/2022/11/02/science/00florida-trans1/00florida-trans1-videoSixteenByNineJumbo1600.jpg"
+    },
+    {
+     "url": "https://www.hrw.org/sites/default/files/styles/16x9_large/public/media_2026/09/202609wrd_canada_care_economy.jpg?h=05586b66&itok=kV-Z_KP6"
+    },
+    {
+     "url": "https://www.nea.org/sites/default/files/styles/1600x900/public/2023-05/transwomen-marching.jpg.webp?itok=1uAXQVW2"
+    },
+    {
+     "url": "https://images.newrepublic.com/3c77202afe9e18b4e959bf74256230794078e44b.jpeg"
+    },
+    {
+     "url": "https://transequality.org/sites/default/files/2024-06/iStock-1385768574.jpg"
+    },
+    {
+     "url": "https://www.timeshighereducation.com/sites/default/files/styles/article785xauto/public/doge-science-protest.jpg?itok=GYiN4LIv"
+    },
+    {
+     "url": "https://static.time.com/v3/assets/bltea6093859af6183b/blt1d9baf3d7f35510f/698a34e4d07533a84fe6d24b/dont-say-gay-schools-teachers.jpg?branch=production&width=2400&quality=75&auto=webp&crop=16:9"
+    }
+   ],
+   "webEntities": [
+    {
+     "description": "Crowd M",
+     "entityId": "/g/11nw4vjl_5",
+     "score": 0.4336
+    }
+   ]
+  }
+ }
+}

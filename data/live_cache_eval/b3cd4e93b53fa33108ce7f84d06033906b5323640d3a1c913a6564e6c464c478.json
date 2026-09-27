@@ -1,0 +1,96 @@
+{
+ "requested_at": "2026-09-27T16:45:24+00:00",
+ "vision": {
+  "webDetection": {
+   "bestGuessLabels": [
+    {
+     "label": "domestic pig"
+    }
+   ],
+   "visuallySimilarImages": [
+    {
+     "url": "https://images.squarespace-cdn.com/content/v1/57e123d56a4963b5a1acabc8/1475543308741-2KZ7CB4SQ4MWY3S8TYYF/Red+River+Hog+mud+wallow+2.jpg?format=1500w"
+    },
+    {
+     "url": "https://www.fws.gov/sites/default/files/styles/facebook_1200x630/public/banner_images/2021-12/01-banner-FeralHogs-LowerSuwanneeRefuge-FL-SteveHillebrandUSFWS.jpg?h=e0540a79&itok=Gekx2RXW"
+    },
+    {
+     "url": "https://www.invadingspecies.com/wp-content/uploads/2021/03/wildlife_th.jpg"
+    },
+    {
+     "url": "https://cdn.sanity.io/images/0vv8moc6/dvm360/4f60de7189bf2944e10803406fe8af71147bc8cd-6720x4480.jpg"
+    },
+    {
+     "url": "https://lookaside.instagram.com/seo/google_widget/crawler/?media_id=3968458230325743170"
+    },
+    {
+     "url": "https://lemagdesanimaux.ouest-france.fr/images/dossiers/2024-04/mini/cochon_truffier-163723-650-400.jpg"
+    },
+    {
+     "url": "https://e00-expansion.uecdn.es/assets/multimedia/imagenes/2026/08/20/17872465916572.jpg"
+    },
+    {
+     "url": "https://lt10.com.ar/multimedia/in1789733962858.png"
+    },
+    {
+     "url": "https://images.pexels.com/photos/6818966/pexels-photo-6818966.jpeg?cs=srgb&dl=pexels-magda-ehlers-pexels-6818966.jpg&fm=jpg"
+    },
+    {
+     "url": "https://www.krisinformation.se/globalassets/forbered-dig/djur-och-smitta/samhallets-beredskap/johner_vildsvin_nat020603.jpg"
+    },
+    {
+     "url": "https://www.popsci.com/wp-content/uploads/2018/12/03/D6YUJT5PILUODQTAFLP7ZS72YA.jpg?strip=all&quality=85"
+    },
+    {
+     "url": "https://gizmodo.com/app/uploads/2025/08/wild-pigs-california-county-park-1280x853.jpg"
+    },
+    {
+     "url": "https://canadiangeographic.ca/wp-content/uploads/2024/05/Wild-boar-piglets-feeding-Jim-Cumming-1-1440x975.jpg"
+    },
+    {
+     "url": "https://images.pexels.com/photos/4003652/pexels-photo-4003652.jpeg"
+    },
+    {
+     "url": "https://daten.verwaltungsportal.de/dateien//mypage/1/9/4/3/4/8/4/FUL_5779.jpg?v=1692277481"
+    },
+    {
+     "url": "x-raw-image:///05b6ebedefa48f6ade208d2026f9a9f75473077e723dd3a521135281a2fc0089"
+    },
+    {
+     "url": "https://images.squarespace-cdn.com/content/v1/654a3265fcbd755384b0552f/1699542825921-AT821J8DLXOZS6ZRRTIJ/Wild-Boar-by-Alick-Simmons.jpg?format=1000w"
+    },
+    {
+     "url": "https://www.tiktok.com/api/img/?itemId=7459291716189818154&location=3&aid=1988&index=7"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=808625391982343&get_thumbnail=1"
+    },
+    {
+     "url": "https://i.ytimg.com/vi/O2dWXUfi1CQ/maxresdefault.jpg"
+    }
+   ],
+   "webEntities": [
+    {
+     "description": "Pig",
+     "entityId": "/m/078qb0",
+     "score": 0.6755145
+    },
+    {
+     "description": "Grazing",
+     "entityId": "/m/03hh2k",
+     "score": 0.35157108
+    },
+    {
+     "description": "Grass",
+     "entityId": "/m/08t9c_",
+     "score": 0.31566468
+    },
+    {
+     "description": "Wild boar",
+     "entityId": "/m/0dr47",
+     "score": 0.16239116
+    }
+   ]
+  }
+ }
+}

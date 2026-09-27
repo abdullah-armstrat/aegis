@@ -1,0 +1,101 @@
+{
+ "requested_at": "2026-09-27T16:56:33+00:00",
+ "vision": {
+  "webDetection": {
+   "bestGuessLabels": [
+    {
+     "label": "audience"
+    }
+   ],
+   "visuallySimilarImages": [
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=1108103695247573"
+    },
+    {
+     "url": "https://www.phy.cam.ac.uk/wp-content/uploads/2025/04/alumni-895x450.jpg"
+    },
+    {
+     "url": "https://resources.osce.org/sites/default/files/styles/container_sm_1x/public/f/images/hires/0/3/88186.jpg?itok=BVIdmOdW"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=1596656852489823"
+    },
+    {
+     "url": "https://www.brookings.edu/wp-content/uploads/2026/08/GettyImages-2289391054.jpg?w=500"
+    },
+    {
+     "url": "https://npr.brightspotcdn.com/dims3/default/strip/false/crop/3600x2025+0+0/resize/800/quality/85/format/jpeg/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2Fea%2Fcd%2Ff2b3d75f48c081184d5a3af3bc36%2Fgettyimages-2268078500.jpg"
+    },
+    {
+     "url": "https://media.licdn.com/dms/image/v2/D4E22AQFhXy-_p8ZZ9g/feedshare-shrink_800/B4EaBH7fgHGwAc-/0/1787913174114?e=2147483647&v=beta&t=GQGb8KnmNJQ7G-nDDoBfJ4gu6xpjUKE--iLNStxyWew"
+    },
+    {
+     "url": "https://www.rte.ie/images/0024da38-1500.jpg"
+    },
+    {
+     "url": "https://images.ft.com/v3/image/raw/https%3A%2F%2Fd1e00ek4ebabms.cloudfront.net%2Fproduction%2F2323e8f8-e29f-4994-a9cb-5dfa370caf7e.jpg?source=next&fit=scale-down&dpr=2&width=240"
+    },
+    {
+     "url": "https://www.house.gov/sites/default/files/uploads/images-story-featured/state-of-union6-800x600.jpg"
+    },
+    {
+     "url": "https://www.aljazeera.com/wp-content/uploads/2026/09/2026-09-08T160646Z_444821237_RC21FNARJHY5_RTRMADP_3_ISRAEL-PALESTINIANS-SETTLERS-BRITAIN-1788953989.jpg?resize=1920%2C1080"
+    },
+    {
+     "url": "https://cdn.dailymaverick.co.za/i/TVJqFEmpsmu7ZoWg45vi6jMWNjs=/450x0/smart/file/dailymaverick/wp-content/uploads/2025/08/DSC_8132-copy.jpg"
+    },
+    {
+     "url": "https://mia.edu.tr/uploads/fm/Foto_7.jpg"
+    },
+    {
+     "url": "https://udelar.edu.uy/sites/default/files/styles/16_9_xxl/public/migracion-galerias/U0107710-scaled.jpg.webp?h=7eabb7da&itok=7zfT26rR"
+    },
+    {
+     "url": "https://hips.hearstapps.com/hmg-prod/images/d79b533c-3ac9-40e2-a2be-e566b6eed9cb.jpeg"
+    },
+    {
+     "url": "https://georgewbush-whitehouse.archives.gov/news/releases/2009/01/images/20090106_p010609jb-0240-384h.jpg"
+    },
+    {
+     "url": "https://www.helmholtz.de/assets/helmholtz_gemeinschaft/_processed_/d/c/csm_POF_2017-10-04-1019_020_Evaluierung_2017_JSteffen-GEOMAR_1440x720_bf79c8a4f6.jpg"
+    },
+    {
+     "url": "https://i.ytimg.com/vi/6SfhptUBNJM/hq720.jpg?sqp=-oaymwE7CK4FEIIDSFryq4qpAy0IARUAAAAAGAElAADIQj0AgKJD8AEB-AH-CYAC0AWKAgwIABABGEggUyhlMA8=&rs=AOn4CLBbZ15FCT7M6N9vTliOvsAwqoJlnw"
+    },
+    {
+     "url": "https://dustyjohnson.house.gov/sites/evo-subsites/dustyjohnson-evo.house.gov/files/styles/evo_image_full_width/public/evo-media-image/DJ%20standing%20on%20Floor.jpg?h=8b7966f8&itok=I4tZfcf7"
+    },
+    {
+     "url": "https://www.house.gov/sites/default/files/2023-01/Members%20Sworn%20In.jpg"
+    }
+   ],
+   "webEntities": [
+    {
+     "description": "Crowd M",
+     "entityId": "/g/11nw4vjl_5",
+     "score": 0.514
+    },
+    {
+     "description": "Academic conference",
+     "entityId": "/m/07bx10",
+     "score": 0.40173197
+    },
+    {
+     "description": "Convention",
+     "entityId": "/m/09cynt",
+     "score": 0.38833365
+    },
+    {
+     "description": "Academy",
+     "entityId": "/m/0134hp",
+     "score": 0.3204
+    },
+    {
+     "description": "Audience",
+     "entityId": "/m/033lpr",
+     "score": 0.3023916
+    }
+   ]
+  }
+ }
+}

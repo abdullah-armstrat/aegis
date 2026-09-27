@@ -1,0 +1,422 @@
+{
+ "dated_at": "2026-09-27T17:24:24+00:00",
+ "page_dates": {
+  "http://pageup.fr/product/category/6066844031190": {
+   "date": null,
+   "source": null
+  },
+  "http://www.eot.si/?w=25980705001910": {
+   "date": null,
+   "source": null
+  },
+  "https://de.linkedin.com/in/jose-tomas-correa-asp": {
+   "date": null,
+   "source": null
+  },
+  "https://www.facebook.com/ianbremmer/posts/war-a-massacre-of-people-who-dont-know-each-other-for-the-profit-of-people-who-k/485784876245988/": {
+   "date": null,
+   "source": null
+  },
+  "https://www.facebook.com/keycnewsnow/posts/the-college-says-this-years-outstanding-alumni-award-will-go-to-adam-finseth-who/1011716243647981/": {
+   "date": null,
+   "source": null
+  },
+  "https://www.facebook.com/steven.mabugana.5/posts/rip-why-do-our-friends-diewhy-do-familywhy-do-bad-happenwhy-am-i-going-through-t/1417918547105253/": {
+   "date": null,
+   "source": null
+  },
+  "https://www.mvscs.inspiredsolutionsinternational.com/?z=19175684101700": {
+   "date": null,
+   "source": null
+  },
+  "https://www.pavo.ua/?w=17087217001890": {
+   "date": null,
+   "source": null
+  },
+  "https://www.pinterest.com/juliettap/": {
+   "date": "2011-09-09",
+   "source": "htmldate"
+  },
+  "https://www.potyambiental.com.br/product/category/view_more/5987857021230": {
+   "date": null,
+   "source": null
+  }
+ },
+ "requested_at": "2026-09-27T16:57:16+00:00",
+ "vision": {
+  "webDetection": {
+   "bestGuessLabels": [
+    {
+     "label": "Quotation"
+    }
+   ],
+   "fullMatchingImages": [
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=1763815087089458"
+    }
+   ],
+   "pagesWithMatchingImages": [
+    {
+     "pageTitle": "QUOTATION definition - Cambridge Dictionary",
+     "url": "https://dictionary.cambridge.org/us/dictionary/english-arabic/quotation"
+    },
+    {
+     "pageTitle": "QUOTATION definition | Cambridge Essential English Dictionary",
+     "url": "https://dictionary.cambridge.org/us/dictionary/essential-british-english/quotation"
+    },
+    {
+     "pageTitle": "Meaning of quotation | LinguChat",
+     "url": "https://linguchat.com/dictionary?q=quotation&lang=en"
+    },
+    {
+     "pageTitle": "Quotations \u2014 Definition, Examples & Pronunciation | Vocabia",
+     "url": "https://vocabia.com/vocabulary/quotations"
+    },
+    {
+     "pageTitle": "Beret Air Max Commando Premium Beret Usaf Security Forces Size ...",
+     "partialMatchingImages": [
+      {
+       "url": "https://cms.sofrep.com/wp-content/uploads/2019/12/Header_2859994_1.1-1022x1024-e1575995052882.jpg"
+      }
+     ],
+     "url": "http://pageup.fr/product/category/6066844031190"
+    },
+    {
+     "pageTitle": "\"War: a massacre of people who don't know each other for the profit ...",
+     "partialMatchingImages": [
+      {
+       "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=721773909994617"
+      }
+     ],
+     "url": "https://www.facebook.com/ianbremmer/posts/war-a-massacre-of-people-who-dont-know-each-other-for-the-profit-of-people-who-k/485784876245988/"
+    },
+    {
+     "pageTitle": "The Moving Story Behind A Maroon Beret SOFREP - EOT",
+     "partialMatchingImages": [
+      {
+       "url": "https://cms.sofrep.com/wp-content/uploads/2019/12/Header_2859994_1.1-1022x1024-e1575995052882.jpg"
+      }
+     ],
+     "url": "http://www.eot.si/?w=25980705001910"
+    },
+    {
+     "pageTitle": "Julia Poitschek (juliettap) - Profile - Pinterest",
+     "partialMatchingImages": [
+      {
+       "url": "https://i.pinimg.com/236x/3c/65/ed/3c65edcbeca5afd2d013925c8d7b184c.jpg"
+      }
+     ],
+     "url": "https://www.pinterest.com/juliettap/"
+    },
+    {
+     "pageTitle": "Parachute Regiment Sandf Maroon Beret The Legacy Continues",
+     "partialMatchingImages": [
+      {
+       "url": "https://cms.sofrep.com/wp-content/uploads/2019/12/Header_2859994_1.1-1022x1024-e1575995052882.jpg"
+      }
+     ],
+     "url": "https://www.pavo.ua/?w=17087217001890"
+    },
+    {
+     "pageTitle": "Kanye West Graduation Bear Hat Kanye West Graduation Cap?? R ...",
+     "partialMatchingImages": [
+      {
+       "url": "https://cms.sofrep.com/wp-content/uploads/2019/12/Header_2859994_1.1-1022x1024-e1575995052882.jpg"
+      }
+     ],
+     "url": "https://www.potyambiental.com.br/product/category/view_more/5987857021230"
+    },
+    {
+     "pageTitle": "British Army Sandf Maroon Beret The Legacy Continues",
+     "partialMatchingImages": [
+      {
+       "url": "https://cms.sofrep.com/wp-content/uploads/2019/12/Header_2859994_1.1-1022x1024-e1575995052882.jpg"
+      }
+     ],
+     "url": "https://www.mvscs.inspiredsolutionsinternational.com/?z=19175684101700"
+    },
+    {
+     "pageTitle": "The college says this year's Outstanding Alumni Award will go to ...",
+     "partialMatchingImages": [
+      {
+       "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=1159824441015691"
+      }
+     ],
+     "url": "https://www.facebook.com/keycnewsnow/posts/the-college-says-this-years-outstanding-alumni-award-will-go-to-adam-finseth-who/1011716243647981/"
+    },
+    {
+     "pageTitle": "R.I.P why do our friends die? Why do family? Why do bad happen ...",
+     "partialMatchingImages": [
+      {
+       "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=1468522816644225"
+      }
+     ],
+     "url": "https://www.facebook.com/steven.mabugana.5/posts/rip-why-do-our-friends-diewhy-do-familywhy-do-bad-happenwhy-am-i-going-through-t/1417918547105253/"
+    },
+    {
+     "pageTitle": "Jos\u00e9 Tomas Correa \u2013 Governance, Risk & Compliance - LinkedIn",
+     "partialMatchingImages": [
+      {
+       "url": "https://media.licdn.com/dms/image/v2/D4E22AQGvs79OxP9tXA/feedshare-shrink_800/B4EZzXf48tJ4Ac-/0/1773141987468?e=2147483647&v=beta&t=btTEpdBlUB7mjLAG-G1VdM9tO9LGk4Qqe-7ujg4kyBs"
+      }
+     ],
+     "url": "https://de.linkedin.com/in/jose-tomas-correa-asp"
+    },
+    {
+     "pageTitle": "Air Force Maroon Beret Parachute Regiment Parachute Regiment ...",
+     "partialMatchingImages": [
+      {
+       "url": "https://cms.sofrep.com/wp-content/uploads/2019/12/Header_2859994_1.1-1022x1024-e1575995052882.jpg"
+      }
+     ],
+     "url": "https://potyambiental.com.br/?w=5987827031230"
+    },
+    {
+     "pageTitle": "Jose Tomas Correa - Governance, Risk & Compliance - LinkedIn",
+     "partialMatchingImages": [
+      {
+       "url": "https://media.licdn.com/dms/image/v2/D4E22AQGvs79OxP9tXA/feedshare-shrink_800/B4EZzXf48tJ4Ac-/0/1773141987468?e=2147483647&v=beta&t=btTEpdBlUB7mjLAG-G1VdM9tO9LGk4Qqe-7ujg4kyBs"
+      }
+     ],
+     "url": "https://de.linkedin.com/in/jose-tomas-correa-asp/en"
+    },
+    {
+     "pageTitle": "Parka Jacket Canada Goose Qr Code Android Please Read This ...",
+     "partialMatchingImages": [
+      {
+       "url": "https://cms.sofrep.com/wp-content/uploads/2019/12/Header_2859994_1.1-1022x1024-e1575995052882.jpg"
+      }
+     ],
+     "url": "https://www.potyambiental.com.br/?w=5985483001230"
+    },
+    {
+     "pageTitle": "Special Forces Sandf Maroon Beret Quest For The ... - nbdigital.bg",
+     "partialMatchingImages": [
+      {
+       "url": "https://cms.sofrep.com/wp-content/uploads/2019/12/Header_2859994_1.1-1022x1024-e1575995052882.jpg"
+      }
+     ],
+     "url": "https://www.nbdigital.bg/?t=48480310031910"
+    },
+    {
+     "pageTitle": "Amira Mansour (ac_amira08) \u2013 Profile - Pinterest",
+     "partialMatchingImages": [
+      {
+       "url": "https://i.pinimg.com/236x/3c/65/ed/3c65edcbeca5afd2d013925c8d7b184c.jpg"
+      }
+     ],
+     "url": "https://in.pinterest.com/ac_amira08"
+    },
+    {
+     "pageTitle": "Parachute Regiment Para Commando Maroon Beret The ... - KDT.IR",
+     "partialMatchingImages": [
+      {
+       "url": "https://cms.sofrep.com/wp-content/uploads/2019/12/Header_2859994_1.1-1022x1024-e1575995052882.jpg"
+      }
+     ],
+     "url": "https://www.kdt.ir/?q=43006510001580"
+    }
+   ],
+   "partialMatchingImages": [
+    {
+     "url": "https://i2-prod.mirror.co.uk/article21029523.ece/ALTERNATES/s1200e/0_PAY-THP_CHP_041219SLUG_8003JPG.jpg"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=1159824441015691"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=178793760416448"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=759355082860297"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=100062257426897"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=10156986630551331"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=2056643615233386"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=2297093621124626"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=4203335609792327"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=1468522816644225"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=2006878816118360"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=265219438210201"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=2734793746606767"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=890663408091747"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=1404948056605406"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=164885302556350"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=398431512301257"
+    },
+    {
+     "url": "https://media.licdn.com/dms/image/v2/D4E22AQGvs79OxP9tXA/feedshare-shrink_800/B4EZzXf48tJ4Ac-/0/1773141987468?e=2147483647&v=beta&t=btTEpdBlUB7mjLAG-G1VdM9tO9LGk4Qqe-7ujg4kyBs"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=939875861652441"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=1542321600822540"
+    }
+   ],
+   "visuallySimilarImages": [
+    {
+     "url": "https://www.army.mod.uk/media/7541/armyhqcpl3-2019-044-remembrance-thetford-017-sl.jpg?rxy=0.5087465345077161,0.33973531905481624&width=576&height=432&format=webp&quality=70&v=1db13309096ee10"
+    },
+    {
+     "url": "https://www.army.mod.uk/media/dv4npkhx/aposw-2018-042-rwxy-238.jpg?rxy=0.5733976567884218,0.34795926181177733&width=768&height=768&format=webp&quality=70&v=1db130d53715340"
+    },
+    {
+     "url": "https://ichef.bbci.co.uk/ace/standard/400/cpsprodpb/0a42/live/5a897fc0-b5d8-11f1-b1d1-571ed4d7ff2c.jpg"
+    },
+    {
+     "url": "https://image.kurier.at/images/cfs_square_616/9331550/46-221932377.jpg?versionId=d761663e60d3"
+    },
+    {
+     "url": "https://www.army.mod.uk/media/9613/armyhqphotsgt2-2020-014-pass-out-pirbright-076.jpg?width=576&height=432&format=webp&quality=70&v=1db0db054110b90"
+    },
+    {
+     "url": "https://pbs.twimg.com/amplify_video_thumb/2086472087519023104/img/EcWr9knnT170rUyd?format=webp&name=large"
+    },
+    {
+     "url": "https://werkenbijdefensie.nl/_media/image/ko3HlIZsSTWbVyqKV_IcQg/KHE8E4dE/400x600/sf/56d365a6-4878-4ebc-9009-b79282128c8a.png?cache_buster=39dfa55283318d31afe5a3ff4a0e3253e2045e43"
+    },
+    {
+     "url": "https://www.forsvaret.no/om-forsvaret/_/image/98bedde2-9736-436d-a077-a7f510e7b168:0eb6bd6da7a3004d775bb6ff9e8cc50d15c6b789/block-1024-599/20200511MG_3994.jpg?quality=70"
+    },
+    {
+     "url": "https://lookaside.instagram.com/seo/google_widget/crawler/?media_id=3980804026970690462"
+    },
+    {
+     "url": "https://a.storyblok.com/f/88791/1400x788/a344864b17/officer-dt.jpg"
+    },
+    {
+     "url": "https://www.army.mod.uk/media/dwujibk1/apowmid-2016-073-065.jpg?width=576&height=432&format=webp&quality=70&v=1db19910271db10"
+    },
+    {
+     "url": "https://cdn4.suspilne.media/images/resize/720x1.78/79aa8bf086ca43a3.jpg"
+    },
+    {
+     "url": "https://media.licdn.com/dms/image/v2/D4E22AQEBIGt_oGfObQ/feedshare-shrink_800/B4EaAfD7T2HwAc-/0/1787227519442?e=2147483647&v=beta&t=Yc4Z8R2y4lpI-tQUG9BAQwc_-2Xor75vUZsWaW93Axs"
+    },
+    {
+     "url": "https://assets.exercito.pt/SiteAssets/DARH/RR/Conteudos/ESE/ESE-alunos.jpg"
+    },
+    {
+     "url": "https://www.army.mod.uk/media/1tkdh5xd/apoemid-2017-002-atr-grantham-march-pde-004.jpg?width=576&height=432&format=webp&quality=70&v=1db1b3e94a31680"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=1542592857678116"
+    },
+    {
+     "url": "https://www.forsvaret.no/soldater-og-ansatte/_/image/f691ddb1-40f9-4313-8a33-1fd9ca47db05:c55af0e6e5acef2b8c8a0398c43265e989bb8da3/block-1024-599/HVNETT_20150827as_002.jpg?quality=70"
+    },
+    {
+     "url": "https://image.volkskrant.nl/276708271/feature-crop/1200/675/mobilisatie-in-oekraine"
+    },
+    {
+     "url": "https://www.bootcamp.navy.mil/portals/67/230610-N-GW654-1006_1.png"
+    },
+    {
+     "url": "https://inl.gov/content/uploads/2023/04/Paul-Marley-P-9303-55_web-683x1024.jpg"
+    }
+   ],
+   "webEntities": [
+    {
+     "description": "Quotation",
+     "entityId": "/m/069dd",
+     "score": 0.694
+    },
+    {
+     "description": "Maroon beret",
+     "entityId": "/m/027xxyt",
+     "score": 0.6901
+    },
+    {
+     "description": "Cambridge Essential English Dictionary",
+     "entityId": "/g/11csqr4kw7",
+     "score": 0.6441
+    },
+    {
+     "description": "British Army",
+     "entityId": "/m/01j_x",
+     "score": 0.5443
+    },
+    {
+     "description": "Beret",
+     "entityId": "/m/02h201",
+     "score": 0.4142
+    },
+    {
+     "description": "additive",
+     "entityId": "/g/11rpwb6szd",
+     "score": 0.3846
+    },
+    {
+     "description": "available",
+     "entityId": "/g/11rxrl9qbs",
+     "score": 0.3747
+    },
+    {
+     "description": "Cambridge Dictionary",
+     "entityId": "/g/11sd99jxmq",
+     "score": 0.3743
+    },
+    {
+     "description": "other",
+     "entityId": "/g/11qh5bk72c",
+     "score": 0.3467
+    },
+    {
+     "description": "Military uniform",
+     "entityId": "/m/03w1r4",
+     "score": 0.34196463
+    },
+    {
+     "description": "Definition",
+     "entityId": "/m/026yf",
+     "score": 0.3268
+    },
+    {
+     "description": "Cambridge English",
+     "entityId": "/g/11ckkyrkq1",
+     "score": 0.3212
+    },
+    {
+     "entityId": "/t/24f98h86345v_",
+     "score": 0.3212
+    },
+    {
+     "description": "Parachute Regiment",
+     "entityId": "/m/01_vm6",
+     "score": 0.3202
+    },
+    {
+     "description": "Hat",
+     "entityId": "/m/02dl1y",
+     "score": 0.3032
+    }
+   ]
+  }
+ }
+}

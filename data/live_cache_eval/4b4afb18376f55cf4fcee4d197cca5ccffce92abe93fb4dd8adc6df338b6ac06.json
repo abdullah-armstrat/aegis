@@ -1,0 +1,106 @@
+{
+ "requested_at": "2026-09-27T16:49:11+00:00",
+ "vision": {
+  "webDetection": {
+   "bestGuessLabels": [
+    {
+     "label": "crowd"
+    }
+   ],
+   "visuallySimilarImages": [
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=1497657255741547"
+    },
+    {
+     "url": "http://www.pj.gov.py/images/contenido/10-06-25-684855313feb0-3.jpg"
+    },
+    {
+     "url": "https://kgv.esf.edu.hk/cache/img/7015127f59e76f0fd3e62ed5b70bc48d.jpg"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=122289156938136983"
+    },
+    {
+     "url": "https://www.una.edu.ni/wp-content/uploads/2024/04/6UniversidadesVerdes2024.jpg"
+    },
+    {
+     "url": "https://www.iom.int/sites/g/files/tmzbdl2616/files/styles/social_media/public/banner/safe-migration-training-in-champasack-province_0.jpg?h=3d2696f7&itok=pr2uhJDm"
+    },
+    {
+     "url": "https://www.intracen.org/sites/default/files/styles/content_header_multiple/public/media/image/media_image/2022/04/01/dsc09058_1.jpg?itok=RwwIip4f"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=2666245593830333&get_thumbnail=1"
+    },
+    {
+     "url": "https://static.toiimg.com/thumb/msid-131413083,width-375,height-250/131413083.jpg"
+    },
+    {
+     "url": "https://www.paho.org/sites/default/files/styles/4_3_small/public/2025-09/250916-brb-story-caribyouth-alleyneschool1-1500x800.jpg?h=ec98a0f6&itok=mpudxyjb"
+    },
+    {
+     "url": "https://media.licdn.com/dms/image/v2/D4E22AQHNmm5vVpnwpA/feedshare-shrink_800/B4EaACmJn7IkAc-/0/1786749950782?e=2147483647&v=beta&t=aSogIlWBrPOrPf5-mJdHMJ0yPOfJNFmPEYgFUOu0WRo"
+    },
+    {
+     "url": "https://ars.els-cdn.com/content/image/1-s2.0-S0959378022000152-gr3.jpg"
+    },
+    {
+     "url": "https://news.uitm.edu.my/wp-content/uploads/2026/09/gambar-basketball-2-e1790147279644-1024x574.jpeg"
+    },
+    {
+     "url": "http://www.pj.gov.py/images/contenido/10-06-25-68485531712e6-5.jpg"
+    },
+    {
+     "url": "https://media.ouest-france.fr/v1/pictures/MjAyNjA2NDdhOWE3YTIzNGMxM2EyYTE0NWQ0YTc1OTc4MDdkOWM?width=375&height=375&focuspoint=50%2C25&cropresize=1&client_id=bpeditorial&sign=ef61a79818f5170bd9dce7ef78afbccc5d85e8bcb6f4b95305be557c3520e829"
+    },
+    {
+     "url": "https://asrc.org.au/wp-content/uploads/2018/03/480x320-manus.jpg"
+    },
+    {
+     "url": "x-raw-image:///21c5602b96f77f2fc1bf86dec299ac14a52d8268135e1af727f3ca0a613cb52b"
+    },
+    {
+     "url": "https://www.africa.engineering.cmu.edu/_files/images/impact/mastercard-foundation-scholars/scholars-slideshow-2025-4.png"
+    },
+    {
+     "url": "https://conjuve.gob.gt/wp-content/uploads/sb-facebook-feed-images/209335335606693_122291119544251980-0-400.jpg"
+    },
+    {
+     "url": "https://i.epochtimes.com/assets/uploads/2026/09/id14857392-875720.jpg"
+    }
+   ],
+   "webEntities": [
+    {
+     "description": "Crowd M",
+     "entityId": "/g/11nw4vjl_5",
+     "score": 0.5542
+    },
+    {
+     "description": "light-hearted",
+     "entityId": "/g/11t7gznd8d",
+     "score": 0.4307
+    },
+    {
+     "description": "Social group",
+     "entityId": "/m/01b4q9",
+     "score": 0.3993996
+    },
+    {
+     "description": "Society",
+     "entityId": "/m/098wr",
+     "score": 0.345
+    },
+    {
+     "description": "Audience",
+     "entityId": "/m/033lpr",
+     "score": 0.3230196
+    },
+    {
+     "description": "Youth",
+     "entityId": "/m/021dfr",
+     "score": 0.32021585
+    }
+   ]
+  }
+ }
+}

@@ -1,0 +1,376 @@
+{
+ "dated_at": "2026-09-27T17:16:47+00:00",
+ "page_dates": {
+  "https://lt.linkedin.com/in/vasar%C4%97-tij%C5%ABn%C4%97lyt%C4%97-331161188": {
+   "date": null,
+   "source": null
+  },
+  "https://pl.linkedin.com/posts/mateuszdomisz_dinamo-kyiv-football-team-is-ready-to-win-activity-6905437467059838976-Spn4": {
+   "date": "2022-03-04",
+   "source": "htmldate"
+  },
+  "https://uk.linkedin.com/in/steve-savory-6a344378": {
+   "date": null,
+   "source": null
+  },
+  "https://www.documentonews.gr/article/oykrania-oi-paiktes-tis-ntinamo-kievoy-piran-ta-opla/": {
+   "date": "2022-02-27",
+   "source": "htmldate"
+  },
+  "https://www.documentonews.gr/tag/ntinamo-kievoy/": {
+   "date": null,
+   "source": null
+  },
+  "https://www.facebook.com/100064047939029/posts/support-to-the-people-of-ukrainebad-blue-boysdinamo-zagreb-during-their-match-ag/493768092369910/": {
+   "date": null,
+   "source": null
+  },
+  "https://www.linkedin.com/posts/andkol_dinamo-kyiv-football-team-is-ready-to-win-activity-6903340797903937537-WJT9": {
+   "date": "2022-02-26",
+   "source": "htmldate"
+  },
+  "https://www.prosport.ro/fotbal-extern/campionate-externe/imaginea-tulburatoare-care-a-inmarmurit-lumea-fotbalului-circula-pe-internet-fotbalistii-lui-mircea-lucescu-de-la-dinamo-kiev-au-pus-mana-pe-arme-si-s-au-alaturat-trupelor-care-apara-capitala-ucraine-19417796": {
+   "date": "2022-02-26",
+   "source": "htmldate"
+  },
+  "https://www.thejournal.ie/dynamo-kyiv-fc-soldiers-5739179-Apr2022/": {
+   "date": "2022-04-14",
+   "source": "htmldate"
+  },
+  "https://www.yenicaggazetesi.com/dinamo-kievin-ukraynali-futbolculari-silahlandi-514622h.htm": {
+   "date": "2022-02-26",
+   "source": "htmldate"
+  }
+ },
+ "requested_at": "2026-09-27T16:49:38+00:00",
+ "vision": {
+  "webDetection": {
+   "bestGuessLabels": [
+    {
+     "label": "Football player"
+    }
+   ],
+   "fullMatchingImages": [
+    {
+     "url": "https://s3.elespanol.com/2022/02/26/actualidad/653194851_222217194_1706x960.jpg"
+    },
+    {
+     "url": "https://img.yenicaggazetesi.com/rcman/Cw1280h720q95gc/storage/old/d/news/730782.jpg"
+    },
+    {
+     "url": "https://www.documentonews.gr/wp-content/uploads/2022/02/ntynami-1024x536.jpg"
+    },
+    {
+     "url": "https://www.prosport.ro/wp-content/uploads/2022/02/dinamo-kiev-jucatori-razboi.jpg"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=5425354650816843"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=5155338584526942"
+    },
+    {
+     "url": "https://1884403144.rsc.cdn77.org/foto/valka-na-ukrajine-ukrajina-chuligani-fotbalovi-hooligans/Zml0LWluLzk3OHg5OTk5L2ZpbHRlcnM6cXVhbGl0eSg4NSk6bm9fdXBzY2FsZSgpL2ltZw/7533447.jpg?v=0&st=9GaPVcycN1sBinZeRvHhE7cQ4T5QMadw2HOzGOwjQ_U&ts=1600812000&e=0"
+    },
+    {
+     "url": "https://media.licdn.com/dms/image/v2/C4E22AQHrgl-sVy1vIQ/feedshare-shrink_800/feedshare-shrink_800/0/1645893924975?e=2147483647&v=beta&t=CLe2l3fsMqPAoGLQlBY0EiQaHmK_79uCZhEV3QBVFBw"
+    },
+    {
+     "url": "https://media.licdn.com/dms/image/v2/C4D22AQFBfWHsJKs1gg/feedshare-shrink_800/feedshare-shrink_800/0/1645884703410?e=2147483647&v=beta&t=ohhWG4UBDvTbX2uQJJjiqdwHJx-nojNgBOvKsYEsMTQ"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=155924713532119"
+    },
+    {
+     "url": "https://i.yenicaggazetesi.com/storage/old/d/news/2022/02/260220221610332999426.jpg"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=10159066872037955"
+    },
+    {
+     "url": "https://1884403144.rsc.cdn77.org/foto/valka-na-ukrajine-ukrajina-chuligani-fotbalovi-hooligans/NjkweDM2NS9jZW50ZXIvdG9wL2ZpbHRlcnM6cXVhbGl0eSg4NSk6bm9fdXBzY2FsZSgpL2ltZw/7533447.jpg?v=0&st=oMemRtStaisPapWfDTSgxhzh3oX1P5feDwtIzTCdxD0&ts=1600812000&e=0"
+    },
+    {
+     "url": "https://img2.thejournal.ie/article/5739179/river/?height=400&version=5739476"
+    }
+   ],
+   "pagesWithMatchingImages": [
+    {
+     "pageTitle": "The 20 greatest football players of all time - YouTube",
+     "url": "https://www.youtube.com/watch?v=We9kLgtWFe8"
+    },
+    {
+     "pageTitle": "Ranking the 100 BEST PLAYERS in the world | ESPN FC - YouTube",
+     "url": "https://www.youtube.com/watch?v=SCt3th-M-uI"
+    },
+    {
+     "pageTitle": "10 Greatest Football Players Of All Time - YouTube",
+     "url": "https://www.youtube.com/watch?v=3Q0zApjB3yA"
+    },
+    {
+     "pageTitle": "The BEST Football Player At Every Age Ft. Yamal, Bellingham ...",
+     "url": "https://www.youtube.com/watch?v=bS26UnpMCHA"
+    },
+    {
+     "pageTitle": "@flc_vejrgang Ranking his best football players #FalconsAreHere",
+     "url": "https://www.instagram.com/reel/DbBsfx5oI7R/?hl=en"
+    },
+    {
+     "pageTitle": "Who Is the Best Football Player Right Now? Based on form ...",
+     "url": "https://www.facebook.com/FootballWorldLive/videos/who-is-the-best-football-player-right-now-based-on-form-consistency-and-impactwh/1025906859850278/"
+    },
+    {
+     "pageTitle": "BEST FOOTBALL PLAYERS FROM LETTER A-Z | JAY KIM MEDIA",
+     "url": "https://www.facebook.com/Jaykimmediakenya/videos/best-football-players-from-letter-a-z/1718390175442763/"
+    },
+    {
+     "pageTitle": "Did You Know: Meet The Football Players - Comewander News Daily",
+     "url": "https://dev.comewander.ca/comewander-news/meet-the-football-players-1767646332"
+    },
+    {
+     "pageTitle": "Names of Football Players from Letter A-Z, who won ... - Facebook",
+     "url": "https://www.facebook.com/kobokocomedian/posts/names-of-football-players-from-letter-a-z-who-wonmc_mastersebcomedian/1442204360961472/"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=5425354650816843"
+      }
+     ],
+     "pageTitle": "'SUPPORT TO THE PEOPLE OF UKRAINE' Bad Blue Boys(Dinamo ...",
+     "url": "https://www.facebook.com/100064047939029/posts/support-to-the-people-of-ukrainebad-blue-boysdinamo-zagreb-during-their-match-ag/493768092369910/"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://media.licdn.com/dms/image/v2/C4D22AQFBfWHsJKs1gg/feedshare-shrink_800/feedshare-shrink_800/0/1645884703410?e=2147483647&v=beta&t=ohhWG4UBDvTbX2uQJJjiqdwHJx-nojNgBOvKsYEsMTQ"
+      }
+     ],
+     "pageTitle": "Dinamo Kyiv football team is ready to win again ! UPdate : Fourteen ...",
+     "url": "https://www.linkedin.com/posts/andkol_dinamo-kyiv-football-team-is-ready-to-win-activity-6903340797903937537-WJT9"
+    },
+    {
+     "pageTitle": "List of football (soccer) players - Academic Kids",
+     "url": "https://academickids.com/encyclopedia/index.php/List_of_football_(soccer)_players"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://img2.thejournal.ie/article/5739179/river/?height=400&version=5739476"
+      }
+     ],
+     "pageTitle": "FactCheck: Is this a photo of Dynamo Kyiv players armed in military ...",
+     "url": "https://www.thejournal.ie/dynamo-kyiv-fc-soldiers-5739179-Apr2022/"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://media.licdn.com/dms/image/v2/C4D22AQFBfWHsJKs1gg/feedshare-shrink_800/feedshare-shrink_800/0/1645884703410?e=2147483647&v=beta&t=ohhWG4UBDvTbX2uQJJjiqdwHJx-nojNgBOvKsYEsMTQ"
+      }
+     ],
+     "pageTitle": "Steve Savory - Company Director at John Dron Ltd | LinkedIn",
+     "url": "https://uk.linkedin.com/in/steve-savory-6a344378"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://media.licdn.com/dms/image/v2/C4D22AQFBfWHsJKs1gg/feedshare-shrink_800/feedshare-shrink_800/0/1645884703410?e=2147483647&v=beta&t=ohhWG4UBDvTbX2uQJJjiqdwHJx-nojNgBOvKsYEsMTQ"
+      }
+     ],
+     "pageTitle": "Vasar\u0117 Tij\u016bn\u0117lyt\u0117 - Speech Language Pathologist - LinkedIn Lithuania",
+     "url": "https://lt.linkedin.com/in/vasar%C4%97-tij%C5%ABn%C4%97lyt%C4%97-331161188"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://media.licdn.com/dms/image/v2/C4D22AQFBfWHsJKs1gg/feedshare-shrink_800/feedshare-shrink_800/0/1645884703410?e=2147483647&v=beta&t=ohhWG4UBDvTbX2uQJJjiqdwHJx-nojNgBOvKsYEsMTQ"
+      }
+     ],
+     "pageTitle": "Mateusz Domisz opublikowa\u0142(a) na LinkedIn",
+     "url": "https://pl.linkedin.com/posts/mateuszdomisz_dinamo-kyiv-football-team-is-ready-to-win-activity-6905437467059838976-Spn4"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://www.prosport.ro/wp-content/uploads/2022/02/dinamo-kiev-jucatori-razboi.jpg"
+      }
+     ],
+     "pageTitle": "Fotbali\u0219tii lui Mircea Lucescu de la Dinamo Kiev au pus m\u00e2na pe ...",
+     "url": "https://www.prosport.ro/fotbal-extern/campionate-externe/imaginea-tulburatoare-care-a-inmarmurit-lumea-fotbalului-circula-pe-internet-fotbalistii-lui-mircea-lucescu-de-la-dinamo-kiev-au-pus-mana-pe-arme-si-s-au-alaturat-trupelor-care-apara-capitala-ucraine-19417796"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://img.yenicaggazetesi.com/rcman/Cw1280h720q95gc/storage/old/d/news/730782.jpg"
+      },
+      {
+       "url": "https://i.yenicaggazetesi.com/storage/old/d/news/2022/02/260220221610332999426.jpg"
+      }
+     ],
+     "pageTitle": "Dinamo Kiev'in Ukraynal\u0131 futbolcular\u0131 silahland\u0131 - Yeni\u00e7a\u011f Gazetesi",
+     "url": "https://www.yenicaggazetesi.com/dinamo-kievin-ukraynali-futbolculari-silahlandi-514622h.htm"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://www.documentonews.gr/wp-content/uploads/2022/02/ntynami-1024x536.jpg"
+      }
+     ],
+     "pageTitle": "\u039d\u03a4\u0399\u039d\u0391\u039c\u039f \u039a\u0399\u0395\u0392\u039f\u03a5 - Documento",
+     "url": "https://www.documentonews.gr/tag/ntinamo-kievoy/"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://www.documentonews.gr/wp-content/uploads/2022/02/ntynami-1024x536.jpg"
+      }
+     ],
+     "pageTitle": "\u039f\u03c5\u03ba\u03c1\u03b1\u03bd\u03af\u03b1: \u039f\u03b9 \u03c0\u03b1\u03af\u03ba\u03c4\u03b5\u03c2 \u03c4\u03b7\u03c2 \u039d\u03c4\u03b9\u03bd\u03b1\u03bc\u03cc \u039a\u03b9\u03ad\u03b2\u03bf\u03c5 \u03c0\u03ae\u03c1\u03b1\u03bd \u03c4\u03b1 \u03cc\u03c0\u03bb\u03b1 - Documento",
+     "url": "https://www.documentonews.gr/article/oykrania-oi-paiktes-tis-ntinamo-kievoy-piran-ta-opla/"
+    }
+   ],
+   "partialMatchingImages": [
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=682433266438161"
+    },
+    {
+     "url": "https://rebaltica.lv/wp-content/uploads/2022/03/222.jpg"
+    }
+   ],
+   "visuallySimilarImages": [
+    {
+     "url": "https://politicalsciences.su.edu.krd/wp-content/uploads/2026/01/IMG_1373-640x480.jpg"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=1570282585128488"
+    },
+    {
+     "url": "https://undof.unmissions.org/sites/default/files/styles/16_9_lg/public/2026-01/g-yk2smxgaaqhc6.jpeg.webp?itok=gRa8SrDu"
+    },
+    {
+     "url": "https://static01.nyt.com/images/2026/01/14/multimedia/14nat-ice-activists-1-kwgp/14nat-ice-activists-1-kwgp-articleLarge.jpg?quality=75&auto=avif&disable=upscale"
+    },
+    {
+     "url": "https://www.brookings.edu/wp-content/uploads/2024/07/2024-02-24T000000Z_1020984995_MT1BELGA86873512_RTRMADP_3_UKRAINE-VISIT-OF-EU-COMMISSION-AND-BELGIAN-PRESIDENCY.jpg?quality=50&w=500"
+    },
+    {
+     "url": "https://www.wojsko-polskie.pl/iwsp/u/images/cd/91/cd91cdae-02b8-4888-b082-882d8f628d8d/802989862_2866740967057892_6880604553012067375_n.jpg__749x493_q85_crop_subsampling-2_upscale.jpg"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=1570282625128484"
+    },
+    {
+     "url": "https://static0.mltimages.com/wordpress/wp-content/uploads/2021-09/mil-marine-recruits-parris-island-oath-1800.jpg?q=50&fit=crop&w=400&h=300&dpr=1.5"
+    },
+    {
+     "url": "https://i.ytimg.com/vi/RsyhX0pqAIo/maxresdefault.jpg"
+    },
+    {
+     "url": "https://www.rand.org/content/rand/ard/jcr:content/par/teaser_00.crop.600x317.cm.jpeg/1715800605948.jpeg"
+    },
+    {
+     "url": "https://cdn.prod.www.spiegel.de/images/eacfa271-987f-456c-8bd0-941aaa886191_w488_r1.33_fpx53_fpy41.jpg"
+    },
+    {
+     "url": "https://www.sipri.org/sites/default/files/2026-02/shutterstock_2712513583.jpg"
+    },
+    {
+     "url": "https://www.chathamhouse.org/sites/default/files/styles/16_9_media_small/public/2021-12/GettyImages-1236564272.jpg?h=30b17cf4&itok=ndh9HjSR"
+    },
+    {
+     "url": "https://www.president.gov.ua/storage/j-image-storage/61/20/69/abf7409675a34b1769bf266c11484f6f_1787748170_extra_large.jpeg"
+    },
+    {
+     "url": "https://pbs.twimg.com/ext_tw_video_thumb/2043190476119986176/pu/img/OyGw1fZ5gWAS-GeW?format=webp&name=large"
+    },
+    {
+     "url": "https://pbs.twimg.com/media/HSbLTTUW0AAH5Nf?format=webp&name=large"
+    },
+    {
+     "url": "https://esnmadrid.org/wp-content/uploads/2024/05/6-1024x576.jpg"
+    },
+    {
+     "url": "https://www.tiktok.com/api/img/?itemId=7681790094969179413&location=0&aid=1988"
+    },
+    {
+     "url": "https://www.politico.com/dims4/default/resize/630/quality/90/format/webp?url=https%3A%2F%2Fstatic.politico.com%2Ff3%2F79%2Fd6775ac249639ad34dd3554fe13e%2F20211230-marinescovid-getty-773.jpg"
+    },
+    {
+     "url": "https://static.972mag.com/www/uploads/2026/07/main_image67301_onu56OPgOi-600x400.jpg"
+    }
+   ],
+   "webEntities": [
+    {
+     "description": "Mircea Lucescu",
+     "entityId": "/m/05gtm3",
+     "score": 7.986
+    },
+    {
+     "description": "Pel\u00e9",
+     "entityId": "/m/067g_",
+     "score": 7.71
+    },
+    {
+     "description": "Andriy Shevchenko",
+     "entityId": "/m/02w_s7",
+     "score": 7.5315
+    },
+    {
+     "description": "Cristiano Ronaldo",
+     "entityId": "/m/02xt6q",
+     "score": 6.8535
+    },
+    {
+     "description": "Lionel Messi",
+     "entityId": "/m/06qjgc",
+     "score": 6.8055
+    },
+    {
+     "description": "Diego Maradona",
+     "entityId": "/m/02c7q",
+     "score": 6.606
+    },
+    {
+     "description": "George Weah",
+     "entityId": "/m/02w_tj",
+     "score": 6.111
+    },
+    {
+     "description": "FC Dynamo Kyiv",
+     "entityId": "/m/03m10r",
+     "score": 1.0850999
+    },
+    {
+     "description": "UEFA Europa League",
+     "entityId": "/m/01hrtp",
+     "score": 0.74745
+    },
+    {
+     "description": "Footballer",
+     "entityId": "/m/0gl2ny2",
+     "score": 0.7195
+    },
+    {
+     "description": "Ukrainian Premier League",
+     "entityId": "/m/073q37",
+     "score": 0.67665
+    },
+    {
+     "description": "GNK Dinamo Zagreb",
+     "entityId": "/m/031zm1",
+     "score": 0.63405
+    },
+    {
+     "description": "The Best FIFA Men's Player",
+     "entityId": "/g/11c2q3_hhn",
+     "score": 0.3897
+    },
+    {
+     "description": "Player",
+     "entityId": "/m/02vzx9",
+     "score": 0.3815
+    }
+   ]
+  }
+ }
+}

@@ -1,0 +1,101 @@
+{
+ "requested_at": "2026-09-27T16:44:16+00:00",
+ "vision": {
+  "webDetection": {
+   "bestGuessLabels": [
+    {
+     "label": "train"
+    }
+   ],
+   "visuallySimilarImages": [
+    {
+     "url": "https://www.aar.org/wp-content/uploads/2026/06/trp-bicentennial-04.jpg.webp"
+    },
+    {
+     "url": "https://www.tiktok.com/api/img/?itemId=7569385996018617621&location=0&aid=1988"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=1728799112586106"
+    },
+    {
+     "url": "https://www.cpkcr.com/content/dam/cpkc/beauty-shots/PLACEHOLDER%20-%20compressed.png"
+    },
+    {
+     "url": "https://www.tiktok.com/api/img/?itemId=7657165519757413653&location=0&aid=1988"
+    },
+    {
+     "url": "https://media.licdn.com/dms/image/v2/D5622AQHTDYPj3XKUPw/feedshare-shrink_800/B56aCMUGLYGQAc-/0/1789060473941?e=2147483647&v=beta&t=YvOmAl_cOCvjwqZCZYrZuXIzCSGbPMOCpddmr2z7g8I"
+    },
+    {
+     "url": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2f/4c/f9/79/all-aboard-the-agawa.jpg?w=300&h=300&s=1"
+    },
+    {
+     "url": "https://www.jarnvagsmuseet.se/siteassets/start-jvm/bilder/utforska/vara-tag/motorlok/t43-235/t43-235_foto_henrik_reuterdahl.jpg"
+    },
+    {
+     "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/10/JNR_DD51_1027_20071003.jpg/500px-JNR_DD51_1027_20071003.jpg?utm_source=en.wikipedia.org&utm_campaign=parser&utm_content=thumbnail"
+    },
+    {
+     "url": "https://www.trains.com/wp-content/uploads/2020/10/kcs4804mautner.jpg"
+    },
+    {
+     "url": "https://cdn.i-scmp.com/sites/default/files/d8/images/canvas/2026/06/29/5e71292b-d3c0-465e-a6ea-37cb21d7451c_205fe9fd.jpg"
+    },
+    {
+     "url": "https://i.ytimg.com/vi/tkhjJKOpIHY/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLBLqw6ga5ybmE7a16zdByumFOyt2Q"
+    },
+    {
+     "url": "https://marvel-b1-cdn.bc0a.com/f00000000094873/www.purolator.com/sites/default/files/styles/cta/public/images/2019-11/1-transportation-delivery-train.jpg?itok=X2PLRK4Y"
+    },
+    {
+     "url": "https://cscm.wlu.ca/assets/images/summit/cn-train.jpg"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=1538082221667964"
+    },
+    {
+     "url": "https://p19-common-sign.tiktokcdn-us.com/tos-maliva-p-0068/7d2dc1015a7547d0b8ce5252e9c06138_1703167462~tplv-tiktokx-origin.image?dr=9636&x-expires=1790650800&x-signature=tFW53CqbCKRESwIVvqwAmY9mVwU%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=55bbe6a9&idc=useast5"
+    },
+    {
+     "url": "https://lookaside.instagram.com/seo/google_widget/crawler/?media_id=3976071033504686395"
+    },
+    {
+     "url": "https://media.licdn.com/dms/image/sync/v2/D5627AQEHihWA8e-wig/articleshare-shrink_800/B56Zy0b0XPHUAI-/0/1772553717855?e=2147483647&v=beta&t=X6KHkVNAK3z9NlIYs_0KJEBQ3Ou9obWQkMLDDODElmM"
+    },
+    {
+     "url": "https://img.atlasobscura.com/fR7AQxFu7rweBgzs4QZyY0g4kbo5PPdSbXx1wCQ9k5E/rs:fill:600:400:1/g:ce/c:4028:2685:nowe:4:212/q:81/sm:1/scp:1/ar:1/aHR0cHM6Ly9hdGxh/cy1kZXYuczMuYW1h/em9uYXdzLmNvbS91/cGxvYWRzL3BsYWNl/X2ltYWdlcy80MGJk/MWYwMS04ZDgxLTQ5/M2YtODJkYS1lOWZl/MjhlMGNiOTU1MjQ0/YTFlODEyYTJhYTk5/MDlfSU1HXzA1NjQu/anBlZw.jpg"
+    },
+    {
+     "url": "https://lookaside.instagram.com/seo/google_widget/crawler/?media_id=3920225886062876631"
+    }
+   ],
+   "webEntities": [
+    {
+     "description": "Train",
+     "entityId": "/m/07jdr",
+     "score": 0.8374603
+    },
+    {
+     "description": "Rail transport",
+     "entityId": "/m/06d_3",
+     "score": 0.68077624
+    },
+    {
+     "description": "Locomotive",
+     "entityId": "/m/04h5c",
+     "score": 0.4865445
+    },
+    {
+     "description": "Railroad car",
+     "entityId": "/m/01g50p",
+     "score": 0.42771342
+    },
+    {
+     "description": "M Train (Queens Blvd Local/6 Av Local)",
+     "entityId": "/m/0570zf",
+     "score": 0.3573
+    }
+   ]
+  }
+ }
+}

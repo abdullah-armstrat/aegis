@@ -1,0 +1,309 @@
+{
+ "dated_at": "2026-09-27T17:15:07+00:00",
+ "page_dates": {
+  "https://filmthreat.com/reviews/essentially-amy-short-drama-review/": {
+   "date": "2025-12-08",
+   "source": "htmldate"
+  },
+  "https://filmthreat.com/reviews/pegasos/": {
+   "date": "2025-03-20",
+   "source": "htmldate"
+  },
+  "https://filmthreat.com/reviews/the-encampments/": {
+   "date": "2025-04-04",
+   "source": "htmldate"
+  },
+  "https://filmthreat.com/reviews/trail-of-dark-matter/": {
+   "date": "2025-03-06",
+   "source": "htmldate"
+  },
+  "https://irp.nih.gov/blog/post/2021/02/an-ebola-therapy-two-decades-in-the-making": {
+   "date": "2021-02-10",
+   "source": "htmldate"
+  },
+  "https://theconversation.com/the-trump-administration-has-made-the-us-less-ready-for-infectious-disease-outbreaks-like-coronavirus-130983": {
+   "date": "2020-02-03",
+   "source": "htmldate"
+  },
+  "https://www.facebook.com/springsgazette/posts/colorado-republican-gubernatorial-nominee-victor-marx-named-george-markert-a-ret/1082891331078252/": {
+   "date": null,
+   "source": null
+  }
+ },
+ "requested_at": "2026-09-27T16:48:11+00:00",
+ "vision": {
+  "webDetection": {
+   "bestGuessLabels": [
+    {
+     "label": "customer"
+    }
+   ],
+   "fullMatchingImages": [
+    {
+     "url": "https://irp.nih.gov/sites/default/files/media/image/2022-01/20151-obama-sullivan-4D4A5198-HUGE_0.jpg"
+    }
+   ],
+   "pagesWithMatchingImages": [
+    {
+     "pageTitle": "\u200d\u2642\ufe0fClient? or Customer? - a simple explanation - YouTube",
+     "url": "https://www.youtube.com/shorts/FDGqe5Ax6tI"
+    },
+    {
+     "pageTitle": "Video: Customer Definition & Types - Study.com",
+     "url": "https://study.com/academy/lesson/video/what-is-a-customer-definition-overview.html"
+    },
+    {
+     "pageTitle": "Costumer vs Customer #words #english #confusing #esl ... - Facebook",
+     "url": "https://www.facebook.com/100063550862077/videos/costumer-vs-customer-words-english-confusing-esl-customer-humor/1437159606950013/"
+    },
+    {
+     "pageTitle": "the definition of the word customer - YouTube",
+     "url": "https://www.youtube.com/shorts/lueSKnH-Z4k"
+    },
+    {
+     "pageTitle": "What it Means to Know Your Customer \u2014 And Why it Matters",
+     "url": "https://www.youtube.com/watch?v=Nzv6L05fytw"
+    },
+    {
+     "pageTitle": "What Is a Customer? - YouTube",
+     "url": "https://www.youtube.com/watch?v=lUkTiATg7ts"
+    },
+    {
+     "pageTitle": "Customer Service vs Customer Experience: What's the Difference?",
+     "url": "https://www.linkedin.com/videos/jdcrane_customerexperience-cx-customerjourney-activity-7363965813797593088-5hDJ"
+    },
+    {
+     "pageTitle": "Confusing Words: Customer vs Client, what's the difference ...",
+     "url": "https://www.facebook.com/felewiseentng/posts/confusing-words-customer-vs-client-whats-the-differenceenglishvocabulary-english/1247509154081297/"
+    },
+    {
+     "pageTitle": "What is a Customer? | Lawrence E. Moon Funeral Home - Saginaw, MI",
+     "url": "https://www.lawrenceemoonfuneralhome.com/who-we-are/what-is-a-customer"
+    },
+    {
+     "pageTitle": "Confusing Words: Customer vs Client, what's the difference ...",
+     "url": "https://www.facebook.com/felewiseentng/videos/confusing-words-customer-vs-client-whats-the-differenceenglishvocabulary-english/629653502727341/"
+    },
+    {
+     "pageTitle": "What is a Customer? - Strategic Reading",
+     "url": "https://www.strategicreading.uk/2019/11/what-is-a-customer/"
+    },
+    {
+     "pageTitle": "Customer definition | Solobooks",
+     "url": "https://www.mysolobooks.com/glossary/customer"
+    },
+    {
+     "pageTitle": "Essentially Amy | Film Threat",
+     "partialMatchingImages": [
+      {
+       "url": "https://filmthreat.com/wp-content/uploads/2024/12/REVIEW-COVID-Collateral-5-1024x508.jpeg"
+      }
+     ],
+     "url": "https://filmthreat.com/reviews/essentially-amy-short-drama-review/"
+    },
+    {
+     "pageTitle": "The Trump administration has made the US less ready for infectious ...",
+     "partialMatchingImages": [
+      {
+       "url": "https://images.theconversation.com/files/313142/original/file-20200131-41527-dpdvvs.jpg?ixlib=rb-4.1.1&q=45&auto=format&w=754&fit=clip"
+      }
+     ],
+     "url": "https://theconversation.com/the-trump-administration-has-made-the-us-less-ready-for-infectious-disease-outbreaks-like-coronavirus-130983"
+    },
+    {
+     "fullMatchingImages": [
+      {
+       "url": "https://irp.nih.gov/sites/default/files/media/image/2022-01/20151-obama-sullivan-4D4A5198-HUGE_0.jpg"
+      }
+     ],
+     "pageTitle": "An Ebola Therapy Two Decades in the Making",
+     "url": "https://irp.nih.gov/blog/post/2021/02/an-ebola-therapy-two-decades-in-the-making"
+    },
+    {
+     "pageTitle": "Colorado Republican gubernatorial nominee Victor Marx named ...",
+     "partialMatchingImages": [
+      {
+       "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=1042834931992226"
+      }
+     ],
+     "url": "https://www.facebook.com/springsgazette/posts/colorado-republican-gubernatorial-nominee-victor-marx-named-george-markert-a-ret/1082891331078252/"
+    },
+    {
+     "pageTitle": "The Encampments | Film Threat",
+     "partialMatchingImages": [
+      {
+       "url": "https://filmthreat.com/wp-content/uploads/2024/12/REVIEW-COVID-Collateral-5-1024x508.jpeg"
+      }
+     ],
+     "url": "https://filmthreat.com/reviews/the-encampments/"
+    },
+    {
+     "pageTitle": "Trail of Dark Matter | Film Threat",
+     "partialMatchingImages": [
+      {
+       "url": "https://filmthreat.com/wp-content/uploads/2024/12/REVIEW-COVID-Collateral-5-1024x508.jpeg"
+      }
+     ],
+     "url": "https://filmthreat.com/reviews/trail-of-dark-matter/"
+    },
+    {
+     "pageTitle": "Pegasos | Film Threat",
+     "partialMatchingImages": [
+      {
+       "url": "https://filmthreat.com/wp-content/uploads/2024/12/REVIEW-COVID-Collateral-5-1024x508.jpeg"
+      }
+     ],
+     "url": "https://filmthreat.com/reviews/pegasos/"
+    }
+   ],
+   "partialMatchingImages": [
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=1042834931992226"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=4743198155958971"
+    },
+    {
+     "url": "https://filmthreat.com/wp-content/uploads/2024/12/REVIEW-COVID-Collateral-5-1024x508.jpeg"
+    },
+    {
+     "url": "https://images.theconversation.com/files/313142/original/file-20200131-41527-dpdvvs.jpg?ixlib=rb-4.1.1&q=45&auto=format&w=754&fit=clip"
+    }
+   ],
+   "visuallySimilarImages": [
+    {
+     "url": "https://www.mountsinai.org/files/MSHealth/Assets/HS/Care/Endocrinology/Images/endocrine-research-seo-tag.jpg"
+    },
+    {
+     "url": "https://www.ysu.am/sites/default/files/styles/medium_card/public/2026-05/ED9_2167.JPG?h=2992ba0a&itok=si0Z8tUp"
+    },
+    {
+     "url": "https://www.gurdon.cam.ac.uk/wp-content/uploads/2021/10/SCoPE-Team-600x300.jpg"
+    },
+    {
+     "url": "https://wagner.edu/newsroom/wp-content/blogs.dir/58/files/2026/09/Untitled-design-10-480x270.png"
+    },
+    {
+     "url": "https://media.licdn.com/dms/image/v2/D5622AQFcnYNVDs-g_Q/feedshare-shrink_800/B56aCovZbsG0Ac-/0/1789537393565?e=2147483647&v=beta&t=_YBYh99NyIRtPuySMIACN2JFxTLjTbVmkcdGFOD-moE"
+    },
+    {
+     "url": "https://static.eluta.ca/fm/ye/review_lead_07_2026_medium_b1e08120473b97b2946a9880603178f5.jpg"
+    },
+    {
+     "url": "https://cmrc.hosp.ncku.edu.tw/var/file/36/1036/randimg/mobileadv_1968_4903382_89866.jpg"
+    },
+    {
+     "url": "https://www.ualberta.ca/en/folio/media-library/2026/04/260416-community-pharmacy-main-16x9-3000.jpg"
+    },
+    {
+     "url": "https://www.hmo.gov.cn/xwzx/zwyw/202606/W020260604416666252421.jpg"
+    },
+    {
+     "url": "https://medschool.umich.edu/sites/default/files/styles/jumbo_16_9/public/2023-07/PIBS_Sophia_Merajver_Lab_004-3200x1800.jpg.jpg?h=f0fb51a5&itok=sa0oQT5V"
+    },
+    {
+     "url": "https://pbs.twimg.com/media/G5KYG4jWEAAAXv4?format=webp&name=large"
+    },
+    {
+     "url": "https://lookaside.instagram.com/seo/google_widget/crawler/?media_id=3971039830092696530"
+    },
+    {
+     "url": "https://www.proteccioncivil.es/documents/20121/41754/CENEM3Rey-b.jpg/417b0759-4621-09f8-a58e-2bfe1d086b3e?t=1611041526823"
+    },
+    {
+     "url": "https://lookaside.instagram.com/seo/google_widget/crawler/?media_id=3644056798093676468"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=1866650364310652"
+    },
+    {
+     "url": "https://noticias.up.pt/wp-content/uploads/2020/02/estudantes_fmup_clinica_sao_joao.jpg"
+    },
+    {
+     "url": "https://www.umaryland.edu/media/umb/umb-fast-facts/UMB-Pharmacy-Student-Interaction-74.png"
+    },
+    {
+     "url": "https://lookaside.instagram.com/seo/google_widget/crawler/?media_id=3859361318004413829"
+    },
+    {
+     "url": "https://engineering.nyu.edu/sites/default/files/styles/embed_default_1x/public/2019-07/2019_researchexpo_315.jpg?h=10d202d3&itok=LKWOk5Yo"
+    },
+    {
+     "url": "https://www.uniminuto.edu/sites/default/files/styles/convert_webp/public/2021-11/EMPRENDIMIENTO%20%282%29.jpg.webp?itok=jXCwvRNs"
+    }
+   ],
+   "webEntities": [
+    {
+     "description": "Customer",
+     "entityId": "/m/01j0mk",
+     "score": 0.850933
+    },
+    {
+     "description": "Product",
+     "entityId": "/m/01jwgf",
+     "score": 0.4957
+    },
+    {
+     "description": "Business",
+     "entityId": "/g/121jnq1m",
+     "score": 0.4828
+    },
+    {
+     "description": "The Encampments",
+     "entityId": "/g/11x7ygkfqx",
+     "score": 0.43080002
+    },
+    {
+     "description": "Service",
+     "entityId": "/g/121cxq83",
+     "score": 0.3915
+    },
+    {
+     "description": "Goods",
+     "entityId": "/m/02s26t",
+     "score": 0.3373
+    },
+    {
+     "description": "Payment",
+     "entityId": "/m/09s5j9",
+     "score": 0.3247
+    },
+    {
+     "description": "Customer Service",
+     "entityId": "/m/03w5xm",
+     "score": 0.3245
+    },
+    {
+     "description": "unclear",
+     "entityId": "/g/11qbcgm451",
+     "score": 0.3047
+    },
+    {
+     "description": "Organization",
+     "entityId": "/m/0qb7t",
+     "score": 0.3038
+    },
+    {
+     "description": "Brand",
+     "entityId": "/m/01cd9",
+     "score": 0.2927
+    },
+    {
+     "description": "Brand loyalty",
+     "entityId": "/m/066pvx",
+     "score": 0.2911
+    },
+    {
+     "description": "used",
+     "entityId": "/g/11nm_6fr9g",
+     "score": 0.2871
+    },
+    {
+     "description": "Buyer",
+     "entityId": "/m/04wggz",
+     "score": 0.273
+    }
+   ]
+  }
+ }
+}

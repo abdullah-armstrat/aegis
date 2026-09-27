@@ -1,0 +1,81 @@
+{
+ "requested_at": "2026-09-27T16:46:41+00:00",
+ "vision": {
+  "webDetection": {
+   "bestGuessLabels": [
+    {
+     "label": "outcrop"
+    }
+   ],
+   "visuallySimilarImages": [
+    {
+     "url": "https://www.space.gov.il/sites/default/files/valley-in-tibet-tim-peake.jpg"
+    },
+    {
+     "url": "https://upload.wikimedia.org/wikipedia/commons/9/9c/Geren_Cuo_2021-09-19_Sentinel-2_L2A_Highlight_Optimized_Natural_Color.jpg?utm_source=cs.wikipedia.org&utm_campaign=index&utm_content=original"
+    },
+    {
+     "url": "https://media.licdn.com/dms/image/v2/C5612AQHpKSTBkvTMlQ/article-cover_image-shrink_720_1280/article-cover_image-shrink_720_1280/0/1520094383183?e=2147483647&v=beta&t=Q8yOBBiLU0ViBCW0WHOZvKKHYRSSbnL3hXWnkOyafMc"
+    },
+    {
+     "url": "x-raw-image:///5db0b9e06c9a725e7a8d2487f544d728662908a4fdd283660509dcb7b1dc82f6"
+    },
+    {
+     "url": "https://upload.wikimedia.org/wikipedia/commons/7/72/Lago_Inexplorado.jpg?utm_source=es.wikipedia.org&utm_campaign=index&utm_content=original"
+    },
+    {
+     "url": "https://assets.science.nasa.gov/dynamicimage/assets/science/esd/eo/images/imagerecords/148000/148966/tibet_tm5_1987285.jpg?w=720&h=480&fit=clip&crop=faces%2Cfocalpoint"
+    },
+    {
+     "url": "https://unesco.nl/sites/default/files/styles/overview/public/ice_melting_on_lake_baikal.jpg?itok=ae5rsZhi"
+    },
+    {
+     "url": "https://media.licdn.com/dms/image/v2/D4E10AQHK_p2PaiDrTA/image-shrink_800/image-shrink_800/0/1713258114147?e=2147483647&v=beta&t=URQOEWN7NzYXk6naMDzdmZWMg6B_E-M57KxdXmujoa0"
+    },
+    {
+     "url": "https://static.india.gov.in/npiprod/odop/uploads/coal_bd18d1f1c8.jpg"
+    },
+    {
+     "url": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=1101156276218087"
+    },
+    {
+     "url": "https://upload.wikimedia.org/wikipedia/commons/8/88/Barnes_Ice_Cap_2019-08-10_Sentinel-2_L2A_Highlight_Optimized_Natural_Color.jpg?utm_source=en.wikipedia.org&utm_campaign=index&utm_content=original"
+    },
+    {
+     "url": "https://i.iranintl.com/images/rdk9umy0/production/dab39db52780f612b66b5059f4b6ec5287e41c26-1020x954.png?rect=33,0,954,954&w=576&h=576&q=58&fit=max&auto=format"
+    },
+    {
+     "url": "https://unesco.nl/sites/default/files/styles/hero_heritage_desktop/public/cuenca_de_uvs_nuur.jpg?itok=82s5tnx5"
+    },
+    {
+     "url": "https://assets-api.kathmandupost.com/thumb.php?src=https://assets-cdn.kathmandupost.com/uploads/source/news/2025/third-party/Image171-1760509552.jpg&w=900&height=601"
+    },
+    {
+     "url": "x-raw-image:///223ffe5a8d9c53123cdd16735769a892fc26d48bd9d73c870bee927bfd27d870"
+    },
+    {
+     "url": "https://www.ici.fr/pikapi/images/2c1dcd08-d25a-45d0-8631-e841d18508fa/1200x680?webp=false"
+    },
+    {
+     "url": "https://www.no.is/static/files/fraedsluefni/vaglir.jpg"
+    },
+    {
+     "url": "https://trthaberstatic.cdn.wp.trt.com.tr/resimler/2376000/2376129.jpg"
+    },
+    {
+     "url": "https://lookaside.instagram.com/seo/google_widget/crawler/?media_id=3908681877436165452"
+    },
+    {
+     "url": "x-raw-image:///6ea08f08785ecf298ab627e1eba804ec97e79ccf767350cc9ac8f6ee6a128dbc"
+    }
+   ],
+   "webEntities": [
+    {
+     "description": "Outcrop",
+     "entityId": "/m/07cwvn",
+     "score": 0.29450542
+    }
+   ]
+  }
+ }
+}
