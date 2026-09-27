@@ -106,3 +106,7 @@ devlog*
 # Course material (University of London): kept on this laptop only.
 Resources/Instructions/
 Resources/Transcripts/
+
+# Keypoints of the image history index, computed from the local images and stored next to it
+backend/app/data/*.keypoints.npz
+backend/app/data/*.keypoints.npz.tmp

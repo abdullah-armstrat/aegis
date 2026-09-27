@@ -62,6 +62,7 @@ def _flip_bits(hash_hex: str, n: int) -> str:
 def _reset():
     get_settings.cache_clear()
     reverse_image.load_index.cache_clear()
+    reverse_image.index_keypoints.cache_clear()
 
 
 @pytest.fixture
@@ -349,3 +350,63 @@ def test_screenshot_of_the_committed_flood_image_is_found_by_keypoints():
     assert result.status == FlagStatus.FIRED and result.method == "keypoints"
     assert result.matches[0].published_date == "2019-03-04"
     _reset()
+
+
+# --- the known images' keypoints, stored next to the index ------------------------------------
+
+
+def _count_computations(monkeypatch) -> list:
+    computed = []
+    real = reverse_image.compute_index_keypoints
+    monkeypatch.setattr(reverse_image, "compute_index_keypoints", lambda index: computed.append(1) or real(index))
+    return computed
+
+
+def test_keypoints_are_computed_once_and_then_read_from_the_stored_file(use_index, tmp_path, monkeypatch):
+    original = _textured(1)
+    index = use_index([_entry_with_image(tmp_path, "orig", original),
+                       _entry_with_image(tmp_path, "other", _textured(2))])
+    computed = _count_computations(monkeypatch)
+    shot = _bytes(screenshot(original))
+    first = find_web_matches(shot)
+    stored = reverse_image.keypoints_path(index)
+    assert stored == tmp_path / "index.keypoints.npz" and stored.is_file()
+    assert computed == [1]
+    reverse_image.index_keypoints.cache_clear()  # as in a new process: nothing held in memory
+    again = find_web_matches(shot)
+    assert computed == [1]  # read back from the file, not computed again
+    assert again.method == "keypoints"
+    assert [m.keypoint_inliers for m in again.matches] == [m.keypoint_inliers for m in first.matches]
+
+
+def test_the_stored_keypoints_are_exactly_those_of_the_image(use_index, tmp_path):
+    original = _textured(3)
+    use_index([_entry_with_image(tmp_path, "orig", original)])
+    find_web_matches(_bytes(screenshot(original)))
+    points, descriptors = orb_features(Image.open(tmp_path / "orig.png").convert("RGB"))
+    with np.load(tmp_path / "index.keypoints.npz") as data:
+        assert list(data["ids"]) == ["orig"]
+        assert np.array_equal(data["pts_0"], points) and np.array_equal(data["desc_0"], descriptors)
+
+
+def test_keypoints_are_computed_again_only_when_the_index_or_an_image_changes(use_index, tmp_path, monkeypatch):
+    original = _textured(1)
+    entries = [_entry_with_image(tmp_path, "orig", original)]
+    use_index(entries)
+    computed = _count_computations(monkeypatch)
+    shot = _bytes(screenshot(original))
+    find_web_matches(shot)
+    assert computed == [1]
+
+    reverse_image.index_keypoints.cache_clear()
+    find_web_matches(shot)
+    assert computed == [1]  # nothing changed
+
+    use_index(entries + [_entry_with_image(tmp_path, "other", _textured(2))])  # the index changed
+    find_web_matches(shot)
+    assert computed == [1, 1]
+
+    _textured(4).save(tmp_path / "other.png")  # an image it names changed
+    reverse_image.index_keypoints.cache_clear()
+    find_web_matches(shot)
+    assert computed == [1, 1, 1]

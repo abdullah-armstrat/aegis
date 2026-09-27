@@ -1,15 +1,16 @@
 """Video adapter — turns a video file + caption into an :class:`EvidenceBundle`.
 
-Stages, in order, each loading at most one model and releasing it before the next:
+Stages, in order, each loading at most one model:
 
   keyframes      scene cuts (PySceneDetect), the middle frame of each scene, at most 8; even
                  intervals when there are no cuts
   ocr            Tesseract on every keyframe (an external program, no model in this process)
   reverse_image  the image history lookup (hash, then keypoints) on every keyframe
   speech         the audio track through Whisper, loaded for this stage only
-  clip           CLIP ViT-B/32, loaded for this stage only: the caption against every keyframe,
-                 and each stretch of speech against the frame at its midpoint and any keyframe
-                 inside it (the highest of these is the stretch's score)
+  clip           CLIP ViT-B/32: the caption against every keyframe, and each stretch of speech
+                 against the frame at its midpoint and any keyframe inside it (the highest of
+                 these is the stretch's score). Once loaded, CLIP stays loaded for later requests,
+                 as it does for images; Whisper is loaded for each video and released after it.
 
 BLIP and spaCy are never loaded here, and the LLM is not used for video. Every item carries its
 time in the video. A stage that cannot run records NOT_ASSESSED and the reason in
@@ -18,7 +19,6 @@ time in the video. A stage that cannot run records NOT_ASSESSED and the reason i
 
 from __future__ import annotations
 
-import gc
 import tempfile
 import threading
 import time
@@ -71,23 +71,19 @@ def _stage(record: list | None, name: str):
 
 
 def _clip_vectors(texts: list[str], frames: dict[float, bytes]):
-    """CLIP vectors for each text and each frame. Loads CLIP once and releases it afterwards."""
+    """CLIP vectors for each text and each frame. CLIP stays loaded for the next request."""
     from io import BytesIO
 
     from PIL import Image
 
     from app.extractors import caption_match
 
-    try:
-        text_vecs = [caption_match.clip_text_vector(t, IMAGE_MODEL) for t in texts]
-        frame_vecs = {}
-        for t, png in frames.items():
-            with Image.open(BytesIO(png)) as img:
-                frame_vecs[t] = caption_match.clip_image_vector(img.convert("RGB"), IMAGE_MODEL)
-        return text_vecs, frame_vecs
-    finally:
-        caption_match._clip.cache_clear()
-        gc.collect()
+    text_vecs = [caption_match.clip_text_vector(t, IMAGE_MODEL) for t in texts]
+    frame_vecs = {}
+    for t, png in frames.items():
+        with Image.open(BytesIO(png)) as img:
+            frame_vecs[t] = caption_match.clip_image_vector(img.convert("RGB"), IMAGE_MODEL)
+    return text_vecs, frame_vecs
 
 
 def build_video_bundle(

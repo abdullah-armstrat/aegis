@@ -7,7 +7,9 @@ appeared on. A match is a Hamming distance at or below ``phash_match_threshold``
 content means a renamed, recompressed or resized copy is still found — the filename lookup it
 replaces was defeated by any re-save. When the hash finds nothing, a second stage matches image
 keypoints (``keypoint_match.py``, behind ``keypoint_matching``), which finds copies that were
-cropped, bordered or framed in a screenshot: the changes that defeat the hash.
+cropped, bordered or framed in a screenshot: the changes that defeat the hash. The known images'
+keypoints are computed once and stored next to the index (``<index>.keypoints.npz``); they are
+computed again only when the index, an image it names, or the keypoint settings change.
 
 The index runs fully offline with no key. The live web lookup (``web_lookup.py``, Google Cloud
 Vision) sits behind the same function and the same ``ReverseImageResult``: it runs, in addition
@@ -25,6 +27,7 @@ the post look recycled depends on the posting date, which the rule layer decides
 
 from __future__ import annotations
 
+import hashlib
 import json
 import re
 from dataclasses import dataclass, field
@@ -210,15 +213,75 @@ def find_local_matches(image_bytes: bytes) -> ReverseImageResult:
     )
 
 
-@lru_cache(maxsize=256)
-def _entry_keypoints(path_str: str, mtime: float):
-    """Keypoint features of a known image, cached per file version."""
+def _entry_image(entry: IndexEntry) -> Path | None:
+    """The file of a known image, if the entry names one and it is on disk."""
+    if not entry.image:
+        return None
+    path = Path(entry.image)
+    path = path if path.is_absolute() else _REPO_ROOT / path
+    return path if path.is_file() else None
+
+
+def keypoints_path(index_path: Path) -> Path:
+    """Where the index's keypoints are stored: next to the index, ``<name>.keypoints.npz``."""
+    return index_path.with_name(index_path.stem + ".keypoints.npz")
+
+
+def keypoints_fingerprint(index_path: Path, index) -> str:
+    """Changes when the index file, the size or time of an image it names, or the settings change."""
+    from app.extractors.keypoint_match import ORB_FEATURES, ORB_MAX_SIDE
+
+    digest = hashlib.sha256(index_path.read_bytes())
+    digest.update(f"orb {ORB_FEATURES} {ORB_MAX_SIDE}".encode())
+    for entry in index:
+        path = _entry_image(entry)
+        stat = path.stat() if path else None
+        digest.update(f"|{entry.id}|{entry.image}|{stat.st_size if stat else -1}|"
+                      f"{stat.st_mtime_ns if stat else -1}".encode())
+    return digest.hexdigest()
+
+
+def compute_index_keypoints(index) -> dict[str, tuple]:
+    """Keypoint features of every known image that is on disk, by entry id."""
     from PIL import Image
 
     from app.extractors.keypoint_match import orb_features
 
-    with Image.open(path_str) as img:
-        return orb_features(img.convert("RGB"))
+    features = {}
+    for entry in index:
+        path = _entry_image(entry)
+        if path is not None:
+            with Image.open(path) as img:
+                features[entry.id] = orb_features(img.convert("RGB"))
+    return features
+
+
+@lru_cache(maxsize=4)
+def index_keypoints(index_path_str: str, fingerprint: str) -> dict[str, tuple]:
+    """The index's keypoints: read from the stored file when it matches, else computed and stored."""
+    import numpy as np
+
+    index_path = Path(index_path_str)
+    stored = keypoints_path(index_path)
+    try:
+        with np.load(stored, allow_pickle=False) as data:
+            if str(data["fingerprint"]) == fingerprint:
+                return {str(i): (data[f"pts_{n}"], data[f"desc_{n}"]) for n, i in enumerate(data["ids"])}
+    except (OSError, KeyError, ValueError):
+        pass  # no stored keypoints yet, or unreadable: compute them
+    features = compute_index_keypoints(load_index(index_path_str))
+    arrays = {"fingerprint": np.array(fingerprint), "ids": np.array(list(features), dtype=str)}
+    for n, (pts, desc) in enumerate(features.values()):
+        arrays[f"pts_{n}"] = np.asarray(pts, dtype=np.float32).reshape(-1, 2)
+        arrays[f"desc_{n}"] = desc if desc is not None else np.zeros((0, 32), dtype=np.uint8)
+    tmp = stored.with_name(stored.name + ".tmp")
+    try:
+        with open(tmp, "wb") as fh:
+            np.savez(fh, **arrays)
+        tmp.replace(stored)
+    except OSError:
+        pass  # a read-only folder: keep them in memory for this process
+    return {i: (arrays[f"pts_{n}"], arrays[f"desc_{n}"]) for n, i in enumerate(features)}
 
 
 def _keypoint_matches(image_bytes: bytes, index, min_inliers: int) -> list[tuple[int, IndexEntry]]:
@@ -230,17 +293,15 @@ def _keypoint_matches(image_bytes: bytes, index, min_inliers: int) -> list[tuple
 
     from app.extractors.keypoint_match import orb_features, orb_inliers
 
+    index_path = _index_path()
+    known = index_keypoints(str(index_path), keypoints_fingerprint(index_path, index))
     with Image.open(BytesIO(image_bytes)) as img:
         query = orb_features(img.convert("RGB"))
     found = []
     for entry in index:
-        if not entry.image:
+        if entry.id not in known:
             continue
-        path = Path(entry.image)
-        path = path if path.is_absolute() else _REPO_ROOT / path
-        if not path.is_file():
-            continue
-        inliers = orb_inliers(query, _entry_keypoints(str(path), path.stat().st_mtime))
+        inliers = orb_inliers(query, known[entry.id])
         if inliers >= min_inliers:
             found.append((inliers, entry))
     return sorted(found, key=lambda pair: (-pair[0], pair[1].id))

@@ -227,6 +227,12 @@ def main() -> None:
     print(f"across all {len(every)} images: closest pair {closest[1]} / {closest[2]} at {closest[0]} bits; "
           f"pairs at or below 10 bits: {sum(d <= 10 for d, _, _ in pairs)}")
 
+    # The known images' keypoints, stored next to the index so no lookup has to compute them.
+    from app.extractors.reverse_image import index_keypoints, keypoints_fingerprint, keypoints_path, load_index
+
+    known = index_keypoints(str(INDEX_PATH), keypoints_fingerprint(INDEX_PATH, load_index(str(INDEX_PATH))))
+    print(f"stored the keypoints of {len(known)} images in {keypoints_path(INDEX_PATH)}")
+
 
 if __name__ == "__main__":
     main()

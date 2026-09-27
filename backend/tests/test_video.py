@@ -167,3 +167,20 @@ def test_noise_only_audio_is_no_speech_not_invented_words(tmp_path):
     assert bundle.transcript_segments == []
     assert bundle.extractor_status["speech"] == FlagStatus.NOT_ASSESSED
     assert bundle.extractor_detail["speech"] == "No speech was found in the audio."
+
+
+@pytest.mark.slow
+def test_clip_stays_loaded_between_videos_and_whisper_is_loaded_for_each(tmp_path, monkeypatch):
+    from app.config import get_settings
+    from app.extractors import caption_match, speech
+
+    path = _video(tmp_path / "tone.mp4", ["red", "blue"], seconds=2.0, audio="sine=frequency=440")
+    loads = []
+    real = speech.load_model
+    monkeypatch.setattr(speech, "load_model", lambda name: loads.append(name) or real(name))
+    caption_match._clip.cache_clear()
+    for _ in range(2):
+        build_video_bundle(path, caption="A red screen, then a blue one.", source_ref="tone.mp4")
+    clip = caption_match._clip.cache_info()
+    assert (clip.misses, clip.currsize) == (1, 1)  # loaded by the first video, still loaded after both
+    assert loads == [get_settings().whisper_model] * 2  # Whisper is loaded for each video
