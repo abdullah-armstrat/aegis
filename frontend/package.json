@@ -8,7 +8,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "test:e2e": "playwright test",
-    "review:interface": "playwright test -c playwright.review.config.js"
+    "review:interface": "playwright test -c playwright.review.config.js",
+    "screenshots": "playwright test -c playwright.screenshots.config.js"
   },
   "dependencies": {
     "react": "^18.3.1",
