@@ -112,3 +112,7 @@ backend/app/data/*.keypoints.npz
 backend/app/data/*.keypoints.npz.tmp
 # Fresh hard cases for image matching (NASA photos, downloaded by get_hard_pairs.py)
 data/hard_pairs/
+# The final evaluation's cache of slow model outputs, and the outputs its audits read: rebuilt by
+# run_final_eval.py (--rebuild), and holding dataset text that is not ours to publish.
+data/final_eval_cache/
+data/final_eval_outputs/

@@ -51,3 +51,7 @@ psutil==7.2.2
 # Provisional hash-robustness harness: openly licensed sample images bundled with
 # scikit-image, loaded at run time and never committed (scripts/eval_hash_robustness.py).
 scikit-image==0.26.0
+# ---- Final evaluation (scripts/run_final_eval.py): statistics and charts ----
+scikit-learn==1.9.1
+scipy==1.18.1
+matplotlib==3.11.2
