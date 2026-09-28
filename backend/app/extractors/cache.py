@@ -1,11 +1,8 @@
-"""A tiny on-disk cache keyed by a hash of the input (dev-speed helper).
+"""A small on-disk JSON cache keyed by a hash of the input.
 
-Slow calls — the captioner, the LLM reasoner, and (later) a live reverse-image API — are
-cached by a SHA-256 of their input so that iterating on fusion rules does not re-run a
-multi-second model call every time. This is purely a development-speed device; it has no
-effect on the architecture and is safe to delete. The reverse-image *history index* is a
-separate, intentional, committed artefact — this one is a transient dev cache
-under ``backend/.cache`` (git-ignored).
+Slow calls such as the captioner and the LLM reasoner are cached by the SHA-256 of their input,
+so re-running the fusion rules during development does not repeat multi-second model calls.
+It lives in ``backend/.cache`` (git-ignored) and is safe to delete.
 
 Usage::
 
@@ -24,12 +21,12 @@ import json
 from pathlib import Path
 from typing import Any
 
-# Transient dev cache root (git-ignored via backend/.cache/).
+# cache root, backend/.cache/ (git-ignored)
 _CACHE_ROOT = Path(__file__).resolve().parents[2] / ".cache"
 
 
 class JsonCache:
-    """A namespaced JSON file cache. Each entry is one file named by its key hash."""
+    """A JSON file cache in its own folder. Each entry is one file named by its key."""
 
     def __init__(self, namespace: str, root: Path | None = None) -> None:
         self._dir = (root or _CACHE_ROOT) / namespace
@@ -37,7 +34,7 @@ class JsonCache:
 
     @staticmethod
     def key(*parts: Any) -> str:
-        """Stable SHA-256 over the given parts (order-sensitive)."""
+        """SHA-256 hex digest of the given parts, in order."""
         h = hashlib.sha256()
         for part in parts:
             h.update(repr(part).encode("utf-8"))
@@ -54,10 +51,10 @@ class JsonCache:
         try:
             return json.loads(path.read_text(encoding="utf-8"))
         except (json.JSONDecodeError, OSError):
-            return None  # a corrupt cache entry is a miss, never an error
+            return None  # a corrupt entry just counts as a miss
 
     def set(self, key: str, value: Any) -> None:
         try:
             self._path(key).write_text(json.dumps(value), encoding="utf-8")
         except (TypeError, OSError):
-            pass  # caching is best-effort; never break the caller
+            pass  # caching is best-effort, so a failed write is ignored

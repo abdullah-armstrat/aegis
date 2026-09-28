@@ -1,41 +1,29 @@
-"""Build dataset E: video clips with known speech, and a real-speech set for the Whisper comparison.
+"""Build dataset E: narrated video clips with known labels, and real speech for the Whisper comparison.
 
-Footage comes from the NASA Image and Video Library (public domain; Wikimedia Commons did not
-resolve from the development machine). Steps, run in order; each writes into the git-ignored
-data/E_videos/ or data/E_speech/:
+Footage is from the NASA Image and Video Library (public domain) and speech from LibriSpeech
+test-clean (Panayotov et al., 2015; CC BY 4.0). Media goes into the git-ignored data/E_videos/ and
+data/E_speech/, manifests into data/labels/. Steps, run in order:
 
-  speech     100 utterances from LibriSpeech test-clean (Panayotov et al., 2015; CC BY 4.0), with
-             their exact transcripts. The archive is streamed from openslr.org and checked against
-             the published MD5 as it arrives; only the chosen utterances are written, never the
-             archive. The choice is seeded: the 100 utterances whose SHA-256 of "seed:utterance id"
-             is lowest. Writes data/labels/E_speech.csv.
-  footage    A window of each source video, read from NASA's 720p rendition and stored at 480p
-             without its sound. Refuses any video whose metadata names a non-NASA rights holder.
-             Writes data/labels/E_footage.csv.
-  narration  One WAV per narration line, spoken offline by the Windows built-in voice, the same
-             voice for every clip.
-  clips      34 clips of 15-60 s: 15 whose every line matches what is shown, 15 with one or two
-             lines that do not (a different scene, or one wrong detail: a colour, a count or a
-             place), 2 without speech (one with brown noise, one with no audio track) and 2 with
-             text burned in and matching narration; two show dataset A photos as stills. Writes
-             data/labels/E_video_clips.csv (per clip) and data/labels/E_video_segments.csv (per
-             line: start, end, text, label).
-  keyframes  The frame at the middle of each line and one every 3 s, for checking the labels.
-  speech-tuning
-             100 other LibriSpeech test-clean utterances, for choosing Whisper's decoding without
-             touching the test sets: the same checked stream, the 100 not among the original 100
-             whose SHA-256 of "20260928-tuning:utterance id" is lowest, each also written as a WAV
-             with 5 s of silence added to its end (data/E_speech/tuning/). Writes
-             data/labels/E_speech_tuning.csv.
-  speech-tuning-long
-             The same 100 tuning utterances joined into 50-60 s files, as long as the clips whose
-             ends drew Whisper's invented sentences: shuffled with a seed, 3-8 s pauses between
-             utterances, each file filled to 45-55 s of speech and pauses, then 5 s of silence
-             (data/E_speech/tuning_long/). Writes data/labels/E_speech_tuning_long.csv.
+  speech              100 LibriSpeech utterances with their transcripts (E_speech.csv)
+  footage             a window of each NASA video at 480p, without sound (E_footage.csv)
+  narration           one WAV per narration line, spoken offline by the Windows built-in voice
+  clips               the 34 clips (E_video_clips.csv) and their timed lines (E_video_segments.csv)
+  keyframes           the middle frame of each line and a frame every 3 s, for checking the labels
+  speech-tuning       100 other utterances, for tuning Whisper's decoding (E_speech_tuning.csv)
+  speech-tuning-long  the tuning utterances joined into 50-60 s files (E_speech_tuning_long.csv)
 
-Every narration line describes something concrete. Each was checked against the keyframe from its
-own segment before its label was fixed; five lines were rewritten after that check because their
-keyframe did not clearly show what they said.
+The LibriSpeech archive is streamed from openslr.org, checked against the published MD5 and never
+kept. The utterances picked are those with the lowest SHA-256 of "seed:utterance id" (seed 20260927;
+"20260928-tuning" for the tuning set, which leaves out the first 100). Each tuning utterance is also
+saved with 5 s of silence at the end. The long files use seeded (20260928) 3-8 s pauses, are filled
+to 45-55 s and end with 5 s of silence. A NASA video is refused if its metadata names another
+rights holder.
+
+The clips are 15-60 s long: 15 where every line matches the picture, 15 with one or two lines that
+do not (a different scene, or a wrong colour, count or place), 2 without speech (brown noise, and no
+audio track) and 2 with burned-in text. Two show dataset A photos as stills. Every line was checked
+against the keyframe from its own segment before its label was fixed; five were rewritten because
+the keyframe did not clearly show what they said.
 
 Run:  python backend/scripts/build_dataset_e.py <step>
 """
@@ -78,7 +66,7 @@ SAMPLE_RATE = 16000
 
 # ------------------------------------------------------------------------------ real speech
 class _Stream(io.RawIOBase):
-    """A read-only file over an HTTP byte stream, hashing every byte that passes through."""
+    """Read-only file over an HTTP byte stream that hashes every byte read through it."""
 
     def __init__(self, chunks, digest):
         self._chunks, self._digest, self._buffer = chunks, digest, b""
@@ -107,12 +95,12 @@ def _duration(path: Path) -> float:
 
 def build_speech(seed=SPEECH_SEED, out_dir: Path = SPEECH_DIR, manifest: str = "E_speech.csv",
                  exclude: frozenset = frozenset()) -> list[dict]:
-    """Stream LibriSpeech test-clean once and keep the 100 seeded utterances."""
+    """Stream LibriSpeech test-clean once and keep the 100 utterances picked by the seed."""
     with httpx.Client(headers={"User-Agent": USER_AGENT}, timeout=60, follow_redirects=True) as client:
         sums = client.get(LIBRISPEECH_MD5_URL).text
         expected = next(line.split()[0] for line in sums.splitlines() if line.endswith("test-clean.tar.gz"))
         digest = hashlib.md5()  # noqa: S324 - checked against the MD5 openslr.org publishes
-        chosen: list[tuple[int, str, bytes]] = []  # max-heap on the key, via its negation
+        chosen: list[tuple[int, str, bytes]] = []  # max-heap on the key (stored negated)
         transcripts: dict[str, str] = {}
         speakers: dict[str, str] = {}
         with client.stream("GET", LIBRISPEECH_URL, timeout=httpx.Timeout(60, read=300)) as resp:
@@ -142,7 +130,7 @@ def build_speech(seed=SPEECH_SEED, out_dir: Path = SPEECH_DIR, manifest: str = "
                                 continue
                             fields = [f.strip() for f in line.split("|")]
                             speakers[fields[0]] = fields[1]
-            for _ in stream:  # drain, so the checksum covers the whole archive
+            for _ in stream:  # read to the end so the MD5 covers the whole archive
                 pass
     if digest.hexdigest() != expected:
         sys.exit(f"LibriSpeech test-clean MD5 {digest.hexdigest()} differs from the published {expected}; "
@@ -182,10 +170,9 @@ LICENCE = "Public domain: NASA media, not subject to copyright in the United Sta
 LICENCE_URL = "https://www.nasa.gov/nasa-brand-center/images-and-media/"
 WIDTH, HEIGHT, FPS = 854, 480, 30
 
-# Source videos from the NASA Image and Video Library: key -> (NASA id, first second, last second
-# of the window kept). Chosen from preview frames for scenes without identifiable people. The
-# library's search rejects ids containing an apostrophe, so such videos cannot have their rights
-# checked and are not used.
+# NASA source videos: key -> (NASA id, start and end second of the window kept). Picked from the
+# preview frames, avoiding scenes with identifiable people. Videos with an apostrophe in the id are
+# not used, because the library's search rejects them and so their rights can't be checked.
 FOOTAGE = {
     "fog_vab": ("KSC-20200713-MH-JBS01-0001-Creative_Videography_Fog_Rolling_Over_VAB_Timelapse-3254205", 0, 101),
     "eagles": ("KSC-20260313-MH-JBS01-0001-Wildlife_Video_Bald_Eagles_BROLL-M19993", 0, 148),
@@ -210,7 +197,7 @@ THIRD_PARTY = re.compile(r"©|courtesy|all rights reserved", re.I)
 
 
 def _nasa_video(client: httpx.Client, nasa_id: str) -> dict:
-    """NASA's record for a video, its 720p rendition, and a check that no one else holds rights."""
+    """Get a video's NASA record and 720p file URL; exit if anyone else seems to hold rights."""
     items = client.get(f"{API}/search", params={"nasa_id": nasa_id}).json()["collection"]["items"]
     record = next(i["data"][0] for i in items if i["data"][0]["nasa_id"] == nasa_id)
     meta = client.get(client.get(f"{API}/metadata/{quote(nasa_id)}").json()["location"]).json()
@@ -227,7 +214,7 @@ def _nasa_video(client: httpx.Client, nasa_id: str) -> dict:
 
 
 def build_footage() -> None:
-    """A 480p, silent copy of each source window, read straight from NASA's 720p rendition."""
+    """Save a silent 480p copy of each source window, read straight from NASA's 720p file."""
     FOOTAGE_DIR.mkdir(parents=True, exist_ok=True)
     rows = []
     with httpx.Client(headers={"User-Agent": USER_AGENT}, timeout=60, follow_redirects=True) as client:
@@ -265,17 +252,16 @@ NARRATION_DIR = VIDEOS / "narration"
 CLIPS_DIR = VIDEOS / "clips"
 KEYFRAMES_DIR = VIDEOS / "keyframes"
 A_DIR = ROOT / "data" / "A_originals"
-VOICE = "Microsoft Zira Desktop"  # the same voice for every clip, so the voice never gives the label away
+VOICE = "Microsoft Zira Desktop"  # same voice for every clip, so the voice can't give the label away
 SAMPLE_RATE = 22050
 FONT = "C\\:/Windows/Fonts/arialbd.ttf"
 MIN_GAP_S = 0.5
 
 M, D, W = "matches", "different_scene", "wrong_detail"
 
-# Each clip: id, type, source (footage key, or a dataset A file shown as a still), source start
-# and end in seconds, topic, burned-in text, audio when there is no speech, and the narration as
-# (start second in the clip, text, label, what is wrong for a wrong detail). Every line was checked
-# against a keyframe from its own segment before its label was fixed.
+# Each clip: id, type, source (footage key, or a dataset A file shown as a still), source start and
+# end in seconds, topic, burned-in text, audio when there is no speech, and the narration lines as
+# (start second in the clip, text, label, what is wrong if it is a wrong detail).
 CLIPS = [
     ("E01", "narrated_match", "fog_vab", 11, 56, "weather", "", "", [
         (1, "Thick fog hides a tall building.", M, ""),
@@ -446,7 +432,7 @@ $s.Dispose()
 
 
 def build_narration() -> None:
-    """One WAV per narration line, spoken offline by the Windows built-in voice."""
+    """Write one WAV per narration line, spoken offline by the Windows built-in voice."""
     import tempfile
     import wave
 
@@ -475,7 +461,7 @@ def _read_wav(path: Path):
 
 
 def _timed_lines(cid: str, lines, duration: float) -> list[dict]:
-    """Start and end of each spoken line; refuses overlapping lines or speech past the clip's end."""
+    """Start and end of each spoken line; exits if lines overlap or speech runs past the clip's end."""
     out = []
     for n, (start, text, label, note) in enumerate(lines, 1):
         samples = _read_wav(NARRATION_DIR / f"{cid}_{n:02d}.wav")
@@ -568,7 +554,7 @@ def build_clips() -> None:
 
 
 def build_keyframes() -> None:
-    """For checking the labels: the frame at the middle of each line, and a frame every 3 s."""
+    """Save the middle frame of each line and a frame every 3 s, for checking the labels."""
     KEYFRAMES_DIR.mkdir(parents=True, exist_ok=True)
     for row in csv.DictReader(open(LABELS / "E_video_segments.csv", encoding="utf-8")):
         out = KEYFRAMES_DIR / f"{row['clip_id']}_line{int(row['line_index']):02d}.jpg"
@@ -581,7 +567,7 @@ def build_keyframes() -> None:
 
 
 def build_speech_tuning() -> None:
-    """The tuning set: 100 other utterances, each also with silence added to its end."""
+    """Build the tuning set: 100 other utterances, each also saved with 5 s of silence at the end."""
     with open(LABELS / "E_speech.csv", encoding="utf-8") as fh:
         originals = frozenset(r["utterance_id"] for r in csv.DictReader(fh))
     out_dir = SPEECH_DIR / "tuning"
@@ -594,7 +580,10 @@ def build_speech_tuning() -> None:
 
 
 def build_speech_tuning_long() -> None:
-    """The tuning utterances joined into long files with pauses and trailing silence (ADR-049)."""
+    """Join the tuning utterances into long files with pauses and 5 s of silence at the end.
+
+    They match the length of the clips where Whisper invented sentences in the silence at the end.
+    """
     import random
     import wave
 
@@ -608,6 +597,7 @@ def build_speech_tuning_long() -> None:
     rng.shuffle(remaining)
     audio = {u: load_audio(str(SPEECH_DIR / "tuning" / rows[u]["file"])) for u in remaining}
     files = []
+    # Fill each file, in shuffled order, with whatever still fits under 55 s; stop once one can't reach 45 s.
     while True:
         parts, length = [], 0.0
         for u in list(remaining):

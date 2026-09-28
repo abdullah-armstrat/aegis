@@ -1,13 +1,13 @@
-// The "Audit result" screen: a neutral, count-based summary (not a verdict), the post under
-// review, then one FlagCard per check. Findings are sorted fired → not_assessed → clear so the
-// user sees what to check first, while coverage (what couldn't be checked) stays visible.
+// The "Audit result" screen: a summary that only counts findings (no verdict), the post under
+// review, then one FlagCard per check. Findings are sorted fired, not_assessed, clear so the user
+// sees what to check first, and what could not be checked stays visible.
 
 import { useRef } from "react";
 import FlagCard, { clock } from "./FlagCard";
 
 const STATUS_ORDER = { fired: 0, not_assessed: 1, clear: 2 };
 
-// "two", "one"… for the small count sentence; falls back to the numeral past nine.
+// Numbers as words for the count sentence; digits above nine.
 const WORDS = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"];
 const word = (n) => WORDS[n] ?? String(n);
 
@@ -91,7 +91,7 @@ export default function Scorecard({ scorecard, submission }) {
         )}
       </div>
 
-      {/* Count summary + the non-verdict reminder (the spine). */}
+      {/* Count summary and the reminder that Aegis gives no verdict. */}
       <p className="mt-4 text-xl font-medium leading-snug tracking-tight text-ink">
         {countSentence(flags)}
       </p>

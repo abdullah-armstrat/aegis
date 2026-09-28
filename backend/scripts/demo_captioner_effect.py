@@ -1,16 +1,14 @@
-"""Live before/after demonstration of the BLIP captioner's effect on caption↔scene.
+"""Show the caption-scene check with the BLIP captioner off and then on, on one drawn image.
 
-The labelled eval set scores caption↔scene at the RULE level using injected scene text on
-blank images (a deterministic stand-in from when the captioner wasn't integrated). Running the
-live captioner on those blank images would be meaningless, so the genuine before/after is shown
-here on a real (synthetic) scene image:
+The labelled eval set injects scene text on blank images (from before the captioner was added),
+so running BLIP on those would show nothing useful. This uses a simple drawn beach instead:
+  before: captioner off  -> caption-scene is NOT_ASSESSED (no scene description)
+  after:  captioner on   -> BLIP describes the scene and the rule fires or clears against it
 
-  BEFORE: captioner off  -> caption↔scene is NOT_ASSESSED (no scene description).
-  AFTER:  captioner on   -> BLIP describes the scene, and the rule fires/clears against it.
+Two captions are tried: a matching one (expect clear) and a mismatching one (expect fired).
+Results go to a JSON file to be read back, not copied from the terminal.
 
-Two captions are tested against one beach image: a matching one (expect clear/consistent) and a
-mismatching one (expect fired). Results are written to a JSON file to be read back; no number is
-transcribed from the terminal. Run: python backend/scripts/demo_captioner_effect.py
+Run:  python backend/scripts/demo_captioner_effect.py
 """
 
 import json

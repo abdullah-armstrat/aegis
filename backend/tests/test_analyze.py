@@ -1,8 +1,7 @@
-"""Tests for the /analyze endpoint (image + caption -> Scorecard JSON).
+"""Tests for the /analyze endpoint (image + caption -> scorecard JSON).
 
-Exercises the full HTTP path with the real adapter and rules (LLM off by default), using
-small PIL-generated images so no binary fixtures are committed. Validates the contract the
-frontend depends on, plus input guards.
+Uses the real adapter and rules with small generated images, and checks the response shape
+the frontend relies on plus the input checks.
 """
 
 from io import BytesIO
@@ -41,7 +40,7 @@ def test_analyze_returns_scorecard(monkeypatch):
     assert body["modality"] == "image"
     assert body["source_ref"] == "photo.png"
     assert body["summary"]
-    # Every flag carries the explain-don't-verdict fields and a status.
+    # Every flag explains itself and says what to check; there is no overall verdict.
     for flag in body["flags"]:
         assert {"type", "status", "plain_explanation", "what_to_check"} <= flag.keys()
     assert "verdict" not in body
@@ -72,7 +71,7 @@ def test_analyze_works_without_caption():
     assert resp.json()["modality"] == "image"
 
 
-# --- Posting date and content matching through the real HTTP path ---
+# --- Posting date and image matching through the API ---
 
 from pathlib import Path  # noqa: E402
 
@@ -105,8 +104,7 @@ def test_analyze_rejects_future_posted_date():
 
 
 def test_renamed_copy_is_matched_by_content_and_gated_by_date():
-    """The illustrative flood image is in the shipped history index (earliest 2019-03-04). Upload
-    it under an unrelated filename: the old filename lookup would have missed it entirely."""
+    """The flood image is in the index (earliest 2019-03-04); a new filename still matches."""
     get_settings.cache_clear()
     image = ("holiday_snap_final_v2.png", _FLOOD.read_bytes(), "image/png")
 
@@ -125,13 +123,13 @@ def test_renamed_copy_is_matched_by_content_and_gated_by_date():
 
 
 def test_unregistered_image_is_clear_not_not_assessed():
-    """A readable image that is not in the index: the lookup ran and found nothing."""
+    """An image not in the index gives clear, since the lookup ran and found nothing."""
     resp = client.post("/analyze", files={"image": ("p.png", _png(colour="navy"), "image/png")})
     assert _recycled(resp.json())["status"] == "clear"
 
 
 def test_screenshot_of_a_known_image_is_found_through_the_api():
-    """A screenshot defeats the hash; the keypoint stage still finds it, and says so."""
+    """The hash misses a screenshot, but the keypoint stage finds it and says so."""
     from tests.eval.image_transforms import screenshot
 
     get_settings.cache_clear()

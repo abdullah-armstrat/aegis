@@ -1,26 +1,20 @@
 """Build dataset A: 40 photos with known dates, for the recycled-context evaluation.
 
-Source: the NASA Image and Video Library (images-api.nasa.gov). Wikimedia Commons was the first
-choice, but commons.wikimedia.org did not resolve from the development machine on 2026-09-27, so
-no route to it was used. NASA media are generally not subject to copyright in the United States
-(NASA media usage guidelines); items that carry any third-party copyright or credit are refused.
+Source: the NASA Image and Video Library (images-api.nasa.gov). Wikimedia Commons did not resolve
+from this machine, so it was not used. NASA media are generally public domain (not subject to
+copyright in the United States); items with any third-party copyright or credit are refused.
 
-The 40 items below were chosen by eye from library searches for everyday scenes (weather,
-transport, animals, landscapes) with no identifiable people, checked at full resolution: two first
-picks were replaced because people stood on a dock in them. Eight have little texture (fog,
-plain sky, a plain board wall, snow), because keypoint matching struggles with such images and
-the evaluation should show it.
+The 40 items were picked by hand: everyday scenes (weather, transport, animals, landscapes) with no
+identifiable people. Eight have little texture (fog, plain sky, snow) because keypoint matching
+struggles with those and the evaluation should show it.
 
 For each item the script:
-  1. reads NASA's record (title, description, date created, centre, credits) and the file's full
-     metadata, and stops if anything names a copyright, a courtesy credit or a rights holder
-     other than NASA;
-  2. downloads the original file (or NASA's large rendition when the original is not a JPEG or
-     PNG, or is over 15 MB) into data/A_originals/, which git ignores;
-  3. records the earliest known date (NASA's date created), the EXIF capture date read from the
-     downloaded file if it has one, and the file's SHA-256.
-It writes the manifest to data/labels/A_originals.csv. Then run build_image_index.py, which adds
-every item to the image history index with its date.
+  1. reads NASA's record and the file metadata, and stops if anything names a copyright, a
+     courtesy credit or a rights holder other than NASA;
+  2. downloads the original (or the large rendition if the original is not JPEG/PNG or is over
+     15 MB) into data/A_originals/, which git ignores;
+  3. records NASA's date created, the EXIF capture date if the file has one, and the SHA-256.
+The manifest goes to data/labels/A_originals.csv. Run build_image_index.py afterwards to index them.
 
 Run:  python backend/scripts/get_dataset_a.py
 """

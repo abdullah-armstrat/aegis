@@ -1,7 +1,7 @@
 """Download each model once, then measure it loading with the network blocked.
 
-Covers every model the project uses or compares, all obtained without the Hugging Face Hub
-except BLIP, which is read from the local cache only:
+Covers every model the project uses or compares. All come without the Hugging Face Hub except
+BLIP, which is read from the local cache only:
 
   clip-vit-b-32   OpenAI CLIP ViT-B/32 (image and text encoders in one checkpoint)
   clip-rn50       OpenAI CLIP RN50
@@ -11,12 +11,10 @@ except BLIP, which is read from the local cache only:
   whisper-base    openai-whisper base
   blip            BLIP-base captioner, local cache only
 
-Each model is measured in its own child process, so one model's memory never inflates the
-next. Inside that process every network connection is refused before any library is imported,
-so a successful load proves the model is served from local files.
-
-Reported per model: import time, load time, the time of one small inference, and the process's
-peak working set (psutil, Windows) with its rise over the starting baseline.
+Each model runs in its own child process so one model's memory does not inflate the next. The
+network is blocked before any library is imported, so a successful load means local files only.
+Reported per model: import time, load time, one small inference, and peak working set (psutil,
+Windows) with its rise over the baseline.
 
 Run:
   python backend/scripts/probe_models.py --download          # fetch weights once (needs network)

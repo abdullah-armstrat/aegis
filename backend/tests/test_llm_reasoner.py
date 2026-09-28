@@ -1,9 +1,7 @@
-"""Tests for the LLM reasoner's contract and guardrail.
+"""Tests for the LLM reasoner (no live model is called).
 
-These do not call a live model — they assert the behaviour fusion relies on: the
-supplied-text-only guardrail is present in the prompt, and an unavailable/disabled
-LLM degrades to available=False (so fusion can mark NOT_ASSESSED) rather than
-raising or fabricating a verdict.
+Checks the tolerant JSON parsing, that the prompt keeps its "supplied text only" rule, and
+that a disabled or unreachable LLM returns available=False instead of raising.
 """
 
 from app.config import get_settings
@@ -30,9 +28,7 @@ def test_parser_handles_clean_payload():
 
 
 def test_parser_salvages_the_real_malformed_spike_payload():
-    """The exact payload phi3:mini returned in the 2026-05-31 spike: a typo'd key
-    'explanrance' instead of 'explanation'. The explanation must still
-    be recovered rather than silently lost."""
+    """A real phi3:mini reply used the misspelt key 'explanrance'; the text is still recovered."""
     raw = {
         "same_subject": True,
         "same_tone": False,
@@ -48,7 +44,7 @@ def test_parser_coerces_string_booleans_and_degrades_unknowns():
     v = _parse_payload({"same_subject": "true", "same_tone": "no", "explanation": "x"})
     assert v.same_subject is True
     assert v.same_tone is False
-    # An unreadable/missing boolean becomes None ('uncertain'), never a silent False.
+    # A missing or unreadable boolean becomes None (uncertain), not False.
     v2 = _parse_payload({"explanation": "only prose, no booleans"})
     assert v2.same_subject is None
     assert v2.same_tone is None
@@ -64,7 +60,6 @@ def test_coerce_bool_units():
 
 def test_prompt_keeps_the_supplied_text_only_guardrail():
     p = SUPPLIED_TEXT_ONLY_PROMPT.lower()
-    # The supplied-text-only guardrail clauses must be present.
     assert "only over the text supplied" in p
     assert "never decide whether" in p
     assert "true, false, real, or fake" in p
@@ -81,13 +76,12 @@ def test_disabled_llm_returns_unavailable(monkeypatch):
 
 
 def test_unreachable_server_degrades_gracefully(monkeypatch, tmp_path):
-    """With the LLM enabled but the server unreachable, the reasoner must return
-    available=False (so fusion marks NOT_ASSESSED) rather than raise or fabricate."""
+    """LLM on but server unreachable: returns available=False rather than raising."""
     get_settings.cache_clear()
     monkeypatch.setenv("AEGIS_USE_LLM", "true")
     monkeypatch.setenv("AEGIS_OLLAMA_HOST", "http://127.0.0.1:1")  # dead port, fails fast
     get_settings.cache_clear()
-    # Isolate the cache to a temp dir so we exercise the network path, not a prior hit.
+    # Use an empty temp cache so the network path runs instead of an old cached answer.
     monkeypatch.setattr(llm_reasoner, "JsonCache", lambda ns: JsonCache(ns, root=tmp_path))
 
     verdict = reason_over_text("a caption", ["a scene"], ["some text"])
@@ -98,25 +92,23 @@ def test_unreachable_server_degrades_gracefully(monkeypatch, tmp_path):
     get_settings.cache_clear()
 
 
-# --- measurement instrumentation (LLM-specific eval; must never affect production) ---
+# --- measurement hooks used by the LLM evaluation scripts ---
 
 
 def test_probe_is_inert_by_default():
-    """No probe is installed unless a measurement script enters record_calls, and the cache is
-    never bypassed in production. Guards the 'measurement only' promise."""
+    """Outside record_calls there is no probe and the cache is not bypassed."""
     assert llm_reasoner._probe is None
     assert llm_reasoner._bypass_cache is False
 
 
 def test_parse_payload_traced_classifies_clean_salvaged_and_coerced():
-    """The four-way validity taxonomy is derived from how the tolerant parser resolved each
-    field, not guessed. Pure function — no model call."""
+    """Each reply is labelled clean, salvaged or coerced from how the parser read its fields."""
     _, clean = _parse_payload_traced(
         {"same_subject": True, "same_tone": False, "explanation": "x"}
     )
     assert clean["validity"] == "clean"
 
-    # The real 2026-05-31 malformed payload: 'explanrance' matches only by 4-letter stem.
+    # The real misspelt reply: 'explanrance' only matches on its first four letters.
     _, salvaged = _parse_payload_traced(
         {"same_subject": True, "same_tone": False, "explanrance": "recovered"}
     )
@@ -131,28 +123,24 @@ def test_parse_payload_traced_classifies_clean_salvaged_and_coerced():
 
 
 def test_find_key_does_not_salvage_one_field_from_a_sibling():
-    """Regression for the stem-collision defect found by the validity harness, 2026-08-17.
+    """A missing key is not filled in from another key starting with the same four letters.
 
-    ``_find_key``'s salvage fallback matches a candidate's first four letters, and both
-    ``same_subject`` and ``same_tone`` begin "same". Before the fix, a model that omitted one
-    of them silently received the OTHER one's value — a fabricated judgement, and since
-    ``same_subject`` drives the flag, one that reached production. An omitted key must now
-    resolve to 'missing' and leave the verdict uncertain (None).
+    Both ``same_subject`` and ``same_tone`` start with "same", so the typo fallback used to copy
+    one into the other. A missing key should now be 'missing' and give None.
     """
-    # same_tone omitted -> must NOT be filled from same_subject.
+    # same_tone missing -> not filled from same_subject.
     verdict, trace = _parse_payload_traced({"same_subject": True, "explanation": "x"})
     assert trace["key_resolution"]["same_tone"] == "missing"
     assert trace["missing_keys"] == ["same_tone"]
     assert verdict.same_tone is None
-    assert verdict.same_subject is True  # the field that WAS supplied is unaffected
+    assert verdict.same_subject is True  # the key that was given is unchanged
 
-    # Symmetric: same_subject omitted must not be filled from same_tone. This is the direction
-    # that could reach the scorecard, so it is asserted explicitly.
+    # The other way round matters more, since same_subject drives the flag.
     verdict2, trace2 = _parse_payload_traced({"same_tone": False, "explanation": "x"})
     assert trace2["key_resolution"]["same_subject"] == "missing"
     assert verdict2.same_subject is None
 
-    # The genuine typo salvage this fallback exists for still works ('explanrance').
+    # The real typo case ('explanrance') is still recovered.
     verdict3, trace3 = _parse_payload_traced(
         {"same_subject": True, "same_tone": False, "explanrance": "recovered"}
     )
@@ -161,8 +149,7 @@ def test_find_key_does_not_salvage_one_field_from_a_sibling():
 
 
 def test_record_calls_captures_a_failed_call_and_restores_state(monkeypatch, tmp_path):
-    """With the LLM enabled but unreachable, the probe must record one 'unparseable' call and
-    the reasoner must still degrade to available=False exactly as before."""
+    """An unreachable LLM is recorded as one 'unparseable' call and state is reset afterwards."""
     get_settings.cache_clear()
     monkeypatch.setenv("AEGIS_USE_LLM", "true")
     monkeypatch.setenv("AEGIS_OLLAMA_HOST", "http://127.0.0.1:1")  # dead port, fails fast
@@ -174,12 +161,12 @@ def test_record_calls_captures_a_failed_call_and_restores_state(monkeypatch, tmp
         assert llm_reasoner._bypass_cache is True
         verdict = reason_over_text("a caption", ["a scene"], [])
 
-    assert verdict.available is False          # production behaviour unchanged
+    assert verdict.available is False          # same result as without recording
     assert len(sink) == 1
     assert sink[0].validity == "unparseable"
     assert sink[0].available is False
-    assert sink[0].latency_s is not None       # a failed call still has a wall-clock cost
-    # State is restored on exit, so nothing leaks into a later request.
+    assert sink[0].latency_s is not None       # a failed call still takes time
+    # Reset on exit so nothing carries over to later requests.
     assert llm_reasoner._probe is None
     assert llm_reasoner._bypass_cache is False
     get_settings.cache_clear()

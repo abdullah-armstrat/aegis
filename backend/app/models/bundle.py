@@ -1,12 +1,8 @@
-"""The Evidence Bundle contract — the spine of the whole system.
+"""The Evidence Bundle and Scorecard data models.
 
-Every modality adapter (image, video) emits an :class:`EvidenceBundle`; the fusion core
-consumes it and emits a :class:`Scorecard` of explained :class:`Flag` s. Building this
-contract before any extractor is a deliberate decision: everything downstream
-depends on the bundle shape, so it is defined and stable first.
-
-Design rule reflected here: a Flag carries a plain-language explanation and a
-"what to check" prompt. There is no trust score or verdict field anywhere — by design.
+Every adapter (image, video) produces an :class:`EvidenceBundle`, and the fusion core turns it
+into a :class:`Scorecard` of :class:`Flag` s. Each flag has a plain explanation and a "what to
+check" tip. There is no trust score or verdict field.
 """
 
 from __future__ import annotations
@@ -15,19 +11,18 @@ from enum import Enum
 
 from pydantic import BaseModel, Field, field_validator
 
-# Version of the Evidence Bundle / Scorecard contract. The bundle is the one structure the whole
-# system pivots on. Stamping a version lets a reader tell which shape it holds, and a bundle or
-# scorecard with any other version is refused when it is read (see ``read_bundle``). Bump on any
-# breaking change. 2.1: the never-produced AI-generation hint was removed from the flag types and
-# the bundle.
+# Version of the bundle and scorecard format. Anything stored with a different version is refused
+# when it is read (see ``read_bundle``), so bump this on any breaking change. 2.1: removed the
+# synthetic-image hint, which was never produced, from the flag types and the bundle.
 SCHEMA_VERSION = "2.1"
 
 
 class SchemaVersionError(ValueError):
-    """A bundle or scorecard was written with a different version of the contract."""
+    """A bundle or scorecard was written with a different version of the format."""
 
 
 def _check_version(value: str, what: str) -> str:
+    """Return ``value`` if it is the current version, else raise SchemaVersionError."""
     if value != SCHEMA_VERSION:
         raise SchemaVersionError(
             f"This {what} has schema version {value!r}, but this version of Aegis reads version "
@@ -40,14 +35,14 @@ def _check_version(value: str, what: str) -> str:
 
 
 class Modality(str, Enum):
-    """Source modality that produced a bundle."""
+    """The kind of input a bundle came from."""
 
     IMAGE = "image"
     VIDEO = "video"
 
 
 class Severity(str, Enum):
-    """How strongly a flag should be surfaced. Not a probability of 'fakeness'."""
+    """How prominently a flag is shown. Not a probability that the post is fake."""
 
     INFO = "info"
     LOW = "low"
@@ -56,7 +51,7 @@ class Severity(str, Enum):
 
 
 class FlagType(str, Enum):
-    """The catalogue of flags Aegis can raise."""
+    """The kinds of flag Aegis can raise."""
 
     AUDIO_VISUAL_MISMATCH = "audio_visual_mismatch"
     CAPTION_CONTENT_MISMATCH = "caption_content_mismatch"
@@ -65,14 +60,10 @@ class FlagType(str, Enum):
 
 
 class FlagStatus(str, Enum):
-    """The outcome of *attempting* a given check.
+    """The outcome of trying a check.
 
-    The crucial distinction is between FIRED, CLEAR, and NOT_ASSESSED. A check that
-    silently does not fire because its input was missing (no on-screen text, blurry image,
-    LLM offloaded/unavailable) must not look like a check that ran and found consistency —
-    that would be a false sense of safety, the exact harm 'explain, don't verdict' exists to
-    avoid. So fusion emits a Flag for every check it considered, carrying its
-    status, rather than only appending Flags that fired.
+    A check that could not run (no on-screen text, unreadable image, LLM off) must not look like
+    one that ran and found nothing, so fusion emits a Flag with a status for every check.
     """
 
     FIRED = "fired"            # the check ran and the finding is present
@@ -84,7 +75,7 @@ class FlagStatus(str, Enum):
 
 
 class SceneDescription(BaseModel):
-    """A caption / object description for an image or a single video keyframe."""
+    """A description of what an image or a video keyframe shows."""
 
     text: str
     confidence: float | None = None
@@ -94,10 +85,9 @@ class SceneDescription(BaseModel):
 
 
 class WebMatch(BaseModel):
-    """A reverse-image-search hit — where else this image has appeared.
+    """A reverse-image hit: a page where this image has appeared.
 
-    These come from the offline image history index; the shape matches a live reverse-image
-    API result, so a live backend can drop in later.
+    Comes from the offline image history index or the live web search (see ``found_by``).
     """
 
     url: str
@@ -166,7 +156,7 @@ class Keyframe(BaseModel):
 
 
 class TranscriptSegment(BaseModel):
-    """One stretch of speech, as the speech recogniser segmented it."""
+    """One stretch of speech, as Whisper split it."""
 
     start: float = Field(description="Seconds into the video.")
     end: float = Field(description="Seconds into the video.")
@@ -181,7 +171,7 @@ class TranscriptSegment(BaseModel):
 
 
 class Meta(BaseModel):
-    """Provenance for the bundle."""
+    """Details about the analysed item itself."""
 
     modality: Modality
     frame_timestamps: list[float] = Field(default_factory=list)
@@ -201,10 +191,9 @@ class Meta(BaseModel):
 
 
 class EvidenceBundle(BaseModel):
-    """Normalised evidence emitted by every adapter and consumed by the fusion core.
+    """The evidence every adapter produces and the fusion core reads.
 
-    ``caption`` is the user-supplied caption for the
-    image path; ``transcript`` is the spoken-audio transcript for the video path.
+    ``caption`` is the caption the user gave, and ``transcript`` is the speech in a video.
     """
 
     schema_version: str = Field(
@@ -250,12 +239,10 @@ class EvidenceBundle(BaseModel):
 
 
 class Flag(BaseModel):
-    """A single check's result. Note: no trust score — explain, don't verdict.
+    """The result of one check. There is no trust score.
 
-    A Flag is emitted for every check fusion *considered*, not only those that fired; its
-    ``status`` says whether it FIRED, came back CLEAR, or could NOT_ASSESSED. The
-    explanatory fields are required when ``status`` is FIRED; for CLEAR / NOT_ASSESSED they
-    carry a short note on what was (or could not be) checked.
+    A Flag is made for every check fusion considered, not only those that fired. For CLEAR and
+    NOT_ASSESSED the text fields say what was, or could not be, checked.
     """
 
     type: FlagType
@@ -282,11 +269,10 @@ class KeyframeView(BaseModel):
 
 
 class Scorecard(BaseModel):
-    """The system's output: the result of every check considered, never a verdict.
+    """The system's output: the result of every check, never a verdict.
 
-    ``flags`` includes CLEAR and NOT_ASSESSED entries, not only those that fired,
-    so the UI can show honestly what was checked, what was clear, and what could not be
-    assessed.
+    ``flags`` includes CLEAR and NOT_ASSESSED results too, so the interface can show what was
+    checked and what could not be.
     """
 
     schema_version: str = Field(
@@ -310,7 +296,7 @@ class Scorecard(BaseModel):
 
 
 def _read(model, raw: str | bytes | dict, what: str):
-    """Validate stored JSON as ``model``, refusing it first if its version is missing or different."""
+    """Validate stored JSON as ``model``, after refusing it if its version is missing or different."""
     import json
 
     data = json.loads(raw) if isinstance(raw, (str, bytes)) else raw

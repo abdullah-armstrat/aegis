@@ -1,19 +1,8 @@
-"""Injected reverse-image results for the 19-example regression set.
+"""Fake reverse-image results for the 19-example regression set (test-only).
 
-The regression set scores the recycled-context *rule*, and every one of its examples uses the
-same blank image. The production lookup now matches on image content, so it cannot tell
-those examples apart: all of them would hash identically. Instead of hashing, the harness injects
-each example's lookup result, exactly as it injects ``inject_scene`` for caption-vs-scene. The
-results come from the earlier filename-keyed fixture, looked up by the example's ``source_ref``,
-with the same three outcomes the old extractor gave:
-
-  source_ref in the fixture with matches  ->  matches, lookup status FIRED
-  source_ref in the fixture, empty list   ->  no matches, lookup status CLEAR (searched, none)
-  source_ref not in the fixture           ->  no matches, lookup status NOT_ASSESSED
-
-That keeps the set's meaning, and its pinned numbers, independent of the hash threshold, which is
-still provisional. Hash matching itself is measured by the robustness harness and unit tests.
-This module is test-only: nothing in ``app/`` looks anything up by filename any more.
+Every example uses the same blank image, so a real hash lookup can't tell them apart. Instead
+each example's result is read from a small fixture by its ``source_ref``: listed with matches
+gives FIRED, listed but empty gives CLEAR, not listed gives NOT_ASSESSED.
 """
 
 from __future__ import annotations
@@ -33,7 +22,7 @@ def _fixture() -> dict[str, list[dict]]:
 
 
 def legacy_lookup(source_ref: str) -> tuple[list[WebMatch], FlagStatus]:
-    """The lookup result the earlier filename-based extractor returned for this filename."""
+    """Return the fixture's matches and lookup status for this filename."""
     fixture = _fixture()
     if source_ref not in fixture:
         return [], FlagStatus.NOT_ASSESSED
@@ -42,7 +31,7 @@ def legacy_lookup(source_ref: str) -> tuple[list[WebMatch], FlagStatus]:
 
 
 def inject_lookup(bundle: EvidenceBundle, source_ref: str) -> None:
-    """Replace the bundle's content-based lookup with the example's injected one, in place."""
+    """Overwrite the bundle's lookup result with the fixture one (in place)."""
     matches, status = legacy_lookup(source_ref)
     bundle.web_matches = matches
     bundle.extractor_status["reverse_image"] = status

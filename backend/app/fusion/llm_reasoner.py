@@ -1,18 +1,10 @@
-"""LLM reasoner — phrases cross-modal mismatches in plain language.
+"""LLM reasoner: asks the local LLM (through Ollama) whether the extracted texts agree.
 
-The LLM is a *reasoner over supplied text only*. It is given the bundle's extracted text
-fields and asked solely relational questions — do these pieces of text describe the same
-thing, do they carry the same tone — never "is this true?". This sidesteps the knowledge-
-cutoff and hallucination problems entirely, which is why the rule is strict.
-
-To stop that guardrail eroding through prompt drift over many edits, the
-entire prompt lives in the single constant ``SUPPLIED_TEXT_ONLY_PROMPT`` below. Change the
-prompt *only* here, and keep the guardrail clause intact.
-
-The deterministic rule layer (``rules.py``) runs independently and first. This layer only
-adds to it, so the reproducible rule results are never overridden, and it is skipped entirely
-when ``settings.use_llm`` is false or the model is unreachable — in which case the affected
-checks are reported as NOT_ASSESSED, never silently dropped.
+The model only sees the bundle's text fields and is only asked whether they describe the same
+thing and carry the same tone, never whether anything is true, which avoids its knowledge cutoff.
+The whole prompt is kept in ``SUPPLIED_TEXT_ONLY_PROMPT`` so that rule is not lost in later edits.
+This only adds to the rules. When ``use_llm`` is off or the model is unreachable, its check is
+NOT_ASSESSED.
 """
 
 from __future__ import annotations
@@ -28,7 +20,7 @@ import httpx
 from app.config import get_settings
 from app.extractors.cache import JsonCache
 
-# --- The one place the prompt lives, with its supplied-text-only guardrail. Edit here only. ---
+# --- The prompt. Keep its supplied-text-only rules if it is ever edited. ---
 SUPPLIED_TEXT_ONLY_PROMPT = """\
 You are comparing pieces of text that were automatically extracted from a single social
 media post. Your ONLY job is to judge their relationship to each other.
@@ -48,35 +40,33 @@ Answer with a single JSON object, no other text:
 """
 
 _TIMEOUT_SECONDS = 30.0
-# Loading the model from disk into memory is the slow part of a first call, so at start-up the
-# server asks Ollama to load it (an empty prompt loads the model without generating anything) and
-# to keep it loaded for a while. The warm-up may wait longer than a request would.
+# Loading the model is the slow part of the first call, so at start-up the server asks Ollama to
+# load it (an empty prompt loads it without generating) and keep it loaded. The warm-up can wait
+# longer than a normal request.
 _WARM_UP_TIMEOUT_SECONDS = 180.0
 _WARM_UP_KEEP_ALIVE = "30m"
 
 
 @dataclass
 class ReasonerVerdict:
-    """The LLM's relational judgement over supplied text (never a truth verdict)."""
+    """The LLM's judgement of how the supplied texts relate (never a truth verdict)."""
 
     same_subject: bool | None
     same_tone: bool | None
     explanation: str
-    available: bool  # False => model unreachable / disabled; caller marks NOT_ASSESSED
+    available: bool  # False if the model is off or unreachable; the caller marks NOT_ASSESSED
 
 
 # --------------------------------------------------------------------------- instrumentation
 #
-# MEASUREMENT ONLY. Everything below is inert unless a script enters ``record_calls``; the
-# /analyze path never does, so production behaviour is byte-for-byte unchanged. It exists
-# because the raw model response is parsed and discarded, which makes output validity, latency
-# and run-to-run stability impossible to reconstruct after the fact — the three LLM-specific
-# metrics the examiner asked for.
+# Measurement only: nothing below does anything unless a script enters ``record_calls``, and the
+# /analyze path never does. It keeps the raw model response, which is otherwise parsed and thrown
+# away, so the evaluation scripts can measure output validity, latency and run-to-run stability.
 
 
 @dataclass
 class CallRecord:
-    """One instrumented reasoner call. Never read by production code."""
+    """One recorded reasoner call. Only the evaluation scripts read these."""
 
     validity: str  # clean | salvaged | coerced | unparseable | cache_hit | not_called
     available: bool
@@ -97,11 +87,10 @@ _bypass_cache = False
 
 @contextmanager
 def record_calls(sink: list[CallRecord], *, bypass_cache: bool = False) -> Iterator[list[CallRecord]]:
-    """Capture a :class:`CallRecord` per reasoner call for the duration of the block.
+    """Record a :class:`CallRecord` for every reasoner call made inside the block.
 
-    ``bypass_cache`` skips the input-hash cache for both read and write, which is required to
-    measure anything at all: a cache hit returns a stored verdict with no raw response, no
-    network call and no latency. Restores the previous state on exit, including on exception.
+    ``bypass_cache`` skips the cache for reads and writes, since a cache hit has no raw response
+    or latency to measure. The previous state is restored on exit, even after an exception.
     """
     global _probe, _bypass_cache
     prev_probe, prev_bypass = _probe, _bypass_cache
@@ -113,7 +102,7 @@ def record_calls(sink: list[CallRecord], *, bypass_cache: bool = False) -> Itera
 
 
 def _emit(record: CallRecord) -> None:
-    """Hand a record to the active probe. Never raises — measurement must not break the caller."""
+    """Pass a record to the active probe, if any. Never raises, so measuring cannot break a call."""
     if _probe is None:
         return
     try:
@@ -123,6 +112,7 @@ def _emit(record: CallRecord) -> None:
 
 
 def _build_prompt(caption: str | None, scene: list[str], on_screen: list[str]) -> str:
+    """Fill in the prompt, writing "(none)" for any empty field."""
     return SUPPLIED_TEXT_ONLY_PROMPT.format(
         caption=caption or "(none)",
         scene="; ".join(scene) if scene else "(none)",
@@ -131,7 +121,7 @@ def _build_prompt(caption: str | None, scene: list[str], on_screen: list[str]) -
 
 
 def _coerce_bool_traced(value: object) -> tuple[bool | None, str]:
-    """``_coerce_bool`` plus how it resolved: ``bool`` | ``coerced`` | ``unreadable``."""
+    """Like ``_coerce_bool``, but also says how: "bool", "coerced" or "unreadable"."""
     if isinstance(value, bool):
         return value, "bool"
     if isinstance(value, str):
@@ -144,30 +134,27 @@ def _coerce_bool_traced(value: object) -> tuple[bool | None, str]:
 
 
 def _coerce_bool(value: object) -> bool | None:
-    """Coerce a loose model value to bool, or None ('uncertain') if unrecognised.
+    """Turn a loose model value into a bool, or None ('uncertain') if it cannot be read.
 
-    In a test run on 2026-05-31, Phi-3-mini returned booleans inconsistently — sometimes a
-    real bool, sometimes the strings "true"/"false"/"yes"/"no". Anything we can't read with
-    confidence becomes None so fusion treats it as uncertain rather than a false negative.
+    In a test run on 2026-05-31 Phi-3-mini sometimes gave real booleans and sometimes strings
+    like "yes" or "false". Anything unclear becomes None, so fusion treats it as uncertain.
     """
     return _coerce_bool_traced(value)[0]
 
 
-# The three fields the reasoner asks for. Used to stop the stem fallback below salvaging one
-# field from another field's value.
+# The three fields the reasoner asks for, so the stem fallback below never fills one field
+# from another field's value.
 _REASONER_FIELDS = frozenset({"same_subject", "same_tone", "explanation"})
 
 
 def _find_key_traced(payload: dict, *candidates: str) -> tuple[object, str]:
-    """``_find_key`` plus how it resolved: ``exact`` | ``stem`` | ``missing``."""
+    """Like ``_find_key``, but also says how: "exact", "stem" or "missing"."""
     for c in candidates:
         if c in payload:
             return payload[c], "exact"
-    # A payload key that is the canonical name of a DIFFERENT reasoner field is never a typo of
-    # this one, so it must not be stem-matched. Without this guard `same_subject` and `same_tone`
-    # (both starting "same") resolve to each other: a model that omits one silently receives its
-    # sibling's value, fabricating a judgement it never made. `same_subject` drives the flag, so
-    # that reached production. Defect found by the validity harness, 2026-08-17.
+    # A key that is the exact name of another field is never a typo of this one. Without this,
+    # `same_subject` and `same_tone` (both starting "same") matched each other, so a reply missing
+    # one got the other's value. Found by the output validity script on 2026-08-17.
     siblings = {f for f in _REASONER_FIELDS if f not in candidates}
     for c in candidates:
         stem = c[:4]
@@ -180,23 +167,20 @@ def _find_key_traced(payload: dict, *candidates: str) -> tuple[object, str]:
 
 
 def _find_key(payload: dict, *candidates: str) -> object:
-    """Return the first candidate key present, else a fuzzy near-miss match, else None.
+    """Return the value of the first candidate key, else a near-miss key, else None.
 
-    The spike showed the model can mangle keys (it emitted ``"explanrance"`` for
-    ``explanation``). We first try exact candidates, then fall back to any key whose first
-    four letters match a candidate's — enough to salvage typos without matching unrelated
-    keys. Defensive parsing: trust a small local model's output structure as little as possible.
+    The model sometimes mangles keys (it once wrote ``"explanrance"`` for ``explanation``), so
+    after the exact names we accept any key starting with the same four letters.
     """
     return _find_key_traced(payload, *candidates)[0]
 
 
 def _parse_payload_traced(payload: dict) -> tuple[ReasonerVerdict, dict]:
-    """``_parse_payload`` plus a trace of what the tolerant parser had to do.
+    """Like ``_parse_payload``, but also returns a trace of what the parser had to fix.
 
-    ``validity`` is the worst outcome across the three fields, worst-first:
-    ``salvaged`` (a key only matched by stem) > ``coerced`` (a bool arrived as a string) >
-    ``clean``. Keys that were absent entirely are reported separately in ``missing_keys``:
-    they are neither salvaged nor coerced, and the four-way taxonomy has no bucket for them.
+    ``validity`` is the worst case over the fields: ``salvaged`` (a key matched by stem), then
+    ``coerced`` (a bool sent as a string), then ``clean``. Missing keys are listed separately in
+    ``missing_keys``.
     """
     subject_raw, subject_key = _find_key_traced(payload, "same_subject")
     tone_raw, tone_key = _find_key_traced(payload, "same_tone")
@@ -236,10 +220,9 @@ def _parse_payload_traced(payload: dict) -> tuple[ReasonerVerdict, dict]:
 
 
 def _parse_payload(payload: dict) -> ReasonerVerdict:
-    """Tolerantly turn a raw model JSON object into a ReasonerVerdict.
+    """Turn the model's JSON object into a ReasonerVerdict, allowing for small mistakes.
 
-    Missing/unreadable booleans become None ('uncertain'); the explanation is salvaged from a
-    near-miss key if the exact one is absent.
+    Missing or unreadable booleans become None ('uncertain'), and near-miss keys are accepted.
     """
     return _parse_payload_traced(payload)[0]
 
@@ -247,8 +230,8 @@ def _parse_payload(payload: dict) -> ReasonerVerdict:
 def warm_up() -> str:
     """Load the model into Ollama's memory before the first request needs it.
 
-    Returns a one-line status for /health. Never raises: if the server is not running, the first
-    request will find that out and its check is reported as NOT_ASSESSED, as before.
+    Returns a one-line status for /health. Never raises: if Ollama is not running, the first
+    request finds out and its check is reported as NOT_ASSESSED.
     """
     settings = get_settings()
     started = perf_counter()
@@ -270,10 +253,10 @@ def reason_over_text(
     scene_descriptions: list[str],
     on_screen_text: list[str],
 ) -> ReasonerVerdict:
-    """Ask the local LLM to relate the supplied text fields. Cached by input hash.
+    """Ask the local LLM how the supplied text fields relate. Results are cached by input hash.
 
-    Returns ``available=False`` (rather than raising) when the LLM is disabled or the server
-    is unreachable, so fusion can record NOT_ASSESSED instead of a misleading silence.
+    Returns ``available=False`` instead of raising when the LLM is off or unreachable, so fusion
+    can report NOT_ASSESSED.
     """
     settings = get_settings()
     if not settings.use_llm:

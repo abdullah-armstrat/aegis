@@ -1,5 +1,5 @@
-// The interface review (docs/INTERFACE_REVIEW.md): the real backend and the Vite dev server in
-// Google Chrome, as in the browser tests. Run with `npm run review:interface`; ROUND=B for round B.
+// Interface review: the real backend and the Vite dev server in Google Chrome, as in the
+// browser tests. Run with `npm run review:interface`; set ROUND=B for round B.
 import { defineConfig } from "@playwright/test";
 
 const python =

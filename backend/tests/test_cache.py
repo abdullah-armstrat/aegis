@@ -1,4 +1,4 @@
-"""Tests for the dev input-hash cache helper."""
+"""Tests for the JSON cache keyed on a hash of the inputs."""
 
 from app.extractors.cache import JsonCache
 

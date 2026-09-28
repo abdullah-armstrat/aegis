@@ -1,12 +1,7 @@
-"""Tests for the content-matched reverse-image lookup.
+"""Tests for the reverse-image lookup, which matches on image content.
 
-Every lookup outcome is exercised against a temporary history index, so the tests do not depend
-on the committed index's contents — except the last test, which exists to guard exactly that
-committed index against drifting away from the committed illustrative images.
-
-The load-bearing assertions carry over from the filename era: a lookup that could not
-run is NOT_ASSESSED, never CLEAR. What is new is that matching follows the picture, not the name:
-a recompressed, resized copy still matches, and an unrelated image does not.
+Most tests use a temporary index; a few check the committed index against the committed
+images. A lookup that couldn't run must be NOT_ASSESSED, never CLEAR.
 """
 
 import json
@@ -33,7 +28,7 @@ _SOURCE = {
 
 
 def _photo(seed: int, size=(320, 240)) -> Image.Image:
-    """A synthetic photo-like image: smooth seeded texture plus a block, distinct per seed."""
+    """A made-up photo-like image (smooth texture plus a block), different for each seed."""
     rng = np.random.default_rng(seed)
     small = (rng.random((size[1] // 20, size[0] // 20, 3)) * 255).astype(np.uint8)
     img = Image.fromarray(small).resize(size, Image.Resampling.BICUBIC)
@@ -67,7 +62,7 @@ def _reset():
 
 @pytest.fixture
 def use_index(tmp_path, monkeypatch):
-    """Point the extractor at a temporary index holding ``entries``; extra kwargs set env."""
+    """Point the extractor at a temp index holding ``entries``; extra kwargs become AEGIS_ env vars."""
 
     def _use(entries, **env):
         path = tmp_path / "index.json"
@@ -87,7 +82,7 @@ def use_index(tmp_path, monkeypatch):
 
 
 def test_recompressed_resized_copy_still_matches(use_index):
-    """The point of content matching: a re-saved copy is found by content, where a filename lookup failed."""
+    """A smaller, re-saved JPEG copy is still found."""
     original = _photo(1)
     use_index([_entry("orig", phash_of_image(original))])
     copy = original.resize((160, 120), Image.Resampling.LANCZOS)
@@ -104,7 +99,7 @@ def test_unrelated_image_is_clear(use_index):
     result = find_web_matches(_bytes(_photo(2)))
     assert result.status == FlagStatus.CLEAR
     assert result.matches == []
-    assert result.phash is not None  # the lookup ran: the image was hashed and compared
+    assert result.phash is not None  # the lookup did run
 
 
 def test_unreadable_image_is_not_assessed(use_index):
@@ -115,7 +110,7 @@ def test_unreadable_image_is_not_assessed(use_index):
 
 
 def test_missing_index_is_not_assessed_not_clear(tmp_path, monkeypatch):
-    """No index means the lookup did not run — reporting CLEAR would be false reassurance."""
+    """No index means the lookup didn't run, so CLEAR would be misleading."""
     monkeypatch.setenv("AEGIS_IMAGE_INDEX_PATH", str(tmp_path / "does_not_exist.json"))
     _reset()
     result = find_web_matches(_bytes(_photo(1)))
@@ -137,8 +132,8 @@ def test_invalid_index_is_not_assessed(use_index, bad_entry, reason):
     path = use_index([bad_entry])
     result = find_web_matches(_bytes(_photo(1)))
     assert result.status == FlagStatus.NOT_ASSESSED
-    assert "index could not be read" in result.detail  # the user sees plain words...
-    with pytest.raises(reverse_image.HistoryIndexError, match=reason):  # ...the validation says what is wrong
+    assert "index could not be read" in result.detail  # plain message for the user
+    with pytest.raises(reverse_image.HistoryIndexError, match=reason):  # exact problem from validation
         reverse_image.load_index(str(path))
 
 
@@ -151,7 +146,7 @@ def test_duplicate_entry_ids_are_rejected(use_index):
 
 
 def test_threshold_is_inclusive_and_exact(use_index):
-    """Distance == threshold matches; threshold + 1 does not. Mirror lookup off to isolate it."""
+    """Distance equal to the threshold matches, one more does not (mirror lookup off)."""
     img = _photo(3)
     h = phash_of_image(img)
     threshold = 10
@@ -169,7 +164,7 @@ def test_mirror_lookup_finds_a_flipped_copy(use_index):
     original = _photo(4)
     flipped = ImageOps.mirror(original)
     h = phash_of_image(original)
-    # Precondition: plain pHash really does lose the flip (else this test proves nothing).
+    # Check plain pHash really misses the flip, otherwise this test shows nothing.
     assert hamming(h, phash_of_image(flipped)) > 10
 
     use_index([_entry("orig", h)], phash_mirror_lookup="true")
@@ -197,13 +192,13 @@ def test_every_matching_entry_is_reported_nearest_first(use_index):
 
 
 def test_unknown_mode_is_not_assessed(use_index):
-    """A mode the app does not know (here the old reserved name 'api') must say NOT_ASSESSED."""
+    """An unknown mode (here the old name 'api') gives NOT_ASSESSED."""
     use_index([_entry("orig", phash_of_image(_photo(1)))], reverse_image_mode="api")
     assert find_web_matches(_bytes(_photo(1))).status == FlagStatus.NOT_ASSESSED
 
 
 def test_legacy_cache_mode_is_an_alias_for_the_index(use_index):
-    """Older .env files say 'cache'; they must keep working, not silently stop."""
+    """Older .env files say 'cache', which should still work."""
     img = _photo(1)
     use_index([_entry("orig", phash_of_image(img))], reverse_image_mode="cache")
     assert find_web_matches(_bytes(img)).status == FlagStatus.FIRED
@@ -213,11 +208,10 @@ def test_legacy_cache_mode_is_an_alias_for_the_index(use_index):
 
 
 def test_committed_index_matches_the_committed_illustrative_images():
-    """Drift guard: the shipped index must still describe the shipped images.
+    """The committed index still matches the committed images.
 
-    flood and protest are registered, so they match exactly; sunset and cat are not registered,
-    so they demonstrate "lookup ran, no match". If a dependency changes how pHash is computed,
-    this fails and the index must be rebuilt with scripts/build_image_index.py.
+    flood and protest are in the index and match exactly; sunset and cat are not, so they come
+    back clear. If pHash output changes, rebuild with scripts/build_image_index.py.
     """
     _reset()
     images = _REPO / "data" / "illustrative"
@@ -235,10 +229,9 @@ def test_committed_index_matches_the_committed_illustrative_images():
 
 
 def test_committed_index_holds_every_dataset_a_photo_with_its_date():
-    """Every dataset A photo is an index entry carrying the manifest's date and source page.
+    """Every dataset A photo is in the index with the date and source from the manifest.
 
-    The photos themselves are not in the repository; where get_dataset_a.py has fetched them,
-    each entry's hash must still describe its file.
+    The photos aren't in the repository; if get_dataset_a.py has fetched them, hashes are checked too.
     """
     import csv
 
@@ -265,7 +258,7 @@ from tests.eval.image_transforms import border, screenshot  # noqa: E402
 
 
 def _textured(seed: int, size=(320, 240)) -> Image.Image:
-    """Sharp random blocks: plenty of corners for ORB, distinct per seed."""
+    """Sharp random blocks, so ORB has lots of corners; different for each seed."""
     rng = np.random.default_rng(seed)
     blocks = (rng.random((size[1] // 8, size[0] // 8, 3)) * 255).astype(np.uint8)
     return Image.fromarray(blocks).resize(size, Image.Resampling.NEAREST)
@@ -278,10 +271,10 @@ def _entry_with_image(tmp_path, entry_id: str, img: Image.Image) -> dict:
 
 
 def test_screenshot_copy_is_found_by_keypoints_when_the_hash_misses(use_index, tmp_path):
-    """The point of the second stage: a screenshot frame defeats the hash, not the keypoints."""
+    """A screenshot frame beats the hash but keypoint matching still finds it."""
     original = _textured(1)
     shot = screenshot(original)
-    assert hamming(phash_of_image(shot), phash_of_image(original)) > 10  # the hash really misses
+    assert hamming(phash_of_image(shot), phash_of_image(original)) > 10  # hash alone misses it
     use_index([_entry_with_image(tmp_path, "orig", original)])
     result = find_web_matches(_bytes(shot))
     assert result.status == FlagStatus.FIRED
@@ -310,7 +303,7 @@ def test_unrelated_framed_image_is_not_matched_by_keypoints(use_index, tmp_path)
 
 
 def test_entry_without_its_image_is_matched_by_hash_only(use_index):
-    """No image to compare against means no keypoint match, and no crash."""
+    """With no image file there is no keypoint match, and no crash."""
     original = _textured(1)
     use_index([_entry("orig", phash_of_image(original))])  # no "image" field
     assert find_web_matches(_bytes(screenshot(original))).status == FlagStatus.CLEAR
@@ -318,7 +311,7 @@ def test_entry_without_its_image_is_matched_by_hash_only(use_index):
 
 @pytest.mark.parametrize("failure", [TimeoutError("slow"), RuntimeError("opencv unavailable")])
 def test_keypoint_stage_failure_is_not_assessed_never_clear(use_index, tmp_path, monkeypatch, failure):
-    """A copy only the second stage can find may have been missed, so the lookup cannot say clear."""
+    """If the keypoint stage fails, a framed copy may have been missed, so it can't say clear."""
     use_index([_entry_with_image(tmp_path, "orig", _textured(1))])
 
     def boom(*_args):
@@ -351,12 +344,10 @@ def test_an_unreadable_index_says_so_in_plain_words(tmp_path, monkeypatch):
 
 
 def test_keypoint_matches_are_one_to_one():
-    """Regression: many query points must not pile onto the few keypoints of a low-texture image.
+    """Many query points can't all match the few keypoints of a low-texture image.
 
-    `clock` (a motion-blurred photo, openly licensed in scikit-image) yields about 10 keypoints.
-    Before matches were made one-to-one, an unrelated bordered `coins` image scored 32 inliers
-    against it, above the threshold: a false match. One-to-one matching cannot exceed the known
-    image's own keypoint count.
+    skimage's blurry `clock` has about 10 keypoints. Before matching was one-to-one, an unrelated
+    `coins` image with a border got 32 inliers against it, which was a false match.
     """
     data = pytest.importorskip("skimage.data")
     clock = orb_features(Image.fromarray(data.clock()).convert("RGB"))
@@ -367,7 +358,7 @@ def test_keypoint_matches_are_one_to_one():
 
 
 def test_screenshot_of_the_committed_flood_image_is_found_by_keypoints():
-    """End-to-end on the shipped index: a screenshot of a registered image is still found."""
+    """With the committed index, a screenshot of the flood image is still found."""
     _reset()
     data = (_REPO / "data" / "illustrative" / "flood_illustrative.png").read_bytes()
     result = find_web_matches(_bytes(screenshot(Image.open(BytesIO(data)))))
@@ -396,9 +387,9 @@ def test_keypoints_are_computed_once_and_then_read_from_the_stored_file(use_inde
     stored = reverse_image.keypoints_path(index)
     assert stored == tmp_path / "index.keypoints.npz" and stored.is_file()
     assert computed == [1]
-    reverse_image.index_keypoints.cache_clear()  # as in a new process: nothing held in memory
+    reverse_image.index_keypoints.cache_clear()  # like a fresh process
     again = find_web_matches(shot)
-    assert computed == [1]  # read back from the file, not computed again
+    assert computed == [1]  # read from the file, not recomputed
     assert again.method == "keypoints"
     assert [m.keypoint_inliers for m in again.matches] == [m.keypoint_inliers for m in first.matches]
 
@@ -437,12 +428,11 @@ def test_keypoints_are_computed_again_only_when_the_index_or_an_image_changes(us
 
 
 def test_a_different_picture_sharing_a_region_is_not_taken_for_a_copy(use_index, tmp_path):
-    """Keypoints agree on what two pictures share (a building, here a patch), so a keypoint match is
-    confirmed by aligning the upload onto the candidate: over the region it covers, a different
-    picture fails the hash threshold where a framed copy passes (ADR-056)."""
+    """Two pictures sharing one region can match on keypoints, so a keypoint match is then
+    checked by aligning the upload and hashing the covered region. A real copy still passes."""
     original = _textured(1)
     other = _textured(9)
-    other.paste(original.crop((40, 30, 280, 210)), (40, 30))  # the shared "building"
+    other.paste(original.crop((40, 30, 280, 210)), (40, 30))  # the shared region
     use_index([_entry_with_image(tmp_path, "orig", original)])
     query = orb_features(screenshot(other).convert("RGB"))
     known = orb_features(original.convert("RGB"))

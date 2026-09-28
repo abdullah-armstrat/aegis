@@ -1,10 +1,9 @@
-// One finding, in the dossier style EXACTLY per the approved design: a WHITE card with a
-// hairline border and a left rail (icon box + state label). Colour is used only as a small
-// accent (the 42px icon box, the state label, an outlined badge); the card stays black & white.
-// Bound to the real backend Flag:
+// One finding as a card: white, with a thin border and a left rail (icon box and state label).
+// Colour is only a small accent (the 42px icon box, the state label, an outlined badge).
+// Shows the backend Flag:
 //   { type, status, severity, evidence, plain_explanation, what_to_check, source }
-// Spine: explain, don't verdict. not_assessed is visually distinct from clear, so a check that
-// could not run never looks like a pass.
+// The card explains; it does not give a verdict. not_assessed looks different from clear, so a
+// check that could not run never looks like a pass.
 
 import Signal, { STATUS_META } from "./Signal";
 
@@ -21,7 +20,7 @@ export function clock(seconds) {
   return `${Math.floor(total / 60)}:${String(total % 60).padStart(2, "0")}`;
 }
 
-// Backend severity enum (info|low|medium|high) → dossier weight words.
+// Backend severity (info|low|medium|high) shown as a plain word.
 const SEVERITY_WORD = { high: "Notable", medium: "Notable", low: "Minor", info: "Minor" };
 
 const CHECK_HEADING = {

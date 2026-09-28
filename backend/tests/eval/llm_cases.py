@@ -1,12 +1,8 @@
-"""Shared case loading for the LLM-specific evaluation scripts.
+"""Loads the caption-vs-scene cases used by the LLM evaluation scripts.
 
-The three LLM metrics — output validity, self-consistency, latency — all run over the same
-caption↔scene pairs the rules-vs-LLM comparison uses: the labelled examples that carry an
-``inject_scene`` field, so the scene text is controlled rather than whatever BLIP produced.
-Keeping the loader here (rather than copied into three scripts) means all four measurements
-are demonstrably over the same inputs.
-
-Pure data access — no model calls, no I/O beyond reading the manifest.
+These are the labelled examples with an ``inject_scene`` field, so the scene text is fixed
+rather than whatever BLIP gives. Keeping the loader in one place means the validity,
+consistency, latency and rules-vs-LLM scripts all use the same inputs.
 """
 
 from __future__ import annotations
@@ -22,7 +18,7 @@ FLAG = "caption_content_mismatch"
 
 
 def load_caption_scene_cases() -> list[dict]:
-    """The labelled caption↔scene cases (those with a controlled ``inject_scene``)."""
+    """Return the labelled caption-vs-scene cases that have an ``inject_scene``."""
     examples = json.loads(_EXAMPLES_PATH.read_text(encoding="utf-8"))["examples"]
     cases = [e for e in examples if FLAG in e.get("expected", {}) and e.get("inject_scene")]
     assert cases, f"GUARD FAILED: no {FLAG} examples with inject_scene in {_EXAMPLES_PATH}"
@@ -30,7 +26,7 @@ def load_caption_scene_cases() -> list[dict]:
 
 
 def select(ids: list[str]) -> list[dict]:
-    """The subset of caption↔scene cases with the given ids, in the order requested."""
+    """Return the cases with the given ids, in the order given."""
     by_id = {c["id"]: c for c in load_caption_scene_cases()}
     missing = [i for i in ids if i not in by_id]
     assert not missing, f"GUARD FAILED: unknown case id(s) {missing}"
@@ -38,12 +34,12 @@ def select(ids: list[str]) -> list[dict]:
 
 
 def reasoner_inputs(case: dict) -> tuple[str, list[str], list[str]]:
-    """The exact (caption, scene_descriptions, on_screen_text) the reasoner would receive."""
+    """Return (caption, scene_descriptions, on_screen_text) as the reasoner would get them."""
     return case["caption"], list(case["inject_scene"]), []
 
 
 def bundle_for(case: dict) -> EvidenceBundle:
-    """An EvidenceBundle equivalent to what the pipeline builds for this case."""
+    """Build the same EvidenceBundle the pipeline would build for this case."""
     return EvidenceBundle(
         scene_descriptions=[SceneDescription(text=t) for t in case["inject_scene"]],
         caption=case["caption"],

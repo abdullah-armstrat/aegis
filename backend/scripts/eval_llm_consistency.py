@@ -1,19 +1,15 @@
-"""LLM metric 2 of 3 — SELF-CONSISTENCY across repeated runs.
+"""Measure how consistent phi3:mini is when given the same input several times (LLM metric 2 of 3).
 
-The report asserts that phi3:mini is non-deterministic; nothing measures it. This runs the SAME
-input k times (default 5) with the input-hash cache bypassed — without that bypass every run
-after the first returns the identical stored verdict and consistency would be a meaningless
-1.00 — and reports, per input, the modal verdict and the agreement rate for ``same_subject``
-and ``same_tone``.
+Each input is run k times (default 5) with the input-hash cache bypassed, since otherwise every run
+after the first would return the stored verdict. For each input it reports the most common verdict
+and the agreement rate for same_subject and same_tone.
 
-Agreement rate = (count of the modal value) / k, over the runs that returned a verdict.
-1.00 means every run agreed; 0.60 on k=5 means the model changed its mind twice. Runs that
-failed (timeout / unparseable) are excluded from the agreement denominator and reported
-separately, because "the model did not answer" is not "the model disagreed with itself".
+Agreement rate = count of the most common value / runs that returned a verdict. 1.00 means every
+run agreed; 0.60 on k=5 means the model changed its answer twice. Failed runs (timeout,
+unparseable) are left out of the rate and counted separately, as no answer is not disagreement.
 
-Default inputs are the three hard synonym cases (where the LLM's semantic judgement is the
-whole value proposition) plus mm01, the flood/dry-street case that timed out in both the
-2026-06-01 and 2026-08-17 comparison runs — so a systematic failure shows up as a repeated one.
+Default inputs: the three hard synonym cases (where the LLM should help most) plus mm01, the
+flood/dry-street case that timed out in both the 2026-06-01 and 2026-08-17 comparison runs.
 
 Run:  python backend/scripts/eval_llm_consistency.py [--k 5] [--ids mm01,hard_kc01] [--json out.json]
 """
@@ -101,7 +97,7 @@ def main() -> None:
             "runs": runs,
         })
 
-    print(f"\n=== LLM self-consistency — model={get_settings().ollama_model}, k={k} runs/input ===")
+    print(f"\n=== LLM self-consistency - model={get_settings().ollama_model}, k={k} runs/input ===")
     header = f"{'id':<12}{'ret/k':>7}  {'subject':>9} {'agree':>6}   {'tone':>6} {'agree':>6}"
     print(header)
     print("-" * len(header))

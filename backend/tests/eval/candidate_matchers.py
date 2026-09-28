@@ -1,17 +1,8 @@
-"""Second-stage image matchers compared in WP-1b, for when the perceptual hash finds nothing.
+"""Second-stage image matchers tried for when the perceptual hash finds nothing.
 
-pHash is excellent against recompression and resizing but loses an image once it is framed:
-a border or a phone-screenshot frame changes the low frequencies the hash is built from. Three
-candidates for a second stage are compared here, each run only on a lookup the hash missed:
-
-  trim   Cut away flat margins (uniform borders, and the mostly-flat bars of a screenshot frame)
-         until the photo region is left, then hash that region with the same pHash.
-  orb    ORB keypoints matched to each known image, confirmed by a RANSAC homography: a match
-         needs enough keypoint pairs that agree on one geometric mapping between the two images.
-  clip   Cosine similarity of CLIP ViT-B/32 image embeddings.
-
-ORB + RANSAC won the comparison and now lives in ``app/extractors/keypoint_match.py``; it is
-imported from there below. trim and clip stay here as the record of what else was measured.
+pHash copes with recompression and resizing but misses framed images (borders, screenshots).
+Three options were compared: trim flat margins then re-hash, ORB keypoints with RANSAC, and
+CLIP embeddings. ORB won and lives in ``app/extractors/keypoint_match.py``.
 """
 
 from __future__ import annotations
@@ -48,8 +39,7 @@ def trim_to_content(img: Image.Image) -> Image.Image:
 
 
 # --- orb ---------------------------------------------------------------------------------------
-# The chosen matcher lives in the application; importing it here means the comparison measures
-# exactly the code that ships.
+# Imported from the app so the comparison measures the code that ships.
 from app.extractors.keypoint_match import orb_features, orb_inliers  # noqa: E402,F401
 
 

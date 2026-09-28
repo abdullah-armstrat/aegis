@@ -1,18 +1,13 @@
-"""LLM metric 3 of 3 — LATENCY DISTRIBUTION.
+"""Measure how long phi3:mini takes to answer, over the caption-scene cases (LLM metric 3 of 3).
 
-Replaces the single 2026-05-31 spike figure ("warm ~6-9s") with a measured distribution. The
-reasoner's measurement hook wraps the ``httpx.post`` call in ``perf_counter``, so what is timed
-is the round trip to Ollama — the model's own generation time plus local HTTP overhead. It does
-NOT include the one-off cold model load, and it does not include rules-layer time.
+This replaces the single "warm ~6-9s" figure from the 2026-05-31 spike with a distribution. The
+reasoner's measurement hook times the httpx.post call, so this is the Ollama round trip
+(generation plus local HTTP), not the one-off cold model load or the rules.
 
-Reports median, p95, min, max and the count of calls that hit the 30 s ``_TIMEOUT_SECONDS``
-ceiling. Timed-out calls ARE included in the distribution (they are real latency the user would
-experience) and are also counted separately.
-
-p95 uses the nearest-rank method. At the default N this is degenerate — see the note the script
-prints — so pass --repeats to enlarge the sample if the extra minutes are affordable.
-
-The cache is bypassed: a cache hit does no network call and would record no latency at all.
+Reports median, p95 (nearest rank), min, max and how many calls hit the 30 s _TIMEOUT_SECONDS
+limit. Timed-out calls stay in the distribution, since the user would wait that long too. At the
+default N the p95 is just one of the largest values, so use --repeats for a bigger sample. The
+cache is bypassed, as a cache hit makes no call and has no latency.
 
 Run:  python backend/scripts/eval_llm_latency.py [--repeats 1] [--json out.json]
 """
@@ -80,7 +75,7 @@ def main() -> None:
 
     n = len(latencies)
     print(
-        f"\n=== LLM latency — model={get_settings().ollama_model}, "
+        f"\n=== LLM latency - model={get_settings().ollama_model}, "
         f"N={n} calls, timeout ceiling {_TIMEOUT_SECONDS:.0f}s ==="
     )
     print(f"{'id':<12}{'pass':>5}{'latency_s':>11}  {'outcome':<14}")
@@ -108,7 +103,7 @@ def main() -> None:
 
     print(
         f"\n  N={n}. At this N the p95 is the largest or second-largest single observation, so "
-        f"it carries no distributional weight — it is reported for completeness, not as a "
+        f"it carries no distributional weight - it is reported for completeness, not as a "
         f"stable tail estimate. Timing is the Ollama round trip on an i5-8350U with no CUDA, "
         f"excluding the one-off cold model load."
     )

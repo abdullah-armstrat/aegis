@@ -1,7 +1,7 @@
-"""Unit tests for the evaluation metrics (deterministic, no models).
+"""Unit tests for the evaluation metrics (no models).
 
-These pin the precision/recall/F1 maths and — most importantly — the rule that NOT_ASSESSED
-predictions are excluded from P/R and counted as coverage (a check that could not run is neither a hit nor a miss).
+Checks the precision/recall/F1 maths and that NOT_ASSESSED predictions are left out of P/R
+and counted as coverage instead.
 """
 
 import math

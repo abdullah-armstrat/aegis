@@ -1,23 +1,15 @@
-"""Flag-level evaluation metrics.
+"""Precision, recall and F1 for each flag.
 
-Each flag behaves as a binary detector, so we score it with precision / recall / F1 — the
-appropriate, area-standard metric for this kind of mixed AI/SWE system. The one wrinkle that
-matters: a prediction can be ``not_assessed`` (the check could not run), which is
-neither a true positive nor a false one. Those are **excluded from precision/recall** and
-reported separately as a coverage figure, so an extractor that is simply absent never inflates
-or deflates the quality numbers. This keeps the metric honest and makes the captioner's arrival
-a clean before/after (caption↔scene moves from "not assessed" to scored).
-
-Pure functions over plain data — no I/O, no model calls — so this module is deterministic and
-unit-tested. Nothing here invents a number; it only counts what the pipeline actually produced.
+Each flag is treated as a yes/no detector. A ``not_assessed`` prediction (the check couldn't
+run) is left out of precision and recall and reported as coverage instead, so a missing
+extractor doesn't move the scores.
 """
 
 from __future__ import annotations
 
 from dataclasses import dataclass, field
 
-# Ground-truth labels and predicted statuses use distinct vocabularies on purpose:
-# a label says what *should* happen ("fire"/"clear"); a prediction is the system's status.
+# Labels say what should happen ("fire"/"clear"); predictions are the system's status words.
 LABEL_FIRE = "fire"
 LABEL_CLEAR = "clear"
 
@@ -54,7 +46,7 @@ class FlagMetrics:
     precision: float | None
     recall: float | None
     f1: float | None
-    coverage: float | None  # assessed / total — how often the check could run at all
+    coverage: float | None  # assessed / total, i.e. how often the check could run
 
 
 def _safe_div(num: int, denom: int) -> float | None:
@@ -72,7 +64,7 @@ def _prf(c: Confusion) -> tuple[float | None, float | None, float | None]:
 
 
 def update_confusion(c: Confusion, label: str, predicted: str) -> None:
-    """Fold one (label, prediction) pair into a confusion accumulator."""
+    """Add one (label, prediction) pair to the counts."""
     if predicted == PRED_NOT_ASSESSED:
         c.not_assessed += 1
         return
@@ -111,10 +103,10 @@ class EvalReport:
 
 
 def build_report(config: str, pairs_by_flag: dict[str, list[tuple[str, str]]]) -> EvalReport:
-    """Build a full report from {flag_type: [(label, predicted), ...]}.
+    """Build a report from {flag_type: [(label, predicted), ...]}.
 
-    The overall row micro-averages by summing every flag's confusion counts — so it reflects
-    per-decision performance across the whole test set, not an average of averages.
+    The overall row adds up every flag's counts (micro-average) rather than averaging the
+    per-flag scores.
     """
     report = EvalReport(config=config)
     micro = Confusion()

@@ -1,10 +1,11 @@
-"""The final evaluation's report outputs, read only from the step files in results/.
+"""The report's numbers and charts, built only from the step files in results/ (nothing is re-run).
 
   write_numbers()  results/report_numbers.csv: every figure the report may cite, with its value,
                    count, interval, and the file and step it comes from
   draw_charts()    results/figures/*.png at 300 dpi, one per result the report shows
 
-Both are steps of run_final_eval.py (numbers, charts) and can be run alone once the step files exist.
+These are the numbers and charts steps of run_final_eval.py; either can be run on its own once the
+step files exist.
 """
 
 from __future__ import annotations
@@ -34,6 +35,8 @@ def _r3(x):
 
 # ------------------------------------------------------------------------------ numbers
 class _Numbers:
+    """The rows of report_numbers.csv, each tagged with the results file and step it came from."""
+
     FIELDS = ["id", "description", "value", "count", "interval_low", "interval_high", "interval", "file", "step"]
 
     def __init__(self) -> None:
@@ -395,6 +398,7 @@ SECTIONS = (_synthetic, _matching, _hard_pairs, _date, _heldout, _fresh, _limits
 
 
 def write_numbers() -> None:
+    """Write results/report_numbers.csv; sections whose step file is missing are left out."""
     n, missing = _Numbers(), []
     for section in SECTIONS:
         try:
@@ -779,6 +783,7 @@ CHARTS = (_fig_matching, _fig_hard_pairs, _fig_date, _fig_heldout, _fig_fresh, _
 
 
 def draw_charts() -> None:
+    """Draw every chart into results/figures/; charts whose step file is missing are skipped."""
     plt = _plt()
     missing = []
     for chart in CHARTS:

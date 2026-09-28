@@ -1,5 +1,5 @@
-"""The picture check's limits (ADR-041): a nearly blank picture, or one that is mostly text, gives
-CLIP no scene to compare with the caption, so the check is not assessed and says why."""
+"""Tests for the picture check's limits: a nearly blank or mostly-text picture has no scene for
+CLIP to compare, so the check is not assessed and says why."""
 
 from io import BytesIO
 
@@ -40,7 +40,7 @@ def _text_page() -> bytes:
 
 @pytest.fixture
 def no_clip(monkeypatch):
-    """CLIP must not be loaded for a picture it cannot compare."""
+    """Fail the test if CLIP runs."""
     def refuse(*args, **kwargs):
         raise AssertionError("CLIP was run")
 

@@ -14,7 +14,7 @@
     color: #161616;
     -webkit-font-smoothing: antialiased;
   }
-  /* Dossier selection: ink on white, inverted. */
+  /* Selected text: white on ink. */
   ::selection {
     background: #161616;
     color: #ffffff;
@@ -34,8 +34,8 @@
     transform: rotate(90deg);
   }
 
-  /* A checkbox whose own box is 44 x 44 px, so all of it can be clicked or tapped, drawn as a
-     28 px square in the middle. A native checkbox ignores padding, so it is drawn here. */
+  /* A 44 x 44 px checkbox, so the whole area can be clicked or tapped, drawn as a 28 px square
+     in the middle. A native checkbox ignores padding, so it is drawn here instead. */
   .check-44 {
     appearance: none;
     flex-shrink: 0;

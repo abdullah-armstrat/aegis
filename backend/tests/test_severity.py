@@ -1,6 +1,6 @@
-"""Severity follows one stated rule per level (ADR-045, ADR-048): the kind of evidence and the upper
-end of the 95% interval of the check's false-alarm rate decide it, a finding resting on the live
-web search is medium at most, and no level uses a verdict word."""
+"""Tests for severity levels: set by the kind of evidence and the upper end of the 95% interval
+of the check's false-alarm rate. Live web search results are medium at most, and no level
+uses a verdict word."""
 
 import re
 import sys
@@ -98,11 +98,11 @@ def test_recycled_context_levels_follow_the_lookup_the_finding_rests_on(found_by
 
 
 def test_every_rule_result_carries_a_level_the_rule_allows():
-    """Every branch of every check (the interface review's text audit builds them all)."""
+    """Every branch of every check (built by the interface text audit script)."""
     from interface_text_audit import all_flags
 
     allowed_when_fired = {
-        "recycled_context": {Severity.HIGH, Severity.MEDIUM},  # the audit's pages come from the index
+        "recycled_context": {Severity.HIGH, Severity.MEDIUM},  # the audit only uses index pages
         "caption_content_mismatch": {Severity.LOW},
         "emotional_framing": {Severity.LOW},
         "audio_visual_mismatch": {Severity.LOW},

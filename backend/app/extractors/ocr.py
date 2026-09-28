@@ -1,13 +1,8 @@
-"""OCR extractor — on-screen text from an image (the bundle's ``on_screen_text``).
+"""OCR extractor: reads on-screen text from an image (the bundle's ``on_screen_text``).
 
-Uses **pytesseract**, a thin wrapper over the Tesseract binary, deliberately chosen over
-easyocr so the first extractor carries no torch dependency. An
-easyocr-vs-pytesseract accuracy comparison is a planned later model-trial.
-
-The extractor returns an :class:`OcrResult` whose ``status`` keeps three outcomes apart: it
-distinguishes text that was read, an image legibly read but containing no text (``CLEAR``),
-and an image that could not be processed at all (``NOT_ASSESSED``). Downstream fusion uses
-that status so "no on-screen text" is never silently treated as "checked and consistent".
+Uses pytesseract, a wrapper around the Tesseract binary, picked over easyocr because it needs
+no torch. The status separates "text found", "read but no text" (CLEAR) and "could not run"
+(NOT_ASSESSED), so missing text is never treated as a passed check.
 """
 
 from __future__ import annotations
@@ -21,14 +16,11 @@ from app.models import FlagStatus
 
 @dataclass
 class OcrResult:
-    """Outcome of an OCR attempt.
+    """Result of an OCR attempt.
 
-    ``lines`` is the extracted on-screen text (one entry per non-empty line). ``status`` is
-    the honest outcome of the attempt:
-      * ``FIRED``        — text was found and extracted.
-      * ``CLEAR``        — the image was read but contained no legible text.
-      * ``NOT_ASSESSED`` — OCR could not run (unreadable bytes, engine error).
-    ``detail`` is a short human-readable note, surfaced when status is not FIRED.
+    ``lines`` holds one entry per non-empty line of text. ``status`` is FIRED when text was
+    found, CLEAR when the image had no legible text and NOT_ASSESSED when OCR could not run.
+    ``detail`` is a short note shown when the status is not FIRED.
     """
 
     lines: list[str] = field(default_factory=list)
@@ -46,13 +38,11 @@ def _configure_tesseract() -> None:
 
 
 def extract_on_screen_text(image_bytes: bytes) -> OcrResult:
-    """Run OCR over raw image bytes and return an :class:`OcrResult`.
+    """Run OCR on raw image bytes and return an :class:`OcrResult`.
 
-    Never raises for bad input or engine failure: those become a ``NOT_ASSESSED`` result so
-    the caller can record honestly that the check could not be performed.
+    Never raises: bad input or an engine failure gives a NOT_ASSESSED result.
     """
-    # Import lazily so the module (and tests that monkeypatch it) load without the heavy
-    # imports, and so an OCR-less environment can still import the rest of the app.
+    # lazy imports, so the rest of the app still imports on a machine without OCR installed
     try:
         import pytesseract
         from PIL import Image, UnidentifiedImageError
@@ -78,10 +68,10 @@ def extract_on_screen_text(image_bytes: bytes) -> OcrResult:
 
 
 def text_box_share(image_bytes: bytes) -> float | None:
-    """The share of the image's area covered by the boxes of the words Tesseract reads in it.
+    """Share (0 to 1) of the image covered by the boxes of the words Tesseract reads.
 
-    Every word with non-empty text and a confidence of 0 or more counts, and overlapping boxes are
-    counted once. None when the image or the engine could not be read.
+    Words with text and a confidence of 0 or more count, and overlapping boxes are counted once.
+    Returns None if the image or the engine could not be read.
     """
     try:
         import numpy as np

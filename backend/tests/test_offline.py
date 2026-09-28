@@ -1,10 +1,7 @@
-"""The default mode is offline: every model loads from files already on this machine, and nothing
-opens a network connection unless a setting allows it.
+"""Checks that by default the app works offline and loads models only from local files.
 
-The proof runs the default image and video flows through the API in a fresh process whose sockets
-refuse every connection and name lookup outside this machine, with the production defaults (no
-``AEGIS_`` overrides) and without the Hugging Face offline switches, so the app has to keep itself
-offline. Every attempt is recorded, and the test requires there to be none.
+The slow tests run the image and video flows in a new process where any outside connection or
+name lookup is blocked and recorded, using the real defaults. No attempts are allowed.
 """
 
 import json
@@ -106,7 +103,7 @@ def _flag(flags, kind):
 
 
 def _run_offline(video: bool, **settings) -> dict:
-    """Run the child with production defaults, plus any AEGIS_ settings given, and return its report."""
+    """Run the child script with default settings plus any AEGIS_ ones given; return its report."""
     env = {k: v for k, v in os.environ.items()
            if not k.startswith("AEGIS_") and k not in {"HF_HUB_OFFLINE", "TRANSFORMERS_OFFLINE",
                                                      "HF_DATASETS_OFFLINE", "GOOGLE_VISION_API_KEY"}}
@@ -127,8 +124,8 @@ def test_the_default_image_and_video_flows_open_no_network_connection():
     assert out["health"]["reverse_image_mode"] == "local" and out["health"]["use_llm"] is False
     assert out["attempts"] == []
 
-    # Both flows ran their models from local files: CLIP scored the picture and the keyframes,
-    # and Whisper ran on the sound track (a tone, so it may find no speech, but it did run).
+    # CLIP scored the picture and keyframes, and Whisper ran on the audio (just a tone, so it
+    # may find no speech, but it ran).
     assert out["image"]["code"] == 200
     picture = _flag(out["image"]["flags"], "caption_content_mismatch")
     assert picture["status"] in ("fired", "clear") and "similarity" in picture["evidence"]
@@ -141,7 +138,7 @@ def test_the_default_image_and_video_flows_open_no_network_connection():
 
 @pytest.mark.slow
 def test_blip_stays_offline_when_a_setting_makes_the_image_flow_load_it():
-    """Word overlap reads BLIP's scene description, so BLIP loads; from the local cache only."""
+    """Word overlap needs BLIP, which must still load from the local cache only."""
     out = _run_offline(video=False, AEGIS_CAPTION_MATCH_METHOD="overlap")
     assert out["guard"] == "blocked"
     assert out["attempts"] == []

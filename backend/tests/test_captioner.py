@@ -1,7 +1,7 @@
 """Tests for the BLIP scene-caption extractor.
 
-The empty/unreadable path needs no model and always runs. The real captioning path loads
-BLIP (~1GB) and is marked ``slow`` so the fast suite stays quick (`-m "not slow"`).
+The unreadable-input test needs no model. The real captioning test loads BLIP (~1GB), so it
+is marked ``slow``.
 """
 
 import pytest
@@ -11,8 +11,7 @@ from app.models import FlagStatus
 
 
 def test_unreadable_bytes_are_not_assessed():
-    """Garbage input must not masquerade as a caption — it is NOT_ASSESSED.
-    Fails at the image-decode step, so no model is needed."""
+    """Bytes that aren't an image give NOT_ASSESSED (fails at decoding, so no model needed)."""
     result = describe_scene(b"this is not an image")
     assert result.status == FlagStatus.NOT_ASSESSED
     assert result.detail

@@ -4,20 +4,19 @@ Source: SemEval-2021 Task 6 (Dimitrov et al., 2021), subtask 1: meme texts with 
 20 persuasion techniques, from the task's GitHub repository at a pinned commit ("free for general
 research use"). Loudness comes from the NRC Emotion Intensity Lexicon (Mohammad, 2018; free for
 non-commercial research and educational use). Neither uses Aegis's own markers. The definitions
-below were fixed in the project's decision log before any text was read:
+were fixed before any text was read:
 
-  manipulative  the human labels include Loaded Language, Appeal to fear/prejudice or
+  manipulative  human labels include Loaded Language, Appeal to fear/prejudice or
                 Exaggeration/Minimisation
-  honest        no technique labelled at all (texts with only other techniques are excluded)
-  loud          at least one word whose highest emotion intensity in the lexicon is 0.75 or more;
-                words are the lowercased text split on letters (inner apostrophes kept), looked up
-                exactly, with no stemming
-  groups        calm and honest, calm but manipulative, loud and honest, loud and manipulative;
-                25 each, drawn with a fixed seed from the eligible texts sorted by split and id
+  honest        no technique labelled (texts with only other techniques are left out)
+  loud          at least one word with lexicon intensity 0.75 or more; words are the lowercased
+                text split on letters (inner apostrophes kept), matched exactly, no stemming
+  groups        calm/honest, calm/manipulative, loud/honest, loud/manipulative; 25 each, drawn
+                with a fixed seed from the eligible texts sorted by split and id
 
-Texts that are identical after collapsing whitespace are counted once. The texts and the lexicon
-stay in the git-ignored data/F_captions/; the committed manifest data/labels/F_harder_captions.csv
-holds ids, labels, groups and the loudness evidence, plus each text's SHA-256.
+Texts that match after collapsing whitespace are counted once. The texts and lexicon stay in the
+git-ignored data/F_captions/; the committed data/labels/F_harder_captions.csv holds ids, labels,
+groups, the loudness evidence and each text's SHA-256.
 
 Run:  python backend/scripts/get_dataset_f.py
 """

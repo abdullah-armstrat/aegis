@@ -1,21 +1,8 @@
-"""The re-post transformations the hash robustness harness applies.
+"""Image edits used to test how well the perceptual hash survives re-posting.
 
-Each models something that happens to an image when it is saved, shared and re-posted. Every
-transform is deterministic, so a harness run is exactly reproducible. Definitions are stated
-here once, in the words the report uses:
-
-  jpeg_qN        re-encode as JPEG at quality N (90, 70, 50, 30) and decode again
-  resize_N       scale both sides to N% (75, 50, 25) with Lanczos resampling
-  crop_N         cut N% (5, 10, 20) off each dimension, split evenly between the two edges,
-                 keeping the centre — so crop_20 keeps the central 80% x 80% (64% of the area)
-  border         a uniform white border 10% of the shorter side, on all four edges
-  screenshot     the image scaled to 90% width inside a phone-style frame: dark status bar,
-                 white header with an avatar and name lines, white footer with action icons
-  flip           horizontal mirror
-  rotate_N       rotate N degrees anticlockwise (2, 5) about the centre, same canvas size,
-                 bicubic, exposed corners filled white
-
-Pure image-in, image-out functions over PIL images. No I/O.
+Each one mimics something that happens when a picture is saved and re-posted (JPEG
+re-encoding, resizing, cropping, borders, screenshots, flips, small rotations). All are
+deterministic PIL functions, so runs are repeatable.
 """
 
 from __future__ import annotations
@@ -52,6 +39,7 @@ def resize(percent: int) -> Callable[[Image.Image], Image.Image]:
 
 
 def crop(percent: int) -> Callable[[Image.Image], Image.Image]:
+    # Cuts percent% off each dimension, half from each edge, so crop(20) keeps the central 80% x 80%.
     def _f(img: Image.Image) -> Image.Image:
         w, h = img.size
         dx, dy = round(w * percent / 200), round(h * percent / 200)
@@ -61,12 +49,13 @@ def crop(percent: int) -> Callable[[Image.Image], Image.Image]:
 
 
 def border(img: Image.Image) -> Image.Image:
+    # White border 10% of the shorter side on all four edges.
     pad = round(min(img.size) * 0.10)
     return ImageOps.expand(_rgb(img), border=pad, fill="white")
 
 
 def screenshot(img: Image.Image) -> Image.Image:
-    """Frame the image the way a phone screenshot of a social post frames it."""
+    """Put the image inside a phone-style frame: status bar, header with avatar, footer icons."""
     src = _rgb(img)
     w, h = src.size
     inner_w = round(w * 0.90)
@@ -94,6 +83,7 @@ def flip(img: Image.Image) -> Image.Image:
 
 
 def rotate(degrees: float) -> Callable[[Image.Image], Image.Image]:
+    # Anticlockwise about the centre, same canvas size, corners filled white.
     def _f(img: Image.Image) -> Image.Image:
         return _rgb(img).rotate(
             degrees, resample=Image.Resampling.BICUBIC, expand=False, fillcolor="white"
@@ -102,7 +92,7 @@ def rotate(degrees: float) -> Callable[[Image.Image], Image.Image]:
     return _f
 
 
-# Ordered as the plan lists them; the names are the column labels in every results table.
+# The names are used as column labels in the results tables.
 TRANSFORMS: dict[str, Callable[[Image.Image], Image.Image]] = {
     "jpeg_q90": jpeg(90),
     "jpeg_q70": jpeg(70),

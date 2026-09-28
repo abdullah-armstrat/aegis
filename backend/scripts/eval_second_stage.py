@@ -1,28 +1,28 @@
-"""WP-1b comparison: which second-stage matcher recovers what the perceptual hash misses?
+"""Compare second-stage matchers: which one recovers the copies the perceptual hash misses?
 
-Stage one is the shipped lookup: 64-bit pHash with mirror lookup, match at a Hamming distance of
-10 or less. A second stage runs only on a lookup where stage one found nothing. Variants:
+Stage one is the shipped lookup: 64-bit pHash with mirror lookup, a match at Hamming distance 10
+or less. A second stage runs only when stage one finds nothing. Variants:
 
   S0  pHash only (the current app)
   S1  pHash, then trim-and-rehash
   S2  pHash, then ORB + RANSAC
   S3  pHash, then CLIP image similarity
   S4  pHash, then trim-and-rehash, then ORB + RANSAC
-  S5  pHash, then CLIP shortlist (top 3 known images) verified by ORB + RANSAC
+  S5  pHash, then a CLIP shortlist (top 3 known images) checked by ORB + RANSAC
 
-Known images (the index): the 11 openly licensed originals of the robustness harness.
-Genuine queries: each original under the 15 re-post transformations (165 queries).
-Impostor queries: every original and copy compared with the other originals' entries, plus the
-VERITE images in data/verite/images as unrelated real photographs, each also bordered and
-screenshot-framed, because framed images are exactly the queries the second stage sees.
+Known images (the index): the 11 openly licensed originals of the robustness harness. Genuine
+queries: each original under the 15 re-post transformations (165 queries). Impostor queries: every
+original and copy against the other originals' entries, plus the VERITE images in data/verite/images
+as unrelated real photos, each also bordered and screenshot-framed, since framed images are the
+queries the second stage actually gets.
 
-ORB and CLIP thresholds are set from the impostor scores measured here: the lowest value above
-every impostor, with a floor for ORB. Setting a threshold on the data it is then reported on is
-optimistic, so every number is PROVISIONAL - SAMPLE IMAGES until the dated originals and the
-distractor set are collected and split.
+ORB and CLIP thresholds come from the impostor scores measured here: the lowest value above every
+impostor, with a floor for ORB. Setting a threshold on the data it is reported on is optimistic, so
+all numbers are provisional (sample images) until the dated originals and the distractor set are
+collected and split.
 
 Run: python backend/scripts/eval_second_stage.py [--with-clip] --json out.json
-     (run once without CLIP and once with it: the peak memory of each run is reported)
+     (run once without CLIP and once with it; each run reports its peak memory)
 """
 
 from __future__ import annotations
@@ -82,6 +82,7 @@ def features(img: Image.Image, clip: ClipEmbedder | None) -> dict:
 
 
 def main() -> None:
+    """Score every query against the index, set the thresholds and print each variant's results."""
     parser = argparse.ArgumentParser()
     parser.add_argument("--with-clip", action="store_true")
     parser.add_argument("--json", default="")
@@ -131,6 +132,7 @@ def main() -> None:
         clip_t = math.ceil((max_imp_clip + 0.005) * 100) / 100
 
     def lookup(row, variant) -> set[str]:
+        """The index entries a variant matches for one query."""
         pe = row["per_entry"]
         hit = {n for n, s in pe.items() if s["d1"] <= HASH_T}
         if hit or variant == "S0":
@@ -151,6 +153,10 @@ def main() -> None:
         raise ValueError(variant)
 
     def lookup_time(row, variant) -> float:
+        """Estimated time of one lookup: the hash, plus the second stage if the hash found nothing.
+
+        ORB matching is costed at the mean time per pair, times the entries it is run against.
+        """
         t = row["t"]
         total = t["hash"]
         if variant == "S0" or any(s["d1"] <= HASH_T for s in row["per_entry"].values()):
@@ -205,7 +211,7 @@ def main() -> None:
     out["peak_memory_mb"] = round(getattr(mem, "peak_wset", mem.rss) / 2**20, 1)
 
     th = out["thresholds"]
-    print(f"\n=== WP-1b second stage — {out['label']} — CLIP {'on' if clip else 'off'} ===")
+    print(f"\n=== WP-1b second stage - {out['label']} - CLIP {'on' if clip else 'off'} ===")
     print(f"index {out['n_index']} originals | genuine queries {out['n_genuine']} | "
           f"distractor images {out['n_distractor_images']} (x3 framings) | impostor pairs {impostor_pairs}")
     print(f"thresholds: hash <= {HASH_T}; ORB >= {th['orb_min_inliers']} inliers "

@@ -1,39 +1,36 @@
-"""WP-2: does the caption match the picture? Compared on the VERITE sample (dataset C).
+"""Does the caption match the picture? Candidate checks compared on the VERITE sample (dataset C).
 
 The mismatch flag should fire for "miscaptioned" and "out-of-context" pairs and stay clear for
 "true" ones. Candidates:
 
-  image score  cosine similarity between the image and the caption, from OpenAI CLIP: ViT-B/32 or RN50
-  text score   similarity between the caption and what the app extracted from the image (the BLIP
-               scene description plus OCR text): CLIP's text encoder or spaCy en_core_web_md vectors
+  image score  CLIP cosine similarity between the image and the caption (ViT-B/32 or RN50)
+  text score   similarity between the caption and what the app read from the image (BLIP scene
+               description plus OCR text), from CLIP's text encoder or spaCy en_core_web_md vectors
   rules        image alone, text alone, both low (fire if both scores are under their thresholds),
                either low (fire if either is)
 
-Steps, each cached so the expensive ones run once:
+Steps (the slow ones are cached so they only run once):
 
-  split     Stratified by label, grouped by article, 40% calibration / 60% held-out, fixed seed.
-            Writes data/labels/C_verite_split.csv (IDs only).
-  features  --phase blip_ocr | clip:ViT-B/32 | clip:RN50 | spacy. One model per process, cached in
-            data/verite/features/ (git-ignored). CLIP text is cut at 77 tokens and every cut is counted.
-  llm       The local LLM reasoner's verdict on every held-out pair (Ollama must be running).
-  calibrate Calibration pairs only. Each candidate's threshold flags at most 10% of truthful
-            pairs and, within that, catches the most out-of-context pairs; the candidate catching
-            the most is chosen, ties by time then memory. Held-out labels are not read.
-  timing    Time per image of the check alone and of the whole pipeline, on this machine.
-  fit       All 300 sampled pairs, used only for fitting: the picture-only threshold, flagging at
-            most 10% of the truthful pairs.
-  confirm   The single run on the fresh set (every VERITE pair whose article is not in the sample;
-            features computed with --set fresh): the picture-only rule, the meaning rule and word
-            overlap, scored through the app's own rule code, and the default chosen from them.
-  evaluate  The single held-out run: for the chosen rule, word overlap, the LLM and always-fire,
-            the share of truthful pairs flagged and recall on out-of-context and miscaptioned
-            pairs, with Wilson 95% intervals; exact McNemar tests against word overlap and the
-            LLM; AUC of every candidate score with an article-level bootstrap interval; the paired
-            true-vs-miscaptioned comparison on the same image. Writes a JSON report.
+  split      stratified by label, grouped by article, 40% calibration / 60% held-out, fixed seed;
+             writes data/labels/C_verite_split.csv (IDs only)
+  features   --phase blip_ocr | clip:ViT-B/32 | clip:RN50 | spacy, one model per process, cached in
+             data/verite/features/ (git-ignored); CLIP text is cut at 77 tokens and the cuts counted
+  llm        the local LLM reasoner's answer on every held-out pair (Ollama must be running)
+  calibrate  calibration pairs only: each candidate's threshold flags at most 10% of truthful pairs
+             and catches the most out-of-context pairs within that; the best candidate is chosen,
+             ties by time then memory; held-out labels are not read
+  timing     time per image of the check alone and of the whole pipeline, on this machine
+  fit        the picture-only threshold, fitted on all 300 sampled pairs with the same 10% cap
+  confirm    the single run on the fresh set (VERITE pairs whose article is not in the sample,
+             features built with --set fresh): picture only, meaning and word overlap through the
+             app's own rule code, and the default chosen from them
+  evaluate   the single held-out run: chosen rule, word overlap, the LLM and always-fire, with
+             Wilson 95% intervals, exact McNemar tests, AUCs with an article-level bootstrap, and
+             the paired true-vs-miscaptioned comparison on the same image; writes a JSON report
 
-The selection rule was fixed before the held-out run was made: picking by F1 was
-degenerate here, because two thirds of the pairs are mismatches and firing on everything already
-scores F1 0.80. It is kept below only to reproduce that finding.
+The selection rule was fixed before the held-out run. Picking by F1 did not work here: two thirds
+of the pairs are mismatches, so firing on everything already scores F1 0.80. The F1 code is kept
+only to reproduce that result.
 
 Run from the repo root:  python backend/scripts/eval_caption_match.py <step> [...]
 """
@@ -213,7 +210,7 @@ def phase_spacy(pairs, pair_set: str = "sample") -> None:
 
 
 def do_llm(pairs) -> None:
-    """The LLM reasoner's verdict on every held-out pair (production code path)."""
+    """The LLM reasoner's answer on every held-out pair, through the app's own code."""
     import os
 
     os.environ["AEGIS_USE_LLM"] = "true"
@@ -345,7 +342,7 @@ def calibrate(pairs, scores, part_time) -> tuple[list[dict], dict, list[dict]]:
         th = fit_capped(rule, parts, cal, scores)
         pred = predict(rule, parts, th, cal, scores)
         table.append({"rule": rule, "scores": parts, "thresholds": th, **counts(pred, cal), **cost})
-        # Superseded criterion, kept so the first run's degenerate result can be reproduced.
+        # The old F1 criterion, kept only to reproduce its degenerate first result.
         a = [scores[parts[0]][p["row"]] for p in cal]
         if len(parts) == 1:
             th_f1 = [fit_1d(a, yc)]
@@ -556,14 +553,14 @@ def mcnemar_exact(correct_a, correct_b) -> dict:
 
 
 def fit_1d(scores, y):
-    """Superseded criterion: threshold t maximising F1 for 'fire when score < t'."""
+    """Old F1 criterion: the threshold t maximising F1 for 'fire when score < t'."""
     s = np.asarray(scores)
     best = max(((prf(y, s < t)["f1"], -abs(t), t) for t in _grid(s)))
     return float(best[2])
 
 
 def fit_2d(a, b, y, mode: str, grid: int = 60):
-    """Superseded criterion: F1-best threshold pair on a quantile grid."""
+    """Old F1 criterion: the F1-best threshold pair on a quantile grid."""
     a, b = np.asarray(a), np.asarray(b)
     qa = np.concatenate([np.unique(np.quantile(a, np.linspace(0, 1, grid))), [a.max() + 1e-6]])
     qb = np.concatenate([np.unique(np.quantile(b, np.linspace(0, 1, grid))), [b.max() + 1e-6]])
@@ -578,9 +575,8 @@ def fit_2d(a, b, y, mode: str, grid: int = 60):
 
 
 def do_timing(pairs, n_images: int, out_json: str) -> None:
-    """Time per image on this machine: the caption-vs-picture check alone, and the whole image
-    pipeline (all extractors and rules, LLM off) under each caption_match_method. The first call
-    of each is reported separately because it includes loading the models."""
+    """Time per image on this machine: the caption check alone, and the whole image pipeline (LLM
+    off) under each caption_match_method. The first call is reported apart as it loads the models."""
     import os
     import statistics
 
@@ -729,9 +725,9 @@ def do_confirm(out_json: str) -> None:
         "pairs": int(ok.sum()), "excluded_not_assessed": int((claim & ~ok).sum()),
         "note": "only_new_correct = image only right and meaning wrong"}
 
-    # Default, as pre-registered: qualify at <= 20% of truthful fresh pairs flagged; the largest
-    # gap between the share of out-of-context caught and the share of truthful flagged wins; ties
-    # to fewer truthful flagged, then less added time per image.
+    # Choosing the default (rule fixed in advance): a rule qualifies if it flags at most 20% of
+    # truthful fresh pairs; the biggest gap between out-of-context caught and truthful flagged wins;
+    # ties go to fewer truthful flagged, then less added time per image.
     added_ms = {"word overlap": 0.0,
                 "image only": 1000 * (part_time["ViT-B/32:image"] + part_time["ViT-B/32:caption"]),
                 "meaning": 1000 * (part_time["ViT-B/32:image"] + part_time["ViT-B/32:caption"] + part_time["spacy"])}

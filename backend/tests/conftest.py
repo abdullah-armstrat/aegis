@@ -1,25 +1,15 @@
-"""Shared test configuration.
+"""Shared test settings.
 
-Keeps the fast suite fast: the BLIP captioner is enabled by default in production
-(``AEGIS_USE_CAPTIONER=true``), but loading it costs ~1GB and seconds, so during
-tests it defaults to **off** unless a test sets the variable itself. Tests that specifically
-exercise the captioner either set ``AEGIS_USE_CAPTIONER`` explicitly (the adapter tests) or
-are marked ``slow`` (the captioner extractor test, the eval before/after).
-
-The same holds for the caption-vs-picture check: comparing by meaning loads CLIP and spaCy, so
-tests default to the word-overlap method unless they set ``AEGIS_CAPTION_MATCH_METHOD``
-themselves. The pinned 19-example regression matrix is the word-overlap rule's.
-
-This only affects the default; a test that opts in by setting the env var still wins, and the
-production default in ``config.py`` is unchanged.
+BLIP, CLIP and spaCy are slow to load, so tests default to no captioner and the word-overlap
+caption check. A test can still turn either on by setting the env var itself.
 """
 
 import os
 
-# Set before any test imports trigger a settings read. Only set if the caller hasn't.
+# Set before any test import reads the settings, and only if not already set.
 os.environ.setdefault("AEGIS_USE_CAPTIONER", "false")
 os.environ.setdefault("AEGIS_CAPTION_MATCH_METHOD", "overlap")
 
-# No test may spend a live Google Cloud Vision call: the key is removed for the whole session.
-# Tests that exercise the live path set a fake key and replace the network.
+# No test should make a real Google Vision call, so the key is removed for the whole run.
+# Tests of the live path set a fake key and replace the network.
 os.environ.pop("GOOGLE_VISION_API_KEY", None)

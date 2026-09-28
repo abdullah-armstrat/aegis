@@ -1,23 +1,25 @@
-"""WP-3: does what is said match what is shown? The swap test and the full pipeline on dataset E.
+"""Does what is said match what is shown? The swap test and the full pipeline on dataset E.
 
-The method was fixed before any score was computed (the project's decision log):
+The method was fixed before any score was computed. Steps:
 
-  pairs     Split dataset E's sources 40/60 (seeded; no source on both sides) and pair each true
-            line ("matches") with a partner line drawn, seeded, from a different source on the
-            same side. Written to data/labels/E_speech_picture_pairs.csv. No scoring.
-  scores    For every true line: its frames (the frame at its midpoint plus any keyframe inside
-            it, keyframes from the app's own sampler); CLIP ViT-B/32 image score of its own text
-            (true pair) and of its partner's text (swapped pair) against each frame; a pair's
-            score is the highest. Cached in data/E_videos/features/ (ignored).
-  fit       On the fitting side: among thresholds flagging at most 10% of true lines, the one
-            catching the most swapped pairs; ties to fewer true lines flagged, then the lower one.
-  heldout   True lines flagged and swapped pairs caught with Wilson 95% intervals, and the AUC with
-            a bootstrap interval resampling sources.
-  pipeline  The whole app on all 34 clips, Whisper base transcripts; each ground-truth line matched
-            to the Whisper segment overlapping it most. Per-line and per-clip tables, held-out-side
-            clips first, then all clips. Drift: each line against the segment that transcribes it
-            (the most similar text, difflib ratio at least 0.5), start and end differences.
-            ``--tag`` keeps a re-run apart: its own cache folder (pipeline_<tag>) and results file.
+  pairs     split dataset E's sources 40/60 (seeded, no source on both sides) and give each true
+            line a seeded partner line from another source on the same side; writes
+            data/labels/E_speech_picture_pairs.csv (no scoring)
+  scores    CLIP ViT-B/32 score of each true line's own text (true pair) and its partner's text
+            (swapped pair) against the line's frames: its midpoint plus any keyframe inside it,
+            from the app's own sampler; a pair's score is the highest. Cached in the git-ignored
+            data/E_videos/features/
+  fit       on the fitting side, the threshold that catches the most swapped pairs while flagging
+            at most 10% of true lines (ties: fewer true lines flagged, then the lower one). Then
+            the held-out side: true lines flagged and swapped pairs caught with Wilson 95%
+            intervals, and the AUC with a bootstrap interval resampling sources
+  pipeline  the whole app on all 34 clips with Whisper base, then analyse
+  analyse   each ground-truth line matched to the Whisper segment overlapping it most; per-line
+            and per-clip tables, held-out clips first, then all clips. Also drift: start and end
+            differences between each line and the segment that transcribes it (most similar
+            text, difflib ratio at least 0.5)
+
+--tag keeps a re-run apart, with its own cache folder (pipeline_<tag>) and results file.
 
 Run from the repo root: python backend/scripts/eval_speech_picture.py <step>
 """
@@ -61,6 +63,7 @@ def lines() -> list[dict]:
 
 
 def wilson(k: int, n: int, z: float = 1.959964) -> tuple[float, float]:
+    """Wilson score interval (95% by default) for k out of n."""
     if n == 0:
         return (float("nan"), float("nan"))
     ph = k / n
@@ -71,6 +74,7 @@ def wilson(k: int, n: int, z: float = 1.959964) -> tuple[float, float]:
 
 # ------------------------------------------------------------------------------ pairs
 def do_pairs() -> None:
+    """Split the sources into fitting and held-out sides and give each true line a swap partner."""
     clip = clips()
     true = [r for r in lines() if r["label"] == "matches"]
     true.sort(key=lambda r: (r["clip_id"], int(r["line_index"])))
@@ -107,7 +111,7 @@ def do_pairs() -> None:
 
 # ------------------------------------------------------------------------------ scores
 def do_scores() -> None:
-    """True and swapped scores for every pair, through the app's own sampler, linking and CLIP."""
+    """Score every true and swapped pair with the app's own keyframe sampler, frame choice and CLIP."""
     from io import BytesIO
 
     from PIL import Image
@@ -146,12 +150,16 @@ def do_scores() -> None:
 
 
 def _grid(values) -> np.ndarray:
+    """Candidate thresholds: midpoints between the unique scores, plus one below and one above."""
     u = np.unique(values)
     return np.concatenate([[u[0] - 1e-6], (u[:-1] + u[1:]) / 2, [u[-1] + 1e-6]])
 
 
 def fit_threshold(rows) -> float:
-    """At most 10% of true lines flagged; then most swapped caught; ties to fewer true, lower t."""
+    """Threshold that catches the most swapped pairs while flagging at most 10% of true lines.
+
+    Ties go to fewer true lines flagged, then to the lower threshold.
+    """
     true = np.array([r["true_score"] for r in rows])
     swapped = np.array([r["swapped_score"] for r in rows])
     cap = math.floor(FALSE_ALARM_CAP * len(true))
@@ -173,6 +181,7 @@ def auc(true, swapped) -> float:
 
 
 def do_fit_and_heldout() -> None:
+    """Fit the threshold on the fitting side and report both sides."""
     rows = json.loads((CACHE / "speech_picture_scores.json").read_text(encoding="utf-8"))
     fit = [r for r in rows if r["side"] == "fitting"]
     held = [r for r in rows if r["side"] == "held-out"]
@@ -192,6 +201,7 @@ def do_fit_and_heldout() -> None:
     sources = sorted({r["source"] for r in held})
     by_source = {s: [r for r in held if r["source"] == s] for s in sources}
     draws = []
+    # Bootstrap whole sources, not single lines, since lines from one video are not independent.
     for _ in range(BOOT_REPS):
         pick = [r for s in rng.choice(sources, size=len(sources), replace=True) for r in by_source[s]]
         draws.append(auc([r["true_score"] for r in pick], [r["swapped_score"] for r in pick]))
@@ -212,7 +222,7 @@ def _pipeline_cache(tag: str) -> Path:
 
 
 def do_pipeline(tag: str = "") -> None:
-    """The app on every clip (no caption), then the line-level and clip-level tables."""
+    """Run the app on every clip (no caption), caching each result, then analyse the runs."""
     from app.adapters.video_adapter import build_video_bundle
     from app.fusion.rules import audio_visual_mismatch_rule
 
@@ -238,7 +248,7 @@ def _plain(text: str) -> str:
 
 
 def drift(runs: dict) -> dict:
-    """Each script line against the Whisper segment that transcribes it: how far apart they start and end."""
+    """How far each script line's start and end are from the Whisper segment that transcribes it."""
     rows = []
     for line in lines():
         scored = [(SequenceMatcher(None, _plain(line["text"]), _plain(s["text"])).ratio(), s)
@@ -266,8 +276,10 @@ def drift(runs: dict) -> dict:
 
 
 def transcripts(runs: dict) -> dict:
-    """Whisper's word error rate and invented sentences on each clip with speech, from the same
-    segments the check scored (the definitions of eval_whisper.py)."""
+    """Whisper's word error rate and invented sentences per clip with speech (as in eval_whisper.py).
+
+    Uses the same segments the check scored.
+    """
     from whisper.normalizers import EnglishTextNormalizer
 
     from eval_whisper import edits, inserted
@@ -295,6 +307,7 @@ def transcripts(runs: dict) -> dict:
 
 
 def analyse_pipeline(tag: str = "") -> None:
+    """Line-level and clip-level results from the cached pipeline runs, written to results/."""
     from app.fusion.rules import SPEECH_PICTURE_THRESHOLD
 
     clip = clips()
@@ -304,7 +317,7 @@ def analyse_pipeline(tag: str = "") -> None:
     def fired(seg):
         return seg["picture_similarity"] is not None and seg["picture_similarity"] < SPEECH_PICTURE_THRESHOLD
 
-    matched = []
+    matched = []  # each ground-truth line with the Whisper segment that overlaps it most
     for line in lines():
         start, end = float(line["start_s"]), float(line["end_s"])
         overlaps = [(min(end, s["end"]) - max(start, s["start"]), s) for s in runs[line["clip_id"]]["segments"]]

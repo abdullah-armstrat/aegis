@@ -1,7 +1,7 @@
 """Tests for the video path: keyframe sampling, the video bundle and the upload limits.
 
-Videos are made on the fly with ffmpeg's built-in test sources (solid colours, silence, noise), so
-no third-party footage is needed and each file takes well under a second to make.
+Test videos are generated with ffmpeg's built-in sources (solid colours, tones, noise), so no
+real footage is needed.
 """
 
 import subprocess
@@ -182,12 +182,12 @@ def test_clip_stays_loaded_between_videos_and_whisper_is_loaded_for_each(tmp_pat
     for _ in range(2):
         build_video_bundle(path, caption="A red screen, then a blue one.", source_ref="tone.mp4")
     clip = caption_match._clip.cache_info()
-    assert (clip.misses, clip.currsize) == (1, 1)  # loaded by the first video, still loaded after both
-    assert loads == [get_settings().whisper_model] * 2  # Whisper is loaded for each video
+    assert (clip.misses, clip.currsize) == (1, 1)  # loaded once, kept for the second video
+    assert loads == [get_settings().whisper_model] * 2  # Whisper loaded once per video
 
 
 def test_speech_times_come_from_the_first_and_last_word():
-    """Whisper's own segment times drift after a pause; its word times do not (ADR-040)."""
+    """Whisper's segment times drift after a pause but its word times don't, so words are used."""
     from app.extractors.speech import run_model
 
     class FakeWhisper:
@@ -206,9 +206,9 @@ def test_speech_times_come_from_the_first_and_last_word():
     model = FakeWhisper()
     segments = run_model(model, Path("audio.wav"))
     assert model.options["word_timestamps"] is True
-    assert {k: model.options[k] for k in DECODING} == DECODING  # the decoding chosen in ADR-049
+    assert {k: model.options[k] for k in DECODING} == DECODING  # the chosen decoding settings
     run_model(model, Path("audio.wav"), condition_on_previous_text=False)
-    assert model.options["condition_on_previous_text"] is False  # a setting can be compared
+    assert model.options["condition_on_previous_text"] is False  # a setting can be overridden
     assert [(s.start, s.end, s.text) for s in segments] == [
         (1.02, 2.98, "The barge approaches."),  # from its words
         (11.0, 20.0, "A tugboat pushes."),      # no words: Whisper's own times
@@ -216,8 +216,8 @@ def test_speech_times_come_from_the_first_and_last_word():
 
 
 def test_the_same_audio_always_gives_the_same_transcript():
-    """Whisper's temperature fallback samples from PyTorch's generator, which is seeded before each
-    transcription (ADR-049), whatever state the generator was left in."""
+    """Whisper's temperature fallback uses PyTorch's random generator, which is seeded before
+    each transcription."""
     import torch
 
     from app.extractors.speech import run_model
@@ -228,7 +228,7 @@ def test_the_same_audio_always_gives_the_same_transcript():
             return {"segments": [{"start": 0.0, "end": 1.0, "text": f" {draw:.8f}", "no_speech_prob": 0.1, "words": []}]}
 
     first = run_model(Sampling(), Path("audio.wav"))[0].text
-    torch.rand(7)  # anything else drawing from the generator in between
+    torch.rand(7)  # something else uses the generator in between
     assert run_model(Sampling(), Path("audio.wav"))[0].text == first
 
 

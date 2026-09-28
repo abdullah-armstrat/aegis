@@ -1,16 +1,15 @@
-"""The interface review's text measures (docs/INTERFACE_REVIEW.md, section 5), for the words the
-backend writes: every explanation and "what to check" line the rules and the LLM layer can
-produce, found by running every branch of every check on bundles built for it.
+"""Text measures for the interface review, over the words the backend writes.
 
-  reading level   Flesch-Kincaid grade of each distinct line (Kincaid et al., 1975):
-                    0.39 * words per sentence + 11.8 * syllables per word - 15.59
-                  Syllables are counted by a fixed rule, the same in every round: groups of
-                  vowels (a e i o u y) in each word, less a silent final "e" (not after "l" in
-                  "-le"), at least one per word. Numbers count as one word of one syllable.
-  verdict words   every line the backend writes (explanations, what to check, evidence) scanned
-                  for the listed words, each hit with its context. Nothing is judged here.
+Runs every branch of every check (the rules and the LLM layer) on bundles built for it, then:
+  reading level   Flesch-Kincaid grade of each distinct explanation and "what to check" line
+                  (Kincaid et al., 1975): 0.39 * words/sentence + 11.8 * syllables/word - 15.59.
+                  Syllables are vowel groups (a e i o u y) per word, less a silent final "e"
+                  (not in "-le"), at least one. Numbers count as one word of one syllable.
+  verdict words   every line the backend writes (explanations, what to check, evidence) is
+                  scanned for the listed words; each hit is listed with its context, not judged.
 
-Prints one JSON object. Run from the repo root: python backend/scripts/interface_text_audit.py
+Prints one JSON object.
+Run (from the repo root):  python backend/scripts/interface_text_audit.py
 """
 
 from __future__ import annotations

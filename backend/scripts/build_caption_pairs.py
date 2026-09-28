@@ -1,21 +1,18 @@
-"""Caption regression cases on real pictures from dataset A (the project's decision log, ADR-042).
+"""Caption regression cases on real (public-domain NASA) pictures from dataset A.
 
-The rule was fixed before any case was scored:
-  * 8 photos, 2 per topic (weather, transport, animals, landscapes), drawn with
-    random.Random(20260927) from each topic's nasa_ids in sorted order.
-  * The matching caption is the first sentence of the photo's NASA description, after removing a
-    leading dateline (everything up to and including the first run of dashes set off by spaces,
-    when that run starts within the first 60 characters).
-  * The mismatched caption is the matching caption of the photo two places later in the list
-    ordered by topic then draw, wrapping round: always from a different topic.
-  * Expected: the matching caption clear, the mismatched one fired.
+How the cases are made was fixed before any were scored. 8 photos, 2 per topic (weather,
+transport, animals, landscapes), are drawn with random.Random(20260927) from each topic's sorted
+nasa_ids. The matching caption is the first sentence of the photo's NASA description, minus any
+leading dateline (up to the first run of spaced dashes, if it starts in the first 60 characters).
+The mismatched caption is the matching caption of the photo two places later, wrapping round, so
+it is always from another topic. Expected: matching caption clear, mismatched caption fired.
 
   build     writes tests/eval/test_set/caption_pairs_A.json (ids, files and captions; the photos
             stay out of the repository)
-  score     runs each case through the app's image path with the default settings and writes
+  score     runs each case through the app's image path with default settings and writes
             results/wp5_caption_pairs_A.json
 
-Run from the repo root: python backend/scripts/build_caption_pairs.py build|score
+Run (from the repo root):  python backend/scripts/build_caption_pairs.py build|score
 """
 
 from __future__ import annotations
@@ -41,8 +38,8 @@ SEED = 20260927
 TOPICS = ("weather", "transport", "animals", "landscapes")
 PER_TOPIC = 2
 
-# A dateline ends at dashes set off by spaces: two or more hyphens, or en or em dashes. A hyphen
-# inside a word or a date range ("AST-01-042", "13-19 Jan.") is not one.
+# A dateline ends at spaced dashes: two or more hyphens, or en or em dashes. A hyphen inside a
+# word or a date range ("AST-01-042", "13-19 Jan.") does not count.
 _DASHES = re.compile(r"\s(?:-{2,}|[\u2013\u2014](?:\s*[\u2013\u2014])*)\s")
 _SENTENCE_END = re.compile(r"(?<=[.!?])\s+(?=[A-Z])")
 

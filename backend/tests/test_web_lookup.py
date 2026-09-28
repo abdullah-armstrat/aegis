@@ -1,7 +1,7 @@
-"""The live web lookup, with every network call replaced by a stand-in: no key is used and no
-Vision call is spent. What is pinned: only full and partial matches count, dates and their sources
-are recorded, results replay from the cache, the monthly limit holds, every failure is NOT_ASSESSED
-with a reason, and the key never appears in a result, a reason or the cache."""
+"""Tests for the live web lookup, with all network calls faked (no real key or Vision call).
+
+Checks match types, page dating, the cache, the monthly limit, that failures are NOT_ASSESSED
+with a reason, and that the key never shows up in results or the cache."""
 
 import json
 from datetime import date
@@ -43,7 +43,7 @@ def _png(seed: int = 1) -> bytes:
 
 @pytest.fixture
 def live(monkeypatch, tmp_path):
-    """A fake key, a temporary cache and usage file, and a counter of calls made to Google."""
+    """Fake key, temp cache and usage file, and a list of the calls made to Google."""
     get_settings.cache_clear()
     monkeypatch.setenv("AEGIS_LIVE_CACHE_DIR", str(tmp_path / "cache"))
     monkeypatch.setenv(web_lookup.KEY_ENV, FAKE_KEY)
@@ -86,7 +86,7 @@ def test_a_repeat_lookup_replays_from_the_cache_without_a_call(live):
     again = web_lookup.web_lookup(_png())
     assert not again.live_call
     assert [m.model_dump() for m in again.matches] == [m.model_dump() for m in first.matches]
-    assert len(live["calls"]) == 1 + 0  # the second lookup never reached the network
+    assert len(live["calls"]) == 1 + 0  # the second lookup didn't hit the network
     assert web_lookup.calls_this_month() == 1
     cached = list((live["tmp"] / "cache").glob("*.json"))
     assert len(cached) == 1 and FAKE_KEY not in cached[0].read_text(encoding="utf-8")
@@ -152,7 +152,7 @@ def test_the_earliest_dated_page_drives_the_unchanged_date_check(live):
 
 
 def _archive(monkeypatch, pages, available=None, cdx=None):
-    """Stand-ins for the pages, the Wayback availability API and the CDX API."""
+    """Fake the pages, the Wayback availability API and the CDX API."""
     seen = []
 
     def handler(request: httpx.Request):
@@ -190,8 +190,8 @@ def test_the_cdx_api_is_the_second_try_when_the_availability_api_fails(monkeypat
     assert seen == ["b.example", "archive.org", "web.archive.org"]
 
 
-# A made-up page in the shape that produced the fault: no date in its metadata, and an inline script
-# holding retry settings like Facebook's, whose "2000" htmldate's extensive text search read as a year.
+# Made-up page like the one that caused the bug: no date in its metadata, and a script with
+# Facebook-style retry settings whose "2000" htmldate's extensive search took as a year.
 FACEBOOK_LIKE_PAGE = (
     '<!DOCTYPE html><html><head><title>A post - Example social site</title></head><body>'
     '<div role="main"><p>Look at this picture of the harbour.</p></div>'
@@ -204,9 +204,9 @@ FACEBOOK_LIKE_PAGE = (
 def test_numbers_in_page_scripts_are_never_read_as_a_year():
     from htmldate import find_date
 
-    # The page does reproduce the fault when the extensive search is on...
+    # With the extensive search on, the page does give the wrong year...
     assert find_date(FACEBOOK_LIKE_PAGE, original_date=True, outputformat="%Y-%m-%d") == "2000-01-01"
-    # ...and the app's dating, on metadata only, finds no date in it.
+    # ...but the app only reads metadata, so it finds no date.
     assert web_lookup.date_from_html(FACEBOOK_LIKE_PAGE) is None
 
 
@@ -216,9 +216,9 @@ def test_a_script_only_page_falls_through_to_the_archive(monkeypatch):
     assert web_lookup.date_page("https://social.example/post/1") == {"date": "2021-03-15", "source": "wayback"}
 
 
-# A made-up page in the shape of the one the spot-check found misdated: its publication date is in
-# a meta tag htmldate cannot parse (Portuguese) and in its structured data, and its modification
-# date is in a meta tag htmldate can parse, which it used to fall back on.
+# Made-up page like one found misdated in a spot-check: the publication date is in a Portuguese
+# meta tag htmldate can't parse and in the JSON-LD, while the modified date is in a tag it can
+# parse, so htmldate used to fall back to that.
 MODIFIED_FALLBACK_PAGE = (
     '<!DOCTYPE html><html><head><title>Visita guiada</title>'
     '<meta property="article:modified_time" content="2018-11-26T14:27:56+00:00">'
@@ -233,10 +233,10 @@ MODIFIED_FALLBACK_PAGE = (
 def test_a_page_is_dated_by_its_publication_not_its_last_modification():
     from htmldate import find_date
 
-    # htmldate alone, asked for the original date, falls back to the modification date...
+    # htmldate on its own falls back to the modified date...
     assert find_date(MODIFIED_FALLBACK_PAGE, extensive_search=False, original_date=True,
                      outputformat="%Y-%m-%d") == "2018-11-26"
-    # ...and the app reads the publication date the page declares.
+    # ...but the app reads the publication date.
     assert web_lookup.date_from_html(MODIFIED_FALLBACK_PAGE) == "2018-05-06"
 
 

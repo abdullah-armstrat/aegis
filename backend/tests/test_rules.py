@@ -1,8 +1,7 @@
-"""Tests for the deterministic fusion rules.
+"""Tests for the fusion rules.
 
-Each rule is tested across all three honest outcomes where applicable. Bundles are
-constructed directly (no extractors run), so these are fast, deterministic, and pin the rule
-logic precisely — exactly the reproducibility the rules layer exists to provide.
+Bundles are built by hand (no extractors run), and each rule is checked for fired, clear and
+not assessed where that applies.
 """
 
 import pytest
@@ -41,13 +40,13 @@ def _bundle(**kwargs) -> EvidenceBundle:
 # --- emotional framing ---
 
 def test_emotional_framing_fires_on_a_combination_of_markers():
-    """Fires on a combination of deterministic markers, and names them."""
+    """Fires when several markers appear, and names them."""
     b = _bundle(caption="ABSOLUTELY SHOCKING!! Share this before they delete it!!")
     flag = emotional_framing_rule(b)
     assert flag.type == FlagType.EMOTIONAL_FRAMING
     assert flag.status == FlagStatus.FIRED
     assert flag.what_to_check
-    # The evidence must report the specific markers found, not just a score.
+    # The evidence lists the markers found, not just a score.
     assert "words in capitals" in flag.evidence
     assert "exclamation" in flag.evidence
     assert "style markers present" in flag.evidence
@@ -63,8 +62,7 @@ def test_emotional_framing_clear_on_neutral_wording():
 
 
 def test_emotional_framing_requires_a_combination_not_a_single_marker():
-    """A single marker must not fire — the rule fires only on a combination. This is what
-    stops one stray urgency word from labelling an ordinary post as manipulative."""
+    """One marker on its own doesn't fire, so a single "urgent" doesn't flag a normal post."""
     b = _bundle(caption="Urgent: the residents meeting has moved to Tuesday evening.")
     flag = emotional_framing_rule(b)
     assert len(find_manipulation_markers(b.caption)) < MIN_MARKERS_TO_FIRE
@@ -73,9 +71,7 @@ def test_emotional_framing_requires_a_combination_not_a_single_marker():
 
 
 def test_emotional_framing_does_not_fire_on_sober_but_negative_text():
-    """Regression for the construct-validity gap the marker rule closes: critical, negative,
-    measured prose (the kind of critical news post the old rule flagged) carries no manipulation markers and must
-    now clear, where the old sentiment-polarity proxy fired on it."""
+    """Calm but negative wording has no markers and is clear (the old sentiment rule fired on it)."""
     b = _bundle(
         caption=(
             "Residents say they are concerned about the proposed parking changes, and have "
@@ -88,7 +84,7 @@ def test_emotional_framing_does_not_fire_on_sober_but_negative_text():
 
 
 def test_emotional_framing_not_assessed_without_caption_text():
-    """Markers are properties of text: no caption means the check could not run."""
+    """Markers come from the caption text, so no caption means not assessed."""
     assert emotional_framing_rule(_bundle()).status == FlagStatus.NOT_ASSESSED
     assert emotional_framing_rule(_bundle(caption="   ")).status == FlagStatus.NOT_ASSESSED
 
@@ -102,7 +98,7 @@ def test_marker_detector_units():
         "listed phrases" in m
         for m in find_manipulation_markers("They are hiding the truth about it")
     )
-    # Bare pronouns are deliberately not markers — too common in ordinary reporting.
+    # Pronouns alone are not markers; they are too common in normal reporting.
     assert find_manipulation_markers("They said the changes affect us in March.") == []
 
 
@@ -129,17 +125,15 @@ def test_recycled_context_not_assessed_when_unknown():
 
 
 def test_recycled_context_not_assessed_when_status_missing():
-    """Regression: a bundle where the reverse-image extractor never ran (no status key) and
-    has no matches must be NOT_ASSESSED, never CLEAR — empty must not read as 'searched, none
-    recycled'. This bug was caught by the scorecard 'nothing fires' test."""
+    """If the lookup never ran (no status key), the result is NOT_ASSESSED, not CLEAR."""
     b = _bundle(web_matches=[], extractor_status={})
     assert recycled_context_rule(b).status == FlagStatus.NOT_ASSESSED
 
 
-# --- recycled context: the five status paths of the date-gated rule ---
+# --- recycled context: how the posting date changes the result ---
 
 def _matched(posted_date=None, dates=("2019-03-04", "2021-08-17")):
-    """A bundle whose lookup found the image, with appearances on the given dates."""
+    """A bundle where the lookup found the image on pages with the given dates."""
     return _bundle(
         web_matches=[
             WebMatch(url=f"https://e.com/{i}", published_date=d, hash_distance=2)
@@ -159,14 +153,14 @@ def test_recycled_fires_when_an_appearance_predates_the_posting_date():
 
 
 def test_recycled_clear_when_every_appearance_is_after_the_posting_date():
-    """The image is out there, but not from before this post: consistent with it being first."""
+    """Every page is dated after the post, so this post could be the first."""
     flag = recycled_context_rule(_matched(posted_date="2018-12-31"))
     assert flag.status == FlagStatus.CLEAR
     assert "on or after" in flag.evidence
 
 
 def test_recycled_same_day_appearance_is_not_earlier():
-    """An appearance on the posting date itself may be the post being checked."""
+    """A page from the same day might be the post itself, so it doesn't count as earlier."""
     flag = recycled_context_rule(_matched(posted_date="2019-03-04", dates=("2019-03-04",)))
     assert flag.status == FlagStatus.CLEAR
 
@@ -179,8 +173,7 @@ def test_recycled_fires_without_a_posting_date_and_says_why():
 
 
 def test_recycled_undated_appearances_never_read_as_clear():
-    """Nothing dated is earlier, but one appearance has no date: the comparison is incomplete,
-    so it must not be reported clear. This case is outside the rule's status table."""
+    """No dated page is earlier, but one page has no date, so it can't be called clear."""
     flag = recycled_context_rule(_matched(posted_date="2018-12-31", dates=("2019-03-04", None)))
     assert flag.status == FlagStatus.FIRED
     assert "carry no date" in flag.evidence
@@ -199,7 +192,7 @@ def test_recycled_without_posting_date_and_no_dates_at_all():
     ("2018-12-31", ("2019-03-04", "2021-08-17")),   # every page dated after the post
 ])
 def test_a_page_date_is_never_called_the_image_s_first_appearance(posted, dates):
-    """A page's date is the page's: a Wikipedia article can be created years before a photo is added."""
+    """A page's date belongs to the page (e.g. a Wikipedia article can predate its photo)."""
     flag = recycled_context_rule(_matched(posted_date=posted, dates=dates))
     text = " ".join((flag.evidence, flag.plain_explanation, flag.what_to_check)).lower()
     assert "appeared on" not in text and "first appeared" not in text
@@ -229,8 +222,7 @@ def test_caption_scene_clear_on_high_overlap():
 
 
 def test_caption_scene_not_assessed_without_scene():
-    """Before the captioner is wired (no scene_descriptions) this is NOT_ASSESSED, not a
-    silent pass — the honest behaviour."""
+    """With no scene description the check is NOT_ASSESSED rather than passing."""
     b = _bundle(caption="anything")
     assert caption_scene_mismatch_rule(b).status == FlagStatus.NOT_ASSESSED
 
@@ -263,7 +255,7 @@ def test_meaning_fires_only_when_both_similarities_are_low(by_meaning):
     assert flag.type == FlagType.CAPTION_CONTENT_MISMATCH
     assert flag.status == FlagStatus.FIRED
     assert "different kind of scene" in flag.plain_explanation
-    # The evidence says what the numbers mean, and quotes what the picture appears to show.
+    # The evidence explains the numbers and quotes the scene description.
     assert flag.evidence.count("weak match") == 2
     assert "a bowl of soup on a table" in flag.evidence
 
@@ -277,8 +269,7 @@ def test_meaning_clear_when_either_similarity_is_reasonable(by_meaning, image, t
 
 @pytest.mark.parametrize("image, text", [(LOW_IMAGE, LOW_TEXT), (HIGH_IMAGE, HIGH_TEXT)])
 def test_meaning_always_states_what_it_cannot_catch(by_meaning, image, text):
-    """A clear result must not read as 'the caption is accurate': the check sees only the kind
-    of scene, never a wrong name, place or date."""
+    """The check only sees the kind of scene, so it always says it can't catch wrong names or dates."""
     flag = caption_scene_mismatch_rule(_scored(image, text))
     assert "cannot catch a wrong name, place or date" in flag.plain_explanation
 
@@ -310,7 +301,7 @@ def test_meaning_says_when_the_caption_was_cut(by_meaning):
 
 
 def test_overlap_method_ignores_the_meaning_scores():
-    """Word overlap stays selectable, and reads only the words, whatever the similarities say."""
+    """Word overlap only looks at the words and ignores any similarity scores."""
     b = _scored(LOW_IMAGE, LOW_TEXT, caption="a bowl of soup on a table",
                  scene_descriptions=[SceneDescription(text="a bowl of soup on a table")])
     assert get_settings().caption_match_method == "overlap"
@@ -341,7 +332,7 @@ def test_image_method_fires_below_its_threshold(monkeypatch):
 
 
 def test_image_method_clear_above_its_threshold_and_needs_no_scene(monkeypatch):
-    """The picture score alone decides: no scene description is needed, none is read."""
+    """Only the picture score is used, so no scene description is needed."""
     _use_method(monkeypatch, "image")
     flag = caption_scene_mismatch_rule(_image_scored(CAPTION_IMAGE_ONLY_THRESHOLD + 0.02))
     assert flag.status == FlagStatus.CLEAR
@@ -361,7 +352,7 @@ def test_image_method_not_assessed_without_a_picture_score(monkeypatch):
 
 
 def test_switched_off_check_is_not_assessed_and_says_why(monkeypatch):
-    """Off never means clear: the scorecard shows the check and the reason it did not run."""
+    """Switched off is not clear: the flag is still shown with the reason it didn't run."""
     _use_method(monkeypatch, "off")
     b = _scored(LOW_IMAGE, LOW_TEXT)
     flag = caption_scene_mismatch_rule(b)
@@ -372,11 +363,10 @@ def test_switched_off_check_is_not_assessed_and_says_why(monkeypatch):
     get_settings.cache_clear()
 
 
-# --- the worked mismatch example end-to-end through the rules ---
+# --- the main demo example through all the rules ---
 
 def test_run_rules_on_built_mismatch_example():
-    """The canonical demo case: recycled flood image + wrong fresh caption. Rules alone should
-    raise the caption↔scene mismatch AND the recycled-context flag (the rules-only baseline)."""
+    """Old flood image with an urgent new caption: all three rules fire."""
     b = _bundle(
         caption="URGENT: massive flood hitting the city right now, share immediately!",
         scene_descriptions=[SceneDescription(text="a calm dry residential street, parked cars")],
@@ -390,12 +380,12 @@ def test_run_rules_on_built_mismatch_example():
     assert FlagType.CAPTION_CONTENT_MISMATCH in fired
     assert FlagType.RECYCLED_CONTEXT in fired
     assert FlagType.EMOTIONAL_FRAMING in fired
-    # Exactly one flag per rule, always.
+    # One flag per rule.
     assert len(flags) == 3
 
 
 def test_recycled_evidence_explains_a_keypoint_match():
-    """A match found by keypoints has no hash distance; the evidence must say how it was found."""
+    """A keypoint match has no hash distance, so the evidence says how it was found instead."""
     b = _bundle(
         web_matches=[WebMatch(url="https://e.com/0", published_date="2019-03-04", keypoint_inliers=40)],
         extractor_status={"reverse_image": FlagStatus.FIRED},

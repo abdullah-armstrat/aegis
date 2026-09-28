@@ -1,7 +1,6 @@
-// Submit screen: two-column dossier layout EXACTLY per the design: image or video (solid grey
-// dropzone, left) beside caption (textarea, right), then an action row with the ink "Run
-// audit" button and a right-aligned privacy note. Reports the submission up so the result
-// screen can show what was reviewed.
+// Submit screen: the image or video (grey drop area, left) beside the caption (right), then the
+// optional date and web search, and an action row with "Run audit" and a short privacy note.
+// Passes the submission up so the result screen can show what was reviewed.
 
 import { useRef, useState } from "react";
 import { isVideo } from "../api";
@@ -85,7 +84,7 @@ export default function SubmitPanel({ onAnalyze, loading, webSearchAvailable = f
               <img src={preview} alt="preview" className="max-h-full max-w-full object-contain" />
             ) : (
               <div className="flex flex-col items-center gap-3 px-6 text-center">
-                {/* Image-placeholder icon (matches the design). */}
+                {/* Placeholder picture icon. */}
                 <svg width="34" height="34" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                   <rect x="3" y="3" width="18" height="18" rx="2" stroke="#9A9A9A" strokeWidth="1.5" />
                   <circle cx="8.5" cy="8.5" r="1.8" fill="#9A9A9A" />

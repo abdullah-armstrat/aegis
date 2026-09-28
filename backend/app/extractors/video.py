@@ -1,12 +1,9 @@
-"""Video handling: probe a file, pick keyframes at scene cuts, grab frames, pull out the audio.
+"""Video helpers: probe a file, pick keyframes at scene cuts, grab frames and extract the audio.
 
-Keyframes are the middle frame of each scene PySceneDetect finds (its content detector, default
-settings). A video with more than ``KEYFRAME_CAP`` scenes keeps its longest scenes, since they
-make up most of what a viewer sees. A video with no cuts is sampled at even intervals: one frame
-per ``EVEN_INTERVAL_S`` seconds, at the middle of each interval, also capped.
-
-Everything here shells out to ffmpeg/ffprobe or uses OpenCV through PySceneDetect; no model is
-loaded. Failures raise :class:`VideoError` with a message fit to show a user.
+Keyframes are the middle frame of each scene PySceneDetect finds. With more than ``KEYFRAME_CAP``
+scenes the longest are kept, as they are most of what a viewer sees. A video with no cuts is
+sampled evenly instead. This uses ffmpeg, ffprobe and OpenCV only, no models. Failures raise
+:class:`VideoError` with a message that can be shown to the user.
 """
 
 from __future__ import annotations
@@ -18,7 +15,7 @@ from dataclasses import dataclass
 from pathlib import Path
 
 KEYFRAME_CAP = 8
-EVEN_INTERVAL_S = 7.5
+EVEN_INTERVAL_S = 7.5  # one frame per this many seconds when there are no cuts
 
 
 class VideoError(ValueError):
@@ -27,6 +24,8 @@ class VideoError(ValueError):
 
 @dataclass(frozen=True)
 class VideoInfo:
+    """What ffprobe reports about a video: length in seconds and frame size in pixels."""
+
     duration_s: float
     has_audio: bool
     width: int
@@ -34,7 +33,7 @@ class VideoInfo:
 
 
 def probe(path: Path) -> VideoInfo:
-    """Duration, size and whether there is an audio track. Raises VideoError if unreadable."""
+    """Read the duration, size and whether there is audio. Raises VideoError if unreadable."""
     try:
         out = subprocess.run(
             ["ffprobe", "-v", "error", "-show_entries", "format=duration:stream=codec_type,width,height",
@@ -67,9 +66,9 @@ def even_timestamps(duration_s: float, cap: int = KEYFRAME_CAP) -> list[float]:
 
 def keyframes_from_scenes(scenes: list[tuple[float, float]], duration_s: float,
                           cap: int = KEYFRAME_CAP) -> tuple[list[float], str]:
-    """Keyframe times from scene boundaries, and how they were chosen ("scene cuts" or "even").
+    """Return keyframe times from scene boundaries and how they were chosen ("scene cuts" or "even").
 
-    One scene or none means the detector found no cut, so the video is sampled evenly instead.
+    One scene or none means no cut was found, so the video is sampled evenly instead.
     """
     if len(scenes) <= 1:
         return even_timestamps(duration_s, cap), "even"
@@ -90,8 +89,10 @@ def sample_keyframes(path: Path, duration_s: float) -> tuple[list[float], str]:
 
 
 def segment_frame_times(start: float, end: float, keyframe_times: list[float]) -> list[float]:
-    """The frames a stretch of speech is compared with: the frame at its midpoint, then every
-    keyframe that falls inside it, each once."""
+    """Times of the frames a stretch of speech is compared with.
+
+    That is the frame at its midpoint, then each keyframe inside it (no duplicates).
+    """
     middle = round((start + end) / 2, 3)
     inside = [t for t in keyframe_times if start <= t <= end and abs(t - middle) > 1e-3]
     return [middle] + sorted(inside)
@@ -113,7 +114,7 @@ def grab_frame(path: Path, t: float) -> bytes:
 
 
 def extract_audio(path: Path, wav: Path) -> None:
-    """The audio track as 16 kHz mono WAV, the rate the speech recogniser expects."""
+    """Write the audio track to ``wav`` as 16 kHz mono, the format Whisper expects."""
     try:
         out = subprocess.run(
             ["ffmpeg", "-v", "error", "-y", "-i", str(path), "-vn", "-ac", "1", "-ar", "16000", "-f", "wav", str(wav)],
@@ -121,6 +122,7 @@ def extract_audio(path: Path, wav: Path) -> None:
         )
     except (OSError, subprocess.TimeoutExpired) as exc:
         raise VideoError("The audio track could not be read.") from exc
+    # a WAV of 44 bytes or less is only the header, with no audio in it
     if out.returncode != 0 or not wav.is_file() or wav.stat().st_size <= 44:
         raise VideoError("The audio track could not be read.")
 
@@ -141,6 +143,6 @@ def thumbnail(png: bytes, width: int = 160) -> str:
 
 
 def clock(seconds: float) -> str:
-    """Seconds as m:ss, the way the interface and the flags cite moments."""
+    """Format seconds as m:ss, as the interface and the flags show times."""
     total = int(round(seconds))
     return f"{total // 60}:{total % 60:02d}"

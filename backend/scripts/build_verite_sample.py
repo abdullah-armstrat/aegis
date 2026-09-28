@@ -1,30 +1,28 @@
 """Draw the dataset C sample from VERITE and download its images from their original URLs.
 
-VERITE (Papadopoulos et al., 2024) pairs real-world captions with images, labelled "true",
-"miscaptioned" or "out-of-context". Its annotation files come from the authors' official GitHub
-repository at a fixed commit; the images are not redistributed there, so each one is fetched from
-the URL the authors recorded, exactly as their own preparation script does.
+VERITE (Papadopoulos et al., 2024) pairs real captions with images labelled "true", "miscaptioned"
+or "out-of-context". The annotation files (Apache-2.0) come from the authors' GitHub repository at
+a pinned commit. The images are not in that repository, so each is fetched from the URL the authors
+recorded, as their own preparation script does.
 
-What this script does:
-  1. Fetches VERITE.csv and VERITE_articles.csv from the pinned commit into data/verite/.
-  2. Shuffles each label's pairs with a fixed seed. The first 100 are the draw; the rest of the
-     shuffled list is that label's reserve, used strictly in order.
-  3. Downloads every image the draw needs. A download counts only if it decodes as an image of at
-     least 64 px on each side (an HTML error page or a tiny placeholder does not).
-  4. Replaces each pair whose image failed with the next reserve pair of the same label whose
-     image downloads. If a label's reserve runs out, it reports the shortfall rather than padding.
-  5. Writes the sample (IDs and labels only) to data/labels/C_verite_sample.csv, the seed and
-     counts to data/labels/C_verite_sample_meta.json, and every download attempt to
-     data/verite/download_log.csv.
+Steps:
+  1. Fetch VERITE.csv and VERITE_articles.csv at the pinned commit into data/verite/.
+  2. Shuffle each label's pairs with a fixed seed: the first 100 are the draw, the rest are that
+     label's reserve, used in order.
+  3. Download the draw's images. A download counts only if it decodes as an image of at least
+     64 px on each side (so not an HTML error page or a tiny placeholder).
+  4. Replace each pair whose image failed with the next reserve pair of that label whose image
+     downloads; if the reserve runs out, report the shortfall instead of padding.
+  5. Write the sample (IDs and labels only) to data/labels/C_verite_sample.csv, the seed and counts
+     to data/labels/C_verite_sample_meta.json, and every attempt to data/verite/download_log.csv.
 
-Images, captions and URLs stay in data/verite/, which git ignores. Only IDs, labels, the seed and
-this script are committed. The truthful and miscaptioned pair of one article share an image, so
-the sample records each pair's article ID for any later split that must keep articles together.
+data/verite/ (images, captions, URLs) is git-ignored; only IDs, labels, the seed and this script are
+committed. The true and miscaptioned pairs of one article share an image, so the sample keeps each
+pair's article ID for any split that must keep articles together.
 
-With ``--fresh`` it instead builds the fresh set: every VERITE pair whose article is not in the
-sample, for testing on pairs no earlier evaluation has touched. Every image is tried once, the same
-way as above; a pair whose image fails is dropped, since the fresh set is everything left and has
-no reserves. It writes data/labels/C_verite_fresh.csv (IDs and labels only),
+--fresh builds the fresh set instead: every VERITE pair whose article is not in the sample, for
+testing on pairs no earlier evaluation has touched. Each image is tried once and a failed pair is
+dropped (there are no reserves). Writes data/labels/C_verite_fresh.csv (IDs and labels only),
 data/labels/C_verite_fresh_meta.json and data/verite/fresh_download_log.csv.
 
 Run:  python backend/scripts/build_verite_sample.py [--fresh]
@@ -68,7 +66,7 @@ EXT = {"JPEG": "jpg", "PNG": "png", "WEBP": "webp", "GIF": "gif", "BMP": "bmp", 
 
 
 def fetch_annotations(client: httpx.Client) -> dict[str, str]:
-    """Download the two annotation files at the pinned commit; return their SHA-256."""
+    """Download the two annotation files at the pinned commit and return their SHA-256."""
     WORK.mkdir(parents=True, exist_ok=True)
     digests = {}
     for name in ("VERITE.csv", "VERITE_articles.csv"):
@@ -133,11 +131,12 @@ def download(client: httpx.Client, image: str, url: str) -> dict:
 
 
 def failure_reasons(attempts: list[dict]) -> dict[str, int]:
+    """Count failed downloads by reason, ignoring the details in brackets."""
     return dict(Counter(re.sub(r"\(.*\)", "", r["reason"]).strip() for r in attempts if not r["ok"]))
 
 
 def build_fresh() -> None:
-    """Every pair whose article is not in the sample, with the images that can still be fetched."""
+    """Build the fresh set: every pair whose article is not in the sample and whose image downloads."""
     recorded = json.loads(OUT_META.read_text(encoding="utf-8"))["annotation_sha256"]
     for name, digest in recorded.items():
         if hashlib.sha256((WORK / name).read_bytes()).hexdigest() != digest:
@@ -183,6 +182,7 @@ def build_fresh() -> None:
 
 
 def main() -> None:
+    """Draw the sample, or build the fresh set with --fresh."""
     parser = argparse.ArgumentParser()
     parser.add_argument("--fresh", action="store_true", help="build the fresh set instead of the sample")
     if parser.parse_args().fresh:
@@ -208,7 +208,7 @@ def main() -> None:
                 for rec in pool.map(lambda iu: download(client, *iu), todo):
                     results[rec["image"]] = rec
 
-        # Primary draw first, all labels at once; reserves are fetched only when needed.
+        # Fetch the main draw for all labels first; reserve images only when they are needed.
         get([(p["image"], p["url"]) for label in LABELS for p in order[label][:PER_LABEL]])
 
         chosen, summary = [], {}

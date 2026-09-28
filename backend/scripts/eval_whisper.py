@@ -1,25 +1,24 @@
-"""WP-3 model comparison: openai-whisper tiny against base.
+"""Compare openai-whisper tiny with base, and choose the decoding settings for base.
 
-The rule was fixed before any transcription ran: the model with the lower word error rate on the
-100 LibriSpeech utterances wins; if the two are within 2 percentage points, the faster one wins
-(lower mean transcription time per dataset E clip).
+The model rule was fixed before any transcription ran: the lower word error rate on the 100
+LibriSpeech utterances wins; if the two are within 2 percentage points, the faster one wins (lower
+mean transcription time per dataset E clip).
 
 Word error rate: reference and hypothesis both go through Whisper's EnglishTextNormalizer, then
 word-level edit distance; the rate is total edits over total reference words. Decoding and
-filtering are the app's own (app/extractors/speech.py). Dataset E audio is taken from each clip
-the way the app takes it.
+filtering are the app's own (app/extractors/speech.py), and dataset E audio is taken from each clip
+the way the app takes it. An invented sentence is a Whisper segment more than half of whose words
+are insertions in the word alignment against the reference.
 
 Run one model per process, then compare:
   python backend/scripts/eval_whisper.py run --model tiny
   python backend/scripts/eval_whisper.py run --model base
   python backend/scripts/eval_whisper.py compare
 
-Decoding settings for base, chosen on a tuning set, never on the test sets (ADR-047):
+Decoding settings for base are chosen on the tuning sets, never on the test sets:
   python backend/scripts/eval_whisper.py decoding --setting a|b|c --on tuning|tuning_long|original|e
-  python backend/scripts/eval_whisper.py choose          (ADR-047, on the short tuning set)
-  python backend/scripts/eval_whisper.py choose-long     (ADR-049, on the long tuning files)
-An invented sentence is a Whisper segment more than half of whose words are insertions in the word
-alignment against the reference.
+  python backend/scripts/eval_whisper.py choose          (on the short tuning set)
+  python backend/scripts/eval_whisper.py choose-long     (on the long tuning files)
 """
 
 from __future__ import annotations
@@ -66,7 +65,7 @@ def inserted(ref: list[str], hyp: list[str]) -> list[bool]:
         for j in range(1, m + 1):
             d[i][j] = min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + (ref[i - 1] != hyp[j - 1]))
     flags, i, j = [False] * m, n, m
-    while i > 0 or j > 0:  # from the end: where a tie allows, the later words are the extra ones
+    while i > 0 or j > 0:  # backtrack from the end; on a tie the later words count as inserted
         if j > 0 and d[i][j] == d[i][j - 1] + 1:
             flags[j - 1] = True
             j -= 1
@@ -77,6 +76,7 @@ def inserted(ref: list[str], hyp: list[str]) -> list[bool]:
     return flags
 
 
+# (a) Whisper's defaults; (b) no conditioning on the previous text; (c) b plus a 2 s silence threshold.
 SETTINGS = {
     "a": {"condition_on_previous_text": True, "hallucination_silence_threshold": None},
     "b": {"condition_on_previous_text": False, "hallucination_silence_threshold": None},
@@ -85,7 +85,7 @@ SETTINGS = {
 
 
 def decoding(setting: str, on: str) -> None:
-    """Whisper base with one decoding setting, on the tuning set, the original 100 or dataset E."""
+    """Run Whisper base with one decoding setting on a tuning set, the original 100 or dataset E."""
     from whisper.normalizers import EnglishTextNormalizer
 
     from app.extractors.speech import load_model, run_model
@@ -141,7 +141,7 @@ def decoding(setting: str, on: str) -> None:
 
 
 def choose() -> None:
-    """The lowest tuning-set error rate; a tie at two decimals to fewer invented sentences, then (a)."""
+    """Lowest tuning-set WER wins; ties (to two decimals) go to fewer invented sentences, then (a)."""
     runs = {k: json.loads((OUT / f"wp5_whisper_{k}_tuning.json").read_text(encoding="utf-8")) for k in SETTINGS}
     order = sorted(SETTINGS, key=lambda k: (runs[k]["wer_pct"], runs[k]["invented_sentences"], k != "a"))
     res = {"rule": "lowest tuning-set WER; ties at two decimals to fewer invented sentences, then (a)",
@@ -153,8 +153,10 @@ def choose() -> None:
 
 
 def choose_long() -> None:
-    """Seeded, on the long tuning files: the fewest invented sentences, then the lowest error rate;
-    ties go to (a), so another setting is kept only if it helps (ADR-049)."""
+    """Pick the fewest invented sentences on the long tuning files, then the lowest WER.
+
+    Ties go to (a), so another setting is only chosen if it actually helps.
+    """
     runs = {k: json.loads((OUT / f"wp5_whisper_{k}_tuning_long.json").read_text(encoding="utf-8")) for k in SETTINGS}
     order = sorted(SETTINGS, key=lambda k: (runs[k]["invented_sentences"], runs[k]["wer_pct"], k != "a"))
     res = {"rule": "fewest invented sentences, then lowest WER; ties to (a)",
@@ -166,6 +168,7 @@ def choose_long() -> None:
 
 
 def run(model_name: str, out_name: str | None = None) -> None:
+    """Transcribe LibriSpeech and dataset E with one model, timing each item and the model load."""
     import psutil
     from whisper.normalizers import EnglishTextNormalizer
 
@@ -212,6 +215,7 @@ def run(model_name: str, out_name: str | None = None) -> None:
 
 
 def compare() -> None:
+    """Summarise the tiny and base runs and apply the model rule."""
     res = {}
     for m in ("tiny", "base"):
         d = json.loads((OUT / f"wp3_whisper_{m}.json").read_text(encoding="utf-8"))

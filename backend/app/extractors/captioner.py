@@ -1,14 +1,9 @@
-"""Scene-caption extractor: fills the bundle's ``scene_descriptions``.
+"""Scene captioner: fills the bundle's ``scene_descriptions`` using BLIP-base.
 
-Describes what an image actually shows, so the fusion core can compare that description with
-the user's caption (the caption↔scene-mismatch check). Uses BLIP-base via ``transformers``,
-loaded lazily and memoised so import stays cheap. It is read from the local Hugging Face cache
-only; ``allow_model_downloads`` lets a missing copy be downloaded. Measured on the development laptop on 2026-05-31: first load 118.0s (including the
-one-time model download), then warm captioning ~1.6s/image on CPU — well under the pre-set
-20s/image threshold, so it runs locally rather than on a hosted service.
-
-Like the other extractors, this never raises: if the model or its deps are unavailable it
-returns a ``NOT_ASSESSED`` result so fusion records honestly that the check could not run.
+The fusion core compares this description of the picture with the user's caption. BLIP is loaded
+lazily from the local Hugging Face cache (``allow_model_downloads`` lets it download). On the dev
+laptop the first load took 118 s including the download, then about 1.6 s per image on CPU, well
+under the 20 s limit set beforehand, so it runs locally.
 """
 
 from __future__ import annotations
@@ -19,9 +14,9 @@ from io import BytesIO
 
 from app.models import FlagStatus, SceneDescription
 
-# Single source of truth for the model id, so a swap / accuracy trial is a one-line change.
+# model id kept in one place so it is easy to swap
 _MODEL_NAME = "Salesforce/blip-image-captioning-base"
-_MAX_NEW_TOKENS = 30
+_MAX_NEW_TOKENS = 30  # upper limit on caption length, in tokens
 
 
 @dataclass
@@ -35,15 +30,15 @@ class CaptionResult:
 
 @lru_cache(maxsize=1)
 def _get_model():
-    """Lazily build and memoise the BLIP processor+model (CPU), from local files unless downloads are allowed."""
+    """Load the BLIP processor and model once (CPU), from local files unless downloads are allowed."""
     from transformers import BlipForConditionalGeneration, BlipProcessor
 
     from app.config import get_settings
 
     local_only = not get_settings().allow_model_downloads
     if local_only:
-        # The cached folder itself, not the Hub name: given a name, transformers asks the Hub about
-        # a safetensors conversion even with local_files_only set.
+        # pass the cached folder, not the Hub name: given a name, transformers still asks the Hub
+        # about a safetensors conversion even with local_files_only set
         from huggingface_hub import snapshot_download
 
         source = snapshot_download(_MODEL_NAME, local_files_only=True)
@@ -58,8 +53,7 @@ def _get_model():
 def describe_scene(image_bytes: bytes) -> CaptionResult:
     """Caption the image and return a :class:`CaptionResult`.
 
-    Never raises: unreadable bytes or a model/dep failure become a ``NOT_ASSESSED`` result so
-    the caller can record honestly that the check could not be performed.
+    Never raises: unreadable bytes or a model failure give NOT_ASSESSED, an empty caption CLEAR.
     """
     try:
         import torch

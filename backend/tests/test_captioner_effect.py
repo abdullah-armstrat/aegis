@@ -1,15 +1,7 @@
-"""Before/after of the BLIP captioner on the caption↔scene check, encoded as assertions.
+"""Checks what turning on the BLIP captioner does to the caption-vs-scene rule.
 
-This pins the captioner's *effect* so it is execution-verified by the test's pass/fail rather
-than transcribed from a screen. On one real (synthetic) beach image:
-
-  BEFORE (captioner off): caption↔scene is NOT_ASSESSED — no scene description exists.
-  AFTER  (captioner on):  BLIP describes the scene, so the rule becomes assessable, a matching
-                          caption is CLEAR and a mismatching caption FIRES.
-
-Marked ``slow`` because it loads BLIP. The labelled eval set scores caption↔scene at the rule
-level with injected scenes (a deterministic stand-in); this test is the live evidence that the
-real captioner moves the check from "could not assess" to a correct verdict.
+On a simple drawn beach image: with the captioner off the rule is NOT_ASSESSED; with it on,
+a matching caption is CLEAR and an unrelated one fires. Marked ``slow`` as it loads BLIP.
 """
 
 from io import BytesIO
@@ -57,9 +49,9 @@ def test_captioner_before_after_caption_scene(monkeypatch):
     before = _status(img, matching, use_captioner=False, monkeypatch=monkeypatch)
     assert before == FlagStatus.NOT_ASSESSED
 
-    # AFTER: captioner on -> the check runs. A matching caption is not a mismatch...
+    # AFTER: captioner on -> the check runs, and a matching caption is clear...
     after_match = _status(img, matching, use_captioner=True, monkeypatch=monkeypatch)
-    assert after_match in {FlagStatus.CLEAR, FlagStatus.FIRED}  # it RAN (not NOT_ASSESSED)
+    assert after_match in {FlagStatus.CLEAR, FlagStatus.FIRED}  # it ran
     assert after_match == FlagStatus.CLEAR
 
     # ...and a clearly unrelated caption fires the mismatch.

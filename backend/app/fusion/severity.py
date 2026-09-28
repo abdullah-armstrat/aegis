@@ -1,30 +1,17 @@
-"""Severity: how prominently a finding is shown, by one stated rule per level (ADR-045, ADR-048).
+"""Severity: how prominently a finding is shown.
 
-Severity says how much weight the evidence behind a finding can bear. Two things decide it: the
-kind of evidence, and how often the check raised a finding where there was nothing to find (its
-false-alarm rate). It is not a probability that a post is misleading, and no level is named or
-described with a verdict word.
+It depends on the kind of evidence and on how often the check raised false alarms in the
+evaluation (the upper end of the 95% Wilson interval). It is not a probability that the post is
+misleading.
 
-The false-alarm rate used is the upper end of the 95% Wilson interval of what was measured, not the
-measured share itself, because some checks rest on very few cases: a check with no false alarm in
-15 cases could still have one in five.
-
-  Direct evidence   something the user can open and see for themselves: the same image on
-                    another page, with that page's date.
-  Indirect signal   a pattern that suggests something without showing it: a model's similarity
-                    score, or wording markers.
-
-  high    Direct evidence that is complete: the same image found on a page dated before the
-          stated posting date, by a check whose false-alarm rate is under 5%.
-  medium  Direct evidence that is incomplete (the same image found, but no posting date was
-          given, or the pages that could be earlier carry no date), by a check whose false-alarm
-          rate is under 5%; or an indirect signal whose false-alarm rate is 10% or less.
-  low     Any other finding: an indirect signal whose false-alarm rate is above 10% or not yet
-          measured, or direct evidence from a check whose rate is 5% or more or not yet measured.
-  info    The check raised no finding: it was clear, or it could not be assessed.
-
-One cap on top: a finding that rests on the live web search is medium at most, because a web
-page's date is read from the page and the spot-check found 3 of 12 checkable page dates wrong.
+Direct evidence is something the user can open, like the same image on a dated page. An indirect
+signal is a similarity score or wording markers.
+  high    direct and complete (a page dated before the posting date), rate under 5%
+  medium  direct but incomplete (no posting date, or undated pages), rate under 5%,
+          or an indirect signal with a rate of 10% or less
+  low     anything else, including checks that have not been measured
+  info    the check was clear or could not run
+Live web search findings are capped at medium, since page dates are sometimes wrong.
 """
 
 from __future__ import annotations
@@ -42,6 +29,8 @@ _ORDER = [Severity.INFO, Severity.LOW, Severity.MEDIUM, Severity.HIGH]
 
 
 class Evidence(str, Enum):
+    """The kind of evidence a finding rests on."""
+
     DIRECT_COMPLETE = "direct, complete"
     DIRECT_INCOMPLETE = "direct, incomplete"
     INDIRECT = "indirect"
@@ -61,38 +50,44 @@ class FalseAlarms:
 
     @property
     def upper(self) -> float:
-        """The upper end of the 95% Wilson interval of the rate."""
+        """Upper end of the 95% Wilson interval of the rate.
+
+        Used instead of the rate itself because some checks rest on few cases: no false alarm in
+        15 cases could still mean one in five.
+        """
         n, p = self.cases, self.raised / self.cases
         centre = (p + _Z * _Z / (2 * n)) / (1 + _Z * _Z / n)
         half = _Z * math.sqrt(p * (1 - p) / n + _Z * _Z / (4 * n * n)) / (1 + _Z * _Z / n)
         return min(1.0, centre + half)
 
 
-# Each check's false alarms, from the evaluation named (the project's decision log). None: not yet
-# measured, which puts any finding of that check at "low".
+# Each check's false alarms in the evaluation. None means not measured yet, which puts any
+# finding of that check at "low".
 FALSE_ALARMS: dict[str, FalseAlarms | None] = {
-    # The image history index: no unrelated pair matched by the hash or by keypoints (WP-1b, ADR-022).
+    # history index: no unrelated image pair matched by the hash or by keypoints
     "recycled_index": FalseAlarms(0, 9977, "unrelated image pairs matched, WP-1b"),
-    # The live web search: none of 15 never-posted photos was found on any page (WP-4, ADR-033).
+    # live web search: none of 15 never-posted photos was found on any page
     "recycled_web": FalseAlarms(0, 15, "never-posted photos found on a page, WP-4 dataset D"),
-    # Truthful captions flagged on the 165 fresh VERITE pairs (ADR-024; unchanged by ADR-041).
+    # truthful captions flagged among the 165 unseen VERITE pairs
     "caption_image": FalseAlarms(3, 48, "truthful fresh VERITE pairs flagged, picture only"),
     "caption_meaning": FalseAlarms(8, 48, "truthful fresh VERITE pairs flagged, meaning"),
     "caption_overlap": FalseAlarms(41, 48, "truthful fresh VERITE pairs flagged, word overlap"),
     "caption_video": None,        # no set of captioned videos has been evaluated
-    # Matching lines flagged on the held-out-side dataset E clips, with the decoding of ADR-049.
+    # matching lines flagged on the held-out dataset E clips, with the current Whisper settings
     "speech_picture": FalseAlarms(9, 50, "matching lines flagged, held-out dataset E clips"),
-    # Honest dataset F texts it fired on (ADR-053; the flag's words since then, ADR-057).
+    # dataset F texts labelled honest that the flag fired on
     "emotional_framing": FalseAlarms(5, 49, "honest dataset F texts flagged"),
     "llm": None,                  # not measured on real pairs
 }
 
-# The most a check's findings can reach, whatever its rate.
+# The highest level a check can reach. Web page dates are read from the pages themselves, and a
+# spot-check found 3 of 12 checkable dates wrong, so the live web search stops at medium.
 CAPS: dict[str, Severity] = {"recycled_web": Severity.MEDIUM}
 
 
 def severity(check: str, evidence: Evidence, status: FlagStatus = FlagStatus.FIRED) -> Severity:
-    """The level for a finding of ``check`` resting on ``evidence``, by the rule above."""
+    """Return the level for a finding of ``check`` resting on ``evidence``, using the rules at the
+    top of this module and the rates in ``FALSE_ALARMS``, then any cap in ``CAPS``."""
     if status != FlagStatus.FIRED:
         return Severity.INFO
     measured = FALSE_ALARMS.get(check)

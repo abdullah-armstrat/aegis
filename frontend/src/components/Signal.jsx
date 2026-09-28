@@ -1,8 +1,8 @@
-// The three-state signal as a 42×42 ICON BOX (left-rail), exactly per the dossier design.
-// Distinguished by SHAPE + the box treatment before colour:
-//   fired        → pale amber box (#FBF1DD), amber flag icon (#B7791F)
-//   not_assessed → white box with a DASHED border (#AEB6C0), slate broken-ring icon (#5B6470)
-//   clear        → pale green box (#E6EFE8), green ring+tick (#3F7A52)
+// The status icon: a 42x42 box on the card's left rail. The three states differ by shape and
+// box style first, colour second:
+//   fired         pale amber box (#FBF1DD), amber flag icon (#B7791F)
+//   not_assessed  white box with a dashed border (#AEB6C0), grey broken-ring icon (#5B6470)
+//   clear         pale green box (#E6EFE8), green ring and tick (#3F7A52)
 // `flag.status` from the backend: "fired" | "clear" | "not_assessed".
 
 export const STATUS_META = {
@@ -46,7 +46,7 @@ export default function Signal({ status }) {
     );
   }
 
-  // not_assessed: white box, dashed border, broken ring, deliberately incomplete.
+  // not_assessed: white box, dashed border and a broken ring, so it looks unfinished.
   return (
     <div
       className="flex h-[42px] w-[42px] items-center justify-center bg-white"

@@ -1,7 +1,7 @@
-"""Contract tests: the Evidence Bundle / Scorecard models validate as designed.
+"""Tests for the EvidenceBundle and Scorecard models.
 
-These lock the shape that everything downstream depends on and assert the
-'explain, don't verdict' rule by construction — there is no trust-score field.
+They fix the data shape the rest of the app relies on, and check there is no trust score or
+verdict field, since the app explains flags rather than giving a verdict.
 """
 
 import json
@@ -32,7 +32,7 @@ def test_minimal_image_bundle():
     assert bundle.meta.modality == Modality.IMAGE
     assert bundle.scene_descriptions == []
     assert bundle.transcript is None
-    # The contract is versioned so later shapes are distinguishable.
+    # Versioned so older stored shapes can be told apart.
     assert bundle.schema_version == SCHEMA_VERSION
 
 
@@ -50,7 +50,7 @@ def test_full_image_bundle_roundtrip():
         ],
         meta=Meta(modality=Modality.IMAGE, source_ref="ex2.jpg"),
     )
-    # Round-trips through JSON without loss.
+    # Survives a JSON round trip unchanged.
     assert EvidenceBundle.model_validate_json(bundle.model_dump_json()) == bundle
 
 
@@ -64,15 +64,14 @@ def test_flag_has_explanation_and_what_to_check():
     )
     assert flag.plain_explanation
     assert flag.what_to_check
-    # A Flag defaults to FIRED so existing call sites keep their meaning.
+    # Status defaults to FIRED.
     assert flag.status == FlagStatus.FIRED
-    # 'Explain, don't verdict': the Flag model carries no trust/confidence verdict field.
+    # No trust or confidence field on a flag.
     assert "trust" not in Flag.model_fields
 
 
 def test_flag_distinguishes_clear_from_not_assessed():
-    """The load-bearing distinction: 'checked and clear' must not look like
-    'could not check'. Both are representable and are different from a fired flag."""
+    """'Checked and clear' and 'could not check' are different statuses."""
     clear = Flag(
         type=FlagType.CAPTION_CONTENT_MISMATCH,
         status=FlagStatus.CLEAR,
@@ -102,7 +101,7 @@ def test_scorecard_has_no_verdict_field():
 
 
 def test_no_flag_type_or_field_is_declared_without_being_produced():
-    """The AI-generation hint was declared but never produced, so it was removed."""
+    """The generated-image hint was never produced by any check, so it was removed."""
     assert "ai_generation_hint" not in {t.value for t in FlagType}
     assert "ai_gen_hint" not in EvidenceBundle.model_fields
 
@@ -128,7 +127,7 @@ def test_a_different_schema_version_is_refused_with_a_clear_error(reader, model,
     message = str(refused.value)
     assert f"This {what} has schema version '1.0'" in message
     assert f"reads version '{SCHEMA_VERSION}' only" in message
-    # Validating the model directly refuses it too, with the same reason.
+    # Validating the model directly refuses it for the same reason.
     with pytest.raises(ValidationError, match="has schema version '1.0'"):
         model.model_validate(stored)
 

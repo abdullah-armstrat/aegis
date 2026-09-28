@@ -1,15 +1,15 @@
 """Fresh hard cases for image matching: 20 pairs of different NASA photos of the same subject.
 
-The procedure was fixed before anything was downloaded (the project's decision log, ADR-056). For
-each subject the NASA Image and Video Library is searched (images only) and its results are taken in
-the order given, skipping any item in dataset A, any item whose record or file metadata names a
-third-party right (dataset A's rule, from get_dataset_a.py), any item without a JPEG or PNG file,
-and any photo within 10 bits of the first one taken (the same photo); the first two left form the
-pair. NASA's large rendition is downloaded where there is one, else the original.
+The steps were fixed before anything was downloaded. For each subject the NASA Image and Video
+Library is searched (images only) and results are taken in order, skipping items in dataset A,
+items whose record or metadata names a third-party right (dataset A's rule), items with no JPEG or
+PNG file, and photos within 10 bits of the first one taken (the same photo). The first two left
+form the pair. NASA's large rendition is used where there is one, else the original. NASA media
+are public domain.
 
 Files go to data/hard_pairs/ (ignored); the manifest to data/labels/hard_pairs.csv.
 
-Run from the repo root: python backend/scripts/get_hard_pairs.py
+Run (from the repo root):  python backend/scripts/get_hard_pairs.py
 """
 
 from __future__ import annotations
@@ -52,8 +52,8 @@ NASA = re.compile(r"\bnasa\b|nasa\.gov|\bPAO\b", re.I)
 
 
 def third_party_rights(record: dict, meta: dict) -> list[str]:
-    """Dataset A's test, clarified (ADR-056): NASA's own notices, the colour profile's copyright and
-    a copyright flag set to False name no third party and are not counted."""
+    """Dataset A's rights test, except that NASA's own notices, the colour profile's copyright and
+    a copyright flag set to False are not counted (they name no third party)."""
     marks = []
     for text in [str(record.get(k, "")) for k in ("description", "title", "photographer", "secondary_creator")]:
         if THIRD_PARTY.search(text):

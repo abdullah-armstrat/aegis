@@ -1,22 +1,23 @@
-"""Build the image history index the recycled-context lookup searches.
+"""Build the image history index that the recycled-context lookup searches.
 
-The index holds two kinds of entry. Dataset A: 40 dated NASA photos listed in
-``data/labels/A_originals.csv``, hashed from the local files that get_dataset_a.py downloads
-(run it first; the files are not in the repository). Illustrative: this script draws four
-synthetic images — author-generated, deterministic from fixed seeds, no third-party content — into
-``data/illustrative/`` and registers two of them in ``backend/app/data/image_history_index.json``
-with the histories the earlier filename-keyed fixture held. Those sources are fictional
-pages on example.com, a domain reserved for examples by RFC 2606; they were fictional in the
-fixture too. The other two images are deliberately left out of the index, so they demonstrate the
-"lookup ran, no match" path.
+The index has two kinds of entry:
+
+  dataset A     40 dated NASA photos (public domain) listed in data/labels/A_originals.csv, hashed
+                from the local files that get_dataset_a.py downloads (run it first; the files are
+                not in the repository)
+  illustrative  four synthetic images drawn here from fixed seeds (no third-party content) into
+                data/illustrative/. Two are registered, with the fictional example.com histories
+                (RFC 2606) from the earlier filename-keyed fixture; the other two are left out so
+                they show the "lookup ran, no match" path.
 
   flood_illustrative.png    registered, earliest appearance 2019-03-04 (was flood_recycled_2019.jpg)
   protest_illustrative.png  registered, earliest appearance 2017-06-22 (was protest_recycled.jpg)
   sunset_illustrative.png   not registered                              (was consistent_sunset.jpg)
   cat_illustrative.png      not registered                              (was studio_cat.jpg)
 
-Rerunning regenerates byte-identical images and hashes; ``test_image_index.py`` checks that the
-committed index still matches the committed images.
+The index is written to backend/app/data/image_history_index.json, with the known images' keypoints
+in a .keypoints.npz file next to it. Rerunning gives byte-identical images and hashes;
+test_image_index.py checks that the committed index still matches the committed images.
 
 Run:  python backend/scripts/build_image_index.py
 """
@@ -46,7 +47,7 @@ DATASET_A_DIR = _BACKEND_DIR.parent / "data" / "A_originals"
 DATASET_A_MANIFEST = _BACKEND_DIR.parent / "data" / "labels" / "A_originals.csv"
 W, H = 480, 320
 
-# Histories carried over verbatim from tests/eval/fixtures/reverse_image_cache.json.
+# Histories copied unchanged from tests/eval/fixtures/reverse_image_cache.json (fictional sources).
 FLOOD_SOURCES = [
     {"url": "https://news.example.com/2019/03/severe-flooding-region-a",
      "title": "Severe flooding hits Region A", "published_date": "2019-03-04",
@@ -64,7 +65,7 @@ PROTEST_SOURCES = [
 
 
 def _texture(seed: int, scale: int) -> np.ndarray:
-    """Smooth seeded noise in [0, 1], H x W: gives each image its own large-scale structure."""
+    """Smooth seeded noise in [0, 1], H x W, so each image gets its own large-scale structure."""
     rng = np.random.default_rng(seed)
     small = rng.random((H // scale + 2, W // scale + 2))
     img = Image.fromarray((small * 255).astype(np.uint8)).resize((W, H), Image.Resampling.BICUBIC)
@@ -136,10 +137,10 @@ IMAGES = {
 
 
 def dataset_a_entries() -> tuple[list[dict], dict[str, tuple[str, str]]]:
-    """One entry per dataset A photo, dated by the NASA record, hashed from the local file.
+    """One entry per dataset A photo, dated by its NASA record and hashed from the local file.
 
-    The photos are third-party files kept out of the repository; get_dataset_a.py fetches them.
-    Each file must still be the one the manifest describes (same SHA-256).
+    The photos are not in the repository (get_dataset_a.py fetches them). Each file must still
+    match the SHA-256 in the manifest.
     """
     with open(DATASET_A_MANIFEST, encoding="utf-8", newline="") as fh:
         rows = list(csv.DictReader(fh))
@@ -171,6 +172,7 @@ def dataset_a_entries() -> tuple[list[dict], dict[str, tuple[str, str]]]:
 
 
 def main() -> None:
+    """Draw the illustrative images, write the index and keypoints, and print hash distances."""
     IMAGES_DIR.mkdir(parents=True, exist_ok=True)
     hashes: dict[str, str] = {}
     entries = []
@@ -227,7 +229,7 @@ def main() -> None:
     print(f"across all {len(every)} images: closest pair {closest[1]} / {closest[2]} at {closest[0]} bits; "
           f"pairs at or below 10 bits: {sum(d <= 10 for d, _, _ in pairs)}")
 
-    # The known images' keypoints, stored next to the index so no lookup has to compute them.
+    # Store the known images' keypoints next to the index so a lookup doesn't have to compute them.
     from app.extractors.reverse_image import index_keypoints, keypoints_fingerprint, keypoints_path, load_index
 
     known = index_keypoints(str(INDEX_PATH), keypoints_fingerprint(INDEX_PATH, load_index(str(INDEX_PATH))))

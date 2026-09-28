@@ -1,13 +1,12 @@
-// The interface review's automated measures and walkthrough pack (docs/INTERFACE_REVIEW.md,
-// sections 3, 5 and 6). Nothing here judges the interface: it records what the screens show and
-// what they measure, for the reviewer. Run with `npm run review:interface` (ROUND=A or B); it
-// needs dataset A and E on this machine and writes to results/, which is not in the repository.
+// Automated measures and the walkthrough pack for the interface review. Nothing here judges the
+// interface: it records what the screens show and measure, for the reviewer. Run with
+// `npm run review:interface` (ROUND=A or B). Needs datasets A and E on this machine and writes
+// to results/, which is not in the repository.
 //
-//   results/interface_review_<ROUND>.json              the automated measures
-//   results/interface_review/round_<ROUND>/            T1-T5 at 1366 x 768, one numbered
-//                                                       screenshot per step, captions.csv,
-//                                                       index.html, and round_<ROUND>.csv (section
-//                                                       6's columns) left empty for the reviewer
+//   results/interface_review_<ROUND>.json      the automated measures
+//   results/interface_review/round_<ROUND>/    T1-T5 at 1366 x 768 (one numbered screenshot per
+//                                              step), captions.csv, index.html, and an empty
+//                                              round_<ROUND>.csv for the reviewer to fill in
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 import { execFileSync } from "node:child_process";
@@ -31,10 +30,9 @@ const CLIP = join(ROOT, "data", "E_videos", "clips", "E09.mp4");
 const CLIP_CAPTION = "A hurricane seen from the space station";
 const TEXT_POST_CAPTION = "Read this before it disappears";
 
-// Keystroke-Level Model operators (Card, Moran and Newell, 1980), in seconds. K is the average
-// non-secretarial typist; a mouse click is B B (press, release). R, the system's response, is
-// measured on each run. Scrolling has no operator in the model: it is counted under
-// controls_visible instead.
+// Keystroke-Level Model operators in seconds (Card, Moran and Newell, 1980). K is an average
+// non-secretarial typist; a click is B B (press, release). R, the system's response, is measured
+// on each run. The model has no operator for scrolling, so that goes under controls_visible.
 const KLM = { K: 0.28, P: 1.1, B: 0.1, H: 0.4, M: 1.35 };
 const KLM_NOTES = {
   K: "keystroke (average non-secretarial typist)",
@@ -75,8 +73,8 @@ function ffmpeg(args) {
 function materials() {
   mkdirSync(WORK, { recursive: true });
   const font = process.platform === "win32" ? ":fontfile='C\\:/Windows/Fonts/arialbd.ttf'" : "";
-  // Dense enough that the words cover more than 40% of it (45% measured), so the picture check
-  // reports it as mostly text.
+  // Words cover more than 40% of this image (45% measured), so the picture check calls it
+  // mostly text.
   const lines = ["BREAKING NEWS TODAY", "THE BRIDGE IS CLOSED", "SHARE THIS WITH ALL", "YOUR FAMILY NOW",
     "BEFORE THEY DELETE", "THIS POST FOREVER"];
   const text = lines.map((l, i) =>
@@ -93,8 +91,8 @@ function materials() {
 // --- measures taken on a screen ------------------------------------------------------------------
 
 async function measureScreen(page, name, caption) {
-  // The whole screen, top to bottom at 1366 wide, for the heuristic review; taken first, so a
-  // passing state such as loading is caught as it is measured.
+  // Full-page screenshot for the heuristic review. Taken first so a short-lived state such as
+  // loading is still on screen.
   const file = `S${String(screenShots.length + 1).padStart(2, "0")}.png`;
   await page.screenshot({ path: join(PACK, file), fullPage: true });
   screenShots.push({ file, name, caption });
@@ -172,8 +170,7 @@ async function measureScreen(page, name, caption) {
 
 // --- the scripted tasks ----------------------------------------------------------------------------
 
-// Where a control is relative to what is on screen: 0 = visible now, n = n screens of scrolling
-// down to reach it, -n = n screens up.
+// How far a control is from the visible screen: 0 = visible now, n = n screens down, -n = n up.
 async function scrollsAway(locator) {
   return locator.evaluate((el) => {
     const r = el.getBoundingClientRect();
@@ -191,7 +188,7 @@ async function outline(locator, on) {
   }, on);
 }
 
-// One task: its steps run in order; each step's control is measured before the user acts.
+// Runs one task's steps in order, measuring each step's control before acting on it.
 async function runTask(page, size, task) {
   const record = [];
   let shot = 0;

@@ -1,6 +1,6 @@
-// The image and video flows end to end, in a real browser against the real backend.
-// Media is made with ffmpeg in a temporary folder, so no third-party files are needed; the last
-// test uses a narrated dataset E clip when it is present on this machine and is skipped otherwise.
+// Image and video flows end to end, in a real browser against the real backend.
+// Test media is made with ffmpeg in a temp folder, so no third-party files are needed. The
+// narrated-clip test uses a dataset E clip if it is on this machine and is skipped otherwise.
 import { test, expect } from "@playwright/test";
 import { execFileSync } from "node:child_process";
 import { existsSync, mkdtempSync } from "node:fs";
@@ -91,7 +91,7 @@ test("video flow: player, keyframe strip, reasons, and every time button seeks",
   await expect(page.getByText("Audit result")).toBeVisible();
   await expect(page.getByText(/Findings \(4\)/)).toBeVisible();
   await expect(page.getByText(/Keyframes checked \(3\)/)).toBeVisible();
-  // The count sentence starts each sentence with a capital.
+  // Each sentence in the count line starts with a capital.
   await expect(page.getByText(/^Four checks run\. [A-Z]/)).toBeVisible();
   // No audio track: the speech check could not run, and the card says why.
   const speech = page.locator("article", { hasText: "Speech ↔ picture match" });

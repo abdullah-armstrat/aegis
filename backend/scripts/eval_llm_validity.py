@@ -1,22 +1,16 @@
-"""LLM metric 1 of 3 — OUTPUT VALIDITY RATE.
+"""Measure how often phi3:mini returns the well-formed JSON the prompt asks for (LLM metric 1 of 3).
 
-How often does phi3:mini actually return the well-formed JSON the prompt asks for? Until now
-this was unanswerable after the fact: the raw response string is parsed and discarded, so only
-the *parsed* verdict survived. This script turns on the reasoner's measurement hook
-(``llm_reasoner.record_calls``), which retains the raw string and records how the tolerant
-parser resolved each field, then classifies every call:
+The reasoner's measurement hook (llm_reasoner.record_calls) keeps the raw response and how the
+tolerant parser resolved each field, and each call is put in one class:
+  clean       - parsed directly; every key exact, every bool a real JSON bool
+  salvaged    - a key only matched by _find_key's 4-letter stem fallback (e.g. "explanrance")
+  coerced     - a bool came as a string ("true"/"yes") and needed _coerce_bool
+  unparseable - fell to the unavailable path (timeout, HTTP error, non-JSON, not an object)
 
-  clean       — parsed directly; every key exact, every bool a real JSON bool
-  salvaged    — a key only matched by _find_key's 4-letter stem fallback (the "explanrance" case)
-  coerced     — a bool arrived as a string ("true"/"yes") and needed _coerce_bool
-  unparseable — fell to the unavailable path (timeout, HTTP error, non-JSON, not an object)
-
-Runs the full production path (build_scorecard -> _llm_caption_scene_flag -> reason_over_text)
-over the labelled caption↔scene cases, so the flag verdict is collected alongside the validity
-outcome — giving completion rate and ground-truth agreement from the same run.
-
-The input-hash cache is BYPASSED: a cache hit returns a stored verdict with no raw response and
-no network call, so it would measure nothing. Nothing is written back to the cache either.
+It runs the normal path (build_scorecard -> _llm_caption_scene_flag -> reason_over_text) over the
+labelled caption-scene cases, so completion rate and agreement with the labels come from the same
+run. The input-hash cache is bypassed (a cache hit makes no call, so there is nothing to measure)
+and nothing is written back to it.
 
 Run:  python backend/scripts/eval_llm_validity.py [--json out.json]
 """
@@ -69,7 +63,7 @@ def main() -> None:
         llm_flag = next(
             (f for f in card.flags if f.type.value == FLAG and f.source == "llm"), None
         )
-        # Exactly one reasoner call per scorecard build; guard rather than assume.
+        # There should be exactly one reasoner call per scorecard build.
         assert len(sink) == 1, f"{case['id']}: expected 1 reasoner call, saw {len(sink)}"
         rec = sink[0]
 
@@ -104,7 +98,7 @@ def main() -> None:
     judged = [r for r in rows if r["agrees_with_ground_truth"] is not None]
     agreed = [r for r in judged if r["agrees_with_ground_truth"]]
 
-    print(f"\n=== LLM output validity — model={get_settings().ollama_model}, N={n} calls ===")
+    print(f"\n=== LLM output validity - model={get_settings().ollama_model}, N={n} calls ===")
     print(f"{'id':<12}{'validity':<14}{'latency_s':>10}  {'expected':<9}{'llm':<14}agrees")
     print("-" * 74)
     for r in rows:

@@ -18,7 +18,7 @@ export default function App() {
       .catch(() => setWebSearchAvailable(false));
   }, []);
 
-  // Each screen opens at its top, so the upload box, or the result's summary, is in view first.
+  // Scroll to the top on each screen change, so the upload box or the result summary shows first.
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [screen]);
@@ -100,7 +100,7 @@ export default function App() {
           {screen === "scorecard" &&
             (scorecard ? (
               <div className="pb-12">
-                {/* Kept in view while the result scrolls, so starting again never needs a search. */}
+                {/* Sticky bar, so starting again never means scrolling back up. */}
                 <div className="sticky top-0 z-10 -mx-2 mb-6 bg-white/95 px-2 py-3" style={{ borderBottom: "1px solid #E4E4E4" }}>
                   <button
                     type="button"

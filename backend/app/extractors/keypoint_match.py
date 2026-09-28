@@ -1,29 +1,9 @@
-"""Keypoint matching — the second stage of the recycled-context lookup.
+"""Keypoint matching: the second stage of the recycled-context lookup.
 
-The perceptual hash finds recompressed and resized copies, but loses an image once it is framed,
-bordered or cropped: those change the low frequencies the hash is built from. Keypoint matching
-does not depend on them. ORB finds distinctive corners in both images, pairs them by descriptor,
-and a RANSAC homography then keeps only the pairs that agree on one geometric mapping between the
-two images. Many agreeing pairs mean the same picture, even inside a screenshot frame.
-
-It runs only when the hash lookup finds nothing, because it is slower and scales with the number
-of known images.
-
-Two details keep unrelated images apart:
-  * Lowe's ratio test drops ambiguous descriptor matches.
-  * Matches are one-to-one: each known-image keypoint may be claimed by one query keypoint only.
-    Without this, many query points pile onto the few keypoints of a low-texture image and
-    RANSAC counts them all; in the comparison that produced this module, that raised the score
-    of an unrelated pair to 62, where one-to-one matching gives 6.
-
-Images with very little texture (a heavily blurred photo, a flat graphic) yield too few keypoints
-to match; the hash stage is the only one that can find them.
-
-Keypoints can also agree on something two different photos share, such as the same building photographed
-on different days. So a keypoint match is confirmed by alignment (ADR-056): the copy is warped onto
-the candidate with the homography the points give, and the region it covers must pass the same
-hash threshold as the first stage. A different photo of the same building differs there (the sky,
-the light, the foreground); a copy does not.
+The perceptual hash misses copies that are cropped, bordered or framed in a screenshot. Here ORB
+keypoints are paired between the two images and a RANSAC homography keeps the pairs that agree on
+one mapping, so many agreeing pairs mean the same picture. It is slower, so it only runs when the
+hash finds nothing. Very low-texture images (heavy blur, flat graphics) give too few keypoints.
 """
 
 from __future__ import annotations
@@ -39,7 +19,7 @@ MIN_PAIRS = 8        # fewer candidate pairs than this cannot support a homograp
 
 
 def orb_features(img: Image.Image) -> tuple[np.ndarray, np.ndarray | None]:
-    """(keypoint coordinates, binary descriptors) for an image, at a bounded size."""
+    """Return (keypoint coordinates, binary descriptors) for the image scaled to ORB_MAX_SIDE."""
     import cv2
 
     grey = np.asarray(img.convert("L"))
@@ -51,20 +31,25 @@ def orb_features(img: Image.Image) -> tuple[np.ndarray, np.ndarray | None]:
 
 
 def orb_inliers(query: tuple, entry: tuple) -> int:
-    """How many one-to-one keypoint pairs agree on a single homography between two images."""
+    """Number of one-to-one keypoint pairs that agree on a single homography."""
     return orb_homography(query, entry)[0]
 
 
 def orb_homography(query: tuple, entry: tuple) -> tuple[int, np.ndarray | None]:
-    """(agreeing one-to-one pairs, the homography taking the query onto the entry at ORB's working
-    size, or None when there is none)."""
+    """Return (agreeing one-to-one pairs, homography from query to entry, or None).
+
+    The homography works on the images at ORB's working size (see ``working_size``).
+    """
     import cv2
 
     (q_pts, q_desc), (e_pts, e_desc) = query, entry
     if q_desc is None or e_desc is None or len(q_desc) < MIN_PAIRS or len(e_desc) < MIN_PAIRS:
         return 0, None
     pairs = cv2.BFMatcher(cv2.NORM_HAMMING).knnMatch(q_desc, e_desc, k=2)
+    # Lowe's ratio test drops ambiguous matches
     good = [m for m, *rest in pairs if rest and m.distance < RATIO_TEST * rest[0].distance]
+    # Keep matches one-to-one. Otherwise many query points pile onto the few keypoints of a
+    # low-texture image: one unrelated pair scored 62 inliers this way, and 6 with this step.
     best: dict[int, object] = {}
     for m in good:
         if m.trainIdx not in best or m.distance < best[m.trainIdx].distance:
@@ -79,7 +64,7 @@ def orb_homography(query: tuple, entry: tuple) -> tuple[int, np.ndarray | None]:
 
 
 def working_size(img: Image.Image) -> np.ndarray:
-    """The image as RGB at the size ``orb_features`` finds keypoints on."""
+    """The image as an RGB array at the size ``orb_features`` works on."""
     import cv2
 
     rgb = np.asarray(img.convert("RGB"))
@@ -90,8 +75,12 @@ def working_size(img: Image.Image) -> np.ndarray:
 
 
 def aligned_distance(query: Image.Image, entry: Image.Image, homography: np.ndarray) -> int:
-    """pHash distance between the candidate and the copy aligned onto it, over the region the copy
-    covers: both cropped to that region's bounding box, with the pixels outside it the same grey."""
+    """pHash distance between the entry and the query warped onto it, over the area the query covers.
+
+    Keypoints can also match on something two different photos share (the same building on another
+    day), so a keypoint match must pass the hash threshold here too. Both images are cropped to the
+    covered box, and pixels outside the covered area are set to the same grey.
+    """
     import cv2
 
     from app.extractors.phash import HASH_BITS, hamming, phash_of_image

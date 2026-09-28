@@ -1,49 +1,39 @@
-"""WP-6: the final evaluation. One command regenerates every number and chart the report uses.
+"""The final evaluation: one command makes every number and chart the report uses.
 
     python backend/scripts/run_final_eval.py              every step, then the numbers and charts
     python backend/scripts/run_final_eval.py --rebuild    the same, rebuilding every cached model output
     python backend/scripts/run_final_eval.py STEP ...     only the steps named
 
-Each step's plan was fixed in the project's decision log before it first ran, and no rule or
-threshold is changed because of a result. Everything is written to results/: one JSON file per
-step, results/report_numbers.csv (every figure the report may cite, with its interval and the file
-and step it comes from) and one PNG chart per result in results/figures/.
+The plan for each step was fixed before it first ran, and no rule or threshold is changed because
+of a result. Output goes to results/: one JSON file per step, report_numbers.csv (every figure the
+report may cite, with its interval and source) and the charts in results/figures/.
 
-Slow model outputs are replayed from data/final_eval_cache/ (git-ignored): BLIP descriptions, OCR
-lines and CLIP and spaCy scores of the VERITE images, the LLM's answers, Whisper's transcripts, the
-video path's evidence bundles, and CLIP scores of the swap test and of keyframes against captions.
-A missing entry is built, item by item where the step allows, so an interrupted build resumes.
---rebuild deletes the cache of every step being run first. Everything else runs live every time.
+Slow model outputs (BLIP, OCR, CLIP, spaCy, the LLM, Whisper, the video bundles) are replayed from
+data/final_eval_cache/ (git-ignored). Missing entries are built item by item, so an interrupted
+build resumes. --rebuild deletes the caches of the steps being run first. The rest runs live.
 
-  synthetic         the 19 hand-built examples against their pinned counts, and the 16 dataset A
-                    caption cases (ADR-042)
-  matching-a        image matching on the 40 dataset A photos: match rate per transformation, hash
-                    alone and with the keypoint stage, and false matches against every downloaded
-                    VERITE image (ADR-051)
-  hard-pairs        20 pairs of different NASA photos of the same subject: wrong matches with and
-                    without the alignment check (ADR-056)
-  date-check        the recycled-context date check on the A photos under seven posting-date
-                    conditions (ADR-052)
+  synthetic         19 hand-built examples against the pinned counts, and 16 dataset A caption cases
+  matching-a        match rate on the 40 dataset A photos per transformation, and false matches on VERITE
+  hard-pairs        20 pairs of similar NASA photos: wrong matches with and without the alignment check
+  date-check        the recycled-context date check on the A photos under seven posting-date conditions
   verite-features   BLIP, OCR, CLIP, spaCy and the picture limits on every VERITE image (cached)
-  verite-llm        the LLM's answer on every held-out and fresh VERITE pair, and repeats (cached)
-  verite-heldout    caption vs picture on the held-out VERITE pairs: the calibrated rule, word
-                    overlap, the LLM and always-fire, McNemar tests and AUCs (ADR-023)
-  verite-fresh      the fresh VERITE confirmation: picture only, meaning and overlap (ADR-024)
-  picture-limits    the nearly-blank and mostly-text limits on both sets, before and after (ADR-041)
-  llm-verite        the LLM on real pairs: validity, latency and consistency (ADR-067)
-  ablations         captioner off, LLM on and off, embeddings against word overlap (ADR-067)
-  framing-f         emotional framing on the 99 SemEval texts of dataset F, as written and
-                    lowercased (ADR-053)
-  framing-llm       the local LLM on the same 99 texts, next to the wording check (ADR-058)
-  speech-swap       speech against picture: the swap test (ADR-030)
-  video-pipeline    the whole video path on the 34 dataset E clips (ADR-031, ADR-049)
-  caption-video     each clip against its own caption and a swapped one (ADR-067)
-  whisper           Whisper tiny against base, and decoding settings a, b and c (ADR-029, ADR-049)
-  fault-injection   every extractor switched off, timed out or broken in turn (ADR-054)
-  web-archive       the WP-4 web lookup replayed from saved page and archive answers (ADR-050)
+  verite-llm        the LLM's answer on every held-out and fresh VERITE pair, plus repeats (cached)
+  verite-heldout    caption vs picture on the held-out pairs: rule, word overlap, LLM and always-fire
+  verite-fresh      the fresh VERITE confirmation: picture only, meaning and word overlap
+  picture-limits    the nearly-blank and mostly-text limits on both sets, before and after
+  llm-verite        the LLM on real pairs: validity, latency and consistency
+  ablations         captioner on and off, LLM on and off, embeddings against word overlap
+  framing-f         emotional framing on the 99 dataset F texts, as written and lowercased
+  framing-llm       the local LLM on the same 99 texts, next to the wording check
+  speech-swap       speech against picture: the swap test
+  video-pipeline    the whole video path on the 34 dataset E clips
+  caption-video     each clip against its own caption and a swapped one
+  whisper           Whisper tiny against base, and decoding settings a, b and c
+  fault-injection   every extractor switched off, timed out or broken in turn
+  web-archive       the web lookup replayed from saved page and archive answers
   performance       time per stage and peak memory: image path, video path, each model
-  interface-review  the interface review's round B measures on the current build; round A as frozen
-  no-verdict        verdict words in every output the evaluation produced (ADR-067)
+  interface-review  round B of the interface review on the current build; round A as frozen
+  no-verdict        verdict words in every output the evaluation produced
   readability       reading grade of every explanation and "what to check" line it produced
   numbers           results/report_numbers.csv, from the step files
   charts            results/figures/*.png, from the step files
@@ -83,7 +73,7 @@ VERITE_DIR = ROOT / "data" / "verite" / "images"
 CLIPS = ROOT / "data" / "E_videos" / "clips"
 FRONTEND = ROOT / "frontend"
 CACHE = ROOT / "data" / "final_eval_cache"      # slow model outputs, replayed unless --rebuild
-EARLIER = ROOT / "data" / "earlier_runs"         # tracked records of earlier runs that cannot be made again
+EARLIER = ROOT / "data" / "earlier_runs"         # records of earlier runs that cannot be repeated
 SEEN_DIR = ROOT / "data" / "final_eval_outputs"  # every flag each step made, for the two audits
 SEED = 20260928
 
@@ -107,7 +97,7 @@ def rate(k: int, n: int) -> dict:
 
 
 def production_settings(**overrides) -> None:
-    """The app's shipped settings (no AEGIS_ overrides from the environment), plus any given here."""
+    """Reset to the app's shipped settings (no AEGIS_ variables), then apply any overrides given."""
     for key in [k for k in os.environ if k.startswith("AEGIS_")]:
         del os.environ[key]
     os.environ.pop("GOOGLE_VISION_API_KEY", None)
@@ -135,7 +125,7 @@ def _env() -> dict:
 
 def _child(task: str) -> None:
     """Build one cache (or take one measurement) in a separate process, so its models and memory
-    stay apart from the rest of the run."""
+    stay out of the main run."""
     print(f"  building in a separate process: {task}", flush=True)
     subprocess.run([sys.executable, str(Path(__file__).resolve()), "--child", task], check=True, env=_env(), cwd=ROOT)
 
@@ -153,8 +143,8 @@ def _save(path: Path, data) -> None:
 
 # ------------------------------------------------------------------------------ outputs seen
 class _Seen:
-    """Every flag, scorecard summary and LLM explanation a step creates, and the texts its bundles
-    were built from, for the no-verdict audit and the readability check."""
+    """Collects every flag, summary and LLM explanation a step makes, plus the input texts of its
+    bundles, for the no-verdict audit and the readability check."""
 
     def __init__(self) -> None:
         self.reset()
@@ -196,7 +186,7 @@ SEEN = _Seen()
 
 
 def _record_outputs() -> None:
-    """Hook the models, so every flag, scorecard, LLM verdict and bundle made in this process is seen."""
+    """Wrap the model constructors so every flag, scorecard, LLM verdict and bundle made here is recorded."""
     from app.fusion import llm_reasoner, scorecard
     from app.models import EvidenceBundle, Flag, Scorecard
 
@@ -223,13 +213,14 @@ def _record_outputs() -> None:
 
 
 # ------------------------------------------------------------------------------ regression
+# (tp, fp, fn, tn, not assessed) as pinned in tests/test_eval_harness.py
 PINNED = {"emotional_framing": (3, 0, 0, 3, 1), "recycled_context": (3, 0, 0, 2, 1),
-          "caption_content_mismatch": (3, 3, 0, 2, 0), "overall": (9, 3, 0, 7, 2)}  # tests/test_eval_harness.py
+          "caption_content_mismatch": (3, 3, 0, 2, 0), "overall": (9, 3, 0, 7, 2)}
 
 
 def synthetic() -> None:
-    """The 19 hand-built examples, rules only, against the counts pinned in the test suite (word
-    overlap, as pinned), and with the shipped caption check; then the 16 dataset A caption cases."""
+    """The 19 hand-built examples, rules only: with word overlap (as pinned in the tests) and with
+    the shipped caption check. Then the 16 dataset A caption cases."""
     import build_caption_pairs
     from tests.eval.run_eval import evaluate
 
@@ -257,7 +248,7 @@ def synthetic() -> None:
     print(f"  19 examples: every pinned count equal: {all(matches.values())} {matches}")
 
 
-# ------------------------------------------------------------------------------ Part A
+# ------------------------------------------------------------------------------ image matching
 def _png(img) -> bytes:
     buf = BytesIO()
     img.convert("RGB").save(buf, format="PNG", compress_level=1)
@@ -265,7 +256,7 @@ def _png(img) -> bytes:
 
 
 def matching_a() -> None:
-    """ADR-051: the shipped lookup on transformed A photos and on unrelated VERITE images."""
+    """The shipped image lookup on transformed A photos, and on unrelated VERITE images for false matches."""
     from PIL import Image
 
     from app.extractors import reverse_image
@@ -354,8 +345,8 @@ def matching_a() -> None:
 
 
 def hard_pairs() -> None:
-    """ADR-056: 20 pairs of different NASA photos of one subject, as their own index; every photo under
-    the 15 transformations, with the alignment check and with it replaced by acceptance."""
+    """20 pairs of different NASA photos of one subject, used as their own index. Each photo goes
+    through the 15 transformations, with the alignment check and with it set to always accept."""
     from unittest import mock
 
     from PIL import Image
@@ -419,7 +410,7 @@ def hard_pairs() -> None:
               f"{v['pairs_with_a_partner_match']['n']}; own photo found {v['own_photo_found']['k']}/{v['own_photo_found']['n']}")
 
 
-# ------------------------------------------------------------------------------ Part B
+# ------------------------------------------------------------------------------ date check
 DATE_CONDITIONS = [  # (name, days from the index date or None, expected status, expected severity)
     ("365 days before", -365, "clear", "info"),
     ("1 day before", -1, "clear", "info"),
@@ -432,7 +423,7 @@ DATE_CONDITIONS = [  # (name, days from the index date or None, expected status,
 
 
 def date_check() -> None:
-    """ADR-052: the recycled-context status for posting dates around each A photo's index date."""
+    """The recycled-context status for posting dates around each A photo's index date."""
     from app.adapters.image_adapter import build_bundle
     from app.extractors import reverse_image
     from app.fusion.rules import recycled_context_rule
@@ -480,7 +471,7 @@ def date_check() -> None:
     print(f"  mismatches: {len(wrong)}; lookup off says: {off_reason}")
 
 
-# ------------------------------------------------------------------------------ VERITE (WP-2 rows)
+# ------------------------------------------------------------------------------ VERITE caption checks
 VERITE_PHASES = (("sample", "blip_ocr"), ("sample", "clip:ViT-B/32"), ("sample", "clip:RN50"), ("sample", "spacy"),
                  ("fresh", "blip_ocr"), ("fresh", "clip:ViT-B/32"), ("fresh", "spacy"))
 PHASE_FILES = {"blip_ocr": ("blip_ocr.json",), "clip:ViT-B/32": ("clip_vitb32.npz", "clip_vitb32.json"),
@@ -491,7 +482,7 @@ CONSISTENCY_PER_LABEL = 10
 
 
 def _ecm(folder: Path | None = None):
-    """The WP-2 evaluation code, reading and writing its features in the final evaluation's cache."""
+    """The eval_caption_match module, set to read and write its features in this run's cache."""
     import eval_caption_match as ecm
 
     ecm.CACHE = folder or CACHE / "verite"
@@ -505,7 +496,7 @@ def _limits_complete(ecm) -> bool:
 
 
 def verite_features() -> None:
-    """Every model output the VERITE rows read, each model in its own process (ADR-022's layout)."""
+    """Build every model output the VERITE steps read, one model per process (cached)."""
     ecm = _ecm()
     for pair_set, phase in VERITE_PHASES:
         if all(ecm.cached(f, pair_set).exists() for f in PHASE_FILES[phase]):
@@ -519,7 +510,8 @@ def verite_features() -> None:
 
 
 def _ask_llm(caption: str, scene: str, ocr: list[str]) -> dict:
-    """One real call to the LLM reasoner, as the app makes it, with the input cache bypassed."""
+    """One call to the LLM reasoner, as the app makes it. The app's input cache is bypassed so that
+    repeats are real calls and the latency is real."""
     from app.fusion import llm_reasoner
 
     sink: list = []
@@ -552,7 +544,7 @@ def verite_llm() -> None:
     ecm = _ecm()
     production_settings(use_llm="true")
     sets = _verite_sets(ecm)
-    # As the app does at start-up (ADR-037), so the first question does not wait for the model to load.
+    # Warm up as the app does at start-up, so the first question does not wait for the model to load.
     print(f"  LLM warm-up: {warm_up()}", flush=True)
     for name, pairs in sets.items():
         feats = json.loads(ecm.cached("blip_ocr.json", "sample" if name == "heldout" else "fresh")
@@ -583,12 +575,12 @@ def verite_llm() -> None:
 
 
 def verite_heldout() -> None:
-    """ADR-023: the held-out run, by its own code, on the rebuilt features and LLM answers."""
-    # Its word-overlap baseline goes through the app's caption rule, which follows the configured
-    # method; overlap was the default when this run was made (ADR-024 later made it "image").
+    """The held-out run, using eval_caption_match's own code, on the rebuilt features and LLM answers."""
+    # The word-overlap baseline goes through the app's caption rule, which follows the configured
+    # method. Overlap was the default when this run was planned; the default later became "image".
     production_settings(caption_match_method="overlap")
     with tempfile.TemporaryDirectory() as tmp:
-        view = Path(tmp)  # the layout the WP-2 code reads: features and the held-out answers together
+        view = Path(tmp)  # the layout eval_caption_match expects: features and LLM answers in one folder
         for f in (CACHE / "verite").iterdir():
             shutil.copy(f, view / f.name)
         shutil.copy(LLM_DIR / "verite_heldout.json", view / "llm.json")
@@ -599,7 +591,7 @@ def verite_heldout() -> None:
 
 
 def verite_fresh() -> None:
-    """ADR-024: the fresh-set confirmation, by its own code."""
+    """The fresh-set confirmation, using eval_caption_match's own code."""
     ecm = _ecm()
     production_settings()
     ecm.do_confirm(str(OUT / "wp6_verite_fresh.json"))
@@ -607,7 +599,7 @@ def verite_fresh() -> None:
 
 
 def picture_limits() -> None:
-    """ADR-041: pairs excluded by the picture limits, and the rules before and after, on both sets."""
+    """Pairs excluded by the picture limits, and the caption rules before and after, on both sets."""
     import eval_picture_limits as epl
 
     ecm = _ecm()
@@ -619,8 +611,8 @@ def picture_limits() -> None:
 
 
 def llm_verite() -> None:
-    """ADR-067: the LLM on real pairs. Validity and latency of every first answer (held-out and
-    fresh), consistency on 30 held-out pairs asked five times, and the LLM flag each answer makes."""
+    """The LLM on real pairs: validity and latency of every first answer (held-out and fresh),
+    consistency on 30 held-out pairs asked five times, and the flag each answer produces."""
     from app.fusion import scorecard
     from app.fusion.llm_reasoner import ReasonerVerdict
     from app.models import EvidenceBundle, FlagStatus, Meta, Modality, SceneDescription
@@ -692,8 +684,8 @@ def llm_verite() -> None:
 
 
 def ablations() -> None:
-    """ADR-067: captioner off, the LLM on and off, and embeddings against word overlap, on the
-    held-out and fresh pairs, with the shipped picture limits."""
+    """Captioner on and off, LLM on and off, and embeddings against word overlap, on the held-out
+    and fresh pairs with the shipped picture limits."""
     from app.extractors.caption_match import read_from_image, spacy_similarity
     from app.fusion import rules
     from app.models import CaptionMatch, EvidenceBundle, FlagStatus, Meta, Modality, SceneDescription
@@ -722,7 +714,7 @@ def ablations() -> None:
                 t = scores["txt:spaCy"][p["row"]]
                 match = CaptionMatch(image_similarity=scores["img:ViT-B/32"][p["row"]],
                                      text_similarity=None if math.isnan(t) else t)
-            else:  # as the app measures it with no scene description: the on-screen text alone
+            else:  # as the app does with no scene description: on-screen text alone
                 seen = read_from_image([], f["ocr"])
                 match = CaptionMatch(image_similarity=scores["img:ViT-B/32"][p["row"]],
                                      text_similarity=spacy_similarity(p["caption"], seen) if seen else None,
@@ -770,9 +762,10 @@ def ablations() -> None:
             print(f"  {name:<8} {cfg:<22} " + "; ".join(f"{k} {v['k']}/{v['n']}" for k, v in t.items()))
 
 
-# ------------------------------------------------------------------------------ Part C
+# ------------------------------------------------------------------------------ emotional framing
+# (marker kind, words that appear in that marker's text)
 MARKER_KINDS = (("capitals", "words in capitals"), ("exclamation", "exclamation mark"),
-                ("urgency", "urgency list"), ("listed phrases", "listed phrases"))  # words each marker's text contains
+                ("urgency", "urgency list"), ("listed phrases", "listed phrases"))
 F_GROUPS = ["calm_honest", "calm_manipulative", "loud_honest", "loud_manipulative"]
 
 
@@ -791,7 +784,7 @@ def _f_items() -> list[dict]:
 
 
 def framing_f() -> None:
-    """ADR-053: the emotional-framing rule on dataset F, as written and lowercased."""
+    """The emotional-framing rule on dataset F, as written and lowercased."""
     from app.fusion.rules import emotional_framing_rule, find_manipulation_markers
     from app.models import EvidenceBundle, Meta, Modality
 
@@ -849,8 +842,8 @@ Answer with a single JSON object and nothing else: {{"uses_technique": true}} or
 
 
 def framing_llm() -> None:
-    """ADR-058: the local LLM asked about the three techniques on each dataset F text, next to the
-    wording check. Pre-registered; nothing is changed because of the result. Answers are cached."""
+    """The local LLM asked about three persuasion techniques on each dataset F text, next to the
+    wording check. Planned before it ran, so nothing is changed because of the result. Answers are cached."""
     import httpx
 
     from app.config import get_settings
@@ -914,9 +907,10 @@ def framing_llm() -> None:
         print(f"     {g:<18} yes {res['yes_rate'][g]['k']}/{res['yes_rate'][g]['n']} {res['yes_rate'][g]['ci']}")
 
 
-# ------------------------------------------------------------------------------ video (WP-3 rows)
+# ------------------------------------------------------------------------------ video
 def speech_swap() -> None:
-    """ADR-030: the swap test, by its own code, on CLIP scores rebuilt in the cache."""
+    """The speech-vs-picture swap test, using eval_speech_picture's own code, on CLIP scores rebuilt
+    in the cache."""
     import eval_speech_picture as esp
     from app.fusion.rules import SPEECH_PICTURE_THRESHOLD
 
@@ -935,8 +929,8 @@ def speech_swap() -> None:
 
 
 def video_pipeline() -> None:
-    """ADR-031 and ADR-049: the whole video path on every dataset E clip. Each clip's evidence
-    bundle is cached; the rules and the scorecard run on it live."""
+    """The whole video path on every dataset E clip. Each clip's evidence bundle is cached; the
+    rules and the scorecard run on it live."""
     import eval_speech_picture as esp
     from app.fusion.rules import audio_visual_mismatch_rule
     from app.fusion.scorecard import build_scorecard
@@ -972,8 +966,8 @@ def video_pipeline() -> None:
 
 
 def _video_captions() -> dict[str, dict]:
-    """ADR-067: each clip's caption (the first sentence of its source footage's NASA description) and
-    a swapped one (the same from a source of another topic, drawn with a fixed seed)."""
+    """Each clip's caption (first sentence of its source footage's NASA description) and a swapped
+    one (the same from a source on another topic, picked with a fixed seed)."""
     from build_caption_pairs import first_sentence
 
     footage = {r["footage"]: r for r in csv.DictReader(open(LABELS / "E_footage.csv", encoding="utf-8"))}
@@ -990,8 +984,8 @@ def _video_captions() -> dict[str, dict]:
 
 
 def caption_video() -> None:
-    """ADR-067: the video caption check on each clip with its own caption and a swapped one. CLIP
-    scores of each keyframe against both are cached; the app's rule decides live."""
+    """The video caption check on each clip with its own caption and a swapped one. CLIP scores of
+    each keyframe against both are cached; the app's rule decides live."""
     from app.fusion import rules
     from app.models import EvidenceBundle, FlagStatus, Keyframe, Meta, Modality
 
@@ -1038,8 +1032,8 @@ WHISPER_ON = ("tuning_long", "e", "original")
 
 
 def whisper() -> None:
-    """ADR-029 and ADR-049, again with the app's current decoding: tiny against base, and decoding
-    settings a, b and c. Transcripts (with their times) are cached; the scores run live."""
+    """Whisper tiny against base, and decoding settings a, b and c, redone with the app's current
+    decoding. Transcripts (with timings) are cached; the scores run live."""
     import eval_whisper as ew
 
     folder = CACHE / "whisper"
@@ -1071,9 +1065,9 @@ def whisper() -> None:
                                                           "decoding b (ADR-049)": choice["chosen"] == "b"}})
 
 
-# ------------------------------------------------------------------------------ Part D
+# ------------------------------------------------------------------------------ fault injection
 def fault_injection() -> None:
-    """ADR-054: every extractor switched off, timed out or broken in turn."""
+    """Every extractor switched off, timed out or broken in turn."""
     import eval_fault_injection
 
     res = eval_fault_injection.run()
@@ -1082,7 +1076,7 @@ def fault_injection() -> None:
     print(f"  {s['passed']}/{s['faults']} faults passed; failed: {s['failed']}")
 
 
-# ------------------------------------------------------------------------------ Part E
+# ------------------------------------------------------------------------------ web lookup
 WEB_RUNS = (("first live run (ADR-033)", EARLIER / "wp4_web_report_run1.json"),  # live: cannot be made again
             ("fixed live run (ADR-034)", EARLIER / "wp4_web_report_run2.json"),
             ("saved inputs, dating before ADR-043", OUT / "wp4_web_report_saved_before.json"),  # made by the replay
@@ -1102,8 +1096,8 @@ def _archive_answers_saved() -> tuple[int, int]:
 
 
 def web_archive() -> None:
-    """ADR-050: the WP-4 evaluation replayed from saved page and archive answers only. Until every
-    archive answer is saved (archive.org limits the fetch), the replay is left out and says so."""
+    """The web lookup evaluation replayed from saved page and archive answers only. archive.org
+    rate-limits the fetch, so until every answer is saved the replay is left out and says why."""
     import eval_web_lookup
 
     production_settings()  # no key: a Vision call is impossible, the cached responses are used
@@ -1138,14 +1132,14 @@ def web_archive() -> None:
 
 
 # ------------------------------------------------------------------------------ performance
-PERF_IMAGES = 31  # as in WP-2's timing: the first call loads the models, 30 are warm
+PERF_IMAGES = 31  # as in the caption-match timing: the first call loads the models, 30 are warm
 PERF_CLIP = "E15.mp4"
-PERF_CLIP_CAPTION = "A barge arrives at the space centre"  # as in WP-3's and WP-5's timings
+PERF_CLIP_CAPTION = "A barge arrives at the space centre"  # as in the earlier video timings
 
 
 def performance() -> None:
-    """Time per stage and peak memory: the image path (shipped settings, and with the LLM on), the
-    video path on a 60 s clip (fresh, then warm), and every model on its own, each in its own process."""
+    """Time per stage and peak memory: the image path (shipped settings, then LLM on), the video
+    path on a 60 s clip (fresh, then warm), and each model alone. Each runs in its own process."""
     parts = []
     for config in ("shipped", "llm"):
         _child(f"performance-image|{config}")
@@ -1162,7 +1156,7 @@ def performance() -> None:
 
 
 def _performance_image(config: str) -> None:
-    """The image path on the first 31 VERITE images of the sample, stage by stage, in this process."""
+    """Time the image path stage by stage on the first 31 VERITE sample images, in this process."""
     import statistics
 
     import psutil
@@ -1253,7 +1247,7 @@ def _review_summary(d: dict) -> dict:
 
 
 def interface_review() -> None:
-    """The interface review's round B measures on the current build; round A is read as frozen."""
+    """Round B of the interface review, measured on the current build; round A is read as frozen."""
     npx = shutil.which("npx") or shutil.which("npx.cmd")
     if not npx:
         raise SystemExit("npx is not on PATH: install Node.js and run npm install in frontend/")
@@ -1277,8 +1271,8 @@ def _seen_files() -> list[dict]:
 
 
 def _own_words(text: str, llm: list[str], inputs: list[str]) -> str:
-    """The app's own words in a line: without the LLM's explanations, the texts the flag was built
-    from, anything in double quotes, web addresses and the capitals the style marker lists."""
+    """A line with everything but the app's own words removed: LLM explanations, input texts,
+    anything in double quotes, web addresses and the capitals the style marker lists."""
     for s in llm:
         if s in text:
             text = text.replace(s, " ")
@@ -1298,7 +1292,7 @@ def _removals(data: dict) -> tuple[list[str], list[str]]:
 
 
 def no_verdict() -> None:
-    """ADR-067: the interface review's 29 verdict words in every output the evaluation produced."""
+    """Search every output the evaluation produced for the interface review's 29 verdict words."""
     from interface_text_audit import _VERDICT, VERDICT_WORDS, all_flags
 
     lines, llm_texts = {}, {}
@@ -1350,8 +1344,8 @@ def no_verdict() -> None:
 
 
 def readability() -> None:
-    """ADR-067: Flesch-Kincaid grade of every distinct explanation and "what to check" line the
-    evaluation produced, in the app's own words."""
+    """Flesch-Kincaid grade of every distinct explanation and "what to check" line the evaluation
+    produced, in the app's own words."""
     from interface_text_audit import fk_grade
 
     lines = {}
@@ -1481,7 +1475,7 @@ STEPS = {"synthetic": synthetic, "matching-a": matching_a, "hard-pairs": hard_pa
          "fault-injection": fault_injection, "web-archive": web_archive, "performance": performance,
          "interface-review": interface_review, "no-verdict": no_verdict, "readability": readability,
          "numbers": numbers, "charts": charts}
-NOT_AUDITED = {"no-verdict", "readability", "numbers", "charts"}  # they read the outputs; they make none
+NOT_AUDITED = {"no-verdict", "readability", "numbers", "charts"}  # these read outputs but make none
 
 
 def main() -> None:

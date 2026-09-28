@@ -1,22 +1,7 @@
-"""Evaluation harness — runs the hand-built test set through the real pipeline and reports
-flag-level precision / recall / F1.
+"""Runs the labelled test set through the real pipeline and prints precision / recall / F1.
 
-What it does, honestly and reproducibly:
-  * Loads the labelled examples (``test_set/examples.json``).
-  * Ensures each referenced image exists, generating a tiny blank PNG if missing — so the set
-    is self-contained and the run is reproducible without committing binaries.
-  * For each example, builds the Evidence Bundle with the *real* extractors, then injects two
-    controlled inputs so the *rules* are scored deterministically: ``scene_descriptions`` from
-    ``inject_scene`` (caption vs scene), and the reverse-image lookup result from the example's
-    ``source_ref`` (recycled context; see ``legacy_lookup.py``). Then it runs the
-    *real* fusion core.
-  * Compares each labelled flag's predicted status to its expected outcome and accumulates a
-    confusion matrix per flag type (NOT_ASSESSED excluded from P/R, counted as coverage).
-  * Runs both configurations — "rules-only" and "rules+llm" — so the baseline comparison
-    is a single command.
-
-Every number this prints comes from an actual executed run of the pipeline; the harness invents
-nothing. Usage:
+Scene text and the reverse-image result are injected per example so the rules are scored on
+fixed inputs. Runs "rules-only" and "rules+llm" by default. Usage:
     python tests/eval/run_eval.py                 # both configs, human-readable
     python tests/eval/run_eval.py --json out.json # also write full results
 """
@@ -75,21 +60,18 @@ def _predict(example: dict, use_llm: bool) -> dict[str, str]:
     image_bytes = _ensure_image(example["image"])
     source_ref = example.get("source_ref") or example["image"]
     bundle = build_bundle(image_bytes, caption=example.get("caption") or None, source_ref=source_ref)
-    # Every example shares one blank image, so content hashing cannot separate them: inject each
-    # example's lookup result instead, as inject_scene does for scene text.
+    # All examples share one blank image, so the hash can't tell them apart: inject the result.
     inject_lookup(bundle, source_ref)
     if example.get("inject_scene"):
         bundle.scene_descriptions = [SceneDescription(text=t) for t in example["inject_scene"]]
         if get_settings().caption_match_method == "meaning":
-            # The caption-vs-description similarity reads the scene text, so re-measure it from
-            # the injected text. The picture similarity still sees the blank test image.
+            # Re-measure from the injected text. The picture score still sees the blank image.
             bundle.caption_match, bundle.extractor_status["caption_match"] = measure_caption_fit(
                 image_bytes, bundle.caption, example["inject_scene"], bundle.on_screen_text, "meaning"
             )
 
     card = build_scorecard(bundle)
-    # Rules emit one flag per type; the LLM may add one more. Keep the rules' deterministic
-    # verdict as the scored one for reproducibility.
+    # The LLM may add a second flag of the same type; score the rules' one so runs repeat.
     predicted: dict[str, str] = {}
     for flag in card.flags:
         if flag.source == "rules" or flag.type.value not in predicted:
@@ -98,7 +80,7 @@ def _predict(example: dict, use_llm: bool) -> dict[str, str]:
 
 
 def _caption_note() -> str:
-    """What caption_content_mismatch reads in this run, for the configured method."""
+    """Explain what caption_content_mismatch reads in this run."""
     from app.config import get_settings
 
     method = get_settings().caption_match_method
@@ -118,7 +100,7 @@ def _caption_note() -> str:
 
 
 def evaluate(use_llm: bool):
-    """Run every example for one configuration; return (EvalReport, per-example records)."""
+    """Run every example for one config and return (EvalReport, per-example records)."""
     examples = _load_examples()
     pairs_by_flag: dict[str, list[tuple[str, str]]] = {}
     records: list[dict] = []

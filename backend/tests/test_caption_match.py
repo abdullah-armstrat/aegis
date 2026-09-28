@@ -1,8 +1,7 @@
 """Tests for the caption-vs-picture similarity extractor.
 
-The fast tests pin the honest outcomes without loading a model: missing or altered weights, and
-a missing caption or scene text, are NOT_ASSESSED, and nothing is ever downloaded. The slow tests
-load CLIP and spaCy for real on an openly licensed image (skimage's ``chelsea``, a cat, CC0).
+Fast tests check that missing or altered weights, or missing text, give NOT_ASSESSED without
+downloading anything. Slow tests run CLIP and spaCy on skimage's ``chelsea`` cat image (CC0).
 """
 
 import urllib.request
@@ -69,7 +68,7 @@ def test_nothing_read_from_the_picture_leaves_the_text_score_unmeasured(monkeypa
 
 
 def test_picture_only_measurement_never_loads_spacy(monkeypatch):
-    """With no text method, only CLIP is used; spaCy must not even be loaded."""
+    """With no text method only CLIP runs, and spaCy is never loaded."""
     import numpy as np
 
     monkeypatch.setattr(caption_match, "_spacy", lambda: pytest.fail("spaCy must not load"))

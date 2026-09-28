@@ -1,12 +1,13 @@
-"""Captioner (BLIP) latency spike — writes measured results to a JSON file.
+"""Time the BLIP captioner on this machine and write the results to a JSON file.
 
-Discipline (same as the LLM spike): the threshold is set BEFORE measuring (warm per-image
-caption <= 20s -> keep local for the Prelim; else a hosted service), and every number
-is written to a file to be read back, never transcribed from the terminal.
+The limit was set before measuring, as for the LLM spike: a warm caption of 20 s or less per image
+means BLIP stays local, otherwise it would move to a hosted service. Numbers are written to a file
+and read back, not copied from the terminal.
 
-Generates two small synthetic but non-trivial images (a coloured scene) so BLIP has something
-to describe, then times: cold load+first caption, and two warm captions. Run:
-    python backend/scripts/spike_captioner.py
+Two simple drawn scenes give BLIP something to describe. It times the cold load and first caption,
+then two warm captions.
+
+Run:  python backend/scripts/spike_captioner.py
 """
 
 import json
@@ -25,7 +26,7 @@ _MODEL = "Salesforce/blip-image-captioning-base"
 
 
 def _scene_image(kind: str) -> Image.Image:
-    """A simple synthetic scene (BLIP can caption these; content is for latency, not accuracy)."""
+    """A simple drawn scene for BLIP to caption (used for timing, not accuracy)."""
     img = Image.new("RGB", (384, 256), "skyblue")
     d = ImageDraw.Draw(img)
     if kind == "beach":
@@ -60,7 +61,7 @@ def main() -> None:
             text = processor.decode(out[0], skip_special_tokens=True)
             return text, round(time.time() - t, 1)
 
-        # Cold = first caption (includes any lazy init); then two warm.
+        # The first caption is the cold one (includes any lazy set-up); then two warm ones.
         c0_text, c0_s = caption(_scene_image("beach"))
         c1_text, c1_s = caption(_scene_image("house"))
         c2_text, c2_s = caption(_scene_image("beach"))
@@ -76,7 +77,7 @@ def main() -> None:
         result["verdict"] = (
             "local-viable" if result["warm_avg_s"] <= result["threshold_warm_s"] else "offload"
         )
-    except Exception as exc:  # noqa: BLE001 - record the failure honestly
+    except Exception as exc:  # noqa: BLE001 - record the failure in the output
         result["ok"] = False
         result["error"] = f"{type(exc).__name__}: {exc}"
 

@@ -1,14 +1,15 @@
-"""WP-6 Part D: fault injection (the project's decision log, ADR-054).
+"""Fault injection: switch off, time out or break each extractor in turn and record every flag.
 
-Each extractor is switched off, timed out or broken in turn, for one run through the app's API,
-and every flag is recorded. The checks that depend on the extractor are named before the run;
-each must come back not assessed with a reason, never clear, and the request must complete. A
-check with other inputs still available passes if its evidence names the one that is missing.
-Nothing here changes the app: a failure is reported.
+Each fault is one run through the app's API. The checks that depend on the broken extractor are
+named in advance; each must come back not assessed with a reason (never clear), and the request
+must still complete. A check that still has other inputs passes if its evidence names the missing
+one. Nothing here changes the app; a failure is only reported.
 
 Posts: a dataset A photo that is in the image history index, the same photo framed as a phone
-screenshot (which the hash misses and the keypoint stage finds), a made-up picture that is in no
-index (for the web search), and dataset E clip E09.
+screenshot (the hash misses it, the keypoint stage finds it), a made-up picture that is in no index
+(for the web search), and dataset E clip E09.
+
+Run: python backend/scripts/run_final_eval.py fault-injection (this module has no command line)
 """
 
 from __future__ import annotations
@@ -36,8 +37,8 @@ CLIP_CAPTION = "A hurricane seen from the space station"
 CHECKS = {"caption": "caption_content_mismatch", "recycled": "recycled_context",
           "framing": "emotional_framing", "speech": "audio_visual_mismatch"}
 
-# Added after the first run (ADR-055): each affected check's reason must name the real cause in
-# plain words, and must carry no developer text.
+# Added after the first run: each affected check's reason must name the real cause in plain words
+# and must not contain developer text (see DEVELOPER below).
 CAUSES = {
     "I04": "switched off", "I05": "could not be processed", "I06": "index could not be read",
     "I07": "cropped or framed", "I08": "cropped or framed", "I09": "no Google Cloud Vision key",
@@ -50,6 +51,7 @@ CAUSES = {
     "V07": "audio track", "V08": "stopped before it finished", "V09": "could not be loaded",
     "V10": "compares words with the picture", "V11": "compares words with the picture", "V12": "switched off",
 }
+# For these faults, the words a partly assessed check's evidence must contain (replaces Fault.partial).
 PARTIAL = {"V01": {"framing": "no frame of the video could be read"},
            "V02": {"framing": "no frame of the video could be read"},
            "V03": {"framing": "the text in the keyframes could not be read"},
@@ -57,10 +59,12 @@ PARTIAL = {"V01": {"framing": "no frame of the video could be read"},
            "V06": {"framing": "the audio track could not be read"},
            "V07": {"framing": "the audio track could not be read"},
            "V08": {"framing": "speech recogniser"}, "V09": {"framing": "speech recogniser"}}
+# Signs of developer text in a reason: exception names, HTTP codes, settings, file paths, braces.
 DEVELOPER = re.compile(r"Error|Exception|Errno|Traceback|HTTP \d|_mode|=|[A-Za-z]:[\\/]|[{}]")
 
 
 def _raise(exc):
+    """A stand-in function that raises exc whatever it is called with."""
     def _f(*args, **kwargs):
         raise exc
     return _f
@@ -68,6 +72,7 @@ def _raise(exc):
 
 @dataclass
 class Fault:
+    """One fault: the post, the extractor, how it fails, and the checks it should affect."""
     id: str
     post: str          # photo | framed | unindexed | video
     extractor: str
@@ -84,6 +89,7 @@ class Fault:
 
 
 def _ffmpeg_timeout(marker: str):
+    """A subprocess.run that times out on calls whose arguments contain marker."""
     real = subprocess.run
 
     def run(args, *a, **kw):
@@ -94,6 +100,7 @@ def _ffmpeg_timeout(marker: str):
 
 
 def faults() -> list[Fault]:
+    """Every fault: image posts (I01-I22), then the video (V01-V12)."""
     import httpx
     import pytesseract
 
@@ -194,6 +201,7 @@ def faults() -> list[Fault]:
 
 
 def _posts() -> dict[str, tuple[bytes, str]]:
+    """The three image posts as (bytes, file name); the made-up picture is seeded random blocks."""
     import numpy as np
     from PIL import Image
 
@@ -214,7 +222,7 @@ def _posts() -> dict[str, tuple[bytes, str]]:
 
 @contextmanager
 def _applied(fault: Fault | None, tmp: Path):
-    """Production settings plus the fault's settings and replacements, for one run."""
+    """Default settings plus the fault's settings and patches for one run, restored afterwards."""
     import httpx
 
     from app.config import get_settings
@@ -260,6 +268,7 @@ def _applied(fault: Fault | None, tmp: Path):
 
 
 def _submit(client, post: str, posts: dict, search_web: bool) -> tuple[int, list[dict]]:
+    """Send one post to the API; return the HTTP status and the flags."""
     if post == "video":
         resp = client.post("/analyze/video", files={"video": ("E09.mp4", CLIP.read_bytes(), "video/mp4")},
                            data={"caption": CLIP_CAPTION})
@@ -280,6 +289,7 @@ def _flag(flags: list[dict], check: str) -> dict | None:
 
 
 def run() -> dict:
+    """Run a baseline for each post, then every fault; return the records and a summary."""
     from fastapi.testclient import TestClient
 
     from app import main

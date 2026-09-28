@@ -1,13 +1,12 @@
 """Time and peak memory of each stage of the video path, on one clip.
 
-The clip runs end to end exactly as an upload does (probe, keyframes, OCR, image history lookup,
-Whisper, CLIP, rules), several times in one process: the first run is a fresh process, the later
-ones are warm (whatever earlier runs left loaded is still loaded). Each stage's peak is the
-highest resident memory sampled every 50 ms while it ran; memory is not handed back to the
-operating system between stages, so a later stage's peak includes what earlier ones left behind,
-and the rise over the previous peak is reported too.
+The clip goes through the same steps as an upload (probe, keyframes, OCR, image history lookup,
+Whisper, CLIP, rules), possibly several times in one process: the first run is fresh, later ones
+are warm (models from earlier runs stay loaded). A stage's peak is the highest resident memory,
+sampled every 50 ms. Memory is not given back between stages, so a later peak includes what
+earlier stages left; the rise over the previous peak is reported as well.
 
-Run from the repo root:
+Run (from the repo root):
   python backend/scripts/time_video_path.py <clip.mp4> ["caption"] [--runs 2] [--out name.json]
 """
 
@@ -73,7 +72,7 @@ def main() -> None:
            "baseline_mb": round(baseline_mb, 1), "after_imports_mb": round(imported_mb, 1),
            "stored_keypoints_at_start": bool(stored and stored.is_file()) if stored else None,
            "runs": runs, "process_peak_mb": round(getattr(mem, "peak_wset", mem.rss) / 2**20, 1)}
-    if args.runs == 1:  # the single-run layout earlier results use
+    if args.runs == 1:  # same layout as the earlier single-run results
         out.update({k: v for k, v in runs[0].items() if k not in ("run", "end_mb")})
         del out["runs"]
     (ROOT / "results").mkdir(exist_ok=True)

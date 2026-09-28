@@ -1,9 +1,7 @@
 """Tests for the image adapter: image + caption -> EvidenceBundle.
 
-These are hermetic unit tests of the adapter's *assembly* logic — the extractors are
-monkeypatched so no real model/engine runs here (the extractors have their own tests). The
-adapter's job is to call each extractor, carry the caption through, place outputs in the
-right bundle fields, and record each extractor's honest status.
+The extractors are replaced with fakes, so these only check that the adapter calls them,
+puts their output in the right fields and records each one's status.
 """
 
 import pytest
@@ -22,7 +20,7 @@ def _patch(monkeypatch, ocr, rev, cap=None):
     monkeypatch.setattr(image_adapter, "find_web_matches", lambda _ref, **_k: rev)
     if cap is not None:
         monkeypatch.setattr(image_adapter, "describe_scene", lambda _b: cap)
-    # Captioner is enabled by default; ensure settings reflect that for these tests.
+    # conftest turns the captioner off for tests, so turn it back on here.
     get_settings.cache_clear()
     monkeypatch.setenv("AEGIS_USE_CAPTIONER", "true")
     get_settings.cache_clear()
@@ -56,8 +54,7 @@ def test_adapter_assembles_bundle_and_records_status(monkeypatch):
 
 
 def test_adapter_propagates_not_assessed(monkeypatch):
-    """A failed extractor surfaces as NOT_ASSESSED in the bundle, not as a silent empty
-    field read as 'consistent'."""
+    """A failed extractor shows as NOT_ASSESSED, not as an empty field that looks fine."""
     ocr = OcrResult(status=FlagStatus.NOT_ASSESSED, detail="bad image")
     rev = ReverseImageResult(status=FlagStatus.NOT_ASSESSED, detail="not in cache")
     cap = CaptionResult(status=FlagStatus.NOT_ASSESSED, detail="bad image")
@@ -75,11 +72,10 @@ def test_adapter_propagates_not_assessed(monkeypatch):
 
 
 def test_adapter_skips_captioner_when_disabled(monkeypatch):
-    """With AEGIS_USE_CAPTIONER=false the captioner is not called and caption↔scene is
-    NOT_ASSESSED — used by the eval harness to measure the before/after of BLIP."""
+    """With AEGIS_USE_CAPTIONER=false the captioner isn't called and its status is NOT_ASSESSED."""
     ocr = OcrResult(status=FlagStatus.CLEAR)
     rev = ReverseImageResult(status=FlagStatus.NOT_ASSESSED)
-    # describe_scene must NOT be called; make it raise if it is.
+    # Fail the test if describe_scene is called.
     def _boom(_b):
         raise AssertionError("captioner should not run when disabled")
     monkeypatch.setattr(image_adapter, "extract_on_screen_text", lambda _b: ocr)
@@ -107,8 +103,7 @@ def _patch_basic(monkeypatch, method: str):
 
 
 def test_adapter_measures_caption_fit_by_meaning(monkeypatch):
-    """With the meaning method, the similarities land in the bundle with their honest status,
-    measured against the scene description plus the on-screen text."""
+    """The meaning method compares against scene text plus on-screen text and stores the scores."""
     seen = {}
 
     def _measure(image_bytes, caption, scenes, on_screen, *, image_model, text_method):
@@ -161,9 +156,10 @@ def test_adapter_skips_the_similarity_models_when_not_needed(monkeypatch, method
 
 
 def test_default_method_is_the_picture_only_check(monkeypatch):
-    """Set by the fresh-set test: of the methods tried, only the picture-only check flagged few
-    truthful captions while catching images used out of context. Tests run word overlap by
-    default (conftest), so read the production default with that override removed."""
+    """The real default is "image" (conftest sets overlap for tests, so that is removed here).
+
+    It was chosen because it flagged few truthful captions while still catching out-of-context ones.
+    """
     from app.config import Settings
 
     monkeypatch.delenv("AEGIS_CAPTION_MATCH_METHOD", raising=False)
@@ -178,7 +174,7 @@ def test_default_method_is_the_picture_only_check(monkeypatch):
     ("overlap", "false", True),
 ])
 def test_captioner_runs_only_when_its_description_is_read(monkeypatch, method, use_llm, runs):
-    """BLIP is loaded only for word overlap, the meaning check's text score or the LLM."""
+    """BLIP only runs for word overlap, the meaning check's text score, or the LLM."""
     called = []
     _patch_basic(monkeypatch, method)
     monkeypatch.setattr(image_adapter, "describe_scene", lambda _b: called.append(1) or CaptionResult(

@@ -1,9 +1,9 @@
-"""Manual smoke test / demo aid: run the canonical worked mismatch example through the
-/analyze HTTP endpoint and write the resulting scorecard to scripts/_worked_example.json.
+"""Quick manual check: send the worked mismatch example to /analyze and save the scorecard.
 
-Not a pytest test — a developer aid and a way to capture the worked example for the report.
-Writes JSON (rather than printing) so the captured output is reliable. Run from anywhere:
-    python backend/scripts/smoke_analyze.py
+Not a pytest test; it is used to capture the worked example for the report. The result goes to
+scripts/_worked_example.json rather than the terminal so it can be read back exactly.
+
+Run (from anywhere):  python backend/scripts/smoke_analyze.py
 """
 
 import json
@@ -27,8 +27,8 @@ def main() -> None:
     buf = BytesIO()
     Image.new("RGB", (120, 60), "white").save(buf, format="PNG")
 
-    # The recycled-context lookup matches image content, not this filename, so this plain
-    # white image is not expected to match the history index.
+    # The history lookup matches image content, not the filename, so this plain white image
+    # should not match anything in the index.
     resp = client.post(
         "/analyze",
         files={"image": ("flood_recycled_2019.jpg", buf.getvalue(), "image/png")},

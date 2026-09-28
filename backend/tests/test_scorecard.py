@@ -1,9 +1,7 @@
-"""Tests for the scorecard assembler.
+"""Tests for building the scorecard, in rules-only and rules+LLM mode.
 
-Cover the two evaluation configurations the project compares: rules-only
-(use_llm=false) and rules+LLM (use_llm=true). The LLM is stubbed so these stay fast and
-deterministic — the reasoner has its own tests. Asserts the additive contract: the
-LLM adds a flag, never replaces the rule flags, and the scorecard carries no verdict.
+The LLM is stubbed. The LLM only adds a flag on top of the three rule flags, and there is
+no verdict field.
 """
 
 from app.config import get_settings
@@ -36,11 +34,11 @@ def test_rules_only_scorecard(monkeypatch):
 
     card = sc.build_scorecard(_mismatch_bundle())
 
-    # Exactly the three rule flags, all sourced from rules.
+    # Just the three rule flags.
     assert len(card.flags) == 3
     assert all(f.source == "rules" for f in card.flags)
     assert card.modality == Modality.IMAGE
-    assert card.summary  # neutral overview present
+    assert card.summary  # a neutral summary is there
     assert "verdict" not in sc.Scorecard.model_fields
     get_settings.cache_clear()
 
@@ -50,7 +48,7 @@ def test_rules_plus_llm_is_additive(monkeypatch):
     get_settings.cache_clear()
     monkeypatch.setenv("AEGIS_USE_LLM", "true")
     get_settings.cache_clear()
-    # Stub the reasoner: an explicit mismatch judgement.
+    # Fake reasoner that says the caption and scene don't match.
     monkeypatch.setattr(
         sc,
         "reason_over_text",
@@ -69,7 +67,7 @@ def test_rules_plus_llm_is_additive(monkeypatch):
 
 
 def test_llm_unavailable_adds_not_assessed_not_silence(monkeypatch):
-    """If the LLM is on but unavailable, its flag is NOT_ASSESSED — visible, not dropped."""
+    """If the LLM is on but unavailable, its flag is shown as NOT_ASSESSED, not dropped."""
     get_settings.cache_clear()
     monkeypatch.setenv("AEGIS_USE_LLM", "true")
     get_settings.cache_clear()

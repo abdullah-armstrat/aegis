@@ -1,4 +1,4 @@
-"""The rules on video bundles, built directly (no extractor runs)."""
+"""Tests for the rules on hand-built video bundles (no extractors run)."""
 
 import pytest
 
@@ -161,7 +161,7 @@ def test_speech_check_runs_for_video_only():
 
 
 def test_framing_names_why_on_screen_text_was_not_checked():
-    """No frames, text that could not be read, and text that is simply absent are said differently."""
+    """The evidence tells apart no frames, unreadable text and no text at all."""
     from app.models import FlagStatus as S
 
     no_frames = emotional_framing_rule(_video(caption="A calm river."))

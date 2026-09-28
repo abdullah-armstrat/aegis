@@ -1,9 +1,8 @@
-"""The caption check on real pictures: 16 cases on dataset A photos (ADR-042), pinned under the
-default rule (the picture against the caption, CLIP ViT-B/32). Each photo is paired with the first
-sentence of its own NASA description, expected clear, and with that of a photo from another topic,
-expected to fire. 13 of the 16 meet that expectation; the pins hold what the rule actually does,
-so a change to the check shows up here. The photos are not in the repository, so the test skips
-when dataset A is not on this machine."""
+"""The default caption check (picture vs caption, CLIP ViT-B/32) on 16 dataset A photos.
+
+Each photo gets its own NASA caption (expected clear) and one from another topic (expected to
+fire). 13 of 16 come out as expected; the pins record what the check actually does. Skips when
+dataset A is not downloaded."""
 
 import json
 import os

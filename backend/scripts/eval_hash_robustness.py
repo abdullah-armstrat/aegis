@@ -1,27 +1,22 @@
-"""Hash robustness harness — does a re-posted copy still match its original?
+"""Check whether a re-posted copy of an image still matches its original by pHash.
 
-For every original it registers the original's pHash in a throwaway index, applies each
-re-post transformation (``tests/eval/image_transforms.py``) and records the Hamming distance
-from the copy back to its original. Two numbers come out, both as curves over the threshold:
+Each original's pHash goes into a throwaway index, then every re-post transformation from
+tests/eval/image_transforms.py is applied and the Hamming distance back to the original recorded.
+Two curves over the threshold come out: the match rate per transformation (want high) and the
+false-match rate on impostor pairs, i.e. a copy of one original against a different original
+(want about 0).
 
-  * match rate per transformation — the share of copies at or below the threshold (want high);
-  * false-match rate — the share of impostor pairs at or below it (want ~0). An impostor pair
-    is a query derived from one original compared against a *different* original's entry.
+Two lookup variants are measured:
+  plain   - distance between the query hash and the entry hash;
+  mirror  - the smaller of that and the distance from the query's horizontal mirror, so flipped
+            re-posts can be found (pHash is not flip-invariant).
 
-It measures two lookup variants so the choice is made on data, not assumed:
-
-  * plain   — distance between the query hash and the entry hash;
-  * mirror  — the smaller of that and the distance from the query's horizontal mirror, which is
-              what makes flipped re-posts findable (pHash is not flip-invariant).
-
-SOURCES
-  --source samples   (default until dataset A arrives) openly licensed images bundled with
-                     scikit-image, loaded from the installed package at run time and never
-                     copied into the repository. Their provenance is listed in SAMPLE_IMAGES,
-                     with each licence quoted from the package's own docstring. Every number
-                     from this source is PROVISIONAL - SAMPLE IMAGES.
+Options:
+  --source samples   (default) openly licensed images bundled with scikit-image, loaded at run
+                     time and never copied into the repository; licences are in SAMPLE_IMAGES.
+                     Numbers from this source are only provisional.
   --source dataset   originals from data/labels/A_originals.csv and distractors from
-                     B_distractors.csv, with the image files under --images-dir (git-ignored).
+                     B_distractors.csv, image files under --images-dir (git-ignored).
 
 Run:  python backend/scripts/eval_hash_robustness.py [--json out.json]
 """
@@ -47,9 +42,9 @@ from tests.eval.image_transforms import TRANSFORMS  # noqa: E402
 _REPO = _BACKEND_DIR.parent
 THRESHOLDS = [4, 6, 8, 10, 12, 14, 16, 18, 20]
 
-# Chosen from scikit-image's bundled data: an explicit open licence in the docstring, no people,
-# no medical imagery (the project's own topic rule). Licence text quoted from the docstrings
-# of scikit-image 0.26.0, read on 2026-09-27. `cat` is excluded as an alias of `chelsea`.
+# Picked from scikit-image's bundled data: each has an open licence in its docstring, no people
+# and no medical images. Licence text is quoted from scikit-image 0.26.0 (read 2026-09-27).
+# `cat` is left out because it is the same image as `chelsea`.
 SAMPLE_IMAGES: dict[str, dict[str, str]] = {
     "brick": {"source": "CC0Textures (Bricks25) via skimage.data",
               "licence": "licensed under the Creative Commons CC0 License"},
@@ -159,7 +154,7 @@ def main() -> None:
         }
 
     # ---- report ----
-    print(f"\n=== pHash robustness — {label} ===")
+    print(f"\n=== pHash robustness - {label} ===")
     print(f"originals: {len(originals)}   transforms: {len(TRANSFORMS)}   "
           f"distractor images: {len(distractors)}")
     for variant in ("plain", "mirror"):
@@ -185,7 +180,7 @@ def main() -> None:
     if args.source == "samples":
         print("\nSample images (loaded from scikit-image at run time; not in the repository):")
         for name, p in SAMPLE_IMAGES.items():
-            print(f"  {name:<18} {p['source']}  —  \"{p['licence']}\"")
+            print(f"  {name:<18} {p['source']}  -  \"{p['licence']}\"")
         results["provenance"] = SAMPLE_IMAGES
 
     if args.json:

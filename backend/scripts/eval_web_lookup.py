@@ -1,35 +1,30 @@
-"""WP-4 evaluation: the live reverse-image lookup on datasets A, D and a VERITE sample.
+"""Evaluate the live reverse-image web lookup on datasets A, D and a VERITE sample.
 
-The definitions were fixed before any live call (the project's decision log): a match is a page
-listing a full or partial copy; an image is found online with at least one; dates are the app's
-own (htmldate, else the Wayback Machine's first capture); the earliest dated page is the earliest
-known appearance.
+The definitions were fixed before any live call: a match is a page showing a full or partial copy;
+an image is found online if it has at least one; page dates are the app's own (htmldate, else the
+Wayback Machine's first capture); the earliest dated page is the earliest known appearance.
 
-  run --set A|D|VERITE   look every image up through the app's web_lookup (the cache first, then
-                         one live call per image not yet cached). A and VERITE cache into the
-                         committed data/live_cache_eval/; D, the user's own photos kept outside the
-                         repository, caches into the ignored data/live_cache/. Stops at the first
-                         failed live call.
-  run --set X --redate   the same, after dropping the cached page dates of the set's images, so
-                         every page is dated again by the current code; the cached Vision
-                         responses are reused, so no live call is needed (run it without the key).
-  report [--tag T]       the tables, with Wilson 95% intervals, and the date-source split.
+  run --set A|D|VERITE   look up every image with the app's web_lookup (cache first, then one live
+                         call per uncached image); stops at the first failed live call. A and
+                         VERITE cache into the committed data/live_cache_eval/; D (the user's own
+                         photos, kept outside the repository) into the ignored data/live_cache/
+  run --set X --redate   the same after dropping the set's cached page dates, so every page is
+                         dated again by the current code; reuses the cached Vision responses, so
+                         no live call or key is needed
+  report [--tag T]       the tables with Wilson 95% intervals, and where the dates came from
 
-Re-dating from saved inputs, so that a change to the dating code is measured apart from the
-network (the project's decision log, ADR-043):
-  inputs --what pages    fetch every page the evaluation dates, once, one at a time with a pause,
-                         into the ignored data/live_cache/raw/ (whatever the page answers is kept,
-                         a failure included)
+Re-dating from saved inputs, so a change to the dating code is measured without the network:
+  inputs --what pages    fetch every page the evaluation dates, once each with a pause, into the
+                         ignored data/live_cache/raw/ (failures are saved as answers too)
   inputs --what archive  every Wayback Machine request the dating code can make for those pages,
-                         once, one at a time, 15 s apart; stops at the first refusal (429, or any
-                         failure of the availability API) without saving it, and picks up where it
-                         stopped when run again (to be completed in WP-6)
-  metadata-from-inputs   the fix of ADR-043 alone: the page-metadata dating before it and the
-                         current one on the same saved page answers (no network). The fix changes
-                         only this step, so this is its whole effect
-  dates-from-inputs      once every archive answer is saved: the whole dating, before ADR-043 and
-                         now, on the saved inputs only; each run's tables, and the current dates
-                         written into the committed cache
+                         once each, 15 s apart; stops without saving at the first refusal (429, or
+                         any failed availability call) and carries on from there next time
+  metadata-from-inputs   page-metadata dating before and after the htmldate fix (no fallback to a
+                         modification date) on the same saved pages, no network; the fix only
+                         changed this step, so this is its whole effect
+  dates-from-inputs      once every archive answer is saved: the whole dating before the fix and
+                         now, on saved inputs only; writes each run's tables, and the current dates
+                         into the committed cache
 
 Run from the repo root: python backend/scripts/eval_web_lookup.py run --set A
 """
@@ -67,13 +62,14 @@ D_FOLDER = Path(os.path.expanduser("~")) / "Desktop" / "aegis_D"
 D_LANDMARKS = {"D12"}
 SEED = 20260927
 VERITE_N = 50
-RAW = ROOT / "data" / "live_cache" / "raw"   # ignored: saved answers of pages and the archive
+RAW = ROOT / "data" / "live_cache" / "raw"   # git-ignored: saved page and archive answers
 PAGE_PAUSE_S = 1.0
-ARCHIVE_PAUSE_S = 15.0  # 5 s still met a 429 after 251 requests (ADR-043)
+ARCHIVE_PAUSE_S = 15.0  # with 5 s the archive still sent a 429 after 251 requests
 ARCHIVE_HOSTS = {"archive.org", "web.archive.org"}
 
 
 def wilson(k: int, n: int, z: float = 1.959964) -> tuple[float, float]:
+    """Wilson score interval (95% by default) for k out of n, clamped to [0, 1]."""
     if n == 0:
         return (float("nan"), float("nan"))
     ph = k / n
@@ -83,6 +79,7 @@ def wilson(k: int, n: int, z: float = 1.959964) -> tuple[float, float]:
 
 
 def images(which: str) -> list[dict]:
+    """The images of set A, D or VERITE (a seeded sample of 50 miscaptioned images on disk)."""
     if which == "A":
         rows = csv.DictReader(open(ROOT / "data" / "labels" / "A_originals.csv", encoding="utf-8"))
         return [{"id": r["nasa_id"], "path": ROOT / "data" / "A_originals" / r["file"],
@@ -104,6 +101,7 @@ def images(which: str) -> list[dict]:
 
 
 def run(which: str, redate: bool = False, tag: str = "") -> None:
+    """Look up every image of one set and write results/wp4_web_<set>[_<tag>].json."""
     os.environ["AEGIS_LIVE_CACHE_DIR"] = LOCAL_CACHE if which == "D" else EVAL_CACHE
     from app.config import get_settings
     get_settings.cache_clear()
@@ -157,6 +155,7 @@ def run(which: str, redate: bool = False, tag: str = "") -> None:
 
 
 def report(tag: str = "") -> None:
+    """Summarise the run files for each set into one report file and print it."""
     res = {}
     sources = Counter()
     for which in ("A", "D", "VERITE"):
@@ -231,8 +230,10 @@ def _response(saved: dict, request):
 
 
 class _Inputs(httpx.BaseTransport):
-    """An httpx transport answering from the saved inputs; with ``fetch``, it fetches and saves
-    what is not saved yet, one request at a time, pausing first."""
+    """httpx transport that answers from the saved inputs.
+
+    With fetch=True it fetches and saves anything not saved yet, one request at a time with a pause.
+    """
 
     def __init__(self, fetch: bool = False):
         self.fetch, self.misses, self.fetched = fetch, [], 0
@@ -291,6 +292,7 @@ def page_urls() -> list[str]:
 
 
 def fetch_inputs(what: str) -> None:
+    """Fetch and save the page or archive answers that are not saved yet."""
     from app.extractors import web_lookup as lookup
 
     urls = page_urls()
@@ -314,7 +316,7 @@ def fetch_inputs(what: str) -> None:
 
 
 def _date_from_html_before_adr_043(html: str) -> str | None:
-    """web_lookup.date_from_html as it was before ADR-043 (commit 621468d)."""
+    """web_lookup.date_from_html as it was before the fix (commit 621468d)."""
     from htmldate import find_date
 
     return find_date(html, extensive_search=False, original_date=True, outputformat="%Y-%m-%d",
@@ -322,7 +324,7 @@ def _date_from_html_before_adr_043(html: str) -> str | None:
 
 
 def metadata_from_inputs() -> None:
-    """ADR-043's fix alone: both versions of the page-metadata dating on the same saved pages."""
+    """The htmldate fix alone: old and current page-metadata dating on the same saved pages."""
     from app.extractors import web_lookup as lookup
 
     urls = page_urls()
@@ -359,6 +361,7 @@ def metadata_from_inputs() -> None:
 
 
 def dates_from_inputs() -> None:
+    """Re-date A and VERITE from saved inputs with the old and the current dating, and compare."""
     from app.extractors import web_lookup as lookup
 
     current = lookup.date_from_html

@@ -1,16 +1,15 @@
-"""WP-5: the picture check's limits (nearly blank, mostly text) on the VERITE pairs.
+"""Test the picture check's limits (nearly blank, mostly text) on the VERITE pairs.
 
-The definitions were fixed before anything was measured (the project's decision log): nearly blank
-is a greyscale standard deviation under 10; mostly text is the words OCR reads covering more than
-40% of the picture. Both are measured by the app's own functions.
+Both limits were defined before anything was measured: nearly blank is a greyscale standard
+deviation under 10; mostly text is OCR word boxes covering more than 40% of the picture. Both use
+the app's own functions.
 
-  measure   Both measures for every image of the 300-pair sample and of the fresh set, with the
-            app's own OCR. Cached in data/verite/features/picture_limits.json (ignored).
-  report    Pairs and distinct images excluded, per label and reason, and the picture-only rule
-            and the meaning rule (thresholds unchanged) on both sets before and after, through the
-            app's rule code, with excluded pairs not assessed.
+  measure   both measures for every image in the 300-pair sample and the fresh set, with the app's
+            OCR; cached in data/verite/features/picture_limits.json (ignored)
+  report    pairs and images excluded, per label and reason, and the picture-only and meaning rules
+            (same thresholds) on both sets before and after, with excluded pairs not assessed
 
-Run from the repo root: python backend/scripts/eval_picture_limits.py measure|report
+Run (from the repo root):  python backend/scripts/eval_picture_limits.py measure|report
 """
 
 from __future__ import annotations

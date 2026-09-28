@@ -1,14 +1,9 @@
-"""Deterministic fusion rules — the reproducible heart of the analysis.
+"""Deterministic fusion rules.
 
-Each rule reads the Evidence Bundle and returns exactly one :class:`Flag` describing the
-*outcome of attempting that check* — FIRED, CLEAR, or NOT_ASSESSED. Crucially, a
-rule emits a flag even when it cannot run, so "couldn't check" is never silently dropped and
-never mistaken for "checked and consistent". These rules are deterministic and explainable,
-so they form the baseline the "rules only" vs "rules + LLM" evaluation compares against.
-
-Thresholds live here as named constants; they are deliberately simple and tunable, and the
-eval harness will inform their final values. No rule outputs a trust verdict — only
-a typed, explained flag with a "what to check" prompt.
+Each rule reads the Evidence Bundle and returns one :class:`Flag`: FIRED, CLEAR or NOT_ASSESSED.
+A rule returns a flag even when it cannot run, so "could not check" is never mistaken for
+"checked and fine". These rules are the "rules only" baseline in the evaluation, and their
+thresholds are the named constants below. No rule gives a trust verdict, only an explained flag.
 """
 
 from __future__ import annotations
@@ -29,54 +24,53 @@ from app.models import (
     Severity,
 )
 
-# --- Tunable thresholds (eval harness will inform final values) ---
-CAPTION_SCENE_OVERLAP_THRESHOLD = 0.15  # min content-word overlap before caption↔scene is "consistent"
+# --- Caption vs scene description by word overlap (the older method) ---
+CAPTION_SCENE_OVERLAP_THRESHOLD = 0.15  # fires below this share of caption words found in the scene
 
 # --- Caption vs picture by meaning ---
-# Fitted on the calibration part of the VERITE sample: the pair of thresholds that flags at most
-# 1 in 10 truthful captions there while catching the most images used out of context. The flag
-# fires only when BOTH similarities are below their thresholds. On the held-out part it flagged
-# 10 of 60 truthful captions and caught 13 of 61 images used out of context.
+# Fitted on the calibration part of the VERITE sample: the pair that flags at most 1 in 10
+# truthful captions while catching the most out-of-context images. The flag fires only when BOTH
+# similarities are below. On the held-out part it flagged 10 of 60 truthful captions and caught
+# 13 of 61 out-of-context images.
 CAPTION_IMAGE_SIMILARITY_THRESHOLD = 0.3772  # CLIP ViT-B/32: the picture against the caption
 CAPTION_TEXT_SIMILARITY_THRESHOLD = 0.7274   # spaCy: the caption against scene description + on-screen text
 
 # --- Caption vs picture, picture similarity only (the default method) ---
-# Fitted on all 300 pairs of the VERITE sample: flags at most 10 of its 100 truthful captions
-# while catching the most images used out of context. Stored to 5 decimals because two sampled
-# pairs score 0.27745 and 0.27747; this value decides every one of the 300 exactly as fitted.
-# On 165 VERITE pairs no earlier evaluation had touched, it flagged 3 of 48 truthful captions and
-# caught 26 of 69 images used out of context and 7 of 48 miscaptioned ones.
+# Fitted on all 300 VERITE sample pairs: flags at most 10 of the 100 truthful captions while
+# catching the most out-of-context images. Kept to 5 decimals because two pairs score 0.27745 and
+# 0.27747. On 165 unseen VERITE pairs it flagged 3 of 48 truthful captions and caught 26 of 69
+# out-of-context images and 7 of 48 miscaptioned ones.
 CAPTION_IMAGE_ONLY_THRESHOLD = 0.27746  # CLIP ViT-B/32: the picture against the caption
 
 # --- Speech vs picture (video) ---
-# Fitted on the fitting side of dataset E's swap test (true narration lines against lines taken
-# from other footage): flags at most 1 in 10 true lines there while catching the most swapped
-# ones. On the held-out side it flagged 8 of 50 true lines and caught 42 of 50 swapped ones.
+# Fitted on the fitting half of dataset E's swap test (true narration lines vs lines taken from
+# other footage): flags at most 1 in 10 true lines while catching the most swapped ones. On the
+# held-out half it flagged 8 of 50 true lines and caught 42 of 50 swapped ones.
 SPEECH_PICTURE_THRESHOLD = 0.2354  # CLIP ViT-B/32: a stretch of speech against its frames
 
-# What the speech check can and cannot see, stated on every result it gives.
+# What the speech check cannot see, added to every result it gives.
 _SPEECH_LIMIT = (
     "This only compares the kind of scene. It cannot catch a wrong detail, such as a colour, a number, "
     "a name or a place, in words that fit the scene."
 )
 
 # --- Emotional-framing marker thresholds ---
-# Set from reasoning about what each marker means, BEFORE measuring on the labelled set, so the
-# rule is not tuned to its own evaluation. Each is a presentation property of the caption text.
-CAPS_RATIO_THRESHOLD = 0.15         # >=15% of words shouted is a deliberate stylistic choice
+# Set from what each marker means, before looking at the labelled set, so the rule is not tuned
+# to its own evaluation. Each one is about how the caption is written, not what it says.
+CAPS_RATIO_THRESHOLD = 0.15         # 15% or more of words in capitals is a clear style choice
 EXCLAMATION_ABSOLUTE_THRESHOLD = 2  # "!!" or more is emphasis, not punctuation
-EXCLAMATION_DENSITY_THRESHOLD = 0.05  # or 1 per 20 words in a longer caption
-MIN_MARKERS_TO_FIRE = 2             # fire on a COMBINATION: one marker alone is ordinary style
+EXCLAMATION_DENSITY_THRESHOLD = 0.05  # or 1 per 20 words
+MIN_MARKERS_TO_FIRE = 2             # one marker alone is ordinary style, so two are needed
 
-# Very small English stop-word list — enough to stop overlap being dominated by glue words.
+# Small English stop-word list, so the overlap is not dominated by filler words.
 _STOPWORDS = frozenset(
     """a an the this that these those is are was were be been being of to in on at for with
     and or but if then than so as it its from by into over under up down out about no not just
     we you they he she i them his her their our your my me""".split()
 )
 
-# Urgency / sensational lexicon: phrasing that pressures the reader to act (share, hurry, be
-# amazed) rather than to check. Grouped by rhetorical function, not cherry-picked per example.
+# Urgency and sensational phrases that push the reader to act (share, hurry, be amazed) rather
+# than check. Grouped by what they do, not picked to fit particular examples.
 _URGENCY_PATTERNS: tuple[tuple[str, str], ...] = (
     ("urgency word", r"\b(urgent|breaking|alert|warning)\b"),
     ("share pressure", r"\b(share|repost|forward|spread)\b[^.!?]{0,30}\b(before|now|immediately|quickly|everyone)\b"),
@@ -86,9 +80,8 @@ _URGENCY_PATTERNS: tuple[tuple[str, str], ...] = (
     ("must-see framing", r"\b(must see|must watch|you need to see|everyone needs to see)\b"),
 )
 
-# In-/out-group cues: language that constructs an "us against them" frame. Bare pronouns ("they",
-# "us") are deliberately EXCLUDED — they are far too common in ordinary reporting to be a marker
-# on their own; only group-framing constructions count.
+# "Us against them" phrases. Bare pronouns such as "they" or "us" are left out because they are
+# too common in ordinary reporting to mean anything on their own.
 _GROUP_FRAMING_PATTERNS: tuple[tuple[str, str], ...] = (
     ("concealment claim", r"\bthey\b[^.!?]{0,20}\b(hiding|hide|covering up|don't want|dont want|do not want)\b"),
     ("addressed concealment", r"\b(hiding|kept) from you\b|\bdon't want you to know\b|\bdont want you to know\b"),
@@ -105,25 +98,22 @@ def _content_words(text: str) -> set[str]:
 
 
 def _normalise(text: str) -> str:
-    """Lower-case and straighten typographic apostrophes so the lexicons match reliably."""
+    """Lower-case and straighten curly apostrophes so the patterns match."""
     return text.replace("’", "'").lower()
 
 
 def find_manipulation_markers(text: str) -> list[str]:
-    """Return a human-readable description of each manipulation marker present in ``text``.
+    """Return a readable description of each manipulation marker found in ``text``.
 
-    The four markers are the ALL-CAPS ratio, exclamation
-    density, an urgency/sensational lexicon, and in-/out-group framing cues. Each returned
-    string is evidence the user can verify by looking at the caption, which is the whole point
-    of measuring markers rather than sentiment: the rule measures what its name claims.
-
-    Returns an empty list when no marker is present. Deterministic and side-effect free.
+    The four markers are the share of words in capitals, exclamation marks, the urgency list and
+    the "us against them" list. Each description is something the user can check by reading the
+    caption. Returns an empty list if there are none.
     """
     normalised = _normalise(text)
     words = re.findall(r"[A-Za-z']+", text)
     markers: list[str] = []
 
-    # 1. ALL-CAPS ratio. Single letters ("I", "A") are excluded — they are not shouting.
+    # 1. ALL-CAPS ratio. Single letters like "I" and "A" are not shouting, so they are skipped.
     shoutable = [w for w in words if len(w) >= 2]
     caps = [w for w in shoutable if w.isupper()]
     if shoutable:
@@ -134,7 +124,7 @@ def find_manipulation_markers(text: str) -> list[str]:
                 f"{', '.join(caps[:4])})"
             )
 
-    # 2. Exclamation density: either a run of them, or a sustained rate in a longer caption.
+    # 2. Exclamation marks: two or more, or at least 1 per 20 words.
     bangs = text.count("!")
     density = bangs / len(words) if words else 0.0
     if bangs >= EXCLAMATION_ABSOLUTE_THRESHOLD or (
@@ -142,12 +132,12 @@ def find_manipulation_markers(text: str) -> list[str]:
     ):
         markers.append(f"{bangs} exclamation mark{'s' if bangs != 1 else ''} in {len(words)} words")
 
-    # 3. Urgency / sensational lexicon.
+    # 3. Urgency and sensational phrases.
     urgency_hits = [m.group(0) for _, pattern in _URGENCY_PATTERNS if (m := re.search(pattern, normalised))]
     if urgency_hits:
         markers.append("words from the urgency list: " + ", ".join(f'"{h}"' for h in urgency_hits))
 
-    # 4. In-/out-group framing.
+    # 4. "Us against them" phrases.
     group_hits = [m.group(0) for _, pattern in _GROUP_FRAMING_PATTERNS if (m := re.search(pattern, normalised))]
     if group_hits:
         markers.append("listed phrases: " + ", ".join(f'"{h}"' for h in group_hits))
@@ -156,22 +146,12 @@ def find_manipulation_markers(text: str) -> list[str]:
 
 
 def emotional_framing_rule(bundle: EvidenceBundle) -> Flag:
-    """Flags manipulation markers in the caption's *presentation*.
+    """Flag manipulation markers in how the caption is written.
 
-    Measures four deterministic, explainable markers computed from the caption text itself —
-    ALL-CAPS ratio, exclamation density, an urgency/sensational lexicon, and in-/out-group
-    framing — and fires only on a COMBINATION of at least ``MIN_MARKERS_TO_FIRE`` of them. The
-    specific markers found are reported as evidence, so the finding is checkable by eye.
-
-    This replaces the previous sentiment-polarity proxy, which keyed on distilbert SST-2's
-    negative-class confidence. That measured negative *polarity*, not manipulation, and so
-    labelled sober-but-critical posts as manipulative: a measured, critical real-world news post
-    was flagged that way in testing on 2026-06-29. The sentiment extractor has since been
-    removed, since nothing read it.
-
-    NOT_ASSESSED when there is no caption text to measure — markers are properties of text, so
-    absent text means the check could not run, never a silent pass. For a video the markers are
-    run on the caption, the speech and each keyframe's on-screen text (see below).
+    Fires when at least ``MIN_MARKERS_TO_FIRE`` of the four markers are present, and lists them as
+    evidence. This replaced an earlier sentiment score (distilbert SST-2), which measured negative
+    tone rather than manipulation and flagged a calm but critical news post in testing on
+    2026-06-29. NOT_ASSESSED when there is no caption text. Videos use ``_video_emotional_framing``.
     """
     if bundle.meta.modality == Modality.VIDEO:
         return _video_emotional_framing(bundle)
@@ -201,8 +181,7 @@ def emotional_framing_rule(bundle: EvidenceBundle) -> Flag:
             what_to_check="Read the caption without the capitals and exclamation marks. Then look at what it actually says.",
         )
 
-    # Clear: fewer than the required combination. Name the single marker if there was one, so
-    # "clear" is never an unexplained pass.
+    # CLEAR: still name the single marker if there was one, so the result is explained
     if markers:
         reason = f"Only 1 of 4 style markers present ({markers[0]}); {MIN_MARKERS_TO_FIRE} are needed."
     else:
@@ -234,8 +213,10 @@ def _style_summary(markers: list[str]) -> str:
 
 
 def _video_emotional_framing(bundle: EvidenceBundle) -> Flag:
-    """The markers on each text a video carries: caption, speech, and each keyframe's on-screen
-    text, each judged on its own. Fires when any one source shows the combination of markers."""
+    """Run the markers on each text in a video: caption, speech and each keyframe's on-screen text.
+
+    Each source is judged on its own, and the flag fires if any one of them has enough markers.
+    """
     sources: list[tuple[str, str, list[float]]] = []
     if bundle.caption and re.search(r"[A-Za-z]", bundle.caption):
         sources.append(("the caption", bundle.caption.strip(), []))
@@ -299,6 +280,7 @@ def _video_emotional_framing(bundle: EvidenceBundle) -> Flag:
 
 
 def _parse_iso(value: str | None) -> date | None:
+    """Parse an ISO date, or return None if it is missing or invalid."""
     try:
         return date.fromisoformat(value) if value else None
     except ValueError:
@@ -306,10 +288,9 @@ def _parse_iso(value: str | None) -> date | None:
 
 
 def recycled_context_rule(bundle: EvidenceBundle) -> Flag:
-    """Has this image, or a frame of this video, appeared before the post claims to be from?
+    """Has this image, or a frame of this video, appeared before the post's date?
 
-    For a video every keyframe is looked up; the flag names the frames that matched and cites
-    their times.
+    For a video every keyframe is looked up, and the flag gives the times of the frames that matched.
     """
     if bundle.meta.modality != Modality.VIDEO:
         return _recycled_context(bundle)
@@ -345,14 +326,16 @@ def recycled_context_rule(bundle: EvidenceBundle) -> Flag:
     return flag
 
 
-# A page's date belongs to the page, not to the picture on it: a Wikipedia article created years
-# before a photo was added to it carries the article's date. Said on every result that cites a page.
+# A page's date is the page's, not the picture's: a Wikipedia article can be years older than a
+# photo added to it later. Added to every result that cites a page.
 _PAGE_DATE_LIMIT = "A page can be older or newer than the image on it."
 
 
 def _recycled_check(pages) -> str:
-    """Which lookup a finding rests on: the image history index if any of these pages comes from
-    it, otherwise the live web search, whose page dates are read from the pages themselves."""
+    """Name the lookup a finding rests on, for its severity.
+
+    That is the history index if any of the pages came from it, otherwise the live web search.
+    """
     return "recycled_index" if any(m.found_by != "web" for m in pages) else "recycled_web"
 
 
@@ -366,27 +349,12 @@ def _dated_by(match) -> str:
 
 
 def _recycled_context(bundle: EvidenceBundle) -> Flag:
-    """Has this image appeared before the post claims to be from?
+    """Has this image been found on a page dated before the post?
 
-    The lookup matches the image by content against the image history index. The posting date,
-    when the user gives one, decides whether a match actually makes the post look recycled:
-
-      Situation                                                   Status
-      lookup could not run                                        not_assessed
-      lookup ran, no match                                        clear
-      match, posting date given, a page is dated earlier          fired, citing the earliest-dated page
-      match, posting date given, nothing dated earlier            clear
-      match, no posting date                                      fired, saying a date would allow
-                                                                  a comparison
-
-    One case the table above does not cover: a match whose pages are not all dated, and none of
-    the dated ones is earlier. That comparison is incomplete, so it is reported as fired with the
-    gap named, never as clear: an incomplete check must not reassure. A page dated on the posting
-    date itself is not "earlier": it may be the post being checked.
-
-    A date is a page's date, not the image's: the evidence says the image was found on a page
-    dated so, never that the image first appeared then, and every result citing pages says the
-    page may be older or newer than the image on it.
+    No lookup gives NOT_ASSESSED and no match gives CLEAR. With a match, it fires if a page is
+    dated before the posting date, and also fires (as incomplete) if no posting date was given or
+    some pages are undated. Otherwise it is CLEAR. A page dated on the posting date itself does not
+    count as earlier, since it may be the post being checked.
     """
     status = bundle.extractor_status.get("reverse_image")
     web_note = bundle.extractor_detail.get("web_search", "")
@@ -503,11 +471,11 @@ def _recycled_context(bundle: EvidenceBundle) -> Flag:
 
 
 def caption_scene_mismatch_rule(bundle: EvidenceBundle) -> Flag:
-    """Does the caption describe what the image actually shows? (caption ↔ scene)
+    """Does the caption fit what the image shows?
 
-    ``caption_match_method`` selects how: by the picture's similarity to the caption (CLIP), by
-    that and the caption's similarity to the scene description (CLIP and spaCy), by the earlier
-    content-word overlap, or not at all.
+    ``caption_match_method`` picks how: CLIP picture similarity ("image"), that plus spaCy
+    similarity to the scene description ("meaning"), word overlap ("overlap"), or not at all
+    ("off"). Videos always use the keyframe CLIP check unless it is off.
     """
     method = get_settings().caption_match_method
     if bundle.meta.modality == Modality.VIDEO:
@@ -521,18 +489,18 @@ def caption_scene_mismatch_rule(bundle: EvidenceBundle) -> Flag:
     return _caption_overlap_rule(bundle)
 
 
-# What the meaning checks can and cannot see, stated on every result they give.
+# What the meaning checks cannot see, added to every result they give.
 _MEANING_LIMIT = (
     "This only compares the kind of scene. It cannot catch a wrong name, place or date in a "
     "caption that fits the scene."
 )
 
-# Why the check can be switched off, shown on the scorecard when it is.
+# Shown on the scorecard when the check is switched off.
 CAPTION_CHECK_OFF_REASON = "The caption-vs-picture check is switched off in this configuration."
 
 
 def _caption_check_off(bundle: EvidenceBundle) -> Flag:
-    """The check is switched off: say so, rather than leave it out or call it clear."""
+    """The check is switched off, so report NOT_ASSESSED rather than leaving it out."""
     return Flag(
         type=FlagType.CAPTION_CONTENT_MISMATCH,
         status=FlagStatus.NOT_ASSESSED,
@@ -544,8 +512,10 @@ def _caption_check_off(bundle: EvidenceBundle) -> Flag:
 
 
 def _video_caption_rule(bundle: EvidenceBundle) -> Flag:
-    """The caption must be a reasonable match for at least one keyframe, by the same CLIP score
-    and threshold as the picture-only check on images. BLIP and spaCy play no part for video."""
+    """Fires unless the caption is a reasonable match for at least one keyframe.
+
+    Uses the same CLIP score and threshold as the picture-only check on images.
+    """
     scored = [k for k in bundle.keyframes if k.caption_similarity is not None]
     if not bundle.caption or not scored:
         reason = ("there is no caption." if not bundle.caption
@@ -590,7 +560,7 @@ def _video_caption_rule(bundle: EvidenceBundle) -> Flag:
 
 
 def _similarity_not_assessed(bundle: EvidenceBundle) -> Flag:
-    """NOT_ASSESSED for a similarity check, with the reason the score is missing."""
+    """NOT_ASSESSED flag for a similarity check, giving the reason the score is missing."""
     match = bundle.caption_match
     if not bundle.caption:
         reason = "no caption available."
@@ -609,9 +579,9 @@ def _similarity_not_assessed(bundle: EvidenceBundle) -> Flag:
 
 
 def _caption_image_rule(bundle: EvidenceBundle) -> Flag:
-    """Fires when the picture itself matches the caption weakly (CLIP similarity).
+    """Fires when the picture itself is a weak match for the caption (CLIP similarity).
 
-    Uses no scene description, so it does not depend on the captioner.
+    It does not use the scene description, so it does not need the captioner.
     """
     match = bundle.caption_match
     if not bundle.caption or match is None or match.image_similarity is None:
@@ -650,13 +620,12 @@ def _caption_image_rule(bundle: EvidenceBundle) -> Flag:
 
 
 def _caption_meaning_rule(bundle: EvidenceBundle) -> Flag:
-    """Fires when the picture and the caption seem to be about different kinds of scene.
+    """Fires when both the picture and what was read from it are weak matches for the caption.
 
-    Reads two similarities from ``bundle.caption_match``: the picture against the caption (CLIP),
-    and the caption against what the other extractors read from the picture (spaCy). On the
-    held-out part of the VERITE sample it caught about 1 in 5 mismatched pairs of either kind
-    while flagging 1 in 6 truthful ones. A false caption usually describes the same kind of scene
-    with a wrong detail, which a similarity score cannot see, and the explanation says so.
+    Uses CLIP for the picture and spaCy for the scene description and on-screen text. On the
+    held-out VERITE part it caught about 1 in 5 mismatched pairs (of either kind) while flagging
+    1 in 6 truthful ones. A false caption often describes the right kind of scene with a wrong
+    detail, which a similarity score cannot see, and the explanation says so.
     """
     match = bundle.caption_match
     if not bundle.caption or match is None or match.image_similarity is None or match.text_similarity is None:
@@ -706,12 +675,10 @@ def _caption_meaning_rule(bundle: EvidenceBundle) -> Flag:
 
 
 def _caption_overlap_rule(bundle: EvidenceBundle) -> Flag:
-    """Caption ↔ scene by content-word overlap, the earlier method.
+    """Caption vs scene description by shared content words (the older method).
 
-    Compares the user caption against the scene description(s) from the captioner by
-    content-word overlap. Low overlap suggests the caption and the visible content are about
-    different things. Requires both a caption and scene descriptions; otherwise NOT_ASSESSED
-    (e.g. before the captioner is wired in).
+    Fires when the share of caption words that also appear in the BLIP description is below the
+    threshold. NOT_ASSESSED without both a caption and a scene description.
     """
     scene_text = " ".join(s.text for s in bundle.scene_descriptions)
     if not bundle.caption or not scene_text.strip():
@@ -770,9 +737,8 @@ def _caption_overlap_rule(bundle: EvidenceBundle) -> Flag:
 def audio_visual_mismatch_rule(bundle: EvidenceBundle) -> Flag:
     """Does what is said match what is shown at that moment? (video only)
 
-    Each stretch of speech was scored against the frame at its midpoint and any keyframe inside
-    it, with CLIP; its score is the highest. A stretch below the threshold fires the flag, which
-    cites its time. No audio track or no speech makes the check not assessed, with the reason.
+    Each stretch of speech has a CLIP score against its frames (the best one is kept). Any stretch
+    below the threshold fires the flag, citing its time. No audio or no speech gives NOT_ASSESSED.
     """
     segments = bundle.transcript_segments
     if not segments:
@@ -830,7 +796,7 @@ def audio_visual_mismatch_rule(bundle: EvidenceBundle) -> Flag:
     )
 
 
-# Order is the order flags are presented in the scorecard.
+# in the order the flags appear on the scorecard
 ALL_RULES = (
     caption_scene_mismatch_rule,
     recycled_context_rule,
@@ -839,9 +805,9 @@ ALL_RULES = (
 
 
 def run_rules(bundle: EvidenceBundle) -> list[Flag]:
-    """Run every deterministic rule and return one Flag per rule, whatever its outcome.
+    """Run every rule and return one Flag per rule, whatever its outcome.
 
-    Speech vs picture applies only to video, so an image scorecard does not carry it.
+    The speech vs picture rule is only added for video.
     """
     flags = [rule(bundle) for rule in ALL_RULES]
     if bundle.meta.modality == Modality.VIDEO:

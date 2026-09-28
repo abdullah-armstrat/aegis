@@ -1,20 +1,9 @@
-"""Video adapter — turns a video file + caption into an :class:`EvidenceBundle`.
+"""Video adapter: turns a video file and its caption into an :class:`EvidenceBundle`.
 
-Stages, in order, each loading at most one model:
-
-  keyframes      scene cuts (PySceneDetect), the middle frame of each scene, at most 8; even
-                 intervals when there are no cuts
-  ocr            Tesseract on every keyframe (an external program, no model in this process)
-  reverse_image  the image history lookup (hash, then keypoints) on every keyframe
-  speech         the audio track through Whisper, loaded for this stage only
-  clip           CLIP ViT-B/32: the caption against every keyframe, and each stretch of speech
-                 against the frame at its midpoint and any keyframe inside it (the highest of
-                 these is the stretch's score). Once loaded, CLIP stays loaded for later requests,
-                 as it does for images; Whisper is loaded for each video and released after it.
-
-BLIP and spaCy are never loaded here, and the LLM is not used for video. Every item carries its
-time in the video. A stage that cannot run records NOT_ASSESSED and the reason in
-``extractor_detail``, so the rules can say why a check did not run.
+The stages run in order and each loads at most one model: keyframes (scene cuts, at most 8), OCR
+and the reverse-image lookup on each keyframe, Whisper for the speech, then CLIP to score the
+caption and each stretch of speech against the frames. BLIP, spaCy and the LLM are not used for
+video. A stage that cannot run records NOT_ASSESSED and the reason in ``extractor_detail``.
 """
 
 from __future__ import annotations
@@ -93,7 +82,10 @@ def build_video_bundle(
     posted_date: str | None = None,
     stages: list | None = None,
 ) -> EvidenceBundle:
-    """Run the video stages on a file and assemble the bundle. Raises VideoError if unreadable."""
+    """Run the video stages on a file and return the bundle. Raises VideoError if unreadable.
+
+    If ``stages`` is a list, each stage's time (seconds) and peak memory (MB) are appended to it.
+    """
     settings = get_settings()
     info = probe(path)
     status: dict[str, FlagStatus] = {}
@@ -166,7 +158,7 @@ def build_video_bundle(
                     status["speech"], detail["speech"] = FlagStatus.NOT_ASSESSED, str(exc)
             if status["speech"] == FlagStatus.CLEAR:
                 status["speech"] = FlagStatus.NOT_ASSESSED  # audio, but no speech to check
-        # Each stretch of speech is compared with the frame at its midpoint and any keyframe inside it.
+        # each stretch of speech is compared with its midpoint frame and any keyframe inside it
         segment_frames: dict[float, bytes] = {}
         for seg in segments:
             seg.frame_timestamps = segment_frame_times(seg.start, seg.end, sorted(frames))

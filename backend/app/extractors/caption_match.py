@@ -1,20 +1,10 @@
-"""Caption vs image by meaning: the similarity scores the caption-match check reads.
+"""Similarity scores between the caption and the picture, used by the caption-match check.
 
-Two scores, each the cosine similarity of two unit-length vectors:
-
-  image score  the caption against the picture itself, with OpenAI's CLIP, which embeds images
-               and text in one space so that a picture and a sentence describing it lie close
-  text score   the caption against what the other extractors read from the picture (the BLIP
-               scene description plus any on-screen text), with CLIP's text encoder or with
-               spaCy ``en_core_web_md`` word vectors
-
-Word overlap cannot see that "a crowd marching" and "protesters on the street" describe the same
-thing; both scores can, because they compare meaning rather than spelling.
-
-Weights are not downloaded unless ``allow_model_downloads`` is set. By default CLIP's checkpoint
-must already be in its cache folder with the checksum OpenAI publishes, and spaCy's model must be
-installed as a package; if either is missing the result is NOT_ASSESSED. CLIP's text encoder reads at most 77 tokens, so longer text
-is cut to fit and the result records that it was.
+Image score: the caption against the picture itself, with CLIP. Text score: the caption against
+the BLIP scene description and on-screen text, with CLIP's text encoder or spaCy word vectors.
+Both are cosine similarities, so they compare meaning rather than exact words. Models are only
+loaded from local files unless ``allow_model_downloads`` is set; a missing one gives NOT_ASSESSED.
+CLIP reads at most 77 tokens, so longer captions are cut and marked as truncated.
 """
 
 from __future__ import annotations
@@ -33,10 +23,9 @@ from app.models import FlagStatus
 CLIP_CACHE = Path(os.path.expanduser("~/.cache/clip"))
 SPACY_MODEL = "en_core_web_md"
 
-# The models the caption checks use, chosen by comparison on the VERITE sample: of the candidates
-# held to flagging at most 1 in 10 truthful captions there, this pair caught the most images used
-# out of context. The picture-only check, the default, uses IMAGE_MODEL alone; the meaning check
-# adds TEXT_METHOD.
+# Chosen on the VERITE sample: of the models that flagged at most 1 in 10 truthful captions, this
+# pair caught the most out-of-context images. The default picture-only check uses IMAGE_MODEL
+# alone, the meaning check adds TEXT_METHOD.
 IMAGE_MODEL = "ViT-B/32"
 TEXT_METHOD = "spacy"
 
@@ -54,7 +43,10 @@ class CaptionMatchResult:
 
 # ------------------------------------------------------------------------------ CLIP
 def clip_checkpoint(arch: str) -> Path:
-    """The cached checkpoint for a CLIP model, checked against OpenAI's published checksum."""
+    """Return the cached CLIP checkpoint after checking it against OpenAI's published SHA-256.
+
+    Raises FileNotFoundError if the file is missing and ValueError if the checksum is wrong.
+    """
     from clip.clip import _MODELS
 
     url = _MODELS[arch]
@@ -72,9 +64,9 @@ def clip_checkpoint(arch: str) -> Path:
 
 @lru_cache(maxsize=2)
 def _clip(arch: str):
-    """Load CLIP from the verified local file (a file path never triggers a download).
+    """Load CLIP from the checked local file (cached per architecture).
 
-    Only when ``allow_model_downloads`` is set does a missing file come from OpenAI's server.
+    A missing file is only downloaded from OpenAI when ``allow_model_downloads`` is set.
     """
     import clip
 
@@ -92,13 +84,14 @@ def _clip(arch: str):
 
 
 def clip_token_count(text: str) -> int:
-    """Tokens CLIP's text encoder would need for this text, including its start and end tokens."""
+    """Number of tokens CLIP needs for this text, including the start and end tokens."""
     from clip.clip import _tokenizer
 
     return len(_tokenizer.encode(text)) + 2
 
 
 def clip_text_vector(text: str, arch: str) -> np.ndarray:
+    """Unit-length CLIP vector for a text (cut to CLIP's token limit)."""
     import clip
     import torch
 
@@ -109,6 +102,7 @@ def clip_text_vector(text: str, arch: str) -> np.ndarray:
 
 
 def clip_image_vector(image, arch: str) -> np.ndarray:
+    """Unit-length CLIP vector for a PIL image."""
     import torch
 
     model, preprocess = _clip(arch)
@@ -139,15 +133,18 @@ def spacy_similarity(a: str, b: str) -> float | None:
 
 
 # ------------------------------------------------------------------------------ the picture's limits
-# CLIP compares the scene in a picture with the caption, so a picture with no scene gives it nothing
-# to compare: then the check is not assessed, with the reason (fixed before measuring, ADR-041).
+# CLIP needs a scene in the picture to compare with the caption, so a nearly blank or mostly-text
+# picture is NOT_ASSESSED with the reason. Both limits were set before any results were measured.
 NEARLY_BLANK_STD = 10.0   # greyscale standard deviation (0-255) under this: nearly blank
-MOSTLY_TEXT_SHARE = 0.40  # the words OCR reads covering more than this share of it: mostly text
+MOSTLY_TEXT_SHARE = 0.40  # OCR word boxes covering more than this share of it: mostly text
 
 
 def picture_measures(image_bytes: bytes, on_screen_text: list[str]) -> tuple[float | None, float | None]:
-    """(greyscale standard deviation, share covered by the words read in it). The share is measured
-    only when OCR read some text (otherwise 0.0); either is None when it could not be measured."""
+    """Return (greyscale standard deviation, share of the picture covered by OCR text).
+
+    The share is only measured when OCR read some text (otherwise 0.0). Either value is None if it
+    could not be measured.
+    """
     from PIL import Image, UnidentifiedImageError
 
     try:
@@ -164,7 +161,7 @@ def picture_measures(image_bytes: bytes, on_screen_text: list[str]) -> tuple[flo
 
 
 def picture_limit(image_bytes: bytes, on_screen_text: list[str]) -> str | None:
-    """Why the picture gives CLIP no scene to compare with a caption, or None when it has one."""
+    """Return why the picture has no scene for CLIP to compare, or None if it has one."""
     spread, share = picture_measures(image_bytes, on_screen_text)
     if spread is not None and spread < NEARLY_BLANK_STD:
         return (f"The picture is nearly blank (its brightness varies by only {spread:.1f} on a scale of 0 to "
@@ -179,7 +176,7 @@ def picture_limit(image_bytes: bytes, on_screen_text: list[str]) -> str | None:
 
 # ------------------------------------------------------------------------------ the check's inputs
 def read_from_image(scene_descriptions: list[str], on_screen_text: list[str]) -> str:
-    """What the other extractors read from the picture, as one text."""
+    """Join what the other extractors read from the picture into one text."""
     return " ".join([*scene_descriptions, *on_screen_text]).strip()
 
 
@@ -192,11 +189,12 @@ def measure_caption_match(
     image_model: str | None,
     text_method: str | None,
 ) -> CaptionMatchResult:
-    """Measure the scores the configured rule needs. Never raises.
+    """Measure the scores the configured check needs. Never raises.
 
     ``image_model`` is a CLIP architecture ("ViT-B/32", "RN50") or None to skip the image score.
-    ``text_method`` is "clip" (CLIP's text encoder of ``image_model``, or ViT-B/32 if that is
-    None), "spacy", or None to skip the text score.
+    ``text_method`` is "clip" (the text encoder of ``image_model``, or ViT-B/32 if that is None),
+    "spacy", or None to skip the text score. The status is FIRED once every requested score was
+    measured, NOT_ASSESSED otherwise.
     """
     if not caption or not caption.strip():
         return CaptionMatchResult(detail="There is no caption to compare with the image.")

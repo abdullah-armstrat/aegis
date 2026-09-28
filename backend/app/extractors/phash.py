@@ -1,15 +1,9 @@
-"""Perceptual hashing — the content fingerprint behind the recycled-context check.
+"""Perceptual hashing, used by the recycled-context lookup to match images by content.
 
-A perceptual hash summarises what an image *looks like* rather than its exact bytes, so a
-recompressed, resized or lightly cropped copy lands a small Hamming distance from the original,
-while an unrelated image lands far away. That is what lets the recycled-context lookup match
-an image by its content instead of by the uploaded filename, which any re-post changes.
-
-Uses pHash from ``imagehash`` at its default ``hash_size=8``: a 64-bit hash from the low
-frequencies of a 32x32 DCT of the greyscale image. Hashes travel as 16-character hex strings.
-
-Never raises: unreadable bytes become ``None`` with a reason, so the caller can report the
-check as NOT_ASSESSED instead of silently treating "could not hash" as "no match".
+A recompressed, resized or lightly cropped copy stays a small Hamming distance from the original,
+while unrelated images are far apart. We use ``imagehash.phash`` at its default size: 64 bits
+from the low frequencies of a 32x32 DCT, stored as 16-character hex. Unreadable bytes give
+``None`` with a reason, so the caller can report NOT_ASSESSED rather than "no match".
 """
 
 from __future__ import annotations
@@ -37,11 +31,10 @@ def phash_of_image(image) -> str:
 
 
 def compute_phash(image_bytes: bytes) -> PHashResult:
-    """Hash raw image bytes, plus the hash of their horizontal mirror.
+    """Hash raw image bytes, and also their horizontal mirror.
 
-    The mirror hash exists because pHash is not flip-invariant: a mirrored re-post lands about
-    half the bits away from its original. Whether the lookup uses it is a configuration choice
-    measured by the robustness harness, not assumed.
+    pHash does not survive a flip (a mirrored copy is about half the bits away), so the mirror
+    hash lets flipped re-posts match. The ``phash_mirror_lookup`` setting decides if it is used.
     """
     try:
         from PIL import Image, ImageOps, UnidentifiedImageError

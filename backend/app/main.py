@@ -1,9 +1,8 @@
-"""Aegis FastAPI application — entry point and routes.
+"""Aegis FastAPI app: entry point and routes.
 
-Routes: ``/health`` (liveness), ``/analyze`` (image + caption) and ``/analyze/video`` (a video of
-up to 60 s + caption), each returning an explainable scorecard. The adapters build an Evidence
-Bundle, then the fusion core produces a :class:`Scorecard` — a list of typed, explained flags,
-never a trust verdict.
+Routes: ``/health``, ``/analyze`` (image and caption) and ``/analyze/video`` (a video of up to
+60 s and caption). The adapters build an Evidence Bundle and the fusion core turns it into a
+:class:`Scorecard` of explained flags, with no trust verdict.
 """
 
 from __future__ import annotations
@@ -26,17 +25,16 @@ from app.models import Scorecard
 
 settings = get_settings()
 
-# Guard against oversized uploads (the analysis is CPU-bound; large images add no value).
+# upload limit: the analysis runs on the CPU and very large images add nothing
 _MAX_IMAGE_BYTES = 10 * 1024 * 1024  # 10 MB
 _ALLOWED_PREFIXES = ("image/",)
 _ISO_DATE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 
 
 def _posted_date_error(value: str) -> str | None:
-    """Why ``posted_date`` is unusable, or None if it is empty or a valid past ISO date.
+    """Return why ``posted_date`` is unusable, or None if it is empty or a valid ISO date.
 
-    One day of slack past the server's date absorbs time-zone differences; anything later
-    cannot be the date a post was published.
+    One day past the server's date is allowed for time-zone differences.
     """
     if not value:
         return None
@@ -55,8 +53,7 @@ _log = logging.getLogger("aegis")
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    """When the LLM is switched on, load it before the server takes requests, so the first request
-    does not spend its timeout waiting for the model to load."""
+    """If the LLM is on, load it at start-up so the first request does not time out waiting."""
     app.state.llm_warm_up = None
     if get_settings().use_llm:
         from starlette.concurrency import run_in_threadpool
@@ -72,7 +69,7 @@ app = FastAPI(
     title="Aegis",
     description=(
         "A multi-modal cross-consistency auditor. Surfaces cross-modal contradictions "
-        "and recycled context in social-media content and explains them — it never "
+        "and recycled context in social-media content and explains them - it never "
         "outputs a trust verdict."
     ),
     version=__version__,
@@ -90,7 +87,7 @@ app.add_middleware(
 
 @app.get("/health", tags=["meta"])
 def health() -> dict:
-    """Liveness probe. Reports version and the active feature-flag configuration."""
+    """Health check. Returns the version and the current settings."""
     return {
         "status": "ok",
         "service": "aegis",
@@ -123,14 +120,12 @@ async def analyze(
         False, description="Also search the web for the image (it is sent to Google). Needs the server's key."
     ),
 ) -> Scorecard:
-    """Audit an image + caption and return an explainable :class:`Scorecard`.
+    """Check an image and caption and return a :class:`Scorecard`.
 
-    Runs the image adapter (OCR, reverse-image by content, captioner) to build an
-    Evidence Bundle, then the fusion core (deterministic rules + optional LLM second opinion)
-    to produce the scorecard. The result describes what was checked — never a trust verdict.
+    The image adapter builds the Evidence Bundle and the fusion core (rules, plus the LLM if on)
+    turns it into flags.
     """
-    # The content-type guard runs before reading the body, where raising HTTPException
-    # converts to a response cleanly.
+    # checked before reading the body, where raising HTTPException still works
     if image.content_type and not image.content_type.startswith(_ALLOWED_PREFIXES):
         raise HTTPException(status_code=415, detail=f"Unsupported file type: {image.content_type}")
 
@@ -139,9 +134,8 @@ async def analyze(
         return JSONResponse(status_code=400, content={"detail": problem})
 
     data = await image.read()
-    # Post-read guards return a JSONResponse rather than raising: on this Starlette version,
-    # raising an HTTPException after the multipart body is consumed does not convert to a
-    # response cleanly (it surfaces as a RuntimeError). Returning a Response is robust.
+    # After the body is read we return a JSONResponse instead of raising: on this Starlette
+    # version an HTTPException raised here comes out as a RuntimeError.
     if not data:
         return JSONResponse(status_code=400, content={"detail": "Empty image upload."})
     if len(data) > _MAX_IMAGE_BYTES:
@@ -171,11 +165,10 @@ async def analyze_video(
         "", description="Optional: the date the post says it was published, as YYYY-MM-DD."
     ),
 ) -> Scorecard:
-    """Audit a short video + caption and return an explainable :class:`Scorecard`.
+    """Check a short video and caption and return a :class:`Scorecard`.
 
-    Runs the video adapter (keyframes, OCR, reverse-image per keyframe, speech, CLIP) and the
-    rules. Refuses other file types, files over the size cap and videos over the length limit,
-    each with a message saying which limit was hit.
+    Refuses other file types, files over the size limit and videos that are too long, with a
+    message saying which limit was hit.
     """
     import tempfile
     from pathlib import Path

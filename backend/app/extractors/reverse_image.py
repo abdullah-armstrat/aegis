@@ -1,28 +1,10 @@
-"""Reverse-image lookup — the recycled-context signal, matched by image content.
+"""Reverse-image lookup: has this picture appeared before, and when?
 
-Answers "has this picture appeared before, and when?". The upload is fingerprinted with a 64-bit
-perceptual hash (``phash.py``) and compared against an **image history index**: a JSON file in
-which each entry holds a hash, the earliest known date the image appeared, and the pages it
-appeared on. A match is a Hamming distance at or below ``phash_match_threshold``. Matching on
-content means a renamed, recompressed or resized copy is still found — the filename lookup it
-replaces was defeated by any re-save. When the hash finds nothing, a second stage matches image
-keypoints (``keypoint_match.py``, behind ``keypoint_matching``), which finds copies that were
-cropped, bordered or framed in a screenshot: the changes that defeat the hash. The known images'
-keypoints are computed once and stored next to the index (``<index>.keypoints.npz``); they are
-computed again only when the index, an image it names, or the keypoint settings change.
-
-The index runs fully offline with no key. The live web lookup (``web_lookup.py``, Google Cloud
-Vision) sits behind the same function and the same ``ReverseImageResult``: it runs, in addition
-to the index, when the mode is "live" or when one upload asks for it, and only for images.
-
-Status semantics. This extractor reports what the *lookup* found; whether that makes
-the post look recycled depends on the posting date, which the rule layer decides.
-  * ``FIRED``        — at least one index entry is within the threshold.
-  * ``CLEAR``        — the lookup ran against a readable index and nothing is within the threshold.
-  * ``NOT_ASSESSED`` — the lookup could not run: unreadable image, missing or invalid index, or an
-                       unsupported mode. Never reported as CLEAR, which would be false reassurance.
-                       A web search that was asked for and failed makes the result NOT_ASSESSED
-                       unless the index found a match on its own.
+The upload's pHash is compared with the offline image history index (known images with the
+earliest date and the pages they appeared on). If the hash finds nothing, keypoint matching looks
+for cropped or framed copies. The live web lookup (Google Cloud Vision) is added for images when
+the mode is "live" or the upload asks for it. The rules decide whether a match means the post is
+recycled.
 """
 
 from __future__ import annotations
@@ -44,7 +26,7 @@ _DEFAULT_INDEX = Path(__file__).resolve().parents[1] / "data" / "image_history_i
 _REPO_ROOT = Path(__file__).resolve().parents[3]  # index entries name their image relative to this
 _LOCAL_MODES = {"local", "index", "cache"}  # "index" and "cache" are earlier names for "local"
 _MODES = _LOCAL_MODES | {"live"}
-OFF = "off"  # the lookup switched off on purpose
+OFF = "off"  # lookup turned off in the settings
 _HEX = re.compile(rf"^[0-9a-f]{{{HASH_BITS // 4}}}$")
 
 
@@ -61,7 +43,12 @@ class IndexEntry:
 
 @dataclass
 class ReverseImageResult:
-    """Outcome of a lookup. ``phash`` is set whenever the image could be hashed."""
+    """Result of a lookup. ``phash`` is set whenever the image could be hashed.
+
+    ``status`` is FIRED when something matched, CLEAR when the lookup ran and found nothing, and
+    NOT_ASSESSED when it could not run (unreadable image, bad index, unknown mode, or a failed web
+    search with no local match).
+    """
 
     matches: list[WebMatch] = field(default_factory=list)
     status: FlagStatus = FlagStatus.NOT_ASSESSED
@@ -75,7 +62,7 @@ class ReverseImageResult:
 
 
 class HistoryIndexError(ValueError):
-    """The history index file exists but does not satisfy the contract."""
+    """The history index file exists but is not valid."""
 
 
 def _index_path() -> Path:
@@ -84,7 +71,7 @@ def _index_path() -> Path:
 
 
 def _parse_entry(raw: dict, position: int) -> IndexEntry:
-    """Validate one index entry. Its earliest_date must be backed by a dated source."""
+    """Validate one index entry. Its earliest_date must equal its earliest dated source."""
     where = f"entry {position} ({raw.get('id', '?')})"
     phash = str(raw.get("phash", "")).lower()
     if not _HEX.match(phash):
@@ -106,7 +93,7 @@ def _parse_entry(raw: dict, position: int) -> IndexEntry:
 
 @lru_cache(maxsize=8)
 def load_index(path_str: str) -> tuple[IndexEntry, ...]:
-    """Load and validate the history index. Memoised by path; raises on any contract breach."""
+    """Load and validate the history index (cached by path). Raises if it is not valid."""
     data = json.loads(Path(path_str).read_text(encoding="utf-8"))
     entries = data.get("entries")
     if not isinstance(entries, list):
@@ -119,8 +106,10 @@ def load_index(path_str: str) -> tuple[IndexEntry, ...]:
 
 
 def find_web_matches(image_bytes: bytes, search_web: bool = False) -> ReverseImageResult:
-    """Look up prior appearances of this image by its content: the local index, and the web too
-    when the mode is "live" or ``search_web`` asks for it. Never raises."""
+    """Look up earlier copies of the image by content. Never raises.
+
+    Searches the local index, and the web too when the mode is "live" or ``search_web`` is set.
+    """
     settings = get_settings()
     if settings.reverse_image_mode == OFF:
         return ReverseImageResult(detail="The search for earlier copies of this image is switched off.")
@@ -144,7 +133,7 @@ def find_web_matches(image_bytes: bytes, search_web: bool = False) -> ReverseIma
     elif local.status == FlagStatus.CLEAR and web.status == FlagStatus.CLEAR:
         result.status = FlagStatus.CLEAR
     else:
-        # Nothing found, and at least one of the two searches could not run: never "clear".
+        # nothing found and at least one search could not run, so this cannot be CLEAR
         result.status = FlagStatus.NOT_ASSESSED
         result.detail = " ".join(d for d in (
             local.detail if local.status == FlagStatus.NOT_ASSESSED else "The local image history index holds no copy.",
@@ -153,7 +142,7 @@ def find_web_matches(image_bytes: bytes, search_web: bool = False) -> ReverseIma
 
 
 def find_local_matches(image_bytes: bytes) -> ReverseImageResult:
-    """The image history index: pHash, then keypoints when the hash finds nothing."""
+    """Search the image history index: pHash first, then keypoints if the hash finds nothing."""
     settings = get_settings()
 
     hashed = compute_phash(image_bytes)
@@ -192,7 +181,7 @@ def find_local_matches(image_bytes: bytes) -> ReverseImageResult:
     if not settings.keypoint_matching:
         return ReverseImageResult(status=FlagStatus.CLEAR, phash=hashed.hash_hex, detail=no_hash_match)
 
-    # Second stage: the hash found nothing, so look for a cropped or framed copy by keypoints.
+    # second stage: look for a cropped or framed copy by keypoints
     try:
         by_keypoints = _keypoint_matches(image_bytes, index, settings.keypoint_min_inliers)
     except Exception:  # noqa: BLE001 - the hash ran, but a copy it cannot see may have been missed
@@ -217,7 +206,7 @@ def find_local_matches(image_bytes: bytes) -> ReverseImageResult:
 
 
 def _entry_image(entry: IndexEntry) -> Path | None:
-    """The file of a known image, if the entry names one and it is on disk."""
+    """Path of the entry's image file, or None if it names none or the file is missing."""
     if not entry.image:
         return None
     path = Path(entry.image)
@@ -226,12 +215,12 @@ def _entry_image(entry: IndexEntry) -> Path | None:
 
 
 def keypoints_path(index_path: Path) -> Path:
-    """Where the index's keypoints are stored: next to the index, ``<name>.keypoints.npz``."""
+    """Where the index's keypoints are stored: ``<name>.keypoints.npz`` next to the index."""
     return index_path.with_name(index_path.stem + ".keypoints.npz")
 
 
 def keypoints_fingerprint(index_path: Path, index) -> str:
-    """Changes when the index file, the size or time of an image it names, or the settings change."""
+    """Hash of the index, its images' sizes and times, and the ORB settings, to spot stale keypoints."""
     from app.extractors.keypoint_match import ORB_FEATURES, ORB_MAX_SIDE
 
     digest = hashlib.sha256(index_path.read_bytes())
@@ -245,7 +234,7 @@ def keypoints_fingerprint(index_path: Path, index) -> str:
 
 
 def compute_index_keypoints(index) -> dict[str, tuple]:
-    """Keypoint features of every known image that is on disk, by entry id."""
+    """ORB features of every known image found on disk, keyed by entry id."""
     from PIL import Image
 
     from app.extractors.keypoint_match import orb_features
@@ -261,7 +250,7 @@ def compute_index_keypoints(index) -> dict[str, tuple]:
 
 @lru_cache(maxsize=4)
 def index_keypoints(index_path_str: str, fingerprint: str) -> dict[str, tuple]:
-    """The index's keypoints: read from the stored file when it matches, else computed and stored."""
+    """The index's keypoints, loaded from the stored file if it is current, else computed and saved."""
     import numpy as np
 
     index_path = Path(index_path_str)
@@ -288,7 +277,7 @@ def index_keypoints(index_path_str: str, fingerprint: str) -> dict[str, tuple]:
 
 
 def _aligned_distance(query, entry: IndexEntry, homography) -> int:
-    """The copy aligned onto the entry's own image: their hash distance over the region it covers."""
+    """Hash distance between the upload aligned onto the entry's image and that image (64 if none)."""
     from PIL import Image
 
     from app.extractors.keypoint_match import aligned_distance
@@ -302,11 +291,10 @@ def _aligned_distance(query, entry: IndexEntry, homography) -> int:
 
 
 def _keypoint_matches(image_bytes: bytes, index, min_inliers: int) -> list[tuple[int, IndexEntry]]:
-    """Entries whose own image lines up with the upload by keypoints, best first.
+    """Return (inliers, entry) for entries whose image lines up with the upload, best first.
 
-    A keypoint match is kept only if, aligned onto the entry's image, the upload is also within the
-    hash threshold over the region it covers (ADR-056), so another photo of the same subject is not
-    taken for a copy. An entry without an available image cannot be matched this way.
+    A match is only kept if the aligned upload is also within the hash threshold, so another photo
+    of the same subject is not taken for a copy. Entries without an image file are skipped.
     """
     from PIL import Image
 

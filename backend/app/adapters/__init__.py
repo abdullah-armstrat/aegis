@@ -1,6 +1,5 @@
-"""Modality adapters: turn a raw input into a normalised EvidenceBundle.
+"""Modality adapters: turn a raw input into an EvidenceBundle.
 
-``image_adapter`` (image+caption) and ``video_adapter`` (frames + audio) land in Weeks 1
-and 3 respectively. Both emit the same :class:`app.models.EvidenceBundle`, so the fusion core
-never depends on which kind of input it came from.
+``image_adapter`` handles an image and caption, ``video_adapter`` a video and caption. Both emit
+the same :class:`app.models.EvidenceBundle`, so the fusion core does not care which input it got.
 """

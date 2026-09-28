@@ -1,20 +1,10 @@
 """Live reverse-image lookup: Google Cloud Vision web detection, with each page dated.
 
-Vision lists pages that show the image. Only pages holding a full or partial matching copy count
-as appearances; "visually similar" images are ignored, since they are other pictures. Vision gives
-no dates, so each page is dated from its own metadata with htmldate (the publication date the page
-declares, never its modification date and never a year guessed from the page's text), or failing
-that from the Wayback Machine's earliest capture of the page. The source of every date is kept.
-The earliest dated page is then the earliest known appearance, which the recycled-context rule
-compares with the posting date exactly as it does for the local index.
-
-Every Vision response and every page date is cached against the image's SHA-256, so a repeat
-lookup costs nothing and replays offline. Live calls are counted per calendar month in a local
-file; at ``MONTHLY_LIMIT`` further live calls are refused. Every failure (no key, no network, the
-monthly limit, a timeout, an error from Google) is a NOT_ASSESSED result with the reason.
-
-The key is read from the environment when a call is made and sent in a request header, never in
-the address, so it cannot appear in a log line or an error message.
+Only pages with a full or partial copy of the image count, not "visually similar" ones. Vision
+gives no dates, so each page is dated by the publication date it declares (htmldate) or else the
+Wayback Machine's first capture. Results are cached by the image's SHA-256 and live calls are
+capped at ``MONTHLY_LIMIT`` a month. Any failure gives NOT_ASSESSED with the reason. The API key
+goes in a request header, not the URL, so it cannot end up in a log or error message.
 """
 
 from __future__ import annotations
@@ -39,7 +29,7 @@ KEY_ENV = "GOOGLE_VISION_API_KEY"
 VISION_URL = "https://vision.googleapis.com/v1/images:annotate"
 WAYBACK_AVAILABLE = "https://archive.org/wayback/available"
 WAYBACK_CDX = "https://web.archive.org/cdx/search/cdx"
-MONTHLY_LIMIT = 900
+MONTHLY_LIMIT = 900    # live Vision calls allowed per calendar month
 MAX_RESULTS = 20       # asked of Vision for each list
 MAX_PAGES = 10         # pages dated per image, in Vision's order
 VISION_TIMEOUT_S = 20.0
@@ -52,6 +42,8 @@ _USAGE_LOCK = threading.Lock()
 
 @dataclass
 class WebLookupResult:
+    """Result of a live web lookup; ``detail`` gives the reason when it is not FIRED."""
+
     matches: list[WebMatch] = field(default_factory=list)
     status: FlagStatus = FlagStatus.NOT_ASSESSED
     detail: str = ""
@@ -60,7 +52,7 @@ class WebLookupResult:
 
 
 def live_available() -> bool:
-    """Whether a live lookup is possible at all: the key is set on the server."""
+    """True if a live lookup is possible, i.e. the key is set on the server."""
     return bool(os.environ.get(KEY_ENV))
 
 
@@ -75,6 +67,7 @@ def _usage_file() -> Path:
 
 
 def calls_this_month() -> int:
+    """Number of live Vision calls made this calendar month, from the usage file."""
     try:
         return json.loads(_usage_file().read_text(encoding="utf-8")).get(date.today().strftime("%Y-%m"), 0)
     except (OSError, ValueError):
@@ -82,6 +75,7 @@ def calls_this_month() -> int:
 
 
 def _count_call() -> None:
+    """Add one to this month's count in the usage file."""
     path = _usage_file()
     with _USAGE_LOCK:
         try:
@@ -97,6 +91,7 @@ def _count_call() -> None:
 
 
 def _load(sha: str) -> dict:
+    """The cached entry for an image hash, or {} if there is none."""
     try:
         return json.loads((_cache_dir() / f"{sha}.json").read_text(encoding="utf-8"))
     except (OSError, ValueError):
@@ -116,7 +111,7 @@ def _client(timeout: float) -> httpx.Client:
 
 
 def _call_vision(image_bytes: bytes) -> dict:
-    """One Vision web-detection request. Raises RuntimeError with a plain reason on failure."""
+    """Make one Vision web-detection request. Raises RuntimeError with a plain reason on failure."""
     key = os.environ.get(KEY_ENV, "")
     body = {"requests": [{"image": {"content": base64.b64encode(image_bytes).decode("ascii")},
                           "features": [{"type": "WEB_DETECTION", "maxResults": MAX_RESULTS}]}]}
@@ -141,7 +136,7 @@ def _call_vision(image_bytes: bytes) -> dict:
 
 
 def matching_pages(vision: dict) -> list[dict]:
-    """Pages that show a full or partial copy of the image, in Vision's order, with the match kind."""
+    """Pages showing a full or partial copy of the image, in Vision's order, with the match kind."""
     pages = []
     for page in vision.get("webDetection", {}).get("pagesWithMatchingImages", []):
         if page.get("fullMatchingImages"):
@@ -156,17 +151,15 @@ def matching_pages(vision: dict) -> list[dict]:
 
 
 def _plain(title: str) -> str:
+    """Strip HTML tags and extra whitespace from a page title."""
     return re.sub(r"\s+", " ", re.sub(r"<[^>]+>", "", title)).strip()
 
 
 def _without_fallback_dates(html: str):
-    """The parsed page without the tags htmldate falls back on when it finds no publication date.
+    """Parse the page and drop the meta tags htmldate falls back on (modified date, copyright year).
 
-    Asked for the original date, htmldate still keeps a modified-date tag (or a copyright year) in
-    reserve and returns it when the page's meta tags hold no publication date it can read, before
-    it looks at the page's structured data. A page whose meta tags give its publication date in
-    words htmldate cannot parse (Portuguese, in the case that showed this) was dated by its last
-    modification. With those tags gone, only a date the page declares as its publication counts.
+    Otherwise a page whose publication date htmldate could not parse (one was in Portuguese) got
+    its last-modified date instead. This way only a declared publication date counts.
     """
     from htmldate.core import ITEMPROP_ATTRS_MODIFIED, NAME_MODIFIED, PROPERTY_MODIFIED
     from htmldate.utils import load_html
@@ -184,11 +177,10 @@ def _without_fallback_dates(html: str):
 
 
 def date_from_html(html: str) -> str | None:
-    """The page's own publication date from its metadata and structured markup, by htmldate.
+    """The publication date the page declares in its metadata, found with htmldate, or None.
 
-    htmldate's extensive text search is off: it read numbers in page scripts as years (Facebook's
-    retry settings, `"404": 2000`, came back as 2000-01-01), so only dates the page declares count.
-    Its fallback to a modification date is removed too (see ``_without_fallback_dates``).
+    htmldate's extensive text search is off because it read numbers in scripts as years (a
+    `"404": 2000` retry setting on Facebook came back as 2000-01-01).
     """
     from htmldate import find_date
 
@@ -200,14 +192,15 @@ def date_from_html(html: str) -> str | None:
 
 
 def _stamp(ts: str) -> str | None:
+    """Turn a Wayback timestamp (YYYYMMDD...) into YYYY-MM-DD, or None if it is not one."""
     return f"{ts[:4]}-{ts[4:6]}-{ts[6:8]}" if len(ts) >= 8 and ts[:8].isdigit() else None
 
 
 def date_from_wayback(url: str) -> str | None:
-    """The date of the Wayback Machine's earliest capture of the page.
+    """Date of the Wayback Machine's earliest capture of the page, or None.
 
-    First the availability API, asked for the capture closest to 1990 (which is the earliest), then
-    the CDX API's first successful capture as a second try.
+    Tries the availability API first (the capture closest to 1990, so the earliest), then the
+    first successful capture from the CDX API.
     """
     try:
         with _client(PAGE_TIMEOUT_S) as client:
@@ -234,7 +227,7 @@ def date_from_wayback(url: str) -> str | None:
 
 
 def date_page(url: str) -> dict:
-    """{'date': 'YYYY-MM-DD' or None, 'source': 'htmldate' | 'wayback' | None}."""
+    """Date a page. Returns {'date': 'YYYY-MM-DD' or None, 'source': 'htmldate' | 'wayback' | None}."""
     try:
         with _client(PAGE_TIMEOUT_S) as client:
             resp = client.get(url)
@@ -249,7 +242,7 @@ def date_page(url: str) -> dict:
 
 
 def web_lookup(image_bytes: bytes) -> WebLookupResult:
-    """Search the web for this image through the cache, spending a live call only when needed."""
+    """Search the web for this image, using the cache and making a live call only when needed."""
     sha = hashlib.sha256(image_bytes).hexdigest()
     entry = _load(sha)
     live_call = False

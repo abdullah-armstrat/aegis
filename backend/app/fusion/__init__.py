@@ -1,6 +1,6 @@
-"""The fusion core — the project's intellectual heart.
+"""The fusion core: turns an Evidence Bundle into flags.
 
-``rules`` (deterministic, built first), then ``llm_reasoner`` (reasons over supplied text
-only), then ``scorecard`` assembles flags. The rules are the reproducible baseline; the LLM
-only adds to them.
+``rules`` holds the deterministic checks, ``llm_reasoner`` asks the local LLM about the supplied
+text, and ``scorecard`` puts the flags together. The rules are the baseline and the LLM only
+adds to them.
 """

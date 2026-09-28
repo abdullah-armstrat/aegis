@@ -1,9 +1,6 @@
-"""Tests for the OCR extractor.
+"""Tests for the OCR extractor, using images drawn with PIL and the real Tesseract.
 
-Test images are generated at runtime with PIL (no binary fixtures committed) and run
-through the real Tesseract engine, so these double as a smoke test that Tesseract is wired
-up. The key assertions cover all three honest outcomes: text found (FIRED), image
-read but empty (CLEAR), and unreadable input (NOT_ASSESSED).
+Covers the three outcomes: text found (FIRED), no text (CLEAR), unreadable input (NOT_ASSESSED).
 """
 
 from io import BytesIO
@@ -29,7 +26,6 @@ def _png_bytes(image: Image.Image) -> bytes:
 def _text_image(text: str, size=(420, 120)) -> bytes:
     img = Image.new("RGB", size, "white")
     draw = ImageDraw.Draw(img)
-    # Render large so the default bitmap font is legible to Tesseract.
     draw.text((10, 40), text, fill="black")
     return _png_bytes(img)
 
@@ -55,14 +51,13 @@ def test_reads_on_screen_text():
     result = extract_on_screen_text(_text_image("BREAKING NEWS"))
     assert result.status == FlagStatus.FIRED
     joined = " ".join(result.lines).upper()
-    # OCR is imperfect; assert on a robust substring rather than an exact match.
+    # OCR isn't perfect, so accept either word rather than an exact match.
     assert "BREAKING" in joined or "NEWS" in joined
 
 
 @requires_tesseract
 def test_blank_image_is_clear_not_fired():
-    """An image legibly read but containing no text is CLEAR — explicitly not FIRED and
-    explicitly not NOT_ASSESSED (the load-bearing distinction)."""
+    """An image with no text is CLEAR, not FIRED and not NOT_ASSESSED."""
     blank = Image.new("RGB", (200, 80), "white")
     result = extract_on_screen_text(_png_bytes(blank))
     assert result.status == FlagStatus.CLEAR
@@ -70,8 +65,7 @@ def test_blank_image_is_clear_not_fired():
 
 
 def test_unreadable_bytes_are_not_assessed():
-    """Garbage input must not masquerade as 'clear' — it is NOT_ASSESSED.
-    Needs no Tesseract: it fails at the image-decode step."""
+    """Bytes that aren't an image give NOT_ASSESSED (fails at decoding, so no Tesseract needed)."""
     result = extract_on_screen_text(b"this is not an image")
     assert result.status == FlagStatus.NOT_ASSESSED
     assert result.detail

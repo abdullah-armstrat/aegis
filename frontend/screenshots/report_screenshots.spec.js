@@ -1,7 +1,7 @@
-// The report's screenshots, saved to results/figures/. Every picture and sound in them is made
-// here or by the project: the three illustrative images drawn by build_image_index.py, a video
-// made from them with ffmpeg, and narration spoken by the Windows voice (on other systems the
-// video has no speech). No third-party or personal media appears.
+// Takes the report's screenshots and saves them to results/figures/. All media is made by the
+// project: the three illustrative images drawn by build_image_index.py, a video made from them
+// with ffmpeg, and narration from the Windows voice (on other systems the video has no speech).
+// No third-party or personal media is used.
 import { test, expect } from "@playwright/test";
 import { execFileSync } from "node:child_process";
 import { mkdirSync, mkdtempSync } from "node:fs";
@@ -18,7 +18,8 @@ const IMAGE = join(ILLUSTRATIVE, "flood_illustrative.png");
 const IMAGE_CAPTION = "BREAKING: the city centre is under water TODAY. Share this now before they delete it!!";
 const POSTED = "2026-09-27";
 const VIDEO_CAPTION = "Floods hit the town, then the evening turns calm";
-// Each scene lasts 7 s; each line starts half a second into its scene. The third does not fit.
+// Each scene lasts 7 s and each line starts 0.5 s into its scene. The third line is meant not to
+// match its scene.
 const SCENES = ["flood_illustrative.png", "sunset_illustrative.png", "cat_illustrative.png"];
 const LINES = [
   "Brown floodwater covers the ground around the buildings.",
@@ -79,7 +80,7 @@ test("the report's screenshots", async ({ page }) => {
   await page.screenshot({ path: join(OUT, "screen02_image_result.png"), fullPage: true });
   const finding = page.locator("article", { hasText: "Flag raised" }).first();
   await finding.locator("summary").click();
-  // The opened finding just below the bar that keeps "Review another post" in view.
+  // Scroll so the opened finding sits just below the bar holding "Review another post".
   await finding.evaluate((el) => window.scrollTo(0, el.getBoundingClientRect().top + window.scrollY - 150));
   await page.waitForTimeout(300);
   await page.screenshot({ path: join(OUT, "screen03_image_finding_opened.png") });
@@ -87,7 +88,7 @@ test("the report's screenshots", async ({ page }) => {
   await submit(page, makeVideo(), VIDEO_CAPTION, POSTED);
   const player = page.locator("video[controls]");
   await expect(player).toBeVisible();
-  // Fully loaded, so the player shows its first frame and no loading spinner.
+  // Wait until fully loaded so the player shows its first frame, not a spinner.
   await expect.poll(() => player.evaluate((v) => v.readyState)).toBe(4);
   await page.waitForTimeout(1500);
   await page.screenshot({ path: join(OUT, "screen04_video_result.png"), fullPage: true });

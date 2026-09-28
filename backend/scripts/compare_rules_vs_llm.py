@@ -1,23 +1,17 @@
-"""Rules-vs-LLM comparison on the caption-scene check (feeds the Prototype chapter).
+"""Compare the rules and the LLM on the caption-scene check, over the labelled examples.
 
-WHY a dedicated script (not run_eval.py --config rules+llm): the main harness scores only the
-deterministic *rules* verdict in both configs (the LLM flag only adds to it), so the two
-configs are identical there by design. To actually measure what the LLM *adds*, this script
-reads BOTH flags the pipeline already produces for caption_content_mismatch — the rules-source
-flag and the llm-source flag — and scores each against the same ground-truth labels. It changes
-no matching logic; it only measures.
+run_eval.py scores only the rules verdict (the LLM flag only adds to it), so it cannot show what
+the LLM adds. This script reads both flags the pipeline already makes for caption_content_mismatch
+(rules source and llm source) and scores each against the same labels. It changes no matching logic.
 
-The interesting question: the rules over-fire on synonym/paraphrase pairs (literal word overlap
-can't see "automobile"=="car"), giving precision 0.50 on the 19-set. Does the LLM's semantic
-judgement recover those false positives while keeping the genuine mismatches?
+The question: the rules over-fire on synonym pairs (word overlap cannot see "automobile" = "car"),
+giving precision 0.50 on the 19-case set. Does the LLM clear those and still catch the real
+mismatches?
 
-HONESTY NOTES:
-- The LLM (phi3:mini) is non-deterministic, so exact counts may vary run-to-run. This script
-  WRITES every value to JSON to be read back; nothing is estimated. Reported numbers
-  are labelled as "from an executed run on a date", not pinned as a test (pinning non-deterministic
-  output would be wrong/flaky). The rules numbers remain pinned in test_eval_harness.py.
-- The script asserts its inputs exist and records whether the LLM was actually reachable, so a
-  degenerate "LLM unavailable" run is visible rather than silently scored as not_assessed.
+phi3:mini is not deterministic, so counts can change between runs. Every value is written to JSON
+and reported as from a run on a given date, not pinned in a test (the rules numbers stay pinned in
+test_eval_harness.py). It also records whether the LLM was reachable, so an "LLM unavailable" run
+shows up instead of being scored as not_assessed.
 
 Run:  python backend/scripts/compare_rules_vs_llm.py
 """

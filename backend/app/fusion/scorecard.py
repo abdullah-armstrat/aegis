@@ -1,14 +1,8 @@
-"""Scorecard assembler — turns an Evidence Bundle into the system's output.
+"""Scorecard assembly: turns an Evidence Bundle into the flags the user sees.
 
-Runs the deterministic rules (always) and, when enabled and available, the LLM reasoner as an
-*additive* second opinion. The rules are the reproducible baseline; the LLM never
-overrides them — it contributes its own separately-sourced flag (``source="llm"``) so the
-"rules only" vs "rules + LLM" comparison is a simple matter of toggling ``use_llm`` (the
-baseline comparison the evaluation reports).
-
-The output is a :class:`Scorecard`: a list of explained, typed flags — each FIRED / CLEAR /
-NOT_ASSESSED — and a neutral, non-verdict summary line. There is no trust
-score anywhere.
+The rules always run. When ``use_llm`` is on, the LLM adds its own flag (``source="llm"``) as a
+second opinion and never overrides the rules, so "rules only" vs "rules + LLM" is just that
+setting. The :class:`Scorecard` holds the flags and a neutral summary line, with no trust score.
 """
 
 from __future__ import annotations
@@ -30,10 +24,9 @@ from app.models import (
 
 
 def _llm_caption_scene_flag(bundle: EvidenceBundle) -> Flag:
-    """An LLM-sourced second opinion on caption↔scene agreement (additive to the rules).
+    """The LLM's second opinion on whether the caption and the scene description agree.
 
-    Reasons over supplied text only, never about truth. Returns a NOT_ASSESSED flag if the LLM is
-    disabled/unreachable or lacks the inputs — never a fabricated finding.
+    Returns NOT_ASSESSED if the LLM is off, unreachable or gives no clear answer.
     """
     scene = [s.text for s in bundle.scene_descriptions]
     verdict = reason_over_text(bundle.caption, scene, bundle.on_screen_text)
@@ -49,7 +42,7 @@ def _llm_caption_scene_flag(bundle: EvidenceBundle) -> Flag:
             source="llm",
         )
 
-    # same_subject is None => uncertain; treat only an explicit False as a mismatch signal.
+    # None means uncertain, so only an explicit False counts as a mismatch
     if verdict.same_subject is False:
         return Flag(
             type=FlagType.CAPTION_CONTENT_MISMATCH,
@@ -75,7 +68,7 @@ def _llm_caption_scene_flag(bundle: EvidenceBundle) -> Flag:
             source="llm",
         )
 
-    # Uncertain (None): be honest about it.
+    # uncertain (None)
     return Flag(
         type=FlagType.CAPTION_CONTENT_MISMATCH,
         status=FlagStatus.NOT_ASSESSED,
@@ -88,7 +81,7 @@ def _llm_caption_scene_flag(bundle: EvidenceBundle) -> Flag:
 
 
 def _summarise(flags: list[Flag]) -> str:
-    """A neutral, non-verdict one-line overview: it describes, never decides."""
+    """One neutral summary line: how many points to check and how many checks could not run."""
     fired = sum(1 for f in flags if f.status == FlagStatus.FIRED)
     not_assessed = sum(1 for f in flags if f.status == FlagStatus.NOT_ASSESSED)
     if fired == 0:
@@ -101,7 +94,7 @@ def _summarise(flags: list[Flag]) -> str:
 
 
 def build_scorecard(bundle: EvidenceBundle) -> Scorecard:
-    """Assemble the Scorecard: deterministic rules always; LLM second opinion when enabled."""
+    """Build the Scorecard: the rules always, plus the LLM's opinion on images when enabled."""
     flags: list[Flag] = list(run_rules(bundle))
 
     # The LLM stays out of video runs: the laptop cannot hold it alongside the video models.
