@@ -60,6 +60,7 @@ if str(_BACKEND) not in sys.path:
 
 ROOT = _BACKEND.parent
 OUT = ROOT / "results"
+EARLIER = ROOT / "data" / "earlier_runs"  # tracked records of runs that cannot be made again
 EVAL_CACHE = "data/live_cache_eval"
 LOCAL_CACHE = "data/live_cache"
 D_FOLDER = Path(os.path.expanduser("~")) / "Desktop" / "aegis_D"
@@ -162,6 +163,8 @@ def report(tag: str = "") -> None:
         path = OUT / f"wp4_web_{which}{'_' + tag if tag else ''}.json"
         if not path.exists():
             path = OUT / f"wp4_web_{which}.json"  # D has no pages to date, so it is not re-run
+        if not path.exists():
+            path = EARLIER / f"wp4_web_{which}.json"  # D's live run, kept since the photos are not public
         if not path.exists():
             continue
         d = json.loads(path.read_text(encoding="utf-8"))

@@ -83,6 +83,7 @@ VERITE_DIR = ROOT / "data" / "verite" / "images"
 CLIPS = ROOT / "data" / "E_videos" / "clips"
 FRONTEND = ROOT / "frontend"
 CACHE = ROOT / "data" / "final_eval_cache"      # slow model outputs, replayed unless --rebuild
+EARLIER = ROOT / "data" / "earlier_runs"         # tracked records of earlier runs that cannot be made again
 SEEN_DIR = ROOT / "data" / "final_eval_outputs"  # every flag each step made, for the two audits
 SEED = 20260928
 
@@ -1082,10 +1083,10 @@ def fault_injection() -> None:
 
 
 # ------------------------------------------------------------------------------ Part E
-WEB_RUNS = (("first live run (ADR-033)", "wp4_web_report_run1.json"),
-            ("fixed live run (ADR-034)", "wp4_web_report_run2.json"),
-            ("saved inputs, dating before ADR-043", "wp4_web_report_saved_before.json"),
-            ("saved inputs, current dating", "wp4_web_report_saved_after.json"))
+WEB_RUNS = (("first live run (ADR-033)", EARLIER / "wp4_web_report_run1.json"),  # live: cannot be made again
+            ("fixed live run (ADR-034)", EARLIER / "wp4_web_report_run2.json"),
+            ("saved inputs, dating before ADR-043", OUT / "wp4_web_report_saved_before.json"),  # made by the replay
+            ("saved inputs, current dating", OUT / "wp4_web_report_saved_after.json"))
 
 
 def _archive_answers_saved() -> tuple[int, int]:
@@ -1116,9 +1117,8 @@ def web_archive() -> None:
     if not complete:
         print(f"  the replay from saved inputs waits for the archive fetch: {reason}")
     runs = {}
-    for name, file in WEB_RUNS:
-        path = OUT / file
-        replay = file.startswith("wp4_web_report_saved")
+    for name, path in WEB_RUNS:
+        replay = path.parent == OUT
         runs[name] = json.loads(path.read_text(encoding="utf-8")) if path.exists() and (complete or not replay) else None
     res = {"archive_answers_saved": {"pages": saved, "of": pages_total}, "replay_complete": complete, "runs": runs}
     if complete:
@@ -1259,9 +1259,10 @@ def interface_review() -> None:
         raise SystemExit("npx is not on PATH: install Node.js and run npm install in frontend/")
     subprocess.run([npx, "playwright", "test", "-c", "playwright.review.config.js"], cwd=FRONTEND,
                    env={**_env(), "ROUND": "B"}, check=True)
-    rounds = {r: json.loads((OUT / f"interface_review_{r}.json").read_text(encoding="utf-8")) for r in "AB"}
+    rounds = {"A": json.loads((EARLIER / "interface_review_A.json").read_text(encoding="utf-8")),  # frozen
+              "B": json.loads((OUT / "interface_review_B.json").read_text(encoding="utf-8"))}
     write("wp6_interface_review.json", {"A": _review_summary(rounds["A"]), "B": _review_summary(rounds["B"]),
-                                        "files": {"A": "results/interface_review_A.json (frozen)",
+                                        "files": {"A": "data/earlier_runs/interface_review_A.json (frozen)",
                                                   "B": "results/interface_review_B.json"}})
 
 

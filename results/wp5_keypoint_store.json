@@ -1,9 +1,0 @@
-{
- "entries": 42,
- "images_with_keypoints": 42,
- "fingerprint_s": 0.021,
- "build_and_store_s": 5.07,
- "read_stored_s": 0.051,
- "stored_equals_computed": true,
- "file_kb": 1460
-}

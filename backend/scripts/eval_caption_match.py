@@ -334,7 +334,7 @@ def counts(pred: np.ndarray, subset) -> dict:
 def calibrate(pairs, scores, part_time) -> tuple[list[dict], dict, list[dict]]:
     """Fit and rank every candidate on the calibration pairs only. Held-out labels are not read."""
     probe = {r["model"]: r for r in
-             json.loads((ROOT / "results" / "wp0_model_probe.json").read_text(encoding="utf-8"))}
+             json.loads((ROOT / "data" / "earlier_runs" / "wp0_model_probe.json").read_text(encoding="utf-8"))}
     cal = [p for p in pairs if p["split"] == "calibration"]
     yc = [p["y"] for p in cal]
     table, f1_table = [], []

@@ -161,10 +161,16 @@ the virtual environment active::
 
     python backend/scripts/run_final_eval.py
 
-It writes one JSON file per step to ``results/``, every figure the report may cite to
-``results/report_numbers.csv`` (with its interval, and the file and step it comes from), and the
-charts to ``results/figures/`` (PNG, 300 dpi). ``--help`` lists the steps; name some to run only
-those.
+The command creates the ``results/`` folder, which is not in the repository, and writes into it
+one JSON file per step, ``results/report_numbers.csv`` (every figure the report may cite, with its
+interval and the file and step it comes from), and the charts in ``results/figures/`` (PNG,
+300 dpi). ``--help`` lists the steps; name some to run only those. ``npm run screenshots``, from
+``frontend/``, adds the report's screenshots to ``results/figures/``.
+
+Four earlier runs cannot be made again, so the command reads their records from
+``data/earlier_runs/``: the model memory measurements used when the caption rules were chosen, the
+two live web-search runs, the web search on the author's photos, and the first round of the
+interface review.
 
 Slow model outputs (BLIP descriptions, OCR text, CLIP and spaCy scores, the language model's
 answers, Whisper's transcripts and the video path's evidence) are kept in
@@ -176,9 +182,8 @@ installed (for the interface review). On the development laptop, building the ca
 took about four and a half hours, most of it the language model; a run that replays the cache
 takes about an hour.
 
-The results in ``results/`` are the frozen final run. Timings, memory figures and the interface
-review's measured waits change from run to run; every other number is reproduced exactly when the
-cache is replayed.
+Timings, memory figures and the interface review's measured waits change from run to run; every
+other number is reproduced exactly when the cache is replayed.
 
 
 Datasets
@@ -209,8 +214,8 @@ each script from the repository root with the virtual environment active.
        they are not shared here
    * - D: the author's photos
      - Not published
-     - The author's own photos, taken for the project and never posted; only aggregate results
-       are in ``results/``
+     - The author's own photos, taken for the project and never posted; only the web search's
+       result for each (by number, not file name) is in ``data/earlier_runs/``
    * - E: 34 narrated clips, and real speech
      - ``python backend/scripts/build_dataset_e.py STEP`` with the steps ``footage``,
        ``narration``, ``clips``, ``speech``, ``speech-tuning`` and ``speech-tuning-long`` in turn
@@ -236,8 +241,8 @@ BSD-3-Clause), spaCy ``en_core_web_md`` (MIT) and Phi-3-mini (Microsoft, MIT).
 Known limits
 ============
 
-These come from the final evaluation; ``results/report_numbers.csv`` has every figure with its
-95% interval, and the file and step it comes from.
+These come from the final evaluation. ``run_final_eval.py`` writes every figure, with its 95%
+interval and the file and step it comes from, to ``results/report_numbers.csv``.
 
 * **Caption vs picture** compares the kind of scene only. On 165 VERITE pairs it had never seen, it
   flagged 3 of 48 truthful captions and caught 26 of 69 captions taken from other stories, but only
