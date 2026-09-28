@@ -1,0 +1,2577 @@
+{
+ "texts": 99,
+ "groups": {
+  "calm_honest": 25,
+  "calm_manipulative": 25,
+  "loud_honest": 24,
+  "loud_manipulative": 25
+ },
+ "as written": {
+  "not_assessed": 0,
+  "tp": 5,
+  "fp": 5,
+  "fn": 45,
+  "tn": 44,
+  "precision": {
+   "k": 5,
+   "n": 10,
+   "rate": 0.5,
+   "ci": [
+    0.237,
+    0.763
+   ]
+  },
+  "recall": {
+   "k": 5,
+   "n": 50,
+   "rate": 0.1,
+   "ci": [
+    0.043,
+    0.214
+   ]
+  },
+  "f1": 0.167,
+  "f1_ci": [
+   0.037,
+   0.291
+  ],
+  "fire_rate": {
+   "calm_honest": {
+    "k": 2,
+    "n": 25,
+    "rate": 0.08,
+    "ci": [
+     0.022,
+     0.25
+    ]
+   },
+   "calm_manipulative": {
+    "k": 2,
+    "n": 25,
+    "rate": 0.08,
+    "ci": [
+     0.022,
+     0.25
+    ]
+   },
+   "loud_honest": {
+    "k": 3,
+    "n": 24,
+    "rate": 0.125,
+    "ci": [
+     0.043,
+     0.31
+    ]
+   },
+   "loud_manipulative": {
+    "k": 3,
+    "n": 25,
+    "rate": 0.12,
+    "ci": [
+     0.042,
+     0.3
+    ]
+   }
+  },
+  "markers_present": {
+   "calm_honest": {
+    "capitals": 16,
+    "exclamation": 3,
+    "urgency": 0,
+    "listed phrases": 0
+   },
+   "calm_manipulative": {
+    "capitals": 15,
+    "exclamation": 2,
+    "urgency": 0,
+    "listed phrases": 0
+   },
+   "loud_honest": {
+    "capitals": 13,
+    "exclamation": 8,
+    "urgency": 0,
+    "listed phrases": 0
+   },
+   "loud_manipulative": {
+    "capitals": 13,
+    "exclamation": 4,
+    "urgency": 0,
+    "listed phrases": 0
+   }
+  },
+  "rows": [
+   {
+    "id": "F001",
+    "group": "calm_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": true,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F002",
+    "group": "calm_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": true,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F003",
+    "group": "calm_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": true,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F004",
+    "group": "calm_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": true,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F005",
+    "group": "calm_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": true,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F006",
+    "group": "calm_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": true,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F007",
+    "group": "calm_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F008",
+    "group": "calm_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": true,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F009",
+    "group": "calm_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F010",
+    "group": "calm_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": true,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F011",
+    "group": "calm_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": true,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F012",
+    "group": "calm_honest",
+    "manipulative": false,
+    "status": "fired",
+    "markers": {
+     "capitals": true,
+     "exclamation": true,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F013",
+    "group": "calm_honest",
+    "manipulative": false,
+    "status": "fired",
+    "markers": {
+     "capitals": true,
+     "exclamation": true,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F014",
+    "group": "calm_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F015",
+    "group": "calm_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F016",
+    "group": "calm_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": true,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F017",
+    "group": "calm_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F018",
+    "group": "calm_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": true,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F019",
+    "group": "calm_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F020",
+    "group": "calm_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F021",
+    "group": "calm_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": true,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F022",
+    "group": "calm_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F023",
+    "group": "calm_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": true,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F024",
+    "group": "calm_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": true,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F025",
+    "group": "calm_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": true,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F026",
+    "group": "calm_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": true,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F027",
+    "group": "calm_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F028",
+    "group": "calm_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": true,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F029",
+    "group": "calm_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F030",
+    "group": "calm_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": true,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F031",
+    "group": "calm_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": true,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F032",
+    "group": "calm_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": true,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F033",
+    "group": "calm_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F034",
+    "group": "calm_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F035",
+    "group": "calm_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F036",
+    "group": "calm_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": true,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F037",
+    "group": "calm_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": true,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F038",
+    "group": "calm_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F039",
+    "group": "calm_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": true,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F040",
+    "group": "calm_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F041",
+    "group": "calm_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F042",
+    "group": "calm_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F043",
+    "group": "calm_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": true,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F044",
+    "group": "calm_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": true,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F045",
+    "group": "calm_manipulative",
+    "manipulative": true,
+    "status": "fired",
+    "markers": {
+     "capitals": true,
+     "exclamation": true,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F046",
+    "group": "calm_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": true,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F047",
+    "group": "calm_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": true,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F048",
+    "group": "calm_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F049",
+    "group": "calm_manipulative",
+    "manipulative": true,
+    "status": "fired",
+    "markers": {
+     "capitals": true,
+     "exclamation": true,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F050",
+    "group": "calm_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": true,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F051",
+    "group": "loud_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": true,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F052",
+    "group": "loud_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": true,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F053",
+    "group": "loud_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": true,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F054",
+    "group": "loud_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": true,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F055",
+    "group": "loud_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F056",
+    "group": "loud_honest",
+    "manipulative": false,
+    "status": "fired",
+    "markers": {
+     "capitals": true,
+     "exclamation": true,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F057",
+    "group": "loud_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": true,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F058",
+    "group": "loud_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": true,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F059",
+    "group": "loud_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": true,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F060",
+    "group": "loud_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F061",
+    "group": "loud_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": true,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F062",
+    "group": "loud_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F063",
+    "group": "loud_honest",
+    "manipulative": false,
+    "status": "fired",
+    "markers": {
+     "capitals": true,
+     "exclamation": true,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F064",
+    "group": "loud_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": true,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F065",
+    "group": "loud_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": true,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F066",
+    "group": "loud_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F067",
+    "group": "loud_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F068",
+    "group": "loud_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": true,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F069",
+    "group": "loud_honest",
+    "manipulative": false,
+    "status": "fired",
+    "markers": {
+     "capitals": true,
+     "exclamation": true,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F070",
+    "group": "loud_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": true,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F071",
+    "group": "loud_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": true,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F072",
+    "group": "loud_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": true,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F073",
+    "group": "loud_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": true,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F074",
+    "group": "loud_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F075",
+    "group": "loud_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F076",
+    "group": "loud_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": true,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F077",
+    "group": "loud_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": true,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F078",
+    "group": "loud_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": true,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F079",
+    "group": "loud_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F080",
+    "group": "loud_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F081",
+    "group": "loud_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": true,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F082",
+    "group": "loud_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": true,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F083",
+    "group": "loud_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": true,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F084",
+    "group": "loud_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F085",
+    "group": "loud_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": true,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F086",
+    "group": "loud_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F087",
+    "group": "loud_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F088",
+    "group": "loud_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F089",
+    "group": "loud_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F090",
+    "group": "loud_manipulative",
+    "manipulative": true,
+    "status": "fired",
+    "markers": {
+     "capitals": true,
+     "exclamation": true,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F091",
+    "group": "loud_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F092",
+    "group": "loud_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": true,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F093",
+    "group": "loud_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": true,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F094",
+    "group": "loud_manipulative",
+    "manipulative": true,
+    "status": "fired",
+    "markers": {
+     "capitals": true,
+     "exclamation": true,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F095",
+    "group": "loud_manipulative",
+    "manipulative": true,
+    "status": "fired",
+    "markers": {
+     "capitals": true,
+     "exclamation": true,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F096",
+    "group": "loud_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F097",
+    "group": "loud_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": true,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F098",
+    "group": "loud_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": true,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F099",
+    "group": "loud_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   }
+  ]
+ },
+ "lowercased": {
+  "not_assessed": 0,
+  "tp": 0,
+  "fp": 0,
+  "fn": 50,
+  "tn": 49,
+  "precision": {
+   "k": 0,
+   "n": 0,
+   "rate": null,
+   "ci": [
+    null,
+    null
+   ]
+  },
+  "recall": {
+   "k": 0,
+   "n": 50,
+   "rate": 0.0,
+   "ci": [
+    0.0,
+    0.071
+   ]
+  },
+  "f1": 0.0,
+  "f1_ci": [
+   0.0,
+   0.0
+  ],
+  "fire_rate": {
+   "calm_honest": {
+    "k": 0,
+    "n": 25,
+    "rate": 0.0,
+    "ci": [
+     0.0,
+     0.133
+    ]
+   },
+   "calm_manipulative": {
+    "k": 0,
+    "n": 25,
+    "rate": 0.0,
+    "ci": [
+     0.0,
+     0.133
+    ]
+   },
+   "loud_honest": {
+    "k": 0,
+    "n": 24,
+    "rate": 0.0,
+    "ci": [
+     0.0,
+     0.138
+    ]
+   },
+   "loud_manipulative": {
+    "k": 0,
+    "n": 25,
+    "rate": 0.0,
+    "ci": [
+     0.0,
+     0.133
+    ]
+   }
+  },
+  "markers_present": {
+   "calm_honest": {
+    "capitals": 0,
+    "exclamation": 3,
+    "urgency": 0,
+    "listed phrases": 0
+   },
+   "calm_manipulative": {
+    "capitals": 0,
+    "exclamation": 2,
+    "urgency": 0,
+    "listed phrases": 0
+   },
+   "loud_honest": {
+    "capitals": 0,
+    "exclamation": 8,
+    "urgency": 0,
+    "listed phrases": 0
+   },
+   "loud_manipulative": {
+    "capitals": 0,
+    "exclamation": 4,
+    "urgency": 0,
+    "listed phrases": 0
+   }
+  },
+  "rows": [
+   {
+    "id": "F001",
+    "group": "calm_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F002",
+    "group": "calm_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F003",
+    "group": "calm_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F004",
+    "group": "calm_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": true,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F005",
+    "group": "calm_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F006",
+    "group": "calm_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F007",
+    "group": "calm_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F008",
+    "group": "calm_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F009",
+    "group": "calm_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F010",
+    "group": "calm_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F011",
+    "group": "calm_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F012",
+    "group": "calm_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": true,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F013",
+    "group": "calm_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": true,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F014",
+    "group": "calm_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F015",
+    "group": "calm_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F016",
+    "group": "calm_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F017",
+    "group": "calm_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F018",
+    "group": "calm_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F019",
+    "group": "calm_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F020",
+    "group": "calm_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F021",
+    "group": "calm_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F022",
+    "group": "calm_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F023",
+    "group": "calm_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F024",
+    "group": "calm_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F025",
+    "group": "calm_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F026",
+    "group": "calm_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F027",
+    "group": "calm_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F028",
+    "group": "calm_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F029",
+    "group": "calm_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F030",
+    "group": "calm_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F031",
+    "group": "calm_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F032",
+    "group": "calm_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F033",
+    "group": "calm_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F034",
+    "group": "calm_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F035",
+    "group": "calm_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F036",
+    "group": "calm_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F037",
+    "group": "calm_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F038",
+    "group": "calm_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F039",
+    "group": "calm_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F040",
+    "group": "calm_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F041",
+    "group": "calm_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F042",
+    "group": "calm_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F043",
+    "group": "calm_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F044",
+    "group": "calm_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F045",
+    "group": "calm_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": true,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F046",
+    "group": "calm_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F047",
+    "group": "calm_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F048",
+    "group": "calm_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F049",
+    "group": "calm_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": true,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F050",
+    "group": "calm_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F051",
+    "group": "loud_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F052",
+    "group": "loud_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F053",
+    "group": "loud_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": true,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F054",
+    "group": "loud_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": true,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F055",
+    "group": "loud_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F056",
+    "group": "loud_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": true,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F057",
+    "group": "loud_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F058",
+    "group": "loud_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F059",
+    "group": "loud_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F060",
+    "group": "loud_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F061",
+    "group": "loud_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F062",
+    "group": "loud_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F063",
+    "group": "loud_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": true,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F064",
+    "group": "loud_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F065",
+    "group": "loud_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": true,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F066",
+    "group": "loud_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F067",
+    "group": "loud_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F068",
+    "group": "loud_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": true,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F069",
+    "group": "loud_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": true,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F070",
+    "group": "loud_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F071",
+    "group": "loud_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": true,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F072",
+    "group": "loud_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F073",
+    "group": "loud_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F074",
+    "group": "loud_honest",
+    "manipulative": false,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F075",
+    "group": "loud_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F076",
+    "group": "loud_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F077",
+    "group": "loud_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F078",
+    "group": "loud_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F079",
+    "group": "loud_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F080",
+    "group": "loud_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F081",
+    "group": "loud_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F082",
+    "group": "loud_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F083",
+    "group": "loud_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F084",
+    "group": "loud_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F085",
+    "group": "loud_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F086",
+    "group": "loud_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F087",
+    "group": "loud_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F088",
+    "group": "loud_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F089",
+    "group": "loud_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F090",
+    "group": "loud_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": true,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F091",
+    "group": "loud_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F092",
+    "group": "loud_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F093",
+    "group": "loud_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": true,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F094",
+    "group": "loud_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": true,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F095",
+    "group": "loud_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": true,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F096",
+    "group": "loud_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F097",
+    "group": "loud_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F098",
+    "group": "loud_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   },
+   {
+    "id": "F099",
+    "group": "loud_manipulative",
+    "manipulative": true,
+    "status": "clear",
+    "markers": {
+     "capitals": false,
+     "exclamation": false,
+     "urgency": false,
+     "listed phrases": false
+    }
+   }
+  ]
+ }
+}

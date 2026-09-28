@@ -1,0 +1,25 @@
+{
+  "n_images": 31,
+  "check_alone": {
+    "first_call_ms": 14524.4,
+    "images": 30,
+    "mean_ms": 247.4,
+    "median_ms": 239.5,
+    "p95_ms": 305.4
+  },
+  "pipeline_overlap": {
+    "first_call_ms": 15358.4,
+    "images": 30,
+    "mean_ms": 3288.3,
+    "median_ms": 2288.3,
+    "p95_ms": 8752.5
+  },
+  "pipeline_meaning": {
+    "first_call_ms": 9831.0,
+    "images": 30,
+    "mean_ms": 3930.6,
+    "median_ms": 2768.4,
+    "p95_ms": 10353.9
+  },
+  "peak_memory_mb": 1873.6
+}

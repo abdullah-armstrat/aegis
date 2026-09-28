@@ -85,8 +85,9 @@ data/**/video/
 Demo Posts/
 # Local documents (plan, interface review, screenshots): kept on this laptop, not published.
 /docs/
-# Evaluation output. Ignored until the release step commits the frozen final results.
-/results/
+# Evaluation output is committed (the frozen final results), except the interface review's
+# walkthrough packs: their screenshots show dataset A and E media, which is not ours to publish.
+/results/interface_review/
 # Submitted reports and the colour-coded draft. Matched by pattern,
 # never by a filename that carries personal data. (A broad *.html rule would catch
 # frontend/index.html, so the draft is named.)

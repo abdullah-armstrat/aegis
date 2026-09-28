@@ -1,0 +1,468 @@
+{
+ "model": "base",
+ "setting": "a",
+ "options": {
+  "condition_on_previous_text": true,
+  "hallucination_silence_threshold": null
+ },
+ "on": "e",
+ "items": 32,
+ "wer_pct": 8.88,
+ "invented_sentences": 6,
+ "items_with_invented": 6,
+ "mean_s": 8.005,
+ "rows": [
+  {
+   "id": "E01",
+   "seconds": 12.259,
+   "ref_words": 38,
+   "edits": 10,
+   "hypothesis": "Thick fog hides a tall building. The fog lifts and the tall building comes into view. A large flag is painted on the side of the building. Green grass stretches in front of it under a blue sky. The fog is painted on the side of the building.",
+   "segments": [
+    "Thick fog hides a tall building.",
+    "The fog lifts and the tall building comes into view.",
+    "A large flag is painted on the side of the building.",
+    "Green grass stretches in front of it under a blue sky.",
+    "The fog is painted on the side of the building."
+   ],
+   "invented": [
+    "The fog is painted on the side of the building."
+   ]
+  },
+  {
+   "id": "E02",
+   "seconds": 6.355,
+   "ref_words": 35,
+   "edits": 0,
+   "hypothesis": "A tall crane works on a building site. Behind the site, the sea runs along the horizon. A herd of cows grazes in a muddy field. A large round gray tank rises on concrete legs.",
+   "segments": [
+    "A tall crane works on a building site.",
+    "Behind the site, the sea runs along the horizon.",
+    "A herd of cows grazes in a muddy field.",
+    "A large round gray tank rises on concrete legs."
+   ],
+   "invented": []
+  },
+  {
+   "id": "E03",
+   "seconds": 6.081,
+   "ref_words": 30,
+   "edits": 0,
+   "hypothesis": "At night, a tall rocket stands lit up on its launch pad. A bright full moon sinks slowly beside the rocket. Lights on the pad reflect in the water below.",
+   "segments": [
+    "At night, a tall rocket stands lit up on its launch pad.",
+    "A bright full moon sinks slowly beside the rocket.",
+    "Lights on the pad reflect in the water below."
+   ],
+   "invented": []
+  },
+  {
+   "id": "E04",
+   "seconds": 6.446,
+   "ref_words": 26,
+   "edits": 4,
+   "hypothesis": "2 bald eagles perch high in a bear tree A huge nest of sticks sits in the branches A small dark chick's move about inside the nest",
+   "segments": [
+    "2 bald eagles perch high in a bear tree",
+    "A huge nest of sticks sits in the branches",
+    "A small dark chick's move about inside the nest"
+   ],
+   "invented": []
+  },
+  {
+   "id": "E05",
+   "seconds": 8.894,
+   "ref_words": 38,
+   "edits": 0,
+   "hypothesis": "An eagle with a white head watches over two chicks. A young eagle stretches its dark wings above the nest. A red fox runs across a snowy field. The young eagle flaps its wings against a white sky.",
+   "segments": [
+    "An eagle with a white head watches over two chicks.",
+    "A young eagle stretches its dark wings above the nest.",
+    "A red fox runs across a snowy field.",
+    "The young eagle flaps its wings against a white sky."
+   ],
+   "invented": []
+  },
+  {
+   "id": "E06",
+   "seconds": 6.693,
+   "ref_words": 35,
+   "edits": 0,
+   "hypothesis": "A drone flies over a small blue house among green bushes. A tall white tower stands in the distance. Waves break on a wide sandy beach. Behind the beach, the house sits on low dunes.",
+   "segments": [
+    "A drone flies over a small blue house among green bushes.",
+    "A tall white tower stands in the distance.",
+    "Waves break on a wide sandy beach.",
+    "Behind the beach, the house sits on low dunes."
+   ],
+   "invented": []
+  },
+  {
+   "id": "E07",
+   "seconds": 11.399,
+   "ref_words": 34,
+   "edits": 0,
+   "hypothesis": "A curving sandy path leads to a blue house. A red tractor plows a field of wheat. Green scrubland spreads towards a tall white tower. This beach house stands on the coast of Maine.",
+   "segments": [
+    "A curving sandy path leads to a blue house.",
+    "A red tractor plows a field of wheat.",
+    "Green scrubland spreads towards a tall white tower.",
+    "This beach house stands on the coast of Maine."
+   ],
+   "invented": []
+  },
+  {
+   "id": "E08",
+   "seconds": 18.27,
+   "ref_words": 39,
+   "edits": 1,
+   "hypothesis": "From orbit, a huge hurricane swirls over the ocean. Parts of the space station stand out as dark shapes. The storm's eye is a small dark hole in the clouds. Thick white cloud bends spiral around the center.",
+   "segments": [
+    "From orbit, a huge hurricane swirls over the ocean.",
+    "Parts of the space station stand out as dark shapes.",
+    "The storm's eye is a small dark hole in the clouds.",
+    "Thick white cloud bends spiral around the center."
+   ],
+   "invented": []
+  },
+  {
+   "id": "E09",
+   "seconds": 9.04,
+   "ref_words": 42,
+   "edits": 0,
+   "hypothesis": "A storm covers the ocean below the space station. A long robotic arm reaches out from the station. A crowded market sells fruit and vegetables. Solar panels stretch across the lower left of the view. Three hurricanes line up across the sea.",
+   "segments": [
+    "A storm covers the ocean below the space station.",
+    "A long robotic arm reaches out from the station.",
+    "A crowded market sells fruit and vegetables.",
+    "Solar panels stretch across the lower left of the view.",
+    "Three hurricanes line up across the sea."
+   ],
+   "invented": []
+  },
+  {
+   "id": "E10",
+   "seconds": 6.706,
+   "ref_words": 25,
+   "edits": 0,
+   "hypothesis": "Snow settles on the leaves of a thin branch. Snowflakes drift down past the branch. A truck with a snowplow pushes snow along a street.",
+   "segments": [
+    "Snow settles on the leaves of a thin branch.",
+    "Snowflakes drift down past the branch.",
+    "A truck with a snowplow pushes snow along a street."
+   ],
+   "invented": []
+  },
+  {
+   "id": "E11",
+   "seconds": 4.68,
+   "ref_words": 30,
+   "edits": 1,
+   "hypothesis": "Bear trees stand along the edge of a calm lake. A busy motorway is full of cars at rush hour. The low sun shines through the trees onto the snow.",
+   "segments": [
+    "Bear trees stand along the edge of a calm lake.",
+    "A busy motorway is full of cars at rush hour.",
+    "The low sun shines through the trees onto the snow."
+   ],
+   "invented": []
+  },
+  {
+   "id": "E12",
+   "seconds": 7.26,
+   "ref_words": 26,
+   "edits": 2,
+   "hypothesis": "Along white barge passes under a steel bridge. Traffic crosses the bridge above the river. The barge moves along a wide river with green banks.",
+   "segments": [
+    "Along white barge passes under a steel bridge.",
+    "Traffic crosses the bridge above the river.",
+    "The barge moves along a wide river with green banks."
+   ],
+   "invented": []
+  },
+  {
+   "id": "E13",
+   "seconds": 7.316,
+   "ref_words": 37,
+   "edits": 0,
+   "hypothesis": "A barge slides past a tall lift bridge on the river. Sunlight glitters on the water around the barge. Snow-capped mountains rise above a frozen lake. Small boats float near the far shore of the river.",
+   "segments": [
+    "A barge slides past a tall lift bridge on the river.",
+    "Sunlight glitters on the water around the barge.",
+    "Snow-capped mountains rise above a frozen lake.",
+    "Small boats float near the far shore of the river."
+   ],
+   "invented": []
+  },
+  {
+   "id": "E14",
+   "seconds": 14.263,
+   "ref_words": 37,
+   "edits": 20,
+   "hypothesis": "A tugboat pushes a covered barge along a waterway. A small white boat travels ahead of the barge. The barge carries a long white cover with a curved roof. A small white cover is also available in the barge. The barge carries a long white cover with a curved roof.",
+   "segments": [
+    "A tugboat pushes a covered barge along a waterway.",
+    "A small white boat travels ahead of the barge.",
+    "The barge carries a long white cover with a curved roof.",
+    "A small white cover is also available in the barge.",
+    "The barge carries a long white cover with a curved roof."
+   ],
+   "invented": [
+    "The barge carries a long white cover with a curved roof."
+   ]
+  },
+  {
+   "id": "E15",
+   "seconds": 11.311,
+   "ref_words": 37,
+   "edits": 10,
+   "hypothesis": "The barge approach is a huge square building. A bright green tugboat pushes the barge from behind. A cruise ship full of passengers docks in the harbor. The giant building has a round blue logo near the top. The giant building is a huge square building.",
+   "segments": [
+    "The barge approach is a huge square building.",
+    "A bright green tugboat pushes the barge from behind.",
+    "A cruise ship full of passengers docks in the harbor.",
+    "The giant building has a round blue logo near the top.",
+    "The giant building is a huge square building."
+   ],
+   "invented": [
+    "The giant building is a huge square building."
+   ]
+  },
+  {
+   "id": "E16",
+   "seconds": 6.673,
+   "ref_words": 34,
+   "edits": 0,
+   "hypothesis": "A tall white building with a flag stands near a lagoon. Green marsh and water stretch out behind it. A rocket now stands beside the tall building. Clouds drift across a pale blue sky.",
+   "segments": [
+    "A tall white building with a flag stands near a lagoon.",
+    "Green marsh and water stretch out behind it.",
+    "A rocket now stands beside the tall building.",
+    "Clouds drift across a pale blue sky."
+   ],
+   "invented": []
+  },
+  {
+   "id": "E17",
+   "seconds": 11.506,
+   "ref_words": 41,
+   "edits": 0,
+   "hypothesis": "A rocket stands on a launch pad between tall towers. A large white sphere sits near the pad. Tall lightning towers surround the rocket. The rocket on the pad is painted bright green. A flock of sheep crosses a country lane.",
+   "segments": [
+    "A rocket stands on a launch pad between tall towers.",
+    "A large white sphere sits near the pad.",
+    "Tall lightning towers surround the rocket.",
+    "The rocket on the pad is painted bright green.",
+    "A flock of sheep crosses a country lane."
+   ],
+   "invented": []
+  },
+  {
+   "id": "E18",
+   "seconds": 13.161,
+   "ref_words": 35,
+   "edits": 7,
+   "hypothesis": "A white helicopter hovers above green trees. Its slowly comes down towards a paved area. The helicopter has a blue stripe along its side. It settles close to the ground in front of the trees. It settles close to green trees.",
+   "segments": [
+    "A white helicopter hovers above green trees.",
+    "Its slowly comes down towards a paved area.",
+    "The helicopter has a blue stripe along its side.",
+    "It settles close to the ground in front of the trees.",
+    "It settles close to green trees."
+   ],
+   "invented": [
+    "It settles close to green trees."
+   ]
+  },
+  {
+   "id": "E19",
+   "seconds": 5.699,
+   "ref_words": 27,
+   "edits": 2,
+   "hypothesis": "A large white hanger stands under a blue sky. A pot of whales swims beside a sailing boat. A small helicopter appears far away above the trees.",
+   "segments": [
+    "A large white hanger stands under a blue sky.",
+    "A pot of whales swims beside a sailing boat.",
+    "A small helicopter appears far away above the trees."
+   ],
+   "invented": []
+  },
+  {
+   "id": "E20",
+   "seconds": 3.191,
+   "ref_words": 25,
+   "edits": 0,
+   "hypothesis": "A white aircraft approaches from a hazy sky. It descends towards a runway lined with trees. The long winged plane touches down on the runway.",
+   "segments": [
+    "A white aircraft approaches from a hazy sky.",
+    "It descends towards a runway lined with trees.",
+    "The long winged plane touches down on the runway."
+   ],
+   "invented": []
+  },
+  {
+   "id": "E21",
+   "seconds": 6.019,
+   "ref_words": 38,
+   "edits": 0,
+   "hypothesis": "A white plane with very long wings rolls along a runway. Green grass lines the edges of the runway. A crowd of children plays in a school playground. An orange plane with long wings rolls along the runway.",
+   "segments": [
+    "A white plane with very long wings rolls along a runway.",
+    "Green grass lines the edges of the runway.",
+    "A crowd of children plays in a school playground.",
+    "An orange plane with long wings rolls along the runway."
+   ],
+   "invented": []
+  },
+  {
+   "id": "E22",
+   "seconds": 8.037,
+   "ref_words": 31,
+   "edits": 0,
+   "hypothesis": "In the dark, a tall orange rocket stands on its pad. Bright lights shine around the base of the launch tower. The rocket glows orange and white against the dark sky.",
+   "segments": [
+    "In the dark, a tall orange rocket stands on its pad.",
+    "Bright lights shine around the base of the launch tower.",
+    "The rocket glows orange and white against the dark sky."
+   ],
+   "invented": []
+  },
+  {
+   "id": "E23",
+   "seconds": 17.198,
+   "ref_words": 34,
+   "edits": 16,
+   "hypothesis": "At dawn, a rocket stands beside its launch tower. The rocket has a white top and an orange body. Ace no storm varies a quiet mountain village. The sky behind the rocket turns deep blue. educaci\u00f3n accomplished by a man received extraordinary support from many other 63",
+   "segments": [
+    "At dawn, a rocket stands beside its launch tower.",
+    "The rocket has a white top and an orange body.",
+    "Ace no storm varies a quiet mountain village.",
+    "The sky behind the rocket turns deep blue.",
+    "educaci\u00f3n accomplished by a man received extraordinary support from many other 63"
+   ],
+   "invented": [
+    "educaci\u00f3n accomplished by a man received extraordinary support from many other 63"
+   ]
+  },
+  {
+   "id": "E24",
+   "seconds": 8.056,
+   "ref_words": 33,
+   "edits": 1,
+   "hypothesis": "Waves roll onto a sandy beach scene from above. Green plants grow behind the sand. White foam spreads along the edge of the water. A long strip of sand runs beside the waves.",
+   "segments": [
+    "Waves roll onto a sandy beach scene from above.",
+    "Green plants grow behind the sand.",
+    "White foam spreads along the edge of the water.",
+    "A long strip of sand runs beside the waves."
+   ],
+   "invented": []
+  },
+  {
+   "id": "E25",
+   "seconds": 5.989,
+   "ref_words": 33,
+   "edits": 12,
+   "hypothesis": "A drone circles a huge gray and white building. A giant flag and a round logo decorated side. A giant flag and a round logo decorated side. Camels walk across gold and sand dunes. Equipment and materials cover a building site nearby.",
+   "segments": [
+    "A drone circles a huge gray and white building.",
+    "A giant flag and a round logo decorated side.",
+    "A giant flag and a round logo decorated side.",
+    "Camels walk across gold and sand dunes.",
+    "Equipment and materials cover a building site nearby."
+   ],
+   "invented": [
+    "A giant flag and a round logo decorated side."
+   ]
+  },
+  {
+   "id": "E26",
+   "seconds": 5.445,
+   "ref_words": 24,
+   "edits": 1,
+   "hypothesis": "Tall tower stand in silhouette against the setting sun. The sun flares brightly behind the rocket. A round water tower stands to the right.",
+   "segments": [
+    "Tall tower stand in silhouette against the setting sun.",
+    "The sun flares brightly behind the rocket.",
+    "A round water tower stands to the right."
+   ],
+   "invented": []
+  },
+  {
+   "id": "E27",
+   "seconds": 5.422,
+   "ref_words": 25,
+   "edits": 0,
+   "hypothesis": "A giant rocket rides on a huge tracked vehicle. A large flag hangs on the side of the vehicle. Seagulls dive into a stormy sea.",
+   "segments": [
+    "A giant rocket rides on a huge tracked vehicle.",
+    "A large flag hangs on the side of the vehicle.",
+    "Seagulls dive into a stormy sea."
+   ],
+   "invented": []
+  },
+  {
+   "id": "E28",
+   "seconds": 3.178,
+   "ref_words": 27,
+   "edits": 0,
+   "hypothesis": "A red locomotive sits on a railway track. A long line of freight cars stretches behind it. White clouds float in a blue sky above the train.",
+   "segments": [
+    "A red locomotive sits on a railway track.",
+    "A long line of freight cars stretches behind it.",
+    "White clouds float in a blue sky above the train."
+   ],
+   "invented": []
+  },
+  {
+   "id": "E29",
+   "seconds": 5.19,
+   "ref_words": 26,
+   "edits": 2,
+   "hypothesis": "A white bird with a dark head weights in calm water. Its long curved beak is bright yellow. Ripple spread across the water around its legs.",
+   "segments": [
+    "A white bird with a dark head weights in calm water.",
+    "Its long curved beak is bright yellow.",
+    "Ripple spread across the water around its legs."
+   ],
+   "invented": []
+  },
+  {
+   "id": "E30",
+   "seconds": 8.03,
+   "ref_words": 39,
+   "edits": 0,
+   "hypothesis": "A large part of the space station fills the left of the view. Beyond it, a hurricane swirls over the ocean. A marching band parades down a city street. The hurricane's eye sits over the deserts of Arizona.",
+   "segments": [
+    "A large part of the space station fills the left of the view.",
+    "Beyond it, a hurricane swirls over the ocean.",
+    "A marching band parades down a city street.",
+    "The hurricane's eye sits over the deserts of Arizona."
+   ],
+   "invented": []
+  },
+  {
+   "id": "E33",
+   "seconds": 2.87,
+   "ref_words": 16,
+   "edits": 1,
+   "hypothesis": "The sun sets behind tall grass in a distant rocket. Clouds glow orange above the horizon.",
+   "segments": [
+    "The sun sets behind tall grass in a distant rocket.",
+    "Clouds glow orange above the horizon."
+   ],
+   "invented": []
+  },
+  {
+   "id": "E34",
+   "seconds": 3.539,
+   "ref_words": 17,
+   "edits": 0,
+   "hypothesis": "A covered barge travels up a wide river. A small boat leaves a white wake beside it.",
+   "segments": [
+    "A covered barge travels up a wide river.",
+    "A small boat leaves a white wake beside it."
+   ],
+   "invented": []
+  }
+ ]
+}

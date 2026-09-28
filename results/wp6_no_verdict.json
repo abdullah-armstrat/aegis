@@ -1,0 +1,115 @@
+{
+ "words": [
+  "safe",
+  "unsafe",
+  "fake",
+  "true",
+  "false",
+  "verified",
+  "unverified",
+  "real",
+  "genuine",
+  "authentic",
+  "trustworthy",
+  "untrustworthy",
+  "hoax",
+  "debunked",
+  "misinformation",
+  "disinformation",
+  "correct",
+  "incorrect",
+  "accurate",
+  "inaccurate",
+  "legit",
+  "lie",
+  "lies",
+  "trust",
+  "reliable",
+  "unreliable",
+  "credible",
+  "proven",
+  "confirmed"
+ ],
+ "evaluation_outputs": {
+  "steps": [
+   "ablations",
+   "caption-video",
+   "date-check",
+   "fault-injection",
+   "framing-f",
+   "llm-verite",
+   "picture-limits",
+   "synthetic",
+   "verite-fresh",
+   "verite-heldout",
+   "video-pipeline",
+   "web-archive"
+  ],
+  "distinct_lines": 1695,
+  "own_word_hits": 0,
+  "own_word_hits_by_word": {},
+  "hits_in_quoted_or_input_text": {
+   "trust": 1,
+   "fake": 1,
+   "real": 1,
+   "hoax": 1
+  },
+  "own_hits": []
+ },
+ "llm_explanations": {
+  "distinct": 321,
+  "hits": 3,
+  "texts_with_a_hit": 3,
+  "by_word": {
+   "fake": 1,
+   "hoax": 1,
+   "real": 1
+  },
+  "rows": [
+   {
+    "word": "fake",
+    "steps": [
+     "llm-verite"
+    ],
+    "context": "oth texts describe an actress, Samara Weaving, appearing in fake blood for a role in Ash vs. Evil Dead."
+   },
+   {
+    "word": "hoax",
+    "steps": [
+     "llm-verite"
+    ],
+    "context": "he same event, the moon landing, but the caption suggests a hoax, indicating a different tone."
+   },
+   {
+    "word": "real",
+    "steps": [
+     "llm-verite"
+    ],
+    "context": "specifies a statue, while the scene description refers to a real horse, suggesting a difference in the subject."
+   }
+  ]
+ },
+ "every_branch_of_every_check": {
+  "lines": 106,
+  "hits": 0
+ },
+ "interface_round_B": {
+  "hits": 20,
+  "by_word": {
+   "misinformation": 10,
+   "true": 10
+  },
+  "screens": [
+   "a \"Couldn't check\" result",
+   "an opened flag (supporting evidence shown)",
+   "error: backend down",
+   "error: video too long",
+   "error: wrong file type (a text file chosen)",
+   "image scorecard",
+   "loading",
+   "upload form",
+   "upload form, photo chosen (with the live-lookup notice)",
+   "video scorecard"
+  ]
+ }
+}

@@ -1,0 +1,16 @@
+{
+ "cold_first_request": {
+  "available": true,
+  "latency_s": 31.97,
+  "timeout": false,
+  "error": null
+ },
+ "warm_up": "loaded in 9.1 s",
+ "first_request_after_warm_up": {
+  "available": true,
+  "latency_s": 18.68,
+  "timeout": false,
+  "error": null
+ },
+ "timeout_s": 30.0
+}

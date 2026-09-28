@@ -1,0 +1,102 @@
+{
+  "A": {
+    "images": 40,
+    "live_calls": 0,
+    "found": [
+      17,
+      40,
+      [
+        0.285,
+        0.578
+      ]
+    ],
+    "dated": [
+      10,
+      40,
+      [
+        0.142,
+        0.402
+      ]
+    ],
+    "dating_errors": [
+      0,
+      10,
+      [
+        0.0,
+        0.278
+      ]
+    ],
+    "dating_error_ids": [],
+    "gap_days_median": 8429.0,
+    "fires_if_posted_today": [
+      17,
+      40,
+      [
+        0.285,
+        0.578
+      ]
+    ]
+  },
+  "D": {
+    "images": 15,
+    "live_calls": 0,
+    "found": [
+      0,
+      15,
+      [
+        0.0,
+        0.204
+      ]
+    ],
+    "dated": [
+      0,
+      15,
+      [
+        0.0,
+        0.204
+      ]
+    ],
+    "false_alarms_landmark": [
+      0,
+      1,
+      [
+        0.0,
+        0.793
+      ]
+    ],
+    "false_alarms_everyday": [
+      0,
+      14,
+      [
+        0.0,
+        0.215
+      ]
+    ]
+  },
+  "VERITE": {
+    "images": 50,
+    "live_calls": 0,
+    "found": [
+      44,
+      50,
+      [
+        0.762,
+        0.944
+      ]
+    ],
+    "dated": [
+      40,
+      50,
+      [
+        0.67,
+        0.888
+      ]
+    ]
+  },
+  "date_sources": {
+    "wayback": 53,
+    "none": 220,
+    "htmldate": 127
+  },
+  "live_calls_total": 0
+}

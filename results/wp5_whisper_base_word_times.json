@@ -1,0 +1,933 @@
+{
+ "model": "base",
+ "load_s": 1.34,
+ "peak_memory_mb": 1028.6,
+ "librispeech": [
+  {
+   "id": "1089-134686-0019",
+   "seconds": 7.945,
+   "ref_words": 39,
+   "edits": 2,
+   "hypothesis": "The sentence of St. James, which says that he who offends against one commandment becomes guilty of all, had seemed to him first a swollen phrase, until he had begun to grow up in the darkness of his own state."
+  },
+  {
+   "id": "1188-133604-0011",
+   "seconds": 3.767,
+   "ref_words": 41,
+   "edits": 0,
+   "hypothesis": "They are beyond all other works that I know existing, dependent for their effect on low subdued tones. Their favorite choice in time of day being either dawn or twilight, and even their brightest sunsets produced chiefly out of gray paper."
+  },
+  {
+   "id": "121-127105-0033",
+   "seconds": 2.358,
+   "ref_words": 6,
+   "edits": 0,
+   "hypothesis": "It was the beauty of it."
+  },
+  {
+   "id": "1221-135766-0004",
+   "seconds": 2.687,
+   "ref_words": 18,
+   "edits": 0,
+   "hypothesis": "This outward mutability indicated and did not more than fairly express the various properties of her inner life."
+  },
+  {
+   "id": "1221-135767-0001",
+   "seconds": 4.173,
+   "ref_words": 39,
+   "edits": 0,
+   "hypothesis": "Another and far more important reason than the delivery of a pair of embroidered gloves impelled Hester at this time to seek an interview with a personage of so much power and activity in the affairs of the settlement."
+  },
+  {
+   "id": "1284-1180-0003",
+   "seconds": 2.748,
+   "ref_words": 18,
+   "edits": 0,
+   "hypothesis": "For a long time he had wished to explore the beautiful land of Oz in which they lived."
+  },
+  {
+   "id": "1284-1180-0021",
+   "seconds": 3.149,
+   "ref_words": 32,
+   "edits": 2,
+   "hypothesis": "I think the next glass cap of Magician Makes will have neither brains nor heart, for then it will not object to catching mice and may prove of some use to us."
+  },
+  {
+   "id": "1284-1181-0008",
+   "seconds": 2.634,
+   "ref_words": 17,
+   "edits": 0,
+   "hypothesis": "I think that will do, she continued, for the other qualities are not needed in a servant."
+  },
+  {
+   "id": "1284-134647-0000",
+   "seconds": 2.845,
+   "ref_words": 21,
+   "edits": 0,
+   "hypothesis": "The grateful applause of the clergy has consecrated the memory of a prince who indulged their passions and promoted their interest."
+  },
+  {
+   "id": "1320-122612-0003",
+   "seconds": 3.174,
+   "ref_words": 26,
+   "edits": 0,
+   "hypothesis": "He often stopped to examine the trees, nor did he cross a rivulet without attentively considering the quantity, the velocity, and the color of its waters."
+  },
+  {
+   "id": "1320-122612-0012",
+   "seconds": 3.212,
+   "ref_words": 30,
+   "edits": 1,
+   "hypothesis": "Extinguished brands were lying around a spring. The offels of a deer were scattered about the place, and the trees bore evident marks of having been browsed by the horses."
+  },
+  {
+   "id": "1320-122617-0014",
+   "seconds": 2.774,
+   "ref_words": 16,
+   "edits": 1,
+   "hypothesis": "They drew back a little from the entrance and motion to the supposed conjurer to enter."
+  },
+  {
+   "id": "1320-122617-0030",
+   "seconds": 2.475,
+   "ref_words": 11,
+   "edits": 1,
+   "hypothesis": "So choose for yourself to make a rush or Terry here."
+  },
+  {
+   "id": "1580-141083-0003",
+   "seconds": 2.766,
+   "ref_words": 14,
+   "edits": 1,
+   "hypothesis": "Without his scrapbooks, his chemicals, and his homely entitiness, he was an uncomfortable man."
+  },
+  {
+   "id": "1580-141083-0027",
+   "seconds": 2.549,
+   "ref_words": 20,
+   "edits": 1,
+   "hypothesis": "How long would it take him to do that using every possible contraction a quarter of an hour or not less?"
+  },
+  {
+   "id": "1580-141083-0034",
+   "seconds": 3.117,
+   "ref_words": 24,
+   "edits": 1,
+   "hypothesis": "As Holmes drew the curtain, I was aware from some little rigidity and an alertness of his attitude that he was prepared for an emergency."
+  },
+  {
+   "id": "1580-141083-0050",
+   "seconds": 2.42,
+   "ref_words": 12,
+   "edits": 0,
+   "hypothesis": "I really don't think he knew much about it Mr. Holmes."
+  },
+  {
+   "id": "1580-141084-0015",
+   "seconds": 2.264,
+   "ref_words": 9,
+   "edits": 0,
+   "hypothesis": "He impressed me as being a perfectly honest man."
+  },
+  {
+   "id": "1580-141084-0029",
+   "seconds": 2.947,
+   "ref_words": 24,
+   "edits": 0,
+   "hypothesis": "His troubled blue eyes glanced at each of us and finally rested with an expression of blank dismay upon banister in the farther corner."
+  },
+  {
+   "id": "1580-141084-0031",
+   "seconds": 2.959,
+   "ref_words": 22,
+   "edits": 0,
+   "hypothesis": "We want to know Mr. Gilchrist how you, an honorable man, ever came to commit such an action as that of yesterday."
+  },
+  {
+   "id": "1995-1836-0001",
+   "seconds": 2.72,
+   "ref_words": 19,
+   "edits": 3,
+   "hypothesis": "At last, the cotton combine was to all appearances in a short fact and he was slated for the Senate."
+  },
+  {
+   "id": "1995-1837-0004",
+   "seconds": 2.416,
+   "ref_words": 18,
+   "edits": 1,
+   "hypothesis": "He painted to know if she too knew or knew and cared not or cared and knew not."
+  },
+  {
+   "id": "1995-1837-0022",
+   "seconds": 2.32,
+   "ref_words": 12,
+   "edits": 3,
+   "hypothesis": "Up in the sick rooms or a lay on the little white bed."
+  },
+  {
+   "id": "2094-142345-0008",
+   "seconds": 6.964,
+   "ref_words": 88,
+   "edits": 2,
+   "hypothesis": "But there is always a stronger sense of life when the sun is brilliant after rain. And now he is pouring down his beams and making sparkles among the wet straw, and lighting up every patch of vivid green moss on the red tiles of the cow shed, and turning even the muddy water that is hurrying along the channel to the drain into a mirror for the low-build ducks who are seizing the opportunity of getting a drink with as much body in it as possible."
+  },
+  {
+   "id": "2094-142345-0018",
+   "seconds": 2.309,
+   "ref_words": 12,
+   "edits": 0,
+   "hypothesis": "Who taught you to scrub a floor I should like to know?"
+  },
+  {
+   "id": "2094-142345-0039",
+   "seconds": 2.719,
+   "ref_words": 22,
+   "edits": 1,
+   "hypothesis": "I have strong assurance that no evil will happen to you and my uncle and the children, for anything I have done."
+  },
+  {
+   "id": "2094-142345-0042",
+   "seconds": 2.225,
+   "ref_words": 6,
+   "edits": 2,
+   "hypothesis": "I had a common patience with you."
+  },
+  {
+   "id": "2300-131720-0022",
+   "seconds": 3.633,
+   "ref_words": 36,
+   "edits": 0,
+   "hypothesis": "Meanwhile, he had called upon me to make a report of the three-wire system known in England as the Hopkinson. Both Dr. John Hopkinson and Mr. Edison being independent inventors at practically the same time."
+  },
+  {
+   "id": "237-134493-0003",
+   "seconds": 3.143,
+   "ref_words": 33,
+   "edits": 2,
+   "hypothesis": "From the graveyard gate, one can count a dozen galley painted farmhouses. The gilded weather veins on the big red barns wink at each other across the green and brown and yellow fields."
+  },
+  {
+   "id": "237-134500-0010",
+   "seconds": 2.584,
+   "ref_words": 15,
+   "edits": 0,
+   "hypothesis": "It's exciting to see everything growing so fast and to get the grass cut."
+  },
+  {
+   "id": "237-134500-0014",
+   "seconds": 2.624,
+   "ref_words": 11,
+   "edits": 2,
+   "hypothesis": "and Emil mode his way slowly down toward the gerry trees."
+  },
+  {
+   "id": "237-134500-0031",
+   "seconds": 3.557,
+   "ref_words": 40,
+   "edits": 2,
+   "hypothesis": "Sometimes I don't want to do anything at all, and sometimes I want to pull the four corners of the divide together. He threw out his arm and brought it back with a jerk. So, like a tablecloth."
+  },
+  {
+   "id": "237-134500-0040",
+   "seconds": 2.682,
+   "ref_words": 15,
+   "edits": 0,
+   "hypothesis": "I pray for you, but that's not the same as if you prayed yourself."
+  },
+  {
+   "id": "260-123286-0027",
+   "seconds": 3.087,
+   "ref_words": 22,
+   "edits": 1,
+   "hypothesis": "I can distinguish the eye of the Ictiasaurus, glowing like a red hot coal and as large as a man's head."
+  },
+  {
+   "id": "260-123288-0000",
+   "seconds": 2.52,
+   "ref_words": 7,
+   "edits": 1,
+   "hypothesis": "The rowings become lost in the distance."
+  },
+  {
+   "id": "2830-3980-0023",
+   "seconds": 2.776,
+   "ref_words": 19,
+   "edits": 1,
+   "hypothesis": "These pervertors of the righteousness of Christ resist the Father and the Son and the works of them both."
+  },
+  {
+   "id": "2830-3980-0032",
+   "seconds": 2.943,
+   "ref_words": 21,
+   "edits": 3,
+   "hypothesis": "We look for that reward which I have not seen nor ear heard, neither have entered into the heart of man."
+  },
+  {
+   "id": "2830-3980-0051",
+   "seconds": 3.015,
+   "ref_words": 22,
+   "edits": 0,
+   "hypothesis": "When you argue about the nature of God apart from the question of justification, you may be as profound as you like."
+  },
+  {
+   "id": "2830-3980-0056",
+   "seconds": 2.578,
+   "ref_words": 17,
+   "edits": 0,
+   "hypothesis": "Otherwise, Paul should have written, grace from God the Father and peace from our Lord Jesus Christ."
+  },
+  {
+   "id": "2961-961-0001",
+   "seconds": 2.857,
+   "ref_words": 24,
+   "edits": 0,
+   "hypothesis": "And now he desires to see the ideal state set in motion. He would like to know how she behaved in some great struggle."
+  },
+  {
+   "id": "3570-5695-0008",
+   "seconds": 2.585,
+   "ref_words": 21,
+   "edits": 2,
+   "hypothesis": "The question is, which of the two methods will most effectively reach the person's whose convictions it is desired to affect?"
+  },
+  {
+   "id": "3729-6852-0027",
+   "seconds": 2.313,
+   "ref_words": 4,
+   "edits": 3,
+   "hypothesis": "That is true bad dealt grey."
+  },
+  {
+   "id": "3729-6852-0046",
+   "seconds": 3.264,
+   "ref_words": 38,
+   "edits": 0,
+   "hypothesis": "His housekeeper had the management of everything. She never allowed him to be in need of anything and she gave no account of his money, which she kept altogether, because he never asked her to render any accounts."
+  },
+  {
+   "id": "4077-13751-0012",
+   "seconds": 3.091,
+   "ref_words": 26,
+   "edits": 3,
+   "hypothesis": "The lieutenant governor, Littleburn W. Boggs, afterward governor, was a pronounced Mormon hater, and throughout the period of the troubles, he manifests his sympathy with the persecutors."
+  },
+  {
+   "id": "4077-13751-0013",
+   "seconds": 2.591,
+   "ref_words": 11,
+   "edits": 2,
+   "hypothesis": "Their sufferings have never yet been fiddly chronicle by human scribe."
+  },
+  {
+   "id": "4077-13754-0006",
+   "seconds": 3.117,
+   "ref_words": 32,
+   "edits": 0,
+   "hypothesis": "What the Latter-day Saints call celestial marriage is characteristic of the church and is in very general practice. But of celestial marriage, plurality of wives was an incident, never an essential."
+  },
+  {
+   "id": "4077-13754-0016",
+   "seconds": 3.143,
+   "ref_words": 30,
+   "edits": 0,
+   "hypothesis": "And so the story of Mormonism runs on. Its finale has not yet been written. The current press presents continuously new stages of its progress, new developments of its plan."
+  },
+  {
+   "id": "4446-2271-0010",
+   "seconds": 2.311,
+   "ref_words": 13,
+   "edits": 0,
+   "hypothesis": "He's another who's awfully keen about her. Let me introduce you."
+  },
+  {
+   "id": "4446-2273-0021",
+   "seconds": 2.608,
+   "ref_words": 16,
+   "edits": 0,
+   "hypothesis": "What she wanted from us was neither our flowers nor our francs, but just our youth."
+  },
+  {
+   "id": "4446-2275-0012",
+   "seconds": 2.592,
+   "ref_words": 17,
+   "edits": 0,
+   "hypothesis": "She looked at his heavy shoulders and big, determined head, thrust forward like a catapult in leash."
+  },
+  {
+   "id": "4446-2275-0032",
+   "seconds": 2.321,
+   "ref_words": 12,
+   "edits": 0,
+   "hypothesis": "But I didn't know. You've only to tell me now."
+  },
+  {
+   "id": "4507-16021-0022",
+   "seconds": 2.333,
+   "ref_words": 14,
+   "edits": 2,
+   "hypothesis": "There is the slang of the affected lady as well as of the press users."
+  },
+  {
+   "id": "4507-16021-0056",
+   "seconds": 2.431,
+   "ref_words": 10,
+   "edits": 0,
+   "hypothesis": "However, he who says light does not necessarily say joy."
+  },
+  {
+   "id": "4970-29095-0005",
+   "seconds": 2.642,
+   "ref_words": 10,
+   "edits": 0,
+   "hypothesis": "Thy ways greatly try me Ruth and all thy relations."
+  },
+  {
+   "id": "4970-29095-0037",
+   "seconds": 2.844,
+   "ref_words": 18,
+   "edits": 0,
+   "hypothesis": "But that wise and placid woman understood the sweet rebel, a great deal better than Ruth understood herself."
+  },
+  {
+   "id": "4992-23283-0002",
+   "seconds": 2.381,
+   "ref_words": 7,
+   "edits": 0,
+   "hypothesis": "said Mrs. Horton a few minutes after."
+  },
+  {
+   "id": "4992-41806-0016",
+   "seconds": 5.463,
+   "ref_words": 43,
+   "edits": 1,
+   "hypothesis": "The face of the Mahavini shone with delight and why not when it was doing everything, almost everything within the scope of a piano, and yet the family had enjoyed weeks of good nourishing meals on what had been saved by its exertions."
+  },
+  {
+   "id": "5105-28240-0021",
+   "seconds": 3.659,
+   "ref_words": 31,
+   "edits": 2,
+   "hypothesis": "Before starting, it was indispensable that the engine of the Dobrinas should be repaired. To sail under Canvas only would, in contrary wins and rough seas, be both tedious and difficult."
+  },
+  {
+   "id": "5142-33396-0008",
+   "seconds": 2.279,
+   "ref_words": 7,
+   "edits": 0,
+   "hypothesis": "I painted the eyes red for anger."
+  },
+  {
+   "id": "5142-33396-0054",
+   "seconds": 2.655,
+   "ref_words": 22,
+   "edits": 0,
+   "hypothesis": "That is the best way to decide for the spear will always point somewhere, and one thing is as good as another."
+  },
+  {
+   "id": "5639-40744-0018",
+   "seconds": 3.874,
+   "ref_words": 58,
+   "edits": 1,
+   "hypothesis": "That would be very well, my child, replied her father. If your plan were not liable to be frustrated by ordinary cunning, but no doubt this image had been already missed by its owner, and he will have set it down for certain that it was taken out of the room by the person he locked up there."
+  },
+  {
+   "id": "5639-40744-0023",
+   "seconds": 3.601,
+   "ref_words": 41,
+   "edits": 1,
+   "hypothesis": "When the boy walked through the streets, blessings were showered upon him by all who saw him, blessing upon his beauty, upon the mother that bore him, upon the father that begot him, upon those who brought him up so well."
+  },
+  {
+   "id": "61-70968-0001",
+   "seconds": 2.637,
+   "ref_words": 10,
+   "edits": 2,
+   "hypothesis": "Kiv not so earnest a mind to these mummaries, child."
+  },
+  {
+   "id": "61-70968-0018",
+   "seconds": 2.303,
+   "ref_words": 6,
+   "edits": 0,
+   "hypothesis": "So, I did push this fellow."
+  },
+  {
+   "id": "61-70968-0027",
+   "seconds": 2.821,
+   "ref_words": 23,
+   "edits": 0,
+   "hypothesis": "Robin and the little tumbler between them tried to force the squire to stand back, and very valiantly did these two comport themselves."
+  },
+  {
+   "id": "61-70968-0056",
+   "seconds": 2.444,
+   "ref_words": 13,
+   "edits": 2,
+   "hypothesis": "The wine did certainly bring back the color to the Squires' cheeks."
+  },
+  {
+   "id": "61-70968-0058",
+   "seconds": 2.228,
+   "ref_words": 5,
+   "edits": 0,
+   "hypothesis": "Will you forgive me now?"
+  },
+  {
+   "id": "61-70970-0025",
+   "seconds": 3.152,
+   "ref_words": 31,
+   "edits": 1,
+   "hypothesis": "They were upon the verge of an open trap in the far corner of the hut, and Stutley had tripped over the edge of the reversed flap mouth of this pit."
+  },
+  {
+   "id": "61-70970-0032",
+   "seconds": 2.476,
+   "ref_words": 8,
+   "edits": 2,
+   "hypothesis": "inquired Robin with his suspicion still upon him."
+  },
+  {
+   "id": "672-122797-0054",
+   "seconds": 2.335,
+   "ref_words": 8,
+   "edits": 0,
+   "hypothesis": "I know no such place said the tree."
+  },
+  {
+   "id": "672-122797-0060",
+   "seconds": 2.22,
+   "ref_words": 6,
+   "edits": 0,
+   "hypothesis": "It is a very stupid story."
+  },
+  {
+   "id": "672-122797-0061",
+   "seconds": 2.566,
+   "ref_words": 17,
+   "edits": 2,
+   "hypothesis": "Don't you know one about bacon and teller candles? Can't you tell any larger stories?"
+  },
+  {
+   "id": "6829-68769-0009",
+   "seconds": 2.843,
+   "ref_words": 16,
+   "edits": 0,
+   "hypothesis": "They were received in the little office by a man named Markham, who was the jailer."
+  },
+  {
+   "id": "6829-68769-0048",
+   "seconds": 2.698,
+   "ref_words": 21,
+   "edits": 2,
+   "hypothesis": "Give me a check for 150 and I'll turn over to you the Forge check and quash further proceedings."
+  },
+  {
+   "id": "6930-75918-0020",
+   "seconds": 3.604,
+   "ref_words": 38,
+   "edits": 1,
+   "hypothesis": "Braggelon watched for some time the conduct of the two lovers listened to the loud and uncivil slumbers of Manicamp who snored as imperiously as though he was wearing his blue and gold instead of his violet suit."
+  },
+  {
+   "id": "6930-76324-0025",
+   "seconds": 2.311,
+   "ref_words": 11,
+   "edits": 2,
+   "hypothesis": "Why it's quiet as usual they both cry peering in"
+  },
+  {
+   "id": "6930-81414-0026",
+   "seconds": 2.392,
+   "ref_words": 6,
+   "edits": 0,
+   "hypothesis": "My overwrought nerves yielded at last."
+  },
+  {
+   "id": "7021-79740-0006",
+   "seconds": 2.602,
+   "ref_words": 15,
+   "edits": 1,
+   "hypothesis": "I expect you have been a very good girl, Andela, since you were here last."
+  },
+  {
+   "id": "7127-75946-0019",
+   "seconds": 2.497,
+   "ref_words": 4,
+   "edits": 0,
+   "hypothesis": "Yes, it is suppressed."
+  },
+  {
+   "id": "7176-88083-0010",
+   "seconds": 13.135,
+   "ref_words": 19,
+   "edits": 26,
+   "hypothesis": "The cat growled softly, picked up the prize in her jaws and trotted into the bushes to the dark areas of her heart and her heart moving down in a full minute from her heart, her heart goes up but her scarf stables."
+  },
+  {
+   "id": "7176-92135-0020",
+   "seconds": 2.525,
+   "ref_words": 11,
+   "edits": 7,
+   "hypothesis": "Double 923 Elzenor double not yes. Hello is that you Horatio? Handless speaking"
+  },
+  {
+   "id": "7176-92135-0044",
+   "seconds": 2.512,
+   "ref_words": 18,
+   "edits": 0,
+   "hypothesis": "But it is the cigarette which chiefly has brought the modern drama to its present state of perfection."
+  },
+  {
+   "id": "7729-102255-0020",
+   "seconds": 2.928,
+   "ref_words": 25,
+   "edits": 3,
+   "hypothesis": "The incident was not violent, nor even dramatic. No posse was summoned, no further effort made, and reader fearing personal violence soon fled into skies."
+  },
+  {
+   "id": "7729-102255-0035",
+   "seconds": 2.648,
+   "ref_words": 13,
+   "edits": 0,
+   "hypothesis": "The military force, partly rabble, partly organized, had meanwhile moved into the town."
+  },
+  {
+   "id": "8224-274381-0009",
+   "seconds": 6.314,
+   "ref_words": 56,
+   "edits": 7,
+   "hypothesis": "This severity by which Montrose solid his victories was the result of private animosity against the Chieftain, as much as of zeal for the public cause. Our guile collecting 3,000 men marched in quest of the enemy, who had retired with their plunder, and he lay at inner locky, supposing himself still at a considerable distance"
+  },
+  {
+   "id": "8230-279154-0015",
+   "seconds": 2.59,
+   "ref_words": 21,
+   "edits": 0,
+   "hypothesis": "They must have some characteristic, which makes us regard them as referring to more or less remote portions of the past."
+  },
+  {
+   "id": "8230-279154-0027",
+   "seconds": 3.12,
+   "ref_words": 30,
+   "edits": 1,
+   "hypothesis": "A gramophone by the help of suitable records might relate to us the incidence of its past, and people are not so different from gramophones as they like to believe."
+  },
+  {
+   "id": "8230-279154-0030",
+   "seconds": 2.773,
+   "ref_words": 17,
+   "edits": 2,
+   "hypothesis": "Simmons two books, mentioned in an earlier lecture, do not touch knowledge memory at all closely."
+  },
+  {
+   "id": "8230-279154-0042",
+   "seconds": 3.634,
+   "ref_words": 46,
+   "edits": 0,
+   "hypothesis": "Thus, if I recognize a thing, the occasion of its previous existence in virtue of which I recognize it forms part of my experience by definition. Recognition will be one of the marks by which my experience is singled out from the rest of the world."
+  },
+  {
+   "id": "8455-210777-0005",
+   "seconds": 2.579,
+   "ref_words": 17,
+   "edits": 2,
+   "hypothesis": "We have our little struggles here as elsewhere, and all things cannot be done by rosewater."
+  },
+  {
+   "id": "8455-210777-0022",
+   "seconds": 4.501,
+   "ref_words": 47,
+   "edits": 1,
+   "hypothesis": "Of what Mrs. Neverben had gone through in providing birds, beasts, and fishes, not to talk of tarts and jellies for the dinner of that day, no one but myself can have any idea. But it must be admitted that she accomplished her task with thorough success."
+  },
+  {
+   "id": "8463-287645-0011",
+   "seconds": 2.657,
+   "ref_words": 17,
+   "edits": 0,
+   "hypothesis": "She was a large, homely woman. They were common white people with no reputation in the community."
+  },
+  {
+   "id": "8463-294825-0000",
+   "seconds": 2.685,
+   "ref_words": 5,
+   "edits": 0,
+   "hypothesis": "It's almost beyond conjecture."
+  },
+  {
+   "id": "8463-294828-0021",
+   "seconds": 2.305,
+   "ref_words": 8,
+   "edits": 0,
+   "hypothesis": "A route slightly less direct, that's all."
+  },
+  {
+   "id": "8463-294828-0026",
+   "seconds": 2.397,
+   "ref_words": 9,
+   "edits": 0,
+   "hypothesis": "We have a commander who's game for anything."
+  },
+  {
+   "id": "8555-284447-0016",
+   "seconds": 2.188,
+   "ref_words": 2,
+   "edits": 0,
+   "hypothesis": "Fine, glorious!"
+  },
+  {
+   "id": "8555-284449-0012",
+   "seconds": 3.401,
+   "ref_words": 30,
+   "edits": 3,
+   "hypothesis": "I'll gladly do that. Promise the new Booleroo. And I'll feed the honorable goad all the shavings and leather and tin cans he can eat, besides the grass."
+  },
+  {
+   "id": "908-157963-0019",
+   "seconds": 4.538,
+   "ref_words": 43,
+   "edits": 6,
+   "hypothesis": "It is to tenfold life to love to peace and raptures wholly unseen descending way my light wings upon Bommi flowers and caught the fair eye due to take me to her shining tent, the weeping virgin trembling kneels before the risen sun."
+  },
+  {
+   "id": "908-31957-0019",
+   "seconds": 2.896,
+   "ref_words": 21,
+   "edits": 0,
+   "hypothesis": "thou canst wait through sorrow and sickness to bring souls to touch and think it soon when others cry too late."
+  },
+  {
+   "id": "908-31957-0021",
+   "seconds": 3.078,
+   "ref_words": 26,
+   "edits": 0,
+   "hypothesis": "Oh, to shoot my soul's full meaning into future years, that they should lend it utterance, and salute love that endures, from life that disappears."
+  }
+ ],
+ "dataset_e": [
+  {
+   "id": "E01",
+   "seconds": 8.346,
+   "ref_words": 38,
+   "edits": 10,
+   "hypothesis": "Thick fog hides a tall building. The fog lifts and the tall building comes into view. A large flag is painted on the side of the building. Green grass stretches in front of it under a blue sky. The fog is painted on the side of the building."
+  },
+  {
+   "id": "E02",
+   "seconds": 5.332,
+   "ref_words": 35,
+   "edits": 0,
+   "hypothesis": "A tall crane works on a building site. Behind the site, the sea runs along the horizon. A herd of cows grazes in a muddy field. A large round gray tank rises on concrete legs."
+  },
+  {
+   "id": "E03",
+   "seconds": 5.394,
+   "ref_words": 30,
+   "edits": 0,
+   "hypothesis": "At night, a tall rocket stands lit up on its launch pad. A bright full moon sinks slowly beside the rocket. Lights on the pad reflect in the water below."
+  },
+  {
+   "id": "E04",
+   "seconds": 5.221,
+   "ref_words": 26,
+   "edits": 4,
+   "hypothesis": "2 bald eagles perch high in a bear tree A huge nest of sticks sits in the branches A small dark chick's move about inside the nest"
+  },
+  {
+   "id": "E05",
+   "seconds": 7.906,
+   "ref_words": 38,
+   "edits": 0,
+   "hypothesis": "An eagle with a white head watches over two chicks. A young eagle stretches its dark wings above the nest. A red fox runs across a snowy field. The young eagle flaps its wings against a white sky."
+  },
+  {
+   "id": "E06",
+   "seconds": 5.752,
+   "ref_words": 35,
+   "edits": 0,
+   "hypothesis": "A drone flies over a small blue house among green bushes. A tall white tower stands in the distance. Waves break on a wide sandy beach. Behind the beach, the house sits on low dunes."
+  },
+  {
+   "id": "E07",
+   "seconds": 7.928,
+   "ref_words": 34,
+   "edits": 0,
+   "hypothesis": "A curving sandy path leads to a blue house. A red tractor plows a field of wheat. Green scrubland spreads towards a tall white tower. This beach house stands on the coast of Maine."
+  },
+  {
+   "id": "E08",
+   "seconds": 16.236,
+   "ref_words": 39,
+   "edits": 1,
+   "hypothesis": "From orbit, a huge hurricane swirls over the ocean. Parts of the space station stand out as dark shapes. The storm's eye is a small dark hole in the clouds. Thick white cloud bends spiral around the center."
+  },
+  {
+   "id": "E09",
+   "seconds": 7.851,
+   "ref_words": 42,
+   "edits": 0,
+   "hypothesis": "A storm covers the ocean below the space station. A long robotic arm reaches out from the station. A crowded market sells fruit and vegetables. Solar panels stretch across the lower left of the view. Three hurricanes line up across the sea."
+  },
+  {
+   "id": "E10",
+   "seconds": 5.171,
+   "ref_words": 25,
+   "edits": 0,
+   "hypothesis": "Snow settles on the leaves of a thin branch. Snowflakes drift down past the branch. A truck with a snowplow pushes snow along a street."
+  },
+  {
+   "id": "E11",
+   "seconds": 4.436,
+   "ref_words": 30,
+   "edits": 1,
+   "hypothesis": "Bear trees stand along the edge of a calm lake. A busy motorway is full of cars at rush hour. The low sun shines through the trees onto the snow."
+  },
+  {
+   "id": "E12",
+   "seconds": 5.145,
+   "ref_words": 26,
+   "edits": 2,
+   "hypothesis": "Along white barge passes under a steel bridge. Traffic crosses the bridge above the river. The barge moves along a wide river with green banks."
+  },
+  {
+   "id": "E13",
+   "seconds": 7.31,
+   "ref_words": 37,
+   "edits": 0,
+   "hypothesis": "A barge slides past a tall lift bridge on the river. Sunlight glitters on the water around the barge. Snow-capped mountains rise above a frozen lake. Small boats float near the far shore of the river."
+  },
+  {
+   "id": "E14",
+   "seconds": 11.096,
+   "ref_words": 37,
+   "edits": 2,
+   "hypothesis": "A tugboat pushes a covered barge along a waterway. A small white boat travels ahead of the barge. The barge carries a long white cover with a curved roof. Green marshlines both sides of the water."
+  },
+  {
+   "id": "E15",
+   "seconds": 10.009,
+   "ref_words": 37,
+   "edits": 10,
+   "hypothesis": "The barge approach is a huge square building. A bright green tugboat pushes the barge from behind. A cruise ship full of passengers docks in the harbor. The giant building has a round blue logo near the top. The giant building is a huge square building."
+  },
+  {
+   "id": "E16",
+   "seconds": 5.645,
+   "ref_words": 34,
+   "edits": 0,
+   "hypothesis": "A tall white building with a flag stands near a lagoon. Green marsh and water stretch out behind it. A rocket now stands beside the tall building. Clouds drift across a pale blue sky."
+  },
+  {
+   "id": "E17",
+   "seconds": 10.142,
+   "ref_words": 41,
+   "edits": 0,
+   "hypothesis": "A rocket stands on a launch pad between tall towers. A large white sphere sits near the pad. Tall lightning towers surround the rocket. The rocket on the pad is painted bright green. A flock of sheep crosses a country lane."
+  },
+  {
+   "id": "E18",
+   "seconds": 12.039,
+   "ref_words": 35,
+   "edits": 12,
+   "hypothesis": "A white helicopter hovers above green trees. Its slowly comes down towards a paved area. The helicopter has a blue stripe along its side. It settles close to the ground in front of the trees. It settles close to the ground in front of the trees."
+  },
+  {
+   "id": "E19",
+   "seconds": 4.819,
+   "ref_words": 27,
+   "edits": 2,
+   "hypothesis": "A large white hanger stands under a blue sky. A pot of whales swims beside a sailing boat. A small helicopter appears far away above the trees."
+  },
+  {
+   "id": "E20",
+   "seconds": 2.733,
+   "ref_words": 25,
+   "edits": 0,
+   "hypothesis": "A white aircraft approaches from a hazy sky. It descends towards a runway lined with trees. The long winged plane touches down on the runway."
+  },
+  {
+   "id": "E21",
+   "seconds": 4.908,
+   "ref_words": 38,
+   "edits": 0,
+   "hypothesis": "A white plane with very long wings rolls along a runway. Green grass lines the edges of the runway. A crowd of children plays in a school playground. An orange plane with long wings rolls along the runway."
+  },
+  {
+   "id": "E22",
+   "seconds": 7.926,
+   "ref_words": 31,
+   "edits": 0,
+   "hypothesis": "In the dark, a tall orange rocket stands on its pad. Bright lights shine around the base of the launch tower. The rocket glows orange and white against the dark sky."
+  },
+  {
+   "id": "E23",
+   "seconds": 15.626,
+   "ref_words": 34,
+   "edits": 14,
+   "hypothesis": "At dawn, a rocket stands beside its launch tower. The rocket has a white top and an orange body. Ace no storm varies a quiet mountain village. The sky behind the rocket turns deep blue. The distance from the sky to the heavens is available."
+  },
+  {
+   "id": "E24",
+   "seconds": 6.897,
+   "ref_words": 33,
+   "edits": 1,
+   "hypothesis": "Waves roll onto a sandy beach scene from above. Green plants grow behind the sand. White foam spreads along the edge of the water. A long strip of sand runs beside the waves."
+  },
+  {
+   "id": "E25",
+   "seconds": 5.45,
+   "ref_words": 33,
+   "edits": 12,
+   "hypothesis": "A drone circles a huge gray and white building. A giant flag and a round logo decorated side. A giant flag and a round logo decorated side. Camels walk across gold and sand dunes. Equipment and materials cover a building site nearby."
+  },
+  {
+   "id": "E26",
+   "seconds": 4.562,
+   "ref_words": 24,
+   "edits": 1,
+   "hypothesis": "Tall tower stand in silhouette against the setting sun. The sun flares brightly behind the rocket. A round water tower stands to the right."
+  },
+  {
+   "id": "E27",
+   "seconds": 4.924,
+   "ref_words": 25,
+   "edits": 0,
+   "hypothesis": "A giant rocket rides on a huge tracked vehicle. A large flag hangs on the side of the vehicle. Seagulls dive into a stormy sea."
+  },
+  {
+   "id": "E28",
+   "seconds": 2.83,
+   "ref_words": 27,
+   "edits": 0,
+   "hypothesis": "A red locomotive sits on a railway track. A long line of freight cars stretches behind it. White clouds float in a blue sky above the train."
+  },
+  {
+   "id": "E29",
+   "seconds": 4.592,
+   "ref_words": 26,
+   "edits": 2,
+   "hypothesis": "A white bird with a dark head weights in calm water. Its long curved beak is bright yellow. Ripple spread across the water around its legs."
+  },
+  {
+   "id": "E30",
+   "seconds": 7.255,
+   "ref_words": 39,
+   "edits": 0,
+   "hypothesis": "A large part of the space station fills the left of the view. Beyond it, a hurricane swirls over the ocean. A marching band parades down a city street. The hurricane's eye sits over the deserts of Arizona."
+  },
+  {
+   "id": "E33",
+   "seconds": 2.749,
+   "ref_words": 16,
+   "edits": 1,
+   "hypothesis": "The sun sets behind tall grass in a distant rocket. Clouds glow orange above the horizon."
+  },
+  {
+   "id": "E34",
+   "seconds": 2.467,
+   "ref_words": 17,
+   "edits": 0,
+   "hypothesis": "A covered barge travels up a wide river. A small boat leaves a white wake beside it."
+  }
+ ]
+}

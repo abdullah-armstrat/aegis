@@ -1,0 +1,31 @@
+{
+ "started": "2026-09-28T11:12:27",
+ "rebuild": false,
+ "steps": {
+  "synthetic": 94.4,
+  "matching-a": 1213.1,
+  "hard-pairs": 307.1,
+  "date-check": 142.3,
+  "verite-features": 0.0,
+  "verite-llm": 12.6,
+  "verite-heldout": 49.8,
+  "verite-fresh": 11.8,
+  "picture-limits": 1.2,
+  "llm-verite": 0.1,
+  "ablations": 5.1,
+  "framing-f": 0.4,
+  "framing-llm": 0.2,
+  "speech-swap": 0.2,
+  "video-pipeline": 1.4,
+  "caption-video": 0.0,
+  "whisper": 0.2,
+  "fault-injection": 293.4,
+  "web-archive": 88.2,
+  "performance": 897.0,
+  "interface-review": 154.3,
+  "no-verdict": 1.4,
+  "readability": 0.4,
+  "numbers": 0.3,
+  "charts": 9.1
+ }
+}

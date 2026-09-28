@@ -1,0 +1,368 @@
+{
+ "model": "base",
+ "setting": "b",
+ "options": {
+  "condition_on_previous_text": false,
+  "hallucination_silence_threshold": null
+ },
+ "on": "tuning_long",
+ "items": 19,
+ "wer_pct": 8.68,
+ "invented_sentences": 0,
+ "items_with_invented": 0,
+ "mean_s": 9.567,
+ "rows": [
+  {
+   "id": "long_01",
+   "seconds": 13.673,
+   "ref_words": 98,
+   "edits": 5,
+   "hypothesis": "and I should begin with a short homily on philoliqui. The south, she had not thought of seriously and yet knowing of its delightful hospitality and mild climate, she was not averse to Charleston or New Orleans. No doubt, in process of time, the ladies will follow. The bear shook his shaggy sides and then a well-known voice replied. Thought the fir tree? And believed it all, because the man who told the story was so good looking. Well, well. It's tremendously well put on, too. Is she not afraid that I will for work her in clinicians?",
+   "segments": [
+    "and I should begin with a short homily on philoliqui.",
+    "The south, she had not thought of seriously and yet knowing of its delightful hospitality and mild climate,",
+    "she was not averse to Charleston or New Orleans.",
+    "No doubt, in process of time, the ladies will follow.",
+    "The bear shook his shaggy sides and then a well-known voice replied.",
+    "Thought the fir tree?",
+    "And believed it all, because the man who told the story was so good looking.",
+    "Well, well.",
+    "It's tremendously well put on, too.",
+    "Is she not afraid that I will for work her in clinicians?"
+   ],
+   "invented": []
+  },
+  {
+   "id": "long_02",
+   "seconds": 10.167,
+   "ref_words": 65,
+   "edits": 9,
+   "hypothesis": "Larkspurt bit me again this morning for the third time. We have come from a far loamier place than this. A loamier place. Ojo had never eaten such a fine meal in all his life. Through the black night rain, he sang to her window bars. Against these boasting, false apostles, Paul boldly defend his apostolic authority in ministry. Kezwick March 22nd 1837. Deer Ma Dan.",
+   "segments": [
+    "Larkspurt bit me again this morning for the third time.",
+    "We have come from a far loamier place than this.",
+    "A loamier place.",
+    "Ojo had never eaten such a fine meal in all his life.",
+    "Through the black night rain, he sang to her window bars.",
+    "Against these boasting, false apostles, Paul boldly defend his apostolic authority in",
+    "ministry.",
+    "Kezwick March 22nd 1837.",
+    "Deer Ma Dan."
+   ],
+   "invented": []
+  },
+  {
+   "id": "long_03",
+   "seconds": 10.632,
+   "ref_words": 120,
+   "edits": 7,
+   "hypothesis": "Image of weakness, art thou but a worm? I wonder if I've been changed in the night. However, remembering what you told me, namely that you had commended the matter to a higher decision than ours, and that you resolved to submit with resignation to that decision, whatever I hold it my duty to yield also and to be silent and may be all for the best. Pearl accordingly ran to the bow window at the further end of the hall and looked along the vista of a garden lock, carpeted with closely shaven grass and bordered with some rude and imitor attempt at shrubbery. And the death of which I dreamt could not alas.",
+   "segments": [
+    "Image of weakness, art thou but a worm?",
+    "I wonder if I've been changed in the night.",
+    "However, remembering what you told me, namely that you had commended the matter to a higher",
+    "decision than ours, and that you resolved to submit with resignation to that decision, whatever",
+    "I hold it my duty to yield also and to be silent and may be all for the best.",
+    "Pearl accordingly ran to the bow window at the further end of the hall and looked along the vista of a garden lock,",
+    "carpeted with closely shaven grass and bordered with some rude and imitor attempt at shrubbery.",
+    "And the death of which I dreamt could not alas."
+   ],
+   "invented": []
+  },
+  {
+   "id": "long_04",
+   "seconds": 9.139,
+   "ref_words": 127,
+   "edits": 13,
+   "hypothesis": "In this incident, contrasting the creative and destructive spirit of the factions, the immigrant aid society of Massachusetts finds its most honorable and triumphant vindication. In the old Badlay maid play, it was frequently necessary for one of the characters to take the audience into its confidence. If Christian perfection be necessary to salvation, I shall never be saved. My heart is a very hot bed for sinful thoughts, and when I decide on a I scarcely remember to look to my redeemer for a direction. You may be quite sure it's there, so Captain Battle Axe, and that I can so use it as to half obliterate your town within two minutes of my return on board. He could examine the papers in his own office.",
+   "segments": [
+    "In this incident, contrasting the creative and destructive spirit of the factions, the",
+    "immigrant aid society of Massachusetts finds its most honorable and triumphant vindication.",
+    "In the old Badlay maid play, it was frequently necessary for one of the characters to take the",
+    "audience into its confidence.",
+    "If Christian perfection be necessary to salvation, I shall never be saved.",
+    "My heart is a very hot bed for sinful thoughts, and when I decide on a",
+    "I scarcely remember to look to my redeemer for a direction.",
+    "You may be quite sure it's there, so Captain Battle Axe, and that I can so use it as to half obliterate your town within two minutes of my return on board.",
+    "He could examine the papers in his own office."
+   ],
+   "invented": []
+  },
+  {
+   "id": "long_05",
+   "seconds": 9.648,
+   "ref_words": 90,
+   "edits": 4,
+   "hypothesis": "The dews were suffered to exhale, and the sun had dispersed the mist, and was shedding a strong and clear light in the forest when the travelers resumed their journey. Some images, like some sensations, feel very familiar, while others feel strange. This without reckoning in the pains of the heart, and so it goes on. The Democratic Committee figured out a way to do this. Thus, it is that the honor of three is saved, our country, our masters, and our own. Another circumstance was most remarkable.",
+   "segments": [
+    "The dews were suffered to exhale, and the sun had dispersed the mist, and was shedding a strong and clear light in the forest when the travelers resumed their journey.",
+    "Some images, like some sensations, feel very familiar, while others feel strange.",
+    "This without reckoning in the pains of the heart, and so it goes on.",
+    "The Democratic Committee figured out a way to do this.",
+    "Thus, it is that the honor of three is saved, our country, our masters, and our own.",
+    "Another circumstance was most remarkable."
+   ],
+   "invented": []
+  },
+  {
+   "id": "long_06",
+   "seconds": 8.536,
+   "ref_words": 122,
+   "edits": 3,
+   "hypothesis": "While then last, here is Turner's, Greek School of the Highest Class, and you define his art absolutely, as first the displaying intensely and with the sternest intellect of natural form as it is, and in the envelopment of it with cloud and fire. We might provisionally, though perhaps not quite correctly, define memory as that way of knowing about the past, which has no analog in our knowledge of the future. Such a definition would at least serve to mark the problem with which we are concerned, though some expectations may deserve to rank with memory as regards immediacy. The windows are patched with wooden panes, and the door, I think, is like the gate. It is never opened.",
+   "segments": [
+    "While then last, here is Turner's, Greek School of the Highest Class, and you define his art absolutely,",
+    "as first the displaying intensely and with the sternest intellect of natural form as it is,",
+    "and in the envelopment of it with cloud and fire.",
+    "We might provisionally, though perhaps not quite correctly, define memory as that way of knowing about the past,",
+    "which has no analog in our knowledge of the future.",
+    "Such a definition would at least serve to mark the problem with which we are concerned,",
+    "though some expectations may deserve to rank with memory as regards immediacy.",
+    "The windows are patched with wooden panes, and the door, I think, is like the gate. It is never opened."
+   ],
+   "invented": []
+  },
+  {
+   "id": "long_07",
+   "seconds": 8.535,
+   "ref_words": 123,
+   "edits": 3,
+   "hypothesis": "I'm not allowed to perform magic, except for my own amusement, he told his visitors, as he lighted a pipe, with a crooked stem, and began to smoke. Come the wool for the widows indeed. And the old gentleman was so delighted with his success that he had to burst out into a series of short, happy bits of laughter, that occupy quite a space of time. Beholding it, Hester was constrained to rush towards the child, to pursue the little elf in the flight which she invariably began, to snatch her to her bosom with a close pressure and earnest kisses, not so much from overflowing love as to assure herself that Pearl was flesh and blood and not utterly delusive.",
+   "segments": [
+    "I'm not allowed to perform magic, except for my own amusement, he told his visitors, as",
+    "he lighted a pipe, with a crooked stem, and began to smoke.",
+    "Come the wool for the widows indeed.",
+    "And the old gentleman was so delighted with his success that he had to burst out into",
+    "a series of short, happy bits of laughter, that occupy quite a space of time.",
+    "Beholding it, Hester was constrained to rush towards the child, to pursue the little",
+    "elf in the flight which she invariably began, to snatch her to her bosom with a close",
+    "pressure and earnest kisses, not so much from overflowing love as to assure herself",
+    "that Pearl was flesh and blood and not utterly delusive."
+   ],
+   "invented": []
+  },
+  {
+   "id": "long_08",
+   "seconds": 6.739,
+   "ref_words": 95,
+   "edits": 41,
+   "hypothesis": "Again. Again. the princess inquired. No? I'm ready for representative on the Republican ticket. Said Kenneth Klyley. The result is a great mobility of the labor employed in printing, perhaps greater than any other equally well-defined and considerable body of workman. The modern organization of industry works in the same direction also by another line.",
+   "segments": [
+    "Again. Again.",
+    "the princess inquired. No?",
+    "I'm ready for representative on the Republican ticket.",
+    "Said Kenneth Klyley.",
+    "The result is a great mobility of the labor employed in printing, perhaps greater than any other",
+    "equally well-defined and considerable body of workman.",
+    "The modern organization of industry works in the same direction also by another line."
+   ],
+   "invented": []
+  },
+  {
+   "id": "long_09",
+   "seconds": 10.475,
+   "ref_words": 113,
+   "edits": 11,
+   "hypothesis": "Servadak took it for granted that the Dabrina was endeavoring to put in. He could hardly stand still, so great was his mental agitation, and he ran towards homes with two eager hands outstretched. Thank heaven that you have come! Dalia came to the parlor and with an air of great mystery, back in the children aside and said to them, in a whisper, leave Andela and Rosalie here and don't say a word to them. I greatly mourn that one so well disposed should die in his ignorance and I have sought a Goodly him, can you lead me to him? Truly such a horse would be worth much in nodding him fair.",
+   "segments": [
+    "Servadak took it for granted that the Dabrina was endeavoring to put in.",
+    "He could hardly stand still, so great was his mental agitation, and he ran towards homes with two eager hands outstretched.",
+    "Thank heaven that you have come!",
+    "Dalia came to the parlor and with an air of great mystery, back in the children aside and",
+    "said to them, in a whisper, leave Andela and Rosalie here and don't say a word to them.",
+    "I greatly mourn that one so well disposed should die in his ignorance and I have sought a",
+    "Goodly him, can you lead me to him?",
+    "Truly such a horse would be worth much in nodding him fair."
+   ],
+   "invented": []
+  },
+  {
+   "id": "long_10",
+   "seconds": 11.064,
+   "ref_words": 120,
+   "edits": 10,
+   "hypothesis": "His feet were red, his long narrow beak, with its sawtoothed edges and sharp hook's tip was bright red. The people contested these measures one by one in the courts, presenting in case after case the different phases of the subject and urging the unconstitutionality of the measure. He passes abruptly from persons, the ideas and numbers, and from ideas and numbers to persons, from the heavens to men, from astronomy to physiology. He confuses, or rather, does not distinguish, subject and object, first and final causes, and is dreaming of geometrical figures lost in a flux of sense. Robin Fitzewith saw that his doubts have warranted and had been unfair, and he became ashamed of himself for harboring them.",
+   "segments": [
+    "His feet were red, his long narrow beak, with its sawtoothed edges and sharp hook's tip was bright red.",
+    "The people contested these measures one by one in the courts,",
+    "presenting in case after case the different phases of the subject and urging the unconstitutionality of the measure.",
+    "He passes abruptly from persons, the ideas and numbers, and from ideas and numbers to persons,",
+    "from the heavens to men, from astronomy to physiology.",
+    "He confuses, or rather, does not distinguish, subject and object, first and final causes,",
+    "and is dreaming of geometrical figures lost in a flux of sense.",
+    "Robin Fitzewith saw that his doubts have warranted and had been unfair, and he became ashamed",
+    "of himself for harboring them."
+   ],
+   "invented": []
+  },
+  {
+   "id": "long_11",
+   "seconds": 10.825,
+   "ref_words": 121,
+   "edits": 8,
+   "hypothesis": "The inmates being removed. At the appointed hour, if you cannonballs were fired to the stone walls. But such was his keenness that, even while the wide flukes of his engorded victim were still sticking out at the corners of his beak, his fierce red eyes were once more peering downward into the torrent and search a fresh prey. I have very few to love me now, and I thought you might love me as I have begun to love you. Ruth was glad to hear that Philip had made a push into the world, and she was sure that his talent and courage would make a way for him. And you belong to that small class who are happy?",
+   "segments": [
+    "The inmates being removed. At the appointed hour, if you cannonballs were fired to the stone walls.",
+    "But such was his keenness that, even while the wide flukes of his engorded victim were still sticking out at the corners of his beak, his fierce red eyes were once more peering downward into the torrent and search a fresh prey.",
+    "I have very few to love me now, and I thought you might love me as I have begun to love you.",
+    "Ruth was glad to hear that Philip had made a push into the world, and she was sure that",
+    "his talent and courage would make a way for him.",
+    "And you belong to that small class who are happy?"
+   ],
+   "invented": []
+  },
+  {
+   "id": "long_12",
+   "seconds": 7.961,
+   "ref_words": 97,
+   "edits": 9,
+   "hypothesis": "Well now, Ennis, I declare you have a head and so has my stick. Thousands of hiker chiefs were waving above these tightly packed masses, hailing the Abraham Lincoln until it reached the waters of the Hudson River at the tip of the Long Peninsula that forms New York City. Just close the doors at home. Sheriff Jones had his pockets always full of rits issued in the spirit of persecution, but was often baffled by the sharp wits and ready resources of the Free State people, and sometimes defied outright. He moved uneasily in his chaircrete.",
+   "segments": [
+    "Well now, Ennis, I declare you have a head and so has my stick.",
+    "Thousands of hiker chiefs were waving above these tightly packed masses,",
+    "hailing the Abraham Lincoln until it reached the waters of the Hudson River",
+    "at the tip of the Long Peninsula that forms New York City.",
+    "Just close the doors at home.",
+    "Sheriff Jones had his pockets always full of rits issued in the spirit of persecution,",
+    "but was often baffled by the sharp wits and ready resources of the Free State people,",
+    "and sometimes defied outright.",
+    "He moved uneasily in his chaircrete."
+   ],
+   "invented": []
+  },
+  {
+   "id": "long_13",
+   "seconds": 10.929,
+   "ref_words": 127,
+   "edits": 4,
+   "hypothesis": "He had no friend wise enough to tell him to step into the dorking convention, then in session, make a sketch of the min and women on the platform, and take it to the editor of the daily grapevine, and see what he could get a line for it. You are a rarion for sitting down to your work, a little while after it's time to put by. The Free State Hotel, a stone building, in dimensions 50 by 70 feet, three stories high and handsomely furnished, previously occupied only for launching rooms, on that day for the first time opened its table accommodations to the public and provided a free dinner in honor of the occasion. At noon, the violence of the storm redoubles.",
+   "segments": [
+    "He had no friend wise enough to tell him to step into the dorking convention, then in session,",
+    "make a sketch of the min and women on the platform, and take it to the editor of the daily grapevine,",
+    "and see what he could get a line for it.",
+    "You are a rarion for sitting down to your work, a little while after it's time to put by.",
+    "The Free State Hotel, a stone building, in dimensions 50 by 70 feet, three stories high",
+    "and handsomely furnished, previously occupied only for launching rooms, on that day for",
+    "the first time opened its table accommodations to the public and provided a free dinner",
+    "in honor of the occasion.",
+    "At noon, the violence of the storm redoubles."
+   ],
+   "invented": []
+  },
+  {
+   "id": "long_14",
+   "seconds": 10.791,
+   "ref_words": 120,
+   "edits": 5,
+   "hypothesis": "I, and my wife and son, and the two crestwellers, and three or four others, agreed to die on board the ship on the next. But Joyce had not been listening. All at once, she put down her candle on the table and faced her companion. We are losing time, and the fact is, I have not come all this way to take a little sail upon a pond on a raft. We can all be servants of God, wherever our lot is cast. But he gives us different sorts of work, according as he fits us for it and calls us to it. Nay, nay, Lording, answered warrant and with a half laugh. Make acquaintance with Mr. Yago. Sit together.",
+   "segments": [
+    "I, and my wife and son, and the two crestwellers, and three or four others, agreed to die on board the ship on the next.",
+    "But Joyce had not been listening. All at once, she put down her candle on the table and faced her companion.",
+    "We are losing time, and the fact is, I have not come all this way to take a little sail upon a pond on a raft.",
+    "We can all be servants of God, wherever our lot is cast.",
+    "But he gives us different sorts of work, according as he fits us for it and calls us to it.",
+    "Nay, nay, Lording, answered warrant and with a half laugh.",
+    "Make acquaintance with Mr. Yago. Sit together."
+   ],
+   "invented": []
+  },
+  {
+   "id": "long_15",
+   "seconds": 8.729,
+   "ref_words": 103,
+   "edits": 12,
+   "hypothesis": "while the old gold and the marble stays. Forever gleaming its soft, strong blaze, calm and early evening glow. Listen then, Socrates, to a tale of solace. Who, being the friend of Drogettus, my great grandfather, told it to my grandfather, Critius, and he told me. I shall never get to 20 at that rate! In a few days, an officer came with a requisition from Governor Shannon and took the prisoner by land of Westport, and afterwards from there to Kansas City 11-worth. Many, if not all the elements of the preso-credit philosophy, are included in the TMS.",
+   "segments": [
+    "while the old gold and the marble stays.",
+    "Forever gleaming its soft, strong blaze,",
+    "calm and early evening glow.",
+    "Listen then, Socrates, to a tale of solace.",
+    "Who, being the friend of Drogettus, my great grandfather,",
+    "told it to my grandfather, Critius, and he told me.",
+    "I shall never get to 20 at that rate!",
+    "In a few days, an officer came with a requisition from Governor Shannon and took the prisoner",
+    "by land of Westport, and afterwards from there to Kansas City 11-worth.",
+    "Many, if not all the elements of the preso-credit philosophy, are included in the TMS."
+   ],
+   "invented": []
+  },
+  {
+   "id": "long_16",
+   "seconds": 7.666,
+   "ref_words": 82,
+   "edits": 6,
+   "hypothesis": "Thou gentle maid of silent valleys and of modest brooks. For Thou shall be clothed in light and fed with morning mana. Till summers heat melts the beside, the fountains and the springs, to flourish in eternal veils. They, why should, vell complain? That invitation decided her. Then they started on again, and two hours later came in sight. of the house of Dr. Pipped. Meter, roughly one yard three inches. Can you imagine my Buckingham has been so violent? I suspect.",
+   "segments": [
+    "Thou gentle maid of silent valleys and of modest brooks.",
+    "For Thou shall be clothed in light and fed with morning mana.",
+    "Till summers heat melts the beside, the fountains and the springs,",
+    "to flourish in eternal veils.",
+    "They, why should, vell complain?",
+    "That invitation decided her.",
+    "Then they started on again, and two hours later came in sight.",
+    "of the house of Dr. Pipped.",
+    "Meter, roughly one yard three inches.",
+    "Can you imagine my Buckingham has been so violent? I suspect."
+   ],
+   "invented": []
+  },
+  {
+   "id": "long_17",
+   "seconds": 7.735,
+   "ref_words": 95,
+   "edits": 9,
+   "hypothesis": "The mergantzer had a crested head of iridescent green black, a broad collar of lustrous white, black back, black and white wings, white belly, sides finely penciled and black and white, an arrest of rich chestnut red, straight with black. Does he think he could stand at six months? but they have nothing to do with the interpretation of Plato. And in spirit, they are opposed to him. Heaven! A good place to be raised to. They then renewed their journey, and under the better light made a safe crossing of the stable roofs.",
+   "segments": [
+    "The mergantzer had a crested head of iridescent green black, a broad collar of lustrous white,",
+    "black back, black and white wings, white belly, sides finely penciled and black and white,",
+    "an arrest of rich chestnut red, straight with black.",
+    "Does he think he could stand at six months?",
+    "but they have nothing to do with the interpretation of Plato.",
+    "And in spirit, they are opposed to him.",
+    "Heaven!",
+    "A good place to be raised to.",
+    "They then renewed their journey, and under the better light made a safe crossing of the stable roofs."
+   ],
+   "invented": []
+  },
+  {
+   "id": "long_18",
+   "seconds": 9.72,
+   "ref_words": 87,
+   "edits": 6,
+   "hypothesis": "The combined bands of both the countries played the music and a fine supper was served. We've heard something of your story, said Kenneth, and are interested in it. Who began the quarrel? Was it the Mormons? It would serve you all right if she walked off with Carl. This was at the March election 1855. It's been on only two weeks and I've been happy doesn't times already. Chingatchuk had caught the look and Emotioning with his hand, he baited him speak.",
+   "segments": [
+    "The combined bands of both the countries played the music and a fine supper was served.",
+    "We've heard something of your story, said Kenneth, and are interested in it.",
+    "Who began the quarrel? Was it the Mormons?",
+    "It would serve you all right if she walked off with Carl.",
+    "This was at the March election 1855.",
+    "It's been on only two weeks and I've been happy",
+    "doesn't times already.",
+    "Chingatchuk had caught the look and",
+    "Emotioning with his hand, he baited him speak."
+   ],
+   "invented": []
+  },
+  {
+   "id": "long_19",
+   "seconds": 8.806,
+   "ref_words": 123,
+   "edits": 11,
+   "hypothesis": "From time to time, a fleecey tough to miss, where he had some gleaming light left upon it, drops down upon the dense floor of grey, and loses itself in the opaque and a peniturable mass. It sounded dull, that sounded strange, and all the more so because of his main condition, which was... As I spoke, I made him a gracious bow, And I think I showed him by my mode of address that I did not bear any grudge as to my individual self. The style and plan of the Tinius differ greatly from that of any other of the Platonic dialogues. Surface dust at least had been removed and the fine old furniture gave a hint of its real elegance and polish.",
+   "segments": [
+    "From time to time, a fleecey tough to miss,",
+    "where he had some gleaming light left upon it,",
+    "drops down upon the dense floor of grey,",
+    "and loses itself in the opaque and a peniturable mass.",
+    "It sounded dull, that sounded strange,",
+    "and all the more so because of his main condition, which was...",
+    "As I spoke, I made him a gracious bow,",
+    "And I think I showed him by my mode of address that I did not bear any grudge as to my individual self.",
+    "The style and plan of the Tinius differ greatly from that of any other of the Platonic dialogues.",
+    "Surface dust at least had been removed and the fine old furniture gave a hint of its real elegance and polish."
+   ],
+   "invented": []
+  }
+ ]
+}

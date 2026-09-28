@@ -1,0 +1,85 @@
+[
+  {
+    "model": "clip-vit-b-32",
+    "network_blocked": true,
+    "image_encode_s": 0.212,
+    "text_encode_s": 0.152,
+    "sanity": "softmax over ['a blue sky','a plate of food'] = [0.995, 0.005]",
+    "import_s": 5.9,
+    "load_s": 5.12,
+    "first_inference_s": 0.36,
+    "baseline_mb": 18.6,
+    "peak_mb": 1661.3,
+    "peak_rise_mb": 1642.7
+  },
+  {
+    "model": "clip-rn50",
+    "network_blocked": true,
+    "image_encode_s": 0.204,
+    "text_encode_s": 0.133,
+    "sanity": "softmax over ['a blue sky','a plate of food'] = [0.815, 0.185]",
+    "import_s": 4.91,
+    "load_s": 3.79,
+    "first_inference_s": 0.34,
+    "baseline_mb": 18.7,
+    "peak_mb": 1286.3,
+    "peak_rise_mb": 1267.6
+  },
+  {
+    "model": "clip-vit-b-16",
+    "network_blocked": true,
+    "image_encode_s": 0.358,
+    "text_encode_s": 0.14,
+    "sanity": "softmax over ['a blue sky','a plate of food'] = [0.914, 0.086]",
+    "import_s": 4.62,
+    "load_s": 5.05,
+    "first_inference_s": 0.5,
+    "baseline_mb": 18.6,
+    "peak_mb": 1648.4,
+    "peak_rise_mb": 1629.8
+  },
+  {
+    "model": "spacy-md",
+    "network_blocked": true,
+    "sanity": "sim(car, automobile)=0.738  sim(car, pasta)=0.627",
+    "import_s": 4.1,
+    "load_s": 1.57,
+    "first_inference_s": 0.04,
+    "baseline_mb": 18.6,
+    "peak_mb": 492.7,
+    "peak_rise_mb": 474.1
+  },
+  {
+    "model": "whisper-tiny",
+    "network_blocked": true,
+    "sanity": "transcribed 2 s of silence: ''",
+    "import_s": 2.86,
+    "load_s": 0.75,
+    "first_inference_s": 0.88,
+    "baseline_mb": 18.7,
+    "peak_mb": 495.4,
+    "peak_rise_mb": 476.7
+  },
+  {
+    "model": "whisper-base",
+    "network_blocked": true,
+    "sanity": "transcribed 2 s of silence: ''",
+    "import_s": 2.64,
+    "load_s": 1.42,
+    "first_inference_s": 1.27,
+    "baseline_mb": 18.6,
+    "peak_mb": 698.0,
+    "peak_rise_mb": 679.4
+  },
+  {
+    "model": "blip",
+    "network_blocked": true,
+    "sanity": "caption of a plain sky-blue image: 'a blue background with a white border'",
+    "import_s": 11.94,
+    "load_s": 0.79,
+    "first_inference_s": 3.05,
+    "baseline_mb": 18.6,
+    "peak_mb": 1401.0,
+    "peak_rise_mb": 1382.4
+  }
+]

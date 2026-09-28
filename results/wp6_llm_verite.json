@@ -1,0 +1,897 @@
+{
+ "model": "phi3:mini",
+ "calls": {
+  "n": 345,
+  "validity": {
+   "clean": 336,
+   "unparseable": 9
+  },
+  "answered": {
+   "k": 336,
+   "n": 345,
+   "rate": 0.974,
+   "ci": [
+    0.951,
+    0.986
+   ]
+  },
+  "clean_json": {
+   "k": 336,
+   "n": 345,
+   "rate": 0.974,
+   "ci": [
+    0.951,
+    0.986
+   ]
+  },
+  "timeouts": 9,
+  "latency_s": {
+   "median": 16.07,
+   "p95_nearest_rank": 28.54,
+   "min": 9.075,
+   "max": 34.591,
+   "mean": 17.376,
+   "n": 345
+  },
+  "latencies": [
+   9.075,
+   9.555,
+   9.624,
+   10.014,
+   10.341,
+   10.599,
+   10.908,
+   11.244,
+   11.338,
+   11.363,
+   11.568,
+   11.623,
+   11.801,
+   11.837,
+   12.139,
+   12.257,
+   12.429,
+   12.474,
+   12.511,
+   12.59,
+   12.596,
+   12.699,
+   12.738,
+   12.745,
+   12.846,
+   12.89,
+   12.892,
+   12.897,
+   12.924,
+   13.004,
+   13.052,
+   13.055,
+   13.089,
+   13.133,
+   13.193,
+   13.291,
+   13.336,
+   13.426,
+   13.434,
+   13.468,
+   13.521,
+   13.552,
+   13.561,
+   13.607,
+   13.638,
+   13.641,
+   13.644,
+   13.674,
+   13.685,
+   13.708,
+   13.742,
+   13.75,
+   13.767,
+   13.772,
+   13.813,
+   13.85,
+   13.892,
+   13.896,
+   13.924,
+   13.931,
+   13.982,
+   14.013,
+   14.07,
+   14.094,
+   14.109,
+   14.146,
+   14.164,
+   14.169,
+   14.184,
+   14.195,
+   14.202,
+   14.22,
+   14.226,
+   14.228,
+   14.231,
+   14.252,
+   14.276,
+   14.291,
+   14.356,
+   14.36,
+   14.405,
+   14.423,
+   14.437,
+   14.468,
+   14.494,
+   14.507,
+   14.51,
+   14.562,
+   14.573,
+   14.619,
+   14.641,
+   14.643,
+   14.674,
+   14.691,
+   14.71,
+   14.726,
+   14.732,
+   14.775,
+   14.807,
+   14.812,
+   14.818,
+   14.838,
+   14.848,
+   14.881,
+   14.91,
+   14.928,
+   14.935,
+   14.941,
+   14.941,
+   14.96,
+   14.985,
+   14.986,
+   14.986,
+   14.986,
+   15.0,
+   15.017,
+   15.033,
+   15.058,
+   15.097,
+   15.118,
+   15.127,
+   15.151,
+   15.154,
+   15.188,
+   15.194,
+   15.198,
+   15.214,
+   15.251,
+   15.261,
+   15.283,
+   15.287,
+   15.327,
+   15.336,
+   15.37,
+   15.406,
+   15.406,
+   15.419,
+   15.457,
+   15.463,
+   15.469,
+   15.477,
+   15.511,
+   15.519,
+   15.543,
+   15.551,
+   15.569,
+   15.574,
+   15.589,
+   15.602,
+   15.603,
+   15.608,
+   15.617,
+   15.639,
+   15.658,
+   15.676,
+   15.722,
+   15.728,
+   15.772,
+   15.776,
+   15.823,
+   15.854,
+   15.867,
+   15.899,
+   15.908,
+   15.917,
+   15.937,
+   15.944,
+   15.97,
+   15.981,
+   16.015,
+   16.036,
+   16.05,
+   16.07,
+   16.105,
+   16.125,
+   16.132,
+   16.153,
+   16.161,
+   16.182,
+   16.185,
+   16.242,
+   16.249,
+   16.276,
+   16.309,
+   16.365,
+   16.371,
+   16.394,
+   16.395,
+   16.417,
+   16.427,
+   16.452,
+   16.483,
+   16.494,
+   16.523,
+   16.561,
+   16.562,
+   16.572,
+   16.577,
+   16.588,
+   16.608,
+   16.663,
+   16.7,
+   16.726,
+   16.741,
+   16.743,
+   16.751,
+   16.81,
+   16.838,
+   16.844,
+   16.849,
+   16.884,
+   16.962,
+   16.983,
+   17.006,
+   17.015,
+   17.077,
+   17.124,
+   17.15,
+   17.155,
+   17.162,
+   17.163,
+   17.278,
+   17.281,
+   17.282,
+   17.287,
+   17.304,
+   17.354,
+   17.361,
+   17.379,
+   17.398,
+   17.481,
+   17.568,
+   17.614,
+   17.643,
+   17.671,
+   17.678,
+   17.684,
+   17.689,
+   17.69,
+   17.883,
+   17.908,
+   17.931,
+   17.985,
+   17.99,
+   18.011,
+   18.019,
+   18.044,
+   18.062,
+   18.075,
+   18.082,
+   18.108,
+   18.14,
+   18.161,
+   18.227,
+   18.305,
+   18.373,
+   18.438,
+   18.477,
+   18.489,
+   18.499,
+   18.504,
+   18.524,
+   18.533,
+   18.567,
+   18.593,
+   18.671,
+   18.698,
+   18.836,
+   18.867,
+   18.879,
+   18.897,
+   18.899,
+   18.931,
+   19.087,
+   19.223,
+   19.569,
+   19.681,
+   19.683,
+   19.915,
+   19.921,
+   19.967,
+   20.195,
+   20.369,
+   20.489,
+   20.492,
+   20.506,
+   20.54,
+   20.579,
+   20.761,
+   20.835,
+   20.843,
+   21.34,
+   21.427,
+   21.446,
+   21.477,
+   21.497,
+   21.515,
+   21.557,
+   22.135,
+   22.179,
+   22.497,
+   22.567,
+   22.622,
+   22.662,
+   22.835,
+   22.885,
+   23.172,
+   23.217,
+   23.459,
+   23.59,
+   23.781,
+   24.156,
+   24.189,
+   24.464,
+   24.56,
+   24.565,
+   24.817,
+   25.37,
+   25.556,
+   25.69,
+   26.148,
+   27.049,
+   27.121,
+   27.355,
+   28.282,
+   28.313,
+   28.499,
+   28.54,
+   28.908,
+   29.509,
+   29.674,
+   30.345,
+   30.799,
+   30.998,
+   31.492,
+   32.518,
+   32.521,
+   32.525,
+   32.535,
+   32.545,
+   32.64,
+   32.822,
+   32.864,
+   33.822,
+   34.591
+  ]
+ },
+ "flag": {
+  "heldout": {
+   "true": {
+    "fired": {
+     "k": 14,
+     "n": 60,
+     "rate": 0.233,
+     "ci": [
+      0.144,
+      0.354
+     ]
+    },
+    "not_assessed": 4
+   },
+   "out-of-context": {
+    "fired": {
+     "k": 27,
+     "n": 61,
+     "rate": 0.443,
+     "ci": [
+      0.325,
+      0.567
+     ]
+    },
+    "not_assessed": 1
+   },
+   "miscaptioned": {
+    "fired": {
+     "k": 15,
+     "n": 59,
+     "rate": 0.254,
+     "ci": [
+      0.161,
+      0.378
+     ]
+    },
+    "not_assessed": 1
+   }
+  },
+  "fresh": {
+   "true": {
+    "fired": {
+     "k": 10,
+     "n": 48,
+     "rate": 0.208,
+     "ci": [
+      0.117,
+      0.343
+     ]
+    },
+    "not_assessed": 2
+   },
+   "out-of-context": {
+    "fired": {
+     "k": 22,
+     "n": 69,
+     "rate": 0.319,
+     "ci": [
+      0.221,
+      0.436
+     ]
+    },
+    "not_assessed": 1
+   },
+   "miscaptioned": {
+    "fired": {
+     "k": 13,
+     "n": 48,
+     "rate": 0.271,
+     "ci": [
+      0.166,
+      0.41
+     ]
+    },
+    "not_assessed": 0
+   }
+  }
+ },
+ "consistency": {
+  "pairs": 30,
+  "runs_per_pair": 5,
+  "consistent": {
+   "k": 22,
+   "n": 30,
+   "rate": 0.733,
+   "ci": [
+    0.556,
+    0.858
+   ]
+  },
+  "pairs_with_an_unanswered_call": 4,
+  "by_label": {
+   "true": {
+    "k": 8,
+    "n": 10,
+    "rate": 0.8,
+    "ci": [
+     0.49,
+     0.943
+    ]
+   },
+   "miscaptioned": {
+    "k": 7,
+    "n": 10,
+    "rate": 0.7,
+    "ci": [
+     0.397,
+     0.892
+    ]
+   },
+   "out-of-context": {
+    "k": 7,
+    "n": 10,
+    "rate": 0.7,
+    "ci": [
+     0.397,
+     0.892
+    ]
+   }
+  },
+  "rows": [
+   {
+    "row": 760,
+    "label": "true",
+    "same_subject": [
+     true,
+     true,
+     true,
+     true,
+     true
+    ],
+    "all_answered": true,
+    "consistent": true
+   },
+   {
+    "row": 544,
+    "label": "true",
+    "same_subject": [
+     true,
+     true,
+     true,
+     true,
+     true
+    ],
+    "all_answered": true,
+    "consistent": true
+   },
+   {
+    "row": 934,
+    "label": "true",
+    "same_subject": [
+     true,
+     true,
+     true,
+     true,
+     true
+    ],
+    "all_answered": true,
+    "consistent": true
+   },
+   {
+    "row": 249,
+    "label": "true",
+    "same_subject": [
+     false,
+     false,
+     false,
+     false,
+     false
+    ],
+    "all_answered": true,
+    "consistent": true
+   },
+   {
+    "row": 772,
+    "label": "true",
+    "same_subject": [
+     true,
+     true,
+     true,
+     true,
+     true
+    ],
+    "all_answered": true,
+    "consistent": true
+   },
+   {
+    "row": 825,
+    "label": "true",
+    "same_subject": [
+     true,
+     true,
+     true,
+     true,
+     true
+    ],
+    "all_answered": true,
+    "consistent": true
+   },
+   {
+    "row": 796,
+    "label": "true",
+    "same_subject": [
+     false,
+     false,
+     false,
+     false,
+     true
+    ],
+    "all_answered": true,
+    "consistent": false
+   },
+   {
+    "row": 15,
+    "label": "true",
+    "same_subject": [
+     null,
+     true,
+     true,
+     true,
+     true
+    ],
+    "all_answered": false,
+    "consistent": false
+   },
+   {
+    "row": 213,
+    "label": "true",
+    "same_subject": [
+     true,
+     true,
+     true,
+     true,
+     true
+    ],
+    "all_answered": true,
+    "consistent": true
+   },
+   {
+    "row": 96,
+    "label": "true",
+    "same_subject": [
+     true,
+     true,
+     true,
+     true,
+     true
+    ],
+    "all_answered": true,
+    "consistent": true
+   },
+   {
+    "row": 876,
+    "label": "miscaptioned",
+    "same_subject": [
+     false,
+     false,
+     false,
+     false,
+     false
+    ],
+    "all_answered": true,
+    "consistent": true
+   },
+   {
+    "row": 566,
+    "label": "miscaptioned",
+    "same_subject": [
+     true,
+     false,
+     true,
+     true,
+     true
+    ],
+    "all_answered": true,
+    "consistent": false
+   },
+   {
+    "row": 430,
+    "label": "miscaptioned",
+    "same_subject": [
+     true,
+     true,
+     true,
+     true,
+     true
+    ],
+    "all_answered": true,
+    "consistent": true
+   },
+   {
+    "row": 761,
+    "label": "miscaptioned",
+    "same_subject": [
+     true,
+     true,
+     true,
+     true,
+     true
+    ],
+    "all_answered": true,
+    "consistent": true
+   },
+   {
+    "row": 223,
+    "label": "miscaptioned",
+    "same_subject": [
+     false,
+     false,
+     false,
+     false,
+     false
+    ],
+    "all_answered": true,
+    "consistent": true
+   },
+   {
+    "row": 826,
+    "label": "miscaptioned",
+    "same_subject": [
+     true,
+     true,
+     true,
+     true,
+     true
+    ],
+    "all_answered": true,
+    "consistent": true
+   },
+   {
+    "row": 412,
+    "label": "miscaptioned",
+    "same_subject": [
+     true,
+     true,
+     true,
+     true,
+     true
+    ],
+    "all_answered": true,
+    "consistent": true
+   },
+   {
+    "row": 717,
+    "label": "miscaptioned",
+    "same_subject": [
+     true,
+     false,
+     true,
+     null,
+     true
+    ],
+    "all_answered": false,
+    "consistent": false
+   },
+   {
+    "row": 67,
+    "label": "miscaptioned",
+    "same_subject": [
+     true,
+     true,
+     true,
+     null,
+     true
+    ],
+    "all_answered": false,
+    "consistent": false
+   },
+   {
+    "row": 586,
+    "label": "miscaptioned",
+    "same_subject": [
+     true,
+     true,
+     true,
+     true,
+     true
+    ],
+    "all_answered": true,
+    "consistent": true
+   },
+   {
+    "row": 17,
+    "label": "out-of-context",
+    "same_subject": [
+     false,
+     false,
+     false,
+     false,
+     false
+    ],
+    "all_answered": true,
+    "consistent": true
+   },
+   {
+    "row": 290,
+    "label": "out-of-context",
+    "same_subject": [
+     false,
+     false,
+     false,
+     false,
+     true
+    ],
+    "all_answered": true,
+    "consistent": false
+   },
+   {
+    "row": 730,
+    "label": "out-of-context",
+    "same_subject": [
+     true,
+     true,
+     true,
+     true,
+     true
+    ],
+    "all_answered": true,
+    "consistent": true
+   },
+   {
+    "row": 759,
+    "label": "out-of-context",
+    "same_subject": [
+     true,
+     true,
+     true,
+     true,
+     true
+    ],
+    "all_answered": true,
+    "consistent": true
+   },
+   {
+    "row": 440,
+    "label": "out-of-context",
+    "same_subject": [
+     true,
+     true,
+     true,
+     true,
+     true
+    ],
+    "all_answered": true,
+    "consistent": true
+   },
+   {
+    "row": 660,
+    "label": "out-of-context",
+    "same_subject": [
+     true,
+     true,
+     true,
+     true,
+     true
+    ],
+    "all_answered": true,
+    "consistent": true
+   },
+   {
+    "row": 599,
+    "label": "out-of-context",
+    "same_subject": [
+     false,
+     false,
+     false,
+     false,
+     false
+    ],
+    "all_answered": true,
+    "consistent": true
+   },
+   {
+    "row": 744,
+    "label": "out-of-context",
+    "same_subject": [
+     false,
+     false,
+     false,
+     false,
+     false
+    ],
+    "all_answered": true,
+    "consistent": true
+   },
+   {
+    "row": 868,
+    "label": "out-of-context",
+    "same_subject": [
+     true,
+     true,
+     false,
+     null,
+     true
+    ],
+    "all_answered": false,
+    "consistent": false
+   },
+   {
+    "row": 558,
+    "label": "out-of-context",
+    "same_subject": [
+     true,
+     true,
+     true,
+     false,
+     false
+    ],
+    "all_answered": true,
+    "consistent": false
+   }
+  ]
+ }
+}

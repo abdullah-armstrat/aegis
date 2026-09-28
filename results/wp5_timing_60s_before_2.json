@@ -1,0 +1,105 @@
+{
+  "clip": "E15.mp4",
+  "duration_s": 60.0,
+  "has_audio": true,
+  "baseline_mb": 18.4,
+  "after_imports_mb": 50.3,
+  "stored_keypoints_at_start": null,
+  "runs": [
+    {
+      "run": "fresh process",
+      "probe_s": 0.1,
+      "stages": [
+        {
+          "stage": "keyframes",
+          "seconds": 8.33,
+          "peak_mb": 107.7,
+          "rise_mb": 57.4
+        },
+        {
+          "stage": "ocr",
+          "seconds": 2.66,
+          "peak_mb": 79.7,
+          "rise_mb": 0.0
+        },
+        {
+          "stage": "reverse_image",
+          "seconds": 9.79,
+          "peak_mb": 664.7,
+          "rise_mb": 557.0
+        },
+        {
+          "stage": "speech",
+          "seconds": 12.54,
+          "peak_mb": 766.5,
+          "rise_mb": 101.8
+        },
+        {
+          "stage": "clip",
+          "seconds": 11.56,
+          "peak_mb": 1065.7,
+          "rise_mb": 299.2
+        }
+      ],
+      "rules_and_scorecard_s": 0.005,
+      "total_s": 45.09,
+      "end_mb": 549.5,
+      "keyframes": 6,
+      "segments": 6,
+      "flags": {
+        "caption_content_mismatch": "clear",
+        "recycled_context": "clear",
+        "emotional_framing": "clear",
+        "audio_visual_mismatch": "fired"
+      }
+    },
+    {
+      "run": "warm (2 in the same process)",
+      "probe_s": 0.93,
+      "stages": [
+        {
+          "stage": "keyframes",
+          "seconds": 5.74,
+          "peak_mb": 592.5,
+          "rise_mb": 43.0
+        },
+        {
+          "stage": "ocr",
+          "seconds": 1.81,
+          "peak_mb": 564.1,
+          "rise_mb": 0.0
+        },
+        {
+          "stage": "reverse_image",
+          "seconds": 2.3,
+          "peak_mb": 569.1,
+          "rise_mb": 0.0
+        },
+        {
+          "stage": "speech",
+          "seconds": 8.48,
+          "peak_mb": 880.6,
+          "rise_mb": 288.1
+        },
+        {
+          "stage": "clip",
+          "seconds": 7.74,
+          "peak_mb": 1258.0,
+          "rise_mb": 377.4
+        }
+      ],
+      "rules_and_scorecard_s": 0.001,
+      "total_s": 27.09,
+      "end_mb": 466.7,
+      "keyframes": 6,
+      "segments": 6,
+      "flags": {
+        "caption_content_mismatch": "clear",
+        "recycled_context": "clear",
+        "emotional_framing": "clear",
+        "audio_visual_mismatch": "fired"
+      }
+    }
+  ],
+  "process_peak_mb": 1841.2
+}

@@ -1,0 +1,164 @@
+{
+ "models": {
+  "tiny": {
+   "load_s": 0.68,
+   "peak_memory_mb": 724.4,
+   "librispeech": {
+    "items": 100,
+    "ref_words": 2098,
+    "edits": 163,
+    "wer_pct": 7.77,
+    "mean_s": 1.47,
+    "median_s": 1.31
+   },
+   "dataset_e": {
+    "items": 32,
+    "ref_words": 1014,
+    "edits": 44,
+    "wer_pct": 4.34,
+    "mean_s": 2.726,
+    "median_s": 2.691
+   }
+  },
+  "base": {
+   "load_s": 1.29,
+   "peak_memory_mb": 1023.9,
+   "librispeech": {
+    "items": 100,
+    "ref_words": 2098,
+    "edits": 98,
+    "wer_pct": 4.67,
+    "mean_s": 2.913,
+    "median_s": 2.579
+   },
+   "dataset_e": {
+    "items": 32,
+    "ref_words": 1014,
+    "edits": 21,
+    "wer_pct": 2.07,
+    "mean_s": 5.704,
+    "median_s": 5.207
+   }
+  },
+  "decision": {
+   "chosen": "base",
+   "why": "lower LibriSpeech word error rate by 3.10 points",
+   "tiny_minus_base_pp": 3.1
+  }
+ },
+ "decoding": {
+  "a": {
+   "options": {
+    "condition_on_previous_text": true,
+    "hallucination_silence_threshold": null
+   },
+   "tuning_long": {
+    "items": 19,
+    "wer_pct": 8.63,
+    "invented_sentences": 2,
+    "items_with_invented": 2,
+    "mean_s": 8.857
+   },
+   "e": {
+    "items": 32,
+    "wer_pct": 10.55,
+    "invented_sentences": 7,
+    "items_with_invented": 6,
+    "mean_s": 7.0
+   },
+   "original": {
+    "items": 100,
+    "wer_pct": 4.77,
+    "invented_sentences": 0,
+    "items_with_invented": 0,
+    "mean_s": 2.912
+   }
+  },
+  "b": {
+   "options": {
+    "condition_on_previous_text": false,
+    "hallucination_silence_threshold": null
+   },
+   "tuning_long": {
+    "items": 19,
+    "wer_pct": 8.68,
+    "invented_sentences": 0,
+    "items_with_invented": 0,
+    "mean_s": 8.976
+   },
+   "e": {
+    "items": 32,
+    "wer_pct": 2.07,
+    "invented_sentences": 1,
+    "items_with_invented": 1,
+    "mean_s": 5.816
+   },
+   "original": {
+    "items": 100,
+    "wer_pct": 4.67,
+    "invented_sentences": 0,
+    "items_with_invented": 0,
+    "mean_s": 2.865
+   }
+  },
+  "c": {
+   "options": {
+    "condition_on_previous_text": false,
+    "hallucination_silence_threshold": 2.0
+   },
+   "tuning_long": {
+    "items": 19,
+    "wer_pct": 9.52,
+    "invented_sentences": 0,
+    "items_with_invented": 0,
+    "mean_s": 9.465
+   },
+   "e": {
+    "items": 32,
+    "wer_pct": 1.97,
+    "invented_sentences": 0,
+    "items_with_invented": 0,
+    "mean_s": 6.008
+   },
+   "original": {
+    "items": 100,
+    "wer_pct": 4.67,
+    "invented_sentences": 0,
+    "items_with_invented": 0,
+    "mean_s": 2.873
+   }
+  }
+ },
+ "decoding_choice_long": {
+  "rule": "fewest invented sentences, then lowest WER; ties to (a)",
+  "tuning_long": {
+   "a": {
+    "wer_pct": 8.63,
+    "invented_sentences": 2,
+    "items_with_invented": 2,
+    "mean_s": 8.857
+   },
+   "b": {
+    "wer_pct": 8.68,
+    "invented_sentences": 0,
+    "items_with_invented": 0,
+    "mean_s": 8.976
+   },
+   "c": {
+    "wer_pct": 9.52,
+    "invented_sentences": 0,
+    "items_with_invented": 0,
+    "mean_s": 9.465
+   }
+  },
+  "chosen": "b",
+  "options": {
+   "condition_on_previous_text": false,
+   "hallucination_silence_threshold": null
+  }
+ },
+ "same_choices_as_before": {
+  "model base (ADR-029)": true,
+  "decoding b (ADR-049)": true
+ }
+}

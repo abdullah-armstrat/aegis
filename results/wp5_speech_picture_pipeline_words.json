@@ -1,0 +1,366 @@
+{
+  "threshold": 0.2354,
+  "whisper_model": "base",
+  "held_out_clips": {
+    "clips": 17,
+    "lines": {
+      "matches": {
+        "flagged": 8,
+        "lines": 50,
+        "rate": 0.16,
+        "ci": [
+          0.083,
+          0.285
+        ],
+        "no_segment": 0
+      },
+      "different_scene": {
+        "flagged": 6,
+        "lines": 7,
+        "rate": 0.857,
+        "ci": [
+          0.487,
+          0.974
+        ],
+        "no_segment": 0
+      },
+      "wrong_detail": {
+        "flagged": 1,
+        "lines": 4,
+        "rate": 0.25,
+        "ci": [
+          0.046,
+          0.699
+        ],
+        "no_segment": 0
+      }
+    },
+    "clip_level": {
+      "mismatched_clips": 8,
+      "with_a_correct_flag": 6,
+      "matching_clips": 8,
+      "with_a_false_flag": 5,
+      "correct_clips": [
+        "E02",
+        "E05",
+        "E11",
+        "E17",
+        "E23",
+        "E30"
+      ],
+      "false_flag_clips": [
+        "E01",
+        "E08",
+        "E14",
+        "E16",
+        "E26"
+      ]
+    }
+  },
+  "all_clips": {
+    "clips": 34,
+    "lines": {
+      "matches": {
+        "flagged": 13,
+        "lines": 93,
+        "rate": 0.14,
+        "ci": [
+          0.084,
+          0.225
+        ],
+        "no_segment": 0
+      },
+      "different_scene": {
+        "flagged": 13,
+        "lines": 14,
+        "rate": 0.929,
+        "ci": [
+          0.685,
+          0.987
+        ],
+        "no_segment": 0
+      },
+      "wrong_detail": {
+        "flagged": 2,
+        "lines": 7,
+        "rate": 0.286,
+        "ci": [
+          0.082,
+          0.641
+        ],
+        "no_segment": 0
+      }
+    },
+    "clip_level": {
+      "mismatched_clips": 15,
+      "with_a_correct_flag": 13,
+      "matching_clips": 15,
+      "with_a_false_flag": 6,
+      "correct_clips": [
+        "E02",
+        "E05",
+        "E07",
+        "E09",
+        "E11",
+        "E13",
+        "E17",
+        "E19",
+        "E21",
+        "E23",
+        "E25",
+        "E27",
+        "E30"
+      ],
+      "false_flag_clips": [
+        "E01",
+        "E08",
+        "E14",
+        "E16",
+        "E18",
+        "E26"
+      ]
+    }
+  },
+  "no_speech_clips": {
+    "E31": "not_assessed: Cannot compare speech with the picture: no speech was found in the audio.",
+    "E32": "not_assessed: Cannot compare speech with the picture: the video has no audio track."
+  },
+  "drift": {
+    "lines": 114,
+    "no_transcribing_segment": 0,
+    "start_over_1s": 1,
+    "end_over_1s": 0,
+    "either_over_1s": 1,
+    "start_over_2s": 1,
+    "median_start_drift": 0.3,
+    "max_start_drift": 9.56,
+    "over_1s": [
+      {
+        "clip_id": "E04",
+        "line_index": 3,
+        "text": "Small dark chicks move about inside the nest.",
+        "segment": "A small dark chick's move about inside the nest",
+        "ratio": 0.967,
+        "start_drift": 9.56,
+        "end_drift": 0.79
+      }
+    ],
+    "untranscribed": []
+  },
+  "transcripts": {
+    "clips": 32,
+    "wer_pct": 6.02,
+    "invented_sentences": 5,
+    "clips_with_invented": [
+      "E01",
+      "E15",
+      "E18",
+      "E23",
+      "E25"
+    ],
+    "rows": [
+      {
+        "clip_id": "E01",
+        "edits": 10,
+        "ref_words": 38,
+        "invented": [
+          "The fog is painted on the side of the building."
+        ]
+      },
+      {
+        "clip_id": "E02",
+        "edits": 0,
+        "ref_words": 35,
+        "invented": []
+      },
+      {
+        "clip_id": "E03",
+        "edits": 0,
+        "ref_words": 30,
+        "invented": []
+      },
+      {
+        "clip_id": "E04",
+        "edits": 4,
+        "ref_words": 26,
+        "invented": []
+      },
+      {
+        "clip_id": "E05",
+        "edits": 0,
+        "ref_words": 38,
+        "invented": []
+      },
+      {
+        "clip_id": "E06",
+        "edits": 0,
+        "ref_words": 35,
+        "invented": []
+      },
+      {
+        "clip_id": "E07",
+        "edits": 0,
+        "ref_words": 34,
+        "invented": []
+      },
+      {
+        "clip_id": "E08",
+        "edits": 1,
+        "ref_words": 39,
+        "invented": []
+      },
+      {
+        "clip_id": "E09",
+        "edits": 0,
+        "ref_words": 42,
+        "invented": []
+      },
+      {
+        "clip_id": "E10",
+        "edits": 0,
+        "ref_words": 25,
+        "invented": []
+      },
+      {
+        "clip_id": "E11",
+        "edits": 1,
+        "ref_words": 30,
+        "invented": []
+      },
+      {
+        "clip_id": "E12",
+        "edits": 2,
+        "ref_words": 26,
+        "invented": []
+      },
+      {
+        "clip_id": "E13",
+        "edits": 0,
+        "ref_words": 37,
+        "invented": []
+      },
+      {
+        "clip_id": "E14",
+        "edits": 0,
+        "ref_words": 37,
+        "invented": []
+      },
+      {
+        "clip_id": "E15",
+        "edits": 10,
+        "ref_words": 37,
+        "invented": [
+          "The giant building is a huge square building."
+        ]
+      },
+      {
+        "clip_id": "E16",
+        "edits": 0,
+        "ref_words": 34,
+        "invented": []
+      },
+      {
+        "clip_id": "E17",
+        "edits": 0,
+        "ref_words": 41,
+        "invented": []
+      },
+      {
+        "clip_id": "E18",
+        "edits": 7,
+        "ref_words": 35,
+        "invented": [
+          "But the stealth is really raw."
+        ]
+      },
+      {
+        "clip_id": "E19",
+        "edits": 2,
+        "ref_words": 27,
+        "invented": []
+      },
+      {
+        "clip_id": "E20",
+        "edits": 0,
+        "ref_words": 25,
+        "invented": []
+      },
+      {
+        "clip_id": "E21",
+        "edits": 0,
+        "ref_words": 38,
+        "invented": []
+      },
+      {
+        "clip_id": "E22",
+        "edits": 0,
+        "ref_words": 31,
+        "invented": []
+      },
+      {
+        "clip_id": "E23",
+        "edits": 7,
+        "ref_words": 34,
+        "invented": [
+          "Its always raining!"
+        ]
+      },
+      {
+        "clip_id": "E24",
+        "edits": 1,
+        "ref_words": 33,
+        "invented": []
+      },
+      {
+        "clip_id": "E25",
+        "edits": 12,
+        "ref_words": 33,
+        "invented": [
+          "A giant flag and a round logo decorated side."
+        ]
+      },
+      {
+        "clip_id": "E26",
+        "edits": 1,
+        "ref_words": 24,
+        "invented": []
+      },
+      {
+        "clip_id": "E27",
+        "edits": 0,
+        "ref_words": 25,
+        "invented": []
+      },
+      {
+        "clip_id": "E28",
+        "edits": 0,
+        "ref_words": 27,
+        "invented": []
+      },
+      {
+        "clip_id": "E29",
+        "edits": 2,
+        "ref_words": 26,
+        "invented": []
+      },
+      {
+        "clip_id": "E30",
+        "edits": 0,
+        "ref_words": 39,
+        "invented": []
+      },
+      {
+        "clip_id": "E33",
+        "edits": 1,
+        "ref_words": 16,
+        "invented": []
+      },
+      {
+        "clip_id": "E34",
+        "edits": 0,
+        "ref_words": 17,
+        "invented": []
+      }
+    ]
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "rule": "fewest invented sentences, then lowest WER; ties to (a)",
+  "tuning_long": {
+    "a": {
+      "wer_pct": 8.63,
+      "invented_sentences": 2,
+      "items_with_invented": 2,
+      "mean_s": 9.716
+    },
+    "b": {
+      "wer_pct": 8.68,
+      "invented_sentences": 0,
+      "items_with_invented": 0,
+      "mean_s": 9.567
+    },
+    "c": {
+      "wer_pct": 9.52,
+      "invented_sentences": 0,
+      "items_with_invented": 0,
+      "mean_s": 10.76
+    }
+  },
+  "chosen": "b",
+  "options": {
+    "condition_on_previous_text": false,
+    "hallucination_silence_threshold": null
+  }
+}
