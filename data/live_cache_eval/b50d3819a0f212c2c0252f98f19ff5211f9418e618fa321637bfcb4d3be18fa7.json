@@ -1,5 +1,5 @@
 {
- "dated_at": "2026-09-27T17:22:01+00:00",
+ "dated_at": "2026-09-28T03:48:03+00:00",
  "page_dates": {
   "https://apnews.com/article/fact-check-queen-elizabeth-prince-philip-laughing-063616404261": {
    "date": null,
@@ -10,8 +10,8 @@
    "source": "htmldate"
   },
   "https://people.com/royals/prince-philip-pranking-queen-elizabeth-uniform-true-story-viral-photo/": {
-   "date": "2021-04-13",
-   "source": "wayback"
+   "date": null,
+   "source": null
   },
   "https://www.bbc.co.uk/news/in-pictures-56242398": {
    "date": "2021-04-10",
@@ -34,8 +34,8 @@
    "source": null
   },
   "https://www.hellomagazine.com/royalty/897404/real-story-behind-queen-elizabeth-giggling-at-philip/": {
-   "date": null,
-   "source": null
+   "date": "2026-04-23",
+   "source": "htmldate"
   },
   "https://x.com/historyinmemes/status/2061720473294000195?lang=en": {
    "date": "2026-06-02",

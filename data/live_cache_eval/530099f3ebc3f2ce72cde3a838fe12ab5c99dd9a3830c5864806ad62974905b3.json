@@ -1,13 +1,13 @@
 {
- "dated_at": "2026-09-27T17:24:00+00:00",
+ "dated_at": "2026-09-28T03:48:09+00:00",
  "page_dates": {
   "https://risecalm.co.uk/blog/festival-season-green-boardmasters": {
    "date": "2018-05-30",
    "source": "htmldate"
   },
   "https://theethicalist.com/greta-thunberg-calls-for-action-in-surprise-glastonbury-address/": {
-   "date": null,
-   "source": null
+   "date": "2022-08-04",
+   "source": "wayback"
   },
   "https://www.indiatoday.in/fact-check/story/greta-thunberg-pic-glastonbury-shared-with-older-photos-trash-strewn-festival-grounds-1967828-2022-06-28": {
    "date": null,
@@ -18,8 +18,8 @@
    "source": "htmldate"
   },
   "https://www.reddit.com/r/JordanPeterson/comments/vmk3ex/the_aftermath_of_glastonbury_where_they_all/": {
-   "date": null,
-   "source": null
+   "date": "2022-06-28",
+   "source": "wayback"
   }
  },
  "requested_at": "2026-09-27T16:56:58+00:00",

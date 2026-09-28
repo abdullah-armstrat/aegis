@@ -1,9 +1,9 @@
 {
- "dated_at": "2026-09-27T17:19:20+00:00",
+ "dated_at": "2026-09-28T03:47:58+00:00",
  "page_dates": {
   "https://7news.com.au/weather/climate-change/the-real-story-behind-viral-photo-of-climate-change-protesters-leaving-rubbish-behind-in-sydneys-hyde-park-c-465028": {
-   "date": null,
-   "source": null
+   "date": "2020-11-11",
+   "source": "wayback"
   },
   "https://cpas.anu.edu.au/news-events/news/merchants-misinformation-are-all-over-internet-real-problem-lies-us": {
    "date": "2019-10-14",
@@ -14,8 +14,8 @@
    "source": "wayback"
   },
   "https://thewest.com.au/news/climate-change/the-picture-of-rubbish-left-behind-by-climate-change-protest-exposed-as-fake-news-ng-b881330417z": {
-   "date": "2019-09-22",
-   "source": "wayback"
+   "date": null,
+   "source": null
   },
   "https://today.rtl.lu/news/luxembourg/hoax-facebook-post-denigrating-luxembourg-protesters-goes-viral-1407157": {
    "date": "2019-09-22",

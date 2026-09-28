@@ -1,5 +1,5 @@
 {
- "dated_at": "2026-09-27T17:26:16+00:00",
+ "dated_at": "2026-09-28T03:48:17+00:00",
  "page_dates": {
   "http://satay-idea.blogspot.com/2010/04/frozen-waves-in-antarctica.html": {
    "date": "2010-04-14",
@@ -34,12 +34,12 @@
    "source": null
   },
   "https://www.reddit.com/r/Damnthatsinteresting/comments/aiqzsg/when_you_think_of_antarctica_pristine_white/": {
-   "date": null,
-   "source": null
+   "date": "2019-01-22",
+   "source": "wayback"
   },
   "https://www.talkpundit.com/amazing-pictures-of-frozen-waves-and-striped-icebergs/": {
-   "date": null,
-   "source": null
+   "date": "2014-03-09",
+   "source": "htmldate"
   }
  },
  "requested_at": "2026-09-27T16:59:39+00:00",

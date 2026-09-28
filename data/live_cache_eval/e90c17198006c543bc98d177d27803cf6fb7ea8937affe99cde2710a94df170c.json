@@ -1,5 +1,5 @@
 {
- "dated_at": "2026-09-27T17:16:33+00:00",
+ "dated_at": "2026-09-28T03:47:50+00:00",
  "page_dates": {
   "https://sunbindeng.site/?dac=29.1467383.2.0": {
    "date": null,
@@ -34,12 +34,12 @@
    "source": "htmldate"
   },
   "https://www.reddit.com/r/BeAmazed/comments/n86pca/the_most_clear_picture_of_the_sun_surface/": {
-   "date": null,
-   "source": null
+   "date": "2021-05-09",
+   "source": "wayback"
   },
   "https://www.reddit.com/r/interestingasfuck/comments/lfg6ou/clearest_photo_of_the_sun_from_nasa/": {
-   "date": null,
-   "source": null
+   "date": "2021-02-08",
+   "source": "wayback"
   }
  },
  "requested_at": "2026-09-27T16:49:16+00:00",

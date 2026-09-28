@@ -1,17 +1,17 @@
 {
- "dated_at": "2026-09-27T17:22:40+00:00",
+ "dated_at": "2026-09-28T03:48:06+00:00",
  "page_dates": {
   "https://www.blueridgedebate.com/viewtopic.php?t=2494&start=1880": {
-   "date": null,
-   "source": null
+   "date": "2018-05-20",
+   "source": "htmldate"
   },
   "https://www.facebook.com/IvankaTrump/photos/10156505922667682/?locale=fa_IR": {
    "date": null,
    "source": null
   },
   "https://x.com/hashtag/militaryspouses?src=hash": {
-   "date": null,
-   "source": null
+   "date": "2025-07-22",
+   "source": "wayback"
   },
   "https://x.com/rossmadd": {
    "date": null,

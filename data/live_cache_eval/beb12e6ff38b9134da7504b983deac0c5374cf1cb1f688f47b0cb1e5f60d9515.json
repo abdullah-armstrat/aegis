@@ -1,5 +1,5 @@
 {
- "dated_at": "2026-09-27T17:22:30+00:00",
+ "dated_at": "2026-09-28T03:48:06+00:00",
  "page_dates": {
   "https://www.snopes.com/fact-check/border-patrol-rock-injury/": {
    "date": "2018-11-29",
@@ -18,12 +18,12 @@
    "source": null
   },
   "https://www.washingtonexaminer.com/author/holmes-lybrand/": {
-   "date": null,
-   "source": null
+   "date": "2019-07-25",
+   "source": "wayback"
   },
   "https://www.washingtonexaminer.com/tag/tws-fact-check/": {
-   "date": null,
-   "source": null
+   "date": "2020-02-28",
+   "source": "wayback"
   }
  },
  "requested_at": "2026-09-27T16:54:52+00:00",

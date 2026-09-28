@@ -1,5 +1,5 @@
 {
- "dated_at": "2026-09-27T17:21:11+00:00",
+ "dated_at": "2026-09-28T03:48:02+00:00",
  "page_dates": {
   "https://de.wikipedia.org/wiki/Ada_Wright": {
    "date": "2018-01-18",
@@ -14,16 +14,16 @@
    "source": "htmldate"
   },
   "https://factcheck.afp.com/facebook-post-encourages-women-vote-miscaptioned-photo": {
-   "date": "2019-11-12",
-   "source": "wayback"
+   "date": null,
+   "source": null
   },
   "https://sussexbylines.co.uk/politics/democracy/mary-clarke-the-first-suffragette-to-die-for-the-cause/": {
    "date": "2024-01-16",
    "source": "htmldate"
   },
   "https://womanandhersphere.com/2013/03/22/suffrage-stories-from-frederick-street-to-winson-green-the-birmingham-womens-suffrage-campaign/": {
-   "date": null,
-   "source": null
+   "date": "2013-03-22",
+   "source": "htmldate"
   },
   "https://www.facebook.com/AmnestyUK/posts/did-you-know-the-original-black-friday-was-a-protest-for-womens-right-to-votetom/756082696565709/": {
    "date": null,
@@ -38,8 +38,8 @@
    "source": null
   },
   "https://www.pinterest.com/sactobmk/suffragette-costume/": {
-   "date": "2018-10-31",
-   "source": "htmldate"
+   "date": null,
+   "source": null
   }
  },
  "requested_at": "2026-09-27T16:53:41+00:00",

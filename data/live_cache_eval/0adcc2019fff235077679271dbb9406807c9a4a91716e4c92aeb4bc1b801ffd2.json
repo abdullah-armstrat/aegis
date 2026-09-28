@@ -1,5 +1,5 @@
 {
- "dated_at": "2026-09-27T17:21:45+00:00",
+ "dated_at": "2026-09-28T03:48:03+00:00",
  "page_dates": {
   "https://ameblo.jp/sakisaki-72/entry-12577374218.html": {
    "date": "2020-02-24",
@@ -10,16 +10,16 @@
    "source": "htmldate"
   },
   "https://www.hindustantimes.com/it-s-viral/video-doesn-t-show-fox-breastfeeding-orphaned-koala-babies-in-australia/story-9aHMHEDqGtg0OZ3eupGCLN.html": {
-   "date": "2020-01-26",
-   "source": "wayback"
+   "date": null,
+   "source": null
   },
   "https://www.indiatoday.in/fact-check/story/fact-check-truth-behind-mother-fox-feeding-koalas-during-australia-bushfires-1640381-2020-01-26": {
    "date": "2020-01-26",
    "source": "wayback"
   },
   "https://youturn.in/factcheck/fox-feeding-koalas-australia.html": {
-   "date": null,
-   "source": null
+   "date": "2022-12-04",
+   "source": "wayback"
   }
  },
  "requested_at": "2026-09-27T16:54:13+00:00",

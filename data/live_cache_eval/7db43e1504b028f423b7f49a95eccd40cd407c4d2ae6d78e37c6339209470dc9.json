@@ -1,9 +1,9 @@
 {
- "dated_at": "2026-09-27T17:23:41+00:00",
+ "dated_at": "2026-09-28T03:48:08+00:00",
  "page_dates": {
   "https://apimagesblog.com/blog/2017/3/27/tales-from-the-border-day-5": {
-   "date": null,
-   "source": null
+   "date": "2017-03-27",
+   "source": "htmldate"
   }
  },
  "requested_at": "2026-09-27T16:56:37+00:00",

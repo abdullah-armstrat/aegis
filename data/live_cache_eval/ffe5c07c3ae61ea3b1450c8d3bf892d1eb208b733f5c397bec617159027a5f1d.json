@@ -1,5 +1,5 @@
 {
- "dated_at": "2026-09-27T17:13:18+00:00",
+ "dated_at": "2026-09-28T03:47:44+00:00",
  "page_dates": {
   "https://commons.wikimedia.org/wiki/File:USS_Kearsarge_(CVS-33)_during_the_recovery_of_the_Mercury-Atlas_8_mission_on_3_October_1962_(S62-09048).jpg": {
    "date": null,
@@ -18,12 +18,12 @@
    "source": "htmldate"
   },
   "https://www.rawpixel.com/image/440321/the-intrepid-sea-air-and-space-museum": {
-   "date": null,
-   "source": null
+   "date": "2021-06-12",
+   "source": "wayback"
   },
   "https://www.rawpixel.com/image/441761/free-photo-image-dive-diving-diver": {
-   "date": "2025-08-06",
-   "source": "wayback"
+   "date": null,
+   "source": null
   },
   "https://www.rawpixel.com/search/mercury%20atlas": {
    "date": null,

@@ -1,8 +1,8 @@
 {
- "dated_at": "2026-09-27T17:11:22+00:00",
+ "dated_at": "2026-09-28T03:47:35+00:00",
  "page_dates": {
   "https://agenciamarcospontes.com.br/destino/visita-guiada-ao-kennedy-space-center-nasa-2/": {
-   "date": "2018-11-26",
+   "date": "2018-05-06",
    "source": "htmldate"
   },
   "https://cocoabeachinsider.com/2020/05/17/best-places-to-view-a-launch/": {
@@ -14,8 +14,8 @@
    "source": "wayback"
   },
   "https://defence24.com/poland-will-not-acquire-the-caracal-helicopters": {
-   "date": "2016-10-05",
-   "source": "htmldate"
+   "date": "2020-06-15",
+   "source": "wayback"
   },
   "https://space24.pl/poprawki-kongresu-do-budzetu-nasa-srodki-na-misje-ksiezycowe-i-planetarne": {
    "date": "2016-05-28",
@@ -30,8 +30,8 @@
    "source": "wayback"
   },
   "https://www.spaceappssydney.org/2018": {
-   "date": "2019-10-18",
-   "source": "wayback"
+   "date": null,
+   "source": null
   },
   "https://zh.wikipedia.org/zh-cn/%E8%88%AA%E5%A4%A9%E5%99%A8%E8%A3%9D%E9%85%8D%E5%A4%A7%E6%A8%93": {
    "date": "2013-11-05",
