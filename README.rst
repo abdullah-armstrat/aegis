@@ -56,6 +56,10 @@ What it does not do
 * The offline index is small (40 dated NASA photos and 2 made-up examples), so "no earlier copy
   found" means little on its own. The web search finds more, but a page's date is often later
   than the picture's first appearance.
+* The keypoint matching needs the index's photos on disk. The NASA photos are not in the
+  repository, so until dataset A is fetched (see Datasets) they are found by their hash alone:
+  a cropped, bordered or screenshot-framed copy of one is missed, and only the two made-up
+  examples in ``data/illustrative/`` are searched for such copies.
 * It reads English only.
 
 
