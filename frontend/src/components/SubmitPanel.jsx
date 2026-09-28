@@ -43,7 +43,7 @@ export default function SubmitPanel({ onAnalyze, loading, webSearchAvailable = f
 
   return (
     <form onSubmit={handleSubmit} className="pb-20 pt-2">
-      <h1 className="text-4xl font-semibold leading-[1.1] tracking-tight text-ink">
+      <h1 className="text-3xl font-semibold leading-[1.1] tracking-tight text-ink md:text-4xl">
         Submit a post for review
       </h1>
       <p className="mt-4 max-w-[540px] text-base leading-relaxed text-[#595959]">
@@ -52,7 +52,7 @@ export default function SubmitPanel({ onAnalyze, loading, webSearchAvailable = f
       </p>
 
       {/* Two-column grid: image | caption */}
-      <div className="mt-11 grid grid-cols-1 items-start gap-8 md:grid-cols-2">
+      <div className="mt-6 grid grid-cols-1 items-start gap-8 md:mt-11 md:grid-cols-2">
         {/* Image */}
         <div>
           <div className="mb-3 flex items-baseline justify-between">
@@ -69,7 +69,7 @@ export default function SubmitPanel({ onAnalyze, loading, webSearchAvailable = f
             }}
             onDragLeave={() => setDragging(false)}
             onDrop={handleDrop}
-            className="flex h-[360px] w-full items-center justify-center overflow-hidden border border-dashed bg-fill transition-colors"
+            className="flex h-[300px] w-full items-center justify-center overflow-hidden border border-dashed bg-fill transition-colors md:h-[360px]"
             style={{ borderColor: dragging ? "#161616" : "#C9C9C9" }}
           >
             {preview && video ? (
@@ -150,12 +150,12 @@ export default function SubmitPanel({ onAnalyze, loading, webSearchAvailable = f
 
       {/* Optional web search: offered only when the server has a key, and only for images. */}
       {webSearchAvailable && file && !video && (
-        <label className="mt-6 flex max-w-[640px] items-start gap-3">
+        <label className="mt-6 flex max-w-[640px] items-start gap-1">
           <input
             type="checkbox"
             checked={searchWeb}
             onChange={(e) => setSearchWeb(e.target.checked)}
-            className="mt-0.5 h-7 w-7 shrink-0 accent-ink"
+            className="check-44"
           />
           <span className="text-base leading-relaxed text-ink">
             <span className="font-semibold">Also search the web for this image.</span>{" "}

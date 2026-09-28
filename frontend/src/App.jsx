@@ -18,6 +18,11 @@ export default function App() {
       .catch(() => setWebSearchAvailable(false));
   }, []);
 
+  // Each screen opens at its top, so the upload box, or the result's summary, is in view first.
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [screen]);
+
   async function handleAnalyze(file, caption, ctx) {
     setLoading(true);
     setError(null);
